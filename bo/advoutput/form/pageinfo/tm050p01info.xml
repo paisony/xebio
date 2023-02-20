@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<form-define>
+	<form-startup>Tm050f01</form-startup>
+	<adv-form id="Tm050f01">
+		<lists>
+			<list id = "M1" dispRow="100" mode="2" groupId="1" />
+		</lists>
+		<items>
+			<item id="Csv_nm">
+				<attribute name="item-name" value="CSV名称" />
+				<attribute name="item-levelId" value="" />
+				<attribute name="item-typeId" value="TXR" />
+				<attribute name="item-attId" value="SN4" />
+				<attribute name="item-condId" value="" />
+				<attribute name="item-actionId" value="" />
+				<attribute name="item-actCodeId" value="" />
+				<attribute name="item-autoCodeChk" value="0" />
+				<attribute name="item-actFormId" value="" />
+				<attribute name="item-actProgramId" value="" />
+				<attribute name="item-actParameter" value="" />
+				<attribute name="item-formatID" value="00" />
+				<attribute name="item-length" value="10" />
+				<attribute name="item-decimal" value="0" />
+				<attribute name="item-required" value="0" />
+				<attribute name="item-requiredFlg" value="0" />
+				<attribute name="item-sortNo" value="100" />
+				<attribute name="item-helperCheckMode" value="0" />
+				<attribute name="item-autoTabFlg" value="0" />
+				<attribute name="item-caption" value="" />
+				<attribute name="item-actCodeName" value="" />
+				<attribute name="item-actParameter2" value="" />
+				<attribute name="item-actParameter3" value="" />
+				<attribute name="item-roundingType" value="" />
+				<attribute name="item-trimFlg" value="0" />
+				<attribute name="item-maxLengthControlFlg" value="0" />
+				<attribute name="item-maxValue" value="" />
+				<attribute name="item-minValue" value="" />
+				<attribute name="item-isIncludeMaxValue" value="0" />
+				<attribute name="item-isIncludeMinValue" value="0" />
+				<attribute name="item-itemCheckFlg" value="1" />
+				<attribute name="item-imeMode" value="0" />
+				<attribute name="item-showDRLKeyItem" value="0" />
+				<attribute name="item-useStaticDRLItem" value="0" />
+				<attribute name="item-codeNameOverwriteFlag" value="0" />
+				<attribute name="item-groupId" value="1" />
+				<attribute name="item-actListId" value="" />
+				<attribute name="item-actFormGroupId" value="" />
+			</item>
+			<item id="Csv_sansyo">
+				<attribute name="item-name" value="CSV参照" />
+				<attribute name="item-levelId" value="" />
+				<attribute name="item-typeId" value="FUP" />
+				<attribute name="item-attId" value="SN5" />
+				<attribute name="item-condId" value="" />
+				<attribute name="item-actionId" value="" />
+				<attribute name="item-actCodeId" value="" />
+				<attribute name="item-autoCodeChk" value="0" />
+				<attribute name="item-actFormId" value="" />
+				<attribute name="item-actProgramId" value="" />
+				<attribute name="item-actParameter" value="" />
+				<attribute name="item-formatID" value="00" />
+				<attribute name="item-length" value="0" />
+				<attribute name="item-decimal" value="0" />
+				<attribute name="item-required" value="0" />
+				<attribute name="item-requiredFlg" value="0" />
+				<attribute name="item-sortNo" value="200" />
+				<attribute name="item-helperCheckMode" value="0" />
+				<attribute name="item-autoTabFlg" value="0" />
+				<attribute name="item-caption" value="" />
+				<attribute name="item-actCodeName" value="" />
+				<attribute name="item-actParameter2" value="" />
+				<attribute name="item-actParameter3" value="" />
+				<attribute name="item-roundingType" value="" />
+				<attribute name="item-trimFlg" value="0" />
+				<attribute name="item-maxLengthControlFlg" value="0" />
+				<attribute name="item-maxValue" value="" />
+				<attribute name="item-minValue" value="" />
+				<attribute name="item-isIncludeMaxValue" value="0" />
+				<attribute name="item-isIncludeMinValue" value="0" />
+				<attribute name="item-itemCheckFlg" value="1" />
+				<attribute name="item-imeMode" value="0" />
+				<attribute name="item-showDRLKeyItem" value="0" />
+				<attribute name="item-useStaticDRLItem" value="0" />
+				<attribute name="item-codeNameOverwriteFlag" value="0" />
+				<attribute name="item-groupId" value="1" />
+				<attribute name="item-actListId" value="" />
+				<attribute name="item-actFormGroupId" value="" />
+			</item>
+			<item id="M1rowno">
+				<attribute name="item-name" value="Ｍ１行NO" />
+				<attribute name="item-levelId" value="M1" />
+				<attribute name="item-typeId" value="TXR" />
+				<attribute name="item-attId" value="NA" />
+				<attribute name="item-condId" value="" />
+				<attribute name="item-actionId" value="" />
+				<attribute name="item-actCodeId" value="" />
+				<attribute name="item-autoCodeChk" value="0" />
+				<attribute name="item-actFormId" value="" />
+				<attribute name="item-actProgramId" value="" />
+				<attribute name="item-actParameter" value="" />
+				<attribute name="item-formatID" value="11" />
+				<attribute name="item-length" value="4" />
+				<attribute name="item-decimal" value="0" />
+				<attribute name="item-required" value="0" />
+				<attribute name="item-requiredFlg" value="0" />
+				<attribute name="item-sortNo" value="300" />
+				<attribute name="item-helperCheckMode" value="0" />
+				<attribute name="item-autoTabFlg" value="0" />
+				<attribute name="item-caption" value="No." />
+				<attribute name="item-actCodeName" value="" />
+				<attribute name="item-actParameter2" value="" />
+				<attribute name="item-actParameter3" value="" />
+				<attribute name="item-roundingType" value="0" />
+				<attribute name="item-trimFlg" value="1" />
+				<attribute name="item-maxLengthControlFlg" value="0" />
+				<attribute name="item-maxValue" value="" />
+				<attribute name="item-minValue" value="" />
+				<attribute name="item-isIncludeMaxValue" value="0" />
+				<attribute name="item-isIncludeMinValue" value="0" />
+				<attribute name="item-itemCheckFlg" value="1" />
+				<attribute name="item-imeMode" value="0" />
+				<attribute name="item-showDRLKeyItem" value="0" />
+				<attribute name="item-useStaticDRLItem" value="0" />
+				<attribute name="item-codeNameOverwriteFlag" value="0" />
+				<attribute name="item-groupId" value="1" />
+				<attribute name="item-actListId" value="" />
+				<attribute name="item-actFormGroupId" value="" />
+			</item>
+			<item id="M1err_nm">
+				<attribute name="item-name" value="Ｍ１エラー内容" />
+				<attribute name="item-levelId" value="M1" />
+				<attribute name="item-typeId" value="TXR" />
+				<attribute name="item-attId" value="SN4" />
+				<attribute name="item-condId" value="" />
+				<attribute name="item-actionId" value="" />
+				<attribute name="item-actCodeId" value="" />
+				<attribute name="item-autoCodeChk" value="0" />
+				<attribute name="item-actFormId" value="" />
+				<attribute name="item-actProgramId" value="" />
+				<attribute name="item-actParameter" value="" />
+				<attribute name="item-formatID" value="00" />
+				<attribute name="item-length" value="30" />
+				<attribute name="item-decimal" value="0" />
+				<attribute name="item-required" value="0" />
+				<attribute name="item-requiredFlg" value="0" />
+				<attribute name="item-sortNo" value="400" />
+				<attribute name="item-helperCheckMode" value="0" />
+				<attribute name="item-autoTabFlg" value="0" />
+				<attribute name="item-caption" value="エラー内容" />
+				<attribute name="item-actCodeName" value="" />
+				<attribute name="item-actParameter2" value="" />
+				<attribute name="item-actParameter3" value="" />
+				<attribute name="item-roundingType" value="" />
+				<attribute name="item-trimFlg" value="1" />
+				<attribute name="item-maxLengthControlFlg" value="0" />
+				<attribute name="item-maxValue" value="" />
+				<attribute name="item-minValue" value="" />
+				<attribute name="item-isIncludeMaxValue" value="0" />
+				<attribute name="item-isIncludeMinValue" value="0" />
+				<attribute name="item-itemCheckFlg" value="1" />
+				<attribute name="item-imeMode" value="0" />
+				<attribute name="item-showDRLKeyItem" value="0" />
+				<attribute name="item-useStaticDRLItem" value="0" />
+				<attribute name="item-codeNameOverwriteFlag" value="0" />
+				<attribute name="item-groupId" value="1" />
+				<attribute name="item-actListId" value="" />
+				<attribute name="item-actFormGroupId" value="" />
+			</item>
+			<item id="Btnenter">
+				<attribute name="item-name" value="確定ボタン" />
+				<attribute name="item-levelId" value="" />
+				<attribute name="item-typeId" value="BTS" />
+				<attribute name="item-attId" value="B" />
+				<attribute name="item-condId" value="" />
+				<attribute name="item-actionId" value="FRM" />
+				<attribute name="item-actCodeId" value="" />
+				<attribute name="item-autoCodeChk" value="0" />
+				<attribute name="item-actFormId" value="tm050f01" />
+				<attribute name="item-actProgramId" value="" />
+				<attribute name="item-actParameter" value="" />
+				<attribute name="item-formatID" value="00" />
+				<attribute name="item-length" value="0" />
+				<attribute name="item-decimal" value="0" />
+				<attribute name="item-required" value="0" />
+				<attribute name="item-requiredFlg" value="0" />
+				<attribute name="item-sortNo" value="500" />
+				<attribute name="item-helperCheckMode" value="1" />
+				<attribute name="item-autoTabFlg" value="0" />
+				<attribute name="item-caption" value="確定" />
+				<attribute name="item-actCodeName" value="" />
+				<attribute name="item-actParameter2" value="" />
+				<attribute name="item-actParameter3" value="" />
+				<attribute name="item-roundingType" value="" />
+				<attribute name="item-trimFlg" value="0" />
+				<attribute name="item-maxLengthControlFlg" value="0" />
+				<attribute name="item-maxValue" value="" />
+				<attribute name="item-minValue" value="" />
+				<attribute name="item-isIncludeMaxValue" value="0" />
+				<attribute name="item-isIncludeMinValue" value="0" />
+				<attribute name="item-itemCheckFlg" value="0" />
+				<attribute name="item-imeMode" value="0" />
+				<attribute name="item-showDRLKeyItem" value="0" />
+				<attribute name="item-useStaticDRLItem" value="0" />
+				<attribute name="item-codeNameOverwriteFlag" value="0" />
+				<attribute name="item-groupId" value="1" />
+				<attribute name="item-actListId" value="" />
+				<attribute name="item-actFormGroupId" value="" />
+			</item>
+		</items>
+	</adv-form>
+</form-define>

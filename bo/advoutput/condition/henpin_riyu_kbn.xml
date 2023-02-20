@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HENPIN_RIYU_KBN" name="返品理由区分">
+		<listItems>
+			<item id="10" value="1" label="本部指示" itemId="Henpin_riyu_kbn1" />
+			<item id="20" value="2" label="不良品" itemId="Henpin_riyu_kbn2" />
+			<item id="30" value="3" label="その他" itemId="Henpin_riyu_kbn3" />
+		</listItems>
+	</condition>
+</condition-define>
+

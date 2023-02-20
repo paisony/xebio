@@ -1,0 +1,93 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tb030f01.css
+--------------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 確定状態 ---*/
+.slt-kakutei {
+	width: 100px;
+}
+
+.str-search-01 .w-type-01 {
+  width: 90px;
+}
+.str-search-01 .w-type-02 {
+  width: 270px;
+}
+.str-search-01 .w-type-03 {
+  width: 270px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  position: relative;
+  width: 28px;
+}
+/* 部門 */
+.str-result-01 .col2 {
+  width: 180px;
+}
+/* 仕入先 */
+.str-result-01 .col3 {
+  width: 175px;
+}
+/* 入荷予定日 */
+.str-result-01 .col4 {
+  width: 75px;
+}
+/* 伝票番号 */
+.str-result-01 .col5 {
+  width: 67px;
+}
+/* 数量 */
+.str-result-01 .col6 {
+  width: 80px;
+}
+/* 原価金額 */
+.str-result-01 .col7 {
+  width: 80px;
+}
+/* 仕入確定日 */
+.str-result-01 .col8 {
+  width: 75px;
+}
+/* 確定担当者 */
+.str-result-01 .col9 {
+  width: 92px;
+}
+/* 伝票状態 */
+.str-result-01 .col10 {
+  width: 90px;
+}
+/* 客注 */
+.str-result-01 .col11 {
+  width: 35px;
+}
+/* 値書 */
+.str-result-01 .col12 {
+  width: 35px;
+}
+/* ﾁｪｯｸ */
+.str-result-01 .col13 {
+  width: 40px;
+}
+.str-result-01 .padtop {
+	width: 120%;
+	height: 100%;
+	text-align: right;
+	vertical-align: middle;
+	padding: 0px 0px 0px 3px;
+	margin: 0px 0px 0px 0px;
+}
+/* ﾁｪｯｸ担当者 */
+.str-result-01 .col14 {
+  width: 100px;
+}
+

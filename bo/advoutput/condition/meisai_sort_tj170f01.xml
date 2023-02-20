@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="MEISAI_SORT_TJ170F01" name="明細ソート＿棚卸ロスリスト出力一覧">
+		<listItems>
+			<item id="10" value="1" label="商品分類順" itemId="Sort_jun1" />
+			<item id="20" value="2" label="ロス点数順" itemId="Sort_jun2" />
+			<item id="30" value="3" label="ロス金額順" itemId="Sort_jun3" />
+			<item id="40" value="4" label="メーカー品番順" itemId="Sort_jun4" />
+		</listItems>
+	</condition>
+</condition-define>
+

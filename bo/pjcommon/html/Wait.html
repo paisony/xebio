@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>しばらくお待ちください．．．．．．．．　　　　</title>
+	<link href="../bostyle/base.css" rel="stylesheet" type="text/css" media="screen,projection,tv" />
+	<script type="text/javascript" src="../mdJs/mdPjCommon.js"></script>
+	<script type="text/javascript" src="../js/pjcommon.js"></script>
+	<script type="text/javascript" src="../js/clientMessage.js"></script>
+	<script type="text/javascript">
+			function timer(){
+				var messId = document.location.search.replace('?mdWaitMessageID=','');
+				if(messId.length > 0){
+					document.getElementById('mess').innerHTML = getMessage(messId);
+				} else {
+					document.getElementById('mess').innerHTML = getMessage("I400");
+				}
+				//親ウィンドウのハンドラを取得
+				var main = window.dialogArguments;
+				try{
+				if (!main || main.closed || !main.shoriStatus.show()) {
+						//ウィンドウを閉じる。
+						self.window.close();
+						return;
+					}
+				}catch(e){
+					self.window.close();
+					return;
+				}
+				setTimeout("timer()",1000);
+			}
+	</script>
+</head>
+<body onload="timer();" onunload="window.parent.focus();">
+    <table style="width:250px;height:100px;">
+        <tr>
+            <td style="width:25%;text-align:center">
+                <img alt="しばらくお待ちください。" src="../images/busy.gif" />
+            </td>
+            <td style="width:75%;text-align:left;">
+                <span id="mess"></span>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

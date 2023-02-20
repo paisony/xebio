@@ -1,0 +1,116 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tj040f01.css
+--------------------------------------------------------------------------------*/
+/*--- 店舗/業者 ---*/
+.slt-tengyo {
+	width: 70px;
+}
+/*--- 送信状態 ---*/
+.slt-sousin {
+	width: 85px;
+}
+
+.str-search-01 .w-type-01 {
+	width: 90px;
+}
+.str-search-01 .w-type-02 {
+	width: 262px;
+}
+.str-search-01 .w-type-03 {
+	width: 262px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+	position: relative;
+	width: 28px;
+}
+/* ﾌｪｲｽNo */
+.str-result-01 .col2 {
+	width: 70px;
+}
+/* 棚段 */
+.str-result-01 .col3 {
+	width: 50px;
+}
+/* 回数 */
+.str-result-01 .col4 {
+	width: 50px;
+}
+/*--- 点数棚卸数量 ---*/
+.str-result-01 .col5 {
+	width: 209px;
+}
+/*--- 入力数量 ---*/
+.str-result-01 .col5-1 {
+	width: 65px;
+}
+/*--- 訂正数量 ---*/
+.str-result-01 .col5-2 {
+	width: 65px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 合計数量 ---*/
+.str-result-01 .col5-3 {
+	width: 65px;
+	border-left: 1px solid #ffffff;
+}
+.str-result-01 .col5-a {
+	width: 66px;
+}
+.str-result-01 .col5-b {
+	width: 67px;
+}
+
+/*--- ｽｷｬﾝ数量 ---*/
+.str-result-01 .col6 {
+	width: 209px;
+}
+/*--- ｽｷｬﾝ数量 ---*/
+.str-result-01 .col6-1 {
+	width: 65px;
+}
+/*--- 訂正数量 ---*/
+.str-result-01 .col6-2 {
+	width: 65px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 合計数量 ---*/
+.str-result-01 .col6-3 {
+	width: 65px;
+	border-left: 1px solid #ffffff;
+}
+.str-result-01 .col6-a {
+	width: 66px;
+}
+.str-result-01 .col6-b {
+	width: 67px;
+}
+
+/* 入力担当者 */
+.str-result-01 .col7 {
+	width: 120px;
+}
+/* 訂正担当者 */
+.str-result-01 .col8 {
+	width: 120px;
+}
+/* 棚卸理由 */
+.str-result-01 .col9 {
+	width: 100px;
+}
+/* 入力日 */
+.str-result-01 .col10 {
+	width: 84px;
+}
+/* 送信日 */
+.str-result-01 .col11 {
+	width: 84px;
+}
+/* 業者 */
+.str-result-01 .col12 {
+	width: 38px;
+}

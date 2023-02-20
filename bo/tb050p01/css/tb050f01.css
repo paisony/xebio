@@ -1,0 +1,79 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tb050f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+/*--- 備考 ---*/
+.slt-bikou {
+	width: 260px;
+}
+
+/*--- 検索条件 ---*/
+.str-search-01 .w-type-01 {
+  width: 90px;
+}
+.str-search-01 .w-type-02 {
+  width: 270px;
+}
+.str-search-01 .w-type-03 {
+  width: 40px;
+}
+.str-search-01 .w-type-04 {
+  width: 200px;
+}
+
+.str-tb050form {
+ width: 100%;
+}
+
+.search-table-tb050 {
+	border-right: 0px solid #cccccc !important;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+.str-result-01 .col1 {
+	position: relative;
+	width: 34px;
+	border-left: 1px solid #cccccc;
+}
+
+/* 店舗 */
+.str-result-01 .col2 {
+	width: 175px;
+}
+/* 品種 */
+.str-result-01 .col3 {
+	width: 138px;
+}
+/* 自社品番 */
+.str-result-01 .col4 {
+	width: 61px;
+}
+/* メーカー品番 */
+.str-result-01 .col5 {
+	width: 350px;
+}
+/* 色 */
+.str-result-01 .col6 {
+	width: 72px;
+}
+/* スキャンコード */
+.str-result-01 .col7 {
+	width: 121px;
+}
+/* 検数 */
+.str-result-01 .col8 {
+	width: 80px;
+}
+/* 原単価 */
+.str-result-01 .col9 {
+	width: 61px;
+}
+/* 原価金額 */
+.str-result-01 .col10 {
+	width: 80px;
+}

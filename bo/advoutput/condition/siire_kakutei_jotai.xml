@@ -1,0 +1,11 @@
+﻿<condition-define>
+	<condition id="SIIRE_KAKUTEI_JOTAI" name="仕入確定状態">
+		<listItems>
+			<item id="10" value="1" label="仕入確定" itemId="Siire_kakutei_jotai1" />
+			<item id="20" value="2" label="SCM仕入" itemId="Siire_kakutei_jotai2" />
+			<item id="30" value="3" label="ﾏﾆｭｱﾙ仕入" itemId="Siire_kakutei_jotai3" />
+			<item id="40" value="4" label="訂正" itemId="Siire_kakutei_jotai4" />
+		</listItems>
+	</condition>
+</condition-define>
+

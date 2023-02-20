@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Calendar</title>
+<script type="text/javascript">
+var calendarLayers = new Array();
+
+var cmNow    = new Date()
+var cmAbsnow = cmNow
+var cmWin=navigator.userAgent.indexOf('Win')!=-1
+var cmMac=navigator.userAgent.indexOf('Mac')!=-1
+var cmX11=navigator.userAgent.indexOf('X11')!=-1
+var cmMoz=navigator.userAgent.indexOf('Gecko')!=-1
+var cmOpera=!!window.opera
+var cmWinflg=1
+
+function setDate(dateStr)
+{
+	window.returnValue = dateStr;
+	window.close();
+}
+
+function prev(layerid, ctrlid, date)
+{
+	writeLCalendar(layerid, ctrlid, new Date(date.getYear() - 1, date.getMonth() - 1, 1));
+}
+
+function now(layerid, ctrlid, date)
+{
+	writeLCalendar(layerid, ctrlid, new Date(date.getYear(), date.getMonth() - 1, 1));
+}
+
+function next(layerid, ctrlid, date)
+{
+	writeLCalendar(layerid, ctrlid, new Date(date.getYear() + 1, date.getMonth() - 1, 1));
+}
+
+function hide(layerid)
+{
+	//window.close();
+}
+
+function show(layerid)
+{
+	document.getElementById(layerid).style.visibility = 'visible';
+}
+
+function writeLCalendar(layerid, ctrlid, date)
+{
+
+  var y = date.getYear();
+
+  if(y < 2000) y += 1900;
+  var m = date.getMonth()+1;
+
+  if(cmOpera)return
+
+  if(!cmMoz)
+  if(arguments[2]||arguments[2]==0)cmWinflg=0
+
+  var nowyyyymm2=null;
+  if(arguments.length==2){
+       if(cmYMDateChkS(arg1)){
+          cmNow = new Date(Number(arg1.substr(0,4)),Number(arg1.substr(5,2))-1,1)
+          now2 = new Date(Number(arg1.substr(0,4)),Number(arg1.substr(5,2))-1,1)
+          nowdate2  = now2.getDate()
+          nowmonth2 = now2.getMonth()
+          nowyear2  = now2.getYear()
+          if(nowyear2<1900)nowyear2=1900+nowyear2
+          nowyyyymm2=nowyear2*100+nowmonth2
+       }else{
+          cmNow = new Date()
+        }
+  }else if(arguments.length==3){
+          cmNow = new Date()
+  }
+
+  nowyear  = date.getYear()
+  
+  now1 = new Date()
+  nowdate1  = now1.getDate()
+  nowmonth1 = now1.getMonth()
+  nowyear1  = now1.getYear()
+  nowyyyymm=nowyear1*100+nowmonth1
+
+  startyear = nowyear
+
+    inHtml = ''
+
+  for (i=0 ;i < 1; i++){
+    inHtml += '<div onclick="hide(\''+layerid+'\');" style="z-index: 1000;"><TABLE class="CAL_TBL_MAIN" border="1">'
+    inHtml += '<TR HEIGHT=5>'
+    inHtml += '<TH class="CAL_TD_TITLE" COLSPAN=3>'
+    inHtml += '<span class="CAL_PREV" onclick="prev(\''+layerid+'\',\''+ctrlid+'\',new Date('+y+','+m+',1));">&lt;&lt;</span> '
+    inHtml += '<span class="CAL_YMTITLE">'
+    inHtml += y
+    inHtml += '</span>'
+    inHtml += ' <span class="CAL_PREV" onclick="next(\''+layerid+'\',\''+ctrlid+'\',new Date('+y+','+m+',1));">&gt;&gt;</span>'
+    inHtml += '</TH>'
+    inHtml += '</TR>'
+
+      wrtday = new Date(startyear,0,1)
+      wrtmonth= wrtday.getMonth()
+      wrtyear = wrtday.getYear()
+      if(wrtyear < 1900)wrtyear=1900 + wrtyear
+
+    for (j=0;j<4;j++){
+      inHtml += '<TR>'
+      for (k=0;k<3;k++){
+
+        wrtday = new Date(startyear,wrtmonth,1)
+
+        wrtdate = wrtday.getDate()
+        wrtmonth= wrtday.getMonth()
+        wrtyear = wrtday.getYear()
+        if(wrtyear < 1900)wrtyear=1900 + wrtyear
+        wrtyyyymm = wrtyear * 100 + wrtmonth
+        wrtmm = '00'+(wrtmonth+1)
+        wrtmm = wrtmm.substr(wrtmm.length-2,2)
+        wrtyyyymm2=  wrtyear +'/'+ wrtmm
+
+        if(wrtyyyymm==nowyyyymm){
+          //inHtml += '<TD class="CAL_LINK_TD" BGCOLOR=#add8e6 onclick="setDate(\''+wrtyyyymm2+'\');">'
+          inHtml += '<TD class="CAL_LINK_TD_NOW" onclick="setDate(\''+wrtyyyymm2+'\');">'
+          inHtml += '<a href="#"><span onclick="setDate(\''+wrtyyyymm2+'\');">'
+          if(wrtyyyymm==nowyyyymm2){
+            inHtml += wrtmonth+1
+            inHtml += '</span></TD>'
+          }else{
+            inHtml += wrtmonth+1
+            inHtml += '</span></a></TD>'
+          }
+        }
+        else{
+            inHtml += '<TD class="CAL_LINK_TD" onclick="setDate(\''+wrtyyyymm2+'\');">'
+            inHtml += '<a href="#"><span onclick="setDate(\''+wrtyyyymm2+'\');">'
+          if(wrtyyyymm==nowyyyymm2){
+            inHtml += wrtmonth+1
+            inHtml += '</span></TD>'
+          }else{
+            inHtml += wrtmonth+1
+			inHtml += '</span></a></TD>'
+          }
+        }
+        wrtmonth += 1
+      }
+      inHtml += '</TR>'
+    }
+    inHtml += '</TABLE></div>'
+    startyear += 1
+  }
+
+  cmWinflg=1
+
+	var layer = document.getElementById(layerid);
+	layer.innerHTML = inHtml;
+
+}
+
+function createLayer(layerid)
+{
+	var elm = document.getElementById(layerid);
+	if(elm == undefined)
+	{
+		elm = document.createElement("div");
+		elm.id = layerid;
+		elm.style.visibility = 'hidden';
+		elm.style.position = 'absolute';
+		document.body.appendChild(elm);
+		calendarLayers.push(elm);
+	}
+	elm.style.left = 0;
+	elm.style.top = 0;
+	return elm;
+}
+
+function openCalendar(ctrlid)
+{
+	var layerid = ctrlid+'CalendarLayer';
+	createLayer(layerid);
+	writeLCalendar(layerid, ctrlid, new Date());
+	show(layerid);
+}
+</script>
+</head>
+<body onload="openCalendar('')">
+
+</body>
+</html>

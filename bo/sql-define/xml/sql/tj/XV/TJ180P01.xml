@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 棚卸進捗確認 営業日取得 **/
+		<sql id="TJ180P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					MAX(TANAOROSIKIJUN_YMD) AS TANAOROSIKIJUN_YMD
+					FROM
+					MDIT0030 T1
+					GROUP BY
+					TANAOROSIKIJUN_YMD,TENCD,TANAOROSIKIKAN_FROM,TANAOROSIKIKAN_TO
+					HAVING 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+
+		/** 棚卸進捗確認 入力値チェック **/
+		<sql id="TJ180P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						TANAOROSISYURYO_FLG
+					FROM
+						MDIT0030 T1
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+
+		/** 棚卸進捗確認(検索ボタン) **/
+		<sql id="TJ180P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 KIJUNBIZENJITUTYOUBOZAIKO
+							,TOJITUURIAGE
+							,TOJITUNYUSYUKKA
+							,KIJUNBIZENJITUTYOUBOZAIKO - TOJITUURIAGE + TOJITUNYUSYUKKA AS TOJITSUYOSOKUZAI_SU
+							,TENPOTANAOROSI
+							,GYOSYATANAOROSI
+							,KIJUNBIZENJITUTYOUBOZAIKO - TOJITUURIAGE + TOJITUNYUSYUKKA - TENPOTANAOROSI - GYOSYATANAOROSI AS SAI_SU
+					FROM	(
+					SELECT
+							(
+								SELECT
+										NVL(TYOBOZAIKO_SU,0)
+								FROM
+										MDIT0030
+								WHERE	0=0
+								AND		TENCD				= </parts><bind id="BIND_TENPO_CD1" /><parts>
+								AND		TANAOROSIKIJUN_YMD	= </parts><bind id="BIND_TANAOROSIKIJUN_YMD1" /><parts>
+							)	AS	KIJUNBIZENJITUTYOUBOZAIKO
+							,(
+								CASE WHEN </parts><bind id="BIND_EIGYO_YMD1" /><parts> > </parts><bind id="BIND_TANAOROSIJISSI_YMD1" /><parts>
+									 THEN
+											(SELECT
+													NVL(TOJITSUURI_SU, 0)
+											 FROM
+													MDIT0030
+											 WHERE	0=0
+											 AND	TENCD				= </parts><bind id="BIND_TENPO_CD2" /><parts>
+											 AND	TANAOROSIKIJUN_YMD	= </parts><bind id="BIND_TANAOROSIKIJUN_YMD2" /><parts>
+											)
+									 ELSE 
+											(SELECT
+													NVL(SUM(TYOBOZAIKO_SU), 0) * (-1)
+											 FROM
+													MDBT0040
+											 WHERE	0=0
+											 AND	TENPO_CD			= </parts><bind id="BIND_TENPO_CD3" /><parts>
+											 AND	TRIGGER_NM			IN	(	 'MDTRGSTRT0010_INS'
+											 									,'MDTRGSTRT0011_INS'
+											 									,'MDTRGSTRT0030_INS'
+											 									,'MDTRGSTRT0031_INS'
+																				,'Tn010a01')
+											)
+									 END
+							)	AS	TOJITUURIAGE
+							,(
+								CASE WHEN </parts><bind id="BIND_EIGYO_YMD2" /><parts> > </parts><bind id="BIND_TANAOROSIJISSI_YMD2" /><parts>
+									 THEN
+											(SELECT
+													NVL(TOJITSUNYUSYUKKA_SU, 0)
+											 FROM
+													MDIT0030
+											 WHERE	0=0
+											 AND	TENCD				= </parts><bind id="BIND_TENPO_CD4" /><parts>
+											 AND	TANAOROSIKIJUN_YMD	= </parts><bind id="BIND_TANAOROSIKIJUN_YMD4" /><parts>
+											)
+									 ELSE 
+											NVL((SELECT
+														NVL(SUM(FREEZAIKO_SU), 0)
+												 FROM
+														MDBT0040
+												 WHERE	0=0
+												 AND	TENPO_CD			= </parts><bind id="BIND_TENPO_CD5" /><parts>
+												 AND	TRIGGER_NM			NOT IN	(	 'MDTRGSTRT0010_INS'
+													 									,'MDTRGSTRT0011_INS'
+													 									,'MDTRGSTRT0030_INS'
+													 									,'MDTRGSTRT0031_INS'
+																						,'Tn010a01')
+											), 0)
+											+
+											NVL((SELECT
+														NVL(TOJITSUNYUSYUKKA_SU, 0)
+												 FROM
+														MDIT0030
+												 WHERE	0=0
+												 AND	TENCD				= </parts><bind id="BIND_TENPO_CD6" /><parts>
+												 AND	TANAOROSIKIJUN_YMD	= </parts><bind id="BIND_TANAOROSIKIJUN_YMD6" /><parts>
+											), 0)
+									 END
+							)	AS	TOJITUNYUSYUKKA
+							,0	AS	TOJITUYOSOKUZAIKO
+							,(
+								SELECT
+										NVL(SUM(TANAOROSIGOKEI_SU), 0)
+								FROM
+										MDIT0010
+								WHERE	0=0
+								AND		TENPO_CD		= </parts><bind id="BIND_TENPO_CD7" /><parts>
+								AND		TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSIKIJUN_YMD7" /><parts>
+							)	AS	TENPOTANAOROSI
+							,(
+								SELECT
+										NVL(SUM(TANAOROSIGOKEI_SU), 0)
+								FROM
+										MDIT0090
+								WHERE	0=0
+								AND		TENPO_CD		= </parts><bind id="BIND_TENPO_CD8" /><parts>
+								AND		TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSIKIJUN_YMD8" /><parts>
+							)	AS	GYOSYATANAOROSI
+							,0	AS	SAI
+					FROM	DUAL
+					)
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

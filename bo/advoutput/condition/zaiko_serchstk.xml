@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="ZAIKO_SERCHSTK" name="在庫検索選択">
+		<listItems>
+			<item id="10" value="1" label="エリア" itemId="Zaiko_serchstk1" />
+			<item id="20" value="2" label="自エリア店別" itemId="Zaiko_serchstk2" />
+			<item id="30" value="3" label="全店" itemId="Zaiko_serchstk3" />
+		</listItems>
+	</condition>
+</condition-define>
+

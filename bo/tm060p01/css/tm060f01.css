@@ -1,0 +1,60 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tm060f01.css
+--------------------------------------------------------------------------------*/
+.str-search-01 .w-type-01 {
+  width: 100px;
+}
+.str-search-01 .w-type-02 {
+  width: 220px;
+}
+
+/*--- 職制区分 ---*/
+.slt-syokusei {
+	width: 110px;
+}
+
+/*--- 権限 ---*/
+.slt-kengen {
+	width: 95px;
+	margin-top: 3px;
+	height: 28px;
+}
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  position: relative;
+  width: 65px;
+}
+
+/* 担当者 */
+.str-result-01 .col2 {
+	width: 420px;
+}
+
+/* 職制 */
+.str-result-01 .col3 {
+  width: 319px;
+}
+
+/* 権限 */
+.str-result-01 .col4 {
+	width: 198px;
+}
+
+/* 権限 */
+.str-result-01 .col5 {
+	width: 194px;
+}
+
+.str-result-01 .padtop {
+	width: 120%;
+	height: 100%;
+	text-align: right;
+	vertical-align: middle;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 3px;
+}
+
+

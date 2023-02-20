@@ -1,0 +1,176 @@
+<!-- COPYRIGHT 2006 FUJITSU SYSTEM SOLUTIONS LIMITED -->
+<!-- FUJITSU SYSTEM SOLUTIONS LIMITED CONFIDENTIAL
+改版履歴
+ 2012/12/07 WT)K.Banno 変更管理[OM-0092]
+ 2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更
+ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:t="urn:schemas-microsoft-com:time">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS" />
+	<script type="text/javascript" src="../Common/Js/menu.js"></script>
+	<script type="text/javascript" src="../Common/Js/KeySafe.js"></script>
+	<script type="text/javascript" language="javascript">
+	<!--
+		function initLogin(){
+			//クッキーをローカルストーレイジへコピー
+			window.localStorage.clear(); 
+			window.localStorage.setItem("clsBtn", "0");
+			window.localStorage.setItem("LoginWidthSize", GetCookie("LoginWidthSize"));
+			window.localStorage.setItem("LoginHeightSize", GetCookie("LoginHeightSize"));
+			window.localStorage.setItem("LoginPositioning", GetCookie("LoginPositioning"));
+			window.localStorage.setItem("LoginTopPositionAdjustment", GetCookie("LoginTopPositionAdjustment"));
+			window.localStorage.setItem("LoginPositionTop", GetCookie("LoginPositionTop"));
+			window.localStorage.setItem("LoginPositionLeft", GetCookie("LoginPositionLeft"));
+			window.localStorage.setItem("LoginSystemName", GetCookie("LoginSystemName"));
+			window.localStorage.setItem("LogoffWindowCheck", GetCookie("LogoffWindowCheck"));
+			window.localStorage.setItem("LogoffForceQuit", GetCookie("LogoffForceQuit"));
+			window.localStorage.setItem("LoginSolutionID", GetCookie("LoginSolutionID"));
+			window.localStorage.setItem("LoginFunctionID", GetCookie("LoginFunctionID"));
+			// --------------- 2016/10/17 FE)Y.Kawabuchi Add START ---------------
+			window.localStorage.setItem("LogoffClosingFunctionIDs", GetCookie("LogoffClosingFunctionIDs"));
+			// --------------- 2016/10/17 FE)Y.Kawabuchi Add END ---------------
+
+			//統合ＭＤウインドウのチェック
+			WindowStyle = "width=1px,height=1px,top=5000,left=5000,toolbar=no,location=no,directories=no,menubar=no,scrollbars=no,status=no,resizable=no";
+			var NoCheck = document.location.search.replace('?NoCheck=','');
+
+			// --------------- 2012/12/07 WT)K.Banno 変更管理[OM-0092] Add START ---------------
+			if (window.localStorage.getItem("LogoffFunctionIDOK") != null && localStorage.getItem("LogoffFunctionIDOK") == "ok") {
+			    try {
+			        // 2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start
+			        //window.open('../Common/Login.aspx', '_top', '', '');
+			        window.open('../Common/index.aspx', '_top', '', '');
+			        // 2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End
+						return;
+					} catch (e) {
+						window.close();
+						return;
+					}
+			} else {
+			// --------------- 2012/12/07 WT)K.Banno 変更管理[OM-0092] Add  END  ---------------
+				if(NoCheck.length == 0){
+					win1 = window.open('',GetCookie("LoginSystemName"), WindowStyle);
+					try {
+						if (win1.location.href != "about:blank") {
+							//統合ＭＤシステムが既に起動されています
+							var returnValue = window.open('Confirm.aspx?pgId=' + 'Err5' , this
+								,'dialogWidth:350px;dialogHeight:80px;status:no;center:yes;edge:sunken;help:no;resizable:no;scroll:no;dependent:no');
+							try {
+								if (returnValue[0] != null && returnValue[0].length > 0){
+									top.window.opener = window;
+									top.window.open('','_parent','');
+									top.window.close();
+									return;
+								} else {
+									top.window.opener = window;
+									top.window.open('','_parent','');
+									top.window.close();
+									return;
+								}
+							} catch (e) {
+									top.window.opener = window;
+								top.window.open('','_parent','');
+								top.window.close();
+								return;
+							}
+						}
+					} catch (e) {
+						//統合ＭＤシステムが起動されている可能性があります
+						var returnValue = window.open('Confirm.aspx?pgId=' + 'Err6' , this
+							,'dialogWidth:350px;dialogHeight:80px;status:no;center:yes;edge:sunken;help:no;resizable:no;scroll:no;dependent:no');
+						try {
+							if (returnValue[0] != null && returnValue[0].length > 0){
+								window.close();
+								return;
+							} else {
+								window.close();
+								return;
+							}
+						} catch (e) {
+							window.close();
+							return;
+						}
+					}
+					win1.close();
+					
+					setTimeout(menuOpen,500);
+				} else {
+					setTimeout(menuOpen,500);
+				}
+			}
+
+			function menuOpen(){
+				window.localStorage.setItem("LogoffFunctionIDOK", "");
+
+				var Width  = GetCookie("LoginWidthSize");
+				var Height = GetCookie("LoginHeightSize");
+				var Positioning = GetCookie("LoginPositioning");
+				var TopPosition = GetCookie("LoginTopPositionAdjustment");
+				var Top =GetCookie("LoginPositionTop");
+				var Left =GetCookie("LoginPositionLeft");
+				var Toolbar = "no";
+				var Location = "no";
+				var Directories = "no";
+				var Menubar = "no";
+				var Scrollbars = "no";
+				var Status = "yes";
+				var Resizable = "no";
+				var WindowStyle = "";
+				if (Positioning != null && Positioning != "null" &&  Positioning == "true")
+				{
+					if (TopPosition != null && TopPosition != "null")
+					{
+						Top = (screen.height - Height - TopPosition) / 2;
+						if (Top < 0)
+						{
+							Top = 0;
+						}
+						Left = (screen.width - Width) / 2;
+						WindowStyle = ",width=" + Width + ",height=" + Height + ",top=" + Top + ",left="+ Left
+									+ ",toolbar=" + Toolbar + ",location="   + Location   + ",directories=" + Directories
+									+ ",menubar=" + Menubar + ",scrollbars=" + Scrollbars + ",status="      + Status + ",resizable="+ Resizable;
+					}
+					else
+					{
+						if (Top != null && Top != "null")
+						{
+							WindowStyle = ",width=" + Width + ",height=" + Height + ",top=" + Top + ",left="+ Left
+										+ ",toolbar=" + Toolbar + ",location="   + Location   + ",directories=" + Directories
+										+ ",menubar=" + Menubar + ",scrollbars=" + Scrollbars + ",status="      + Status + ",resizable="+ Resizable;
+						}
+						else
+						{
+							WindowStyle = ",width=" + Width + ",height=" + Height
+										+ ",toolbar=" + Toolbar + ",location="   + Location   + ",directories=" + Directories
+										+ ",menubar=" + Menubar + ",scrollbars=" + Scrollbars + ",status="      + Status + ",resizable="+ Resizable;
+						}
+					}
+				}
+				else
+				{
+							WindowStyle = ",width=" + Width + ",height=" + Height
+										+ ",toolbar=" + Toolbar + ",location="   + Location   + ",directories=" + Directories
+										+ ",menubar=" + Menubar + ",scrollbars=" + Scrollbars + ",status="      + Status + ",resizable="+ Resizable;
+				}
+			    //index.aspxにリダイレクトする
+				window.name = GetCookie("LoginSystemName");
+				win_status = window.open('../Common/index.aspx?check=ok', '_self', WindowStyle);
+				if(NoCheck.length == 0){
+					top.window.opener = window;
+					top.window.open('','_parent','');
+
+				}
+			
+			}
+
+		}
+
+		function unload(){
+		}
+	// -->
+	</script>
+</head>
+<body onload="initLogin()" onunload="unload()">
+</body>
+</html>

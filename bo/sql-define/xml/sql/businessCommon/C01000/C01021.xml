@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<!-- 仕入予定TBL(H)取得 -->
+		<sql id="C01021-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						  T1.SIIRESAKI_CD
+						, T1.DENPYO_BANGO
+						, T1.SITEINOHIN_YMD
+						, T1.TENPO_CD
+						, T1.NOHINSYO_YMD
+						, T1.SYUKKA_YMD
+						, T1.BUMON_CD
+						, T1.SUBSIIRESAKI_CD
+						, T1.SIIREYOTEIGOKEI_SU
+						, T1.SIIREYOTEIGOKEI_KIN
+						, T1.KAKUTEI_FLG
+						, T1.DENPYO_JYOTAI
+						, T1.ADD_YMD
+						, T1.ADD_TM
+						, T1.ADDTAN_CD
+						, T1.UPD_YMD
+						, T1.UPD_TM
+						, T1.UPD_TANCD
+						, T1.SAKUJYO_YMD
+						, T1.SAKUJYO_FLG
+						, T1.JYUSIN_YMD
+						, T1.JYUSIN_TM
+						, T1.HHTSERIAL_NO
+						, T1.HHTSEQUENCE_NO
+						</parts></statement><statement type="replace" name="ADD_SELECT" /><statement type="final" name="final"><parts>
+					FROM
+							MDPT0010 T1
+							</parts></statement><statement type="replace" name="ADD_TABLE" /><statement type="final" name="final"><parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_ORDER" />
+		</sql>
+	</sql-list>
+</sql-included>

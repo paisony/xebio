@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="C01012-01">
+			<statement type="replace" name="ADD_COUNT_S" />
+			<statement type="replace" name="ADD_SELECT" />
+			<statement type="final" name="final">
+				<parts>
+					SELECT 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_HINT" />
+			<statement type="final" name="final">
+				<parts>
+							/*+ ORDERED USE_NL(MDMT0150 STMT0060 MDMT0020_SUB MDMT0020 BOMT0060 MDMT0070 STMT0500 MDMT0080 MDMT0090 SEASON HOJUKUBN MDMT0170 JIDOKB HATTYUPTN JIDOADD JIDOADD_TANTO) */
+							 SYOHIN.JAN_CD								JAN_CD								/*  1 ＪＡＮコード */
+							,SYOHIN.SYOHIN_CD							SYOHIN_CD							/*  2 商品コード */
+							,SYOHIN.SYOHIN_CD_SERCH						SYOHIN_CD_SERCH						/*  3 商品コード検索用 */
+							,SYOHIN.SYOHINGUN1_CD						SYOHINGUN1_CD						/*  4 商品群1コード */
+							,MDMT0150.SYOHINGUN1_RYAKU_NM				SYOHINGUN1_RYAKU_NM					/*  5 商品群1名 */
+							,SYOHIN.SYOHINGUN2_CD						SYOHINGUN2_CD						/*  6 商品群2コード */
+					 		,STMT0060.GRPNM								GRPNM								/*  7 商品群2名 */
+							,SYOHIN.BUMON_CD							BUMON_CD							/*  8 部門コード */
+							,BOMT0060.BUMON_NM							BUMON_NM							/*  9 部門名 */
+							,BOMT0060.BUMONKANA_NM						BUMONKANA_NM						/* 10 部門名カナ */
+							,SYOHIN.HINSYU_CD							HINSYU_CD							/* 11 品種コード */
+							,MDMT0070.HINSYU_RYAKU_NM					HINSYU_RYAKU_NM						/* 12 品種名 */
+							,MDMT0070.HINSYU_RYAKU_NMK					HINSYU_RYAKU_NMK					/* 13 品種名カナ */
+							,SYOHIN.HINMOKU_CD							HINMOKU_CD							/* 14 品目コード */
+							,SYOHIN.SIIRESAKI_CD						SIIRESAKI_CD						/* 15 仕入先コード */
+							,MDMT0020.SIIRESAKI_RYAKU_NM				SIIRESAKI_RYAKU_NM					/* 16 仕入先名 */
+							,MDMT0020.KANOUSUGOE_KANOUTORIHIKI_FLG		KANOUSUGOE_KANOUTORIHIKI_FLG		/* 17 可能数越可能取引フラグ */
+							,SYOHIN.DAIHYO_XEBIO_CD						DAIHYO_XEBIO_CD						/* 18 代表自社品番 */
+							,SYOHIN.XEBIO_CD							XEBIO_CD							/* 19 自社品番 */
+							,SYOHIN.OLD_XEBIO_CD						OLD_XEBIO_CD						/* 20 旧自社品番 */
+							,SYOHIN.MAKERCOLOR_CD						MAKERCOLOR_CD						/* 21 色コード */
+							,MDMT0080.IRO_NM							IRO_NM								/* 22 色名 */
+							,SYOHIN.SIZE_NO_OLD							SIZE_NO_OLD							/* 23 旧サイズNo */
+							,SYOHIN.SIZE_NO1							SIZE_NO1							/* 24 サイズパターンコード1 */
+							,SYOHIN.SIZE_NO2							SIZE_NO2							/* 25 サイズパターンコード2 */
+							,SYOHIN.SIZE_NM								SIZE_CD								/* 26 サイズコード */
+							,MDMT0090.SIZE_NM							SIZE_NM								/* 27 サイズ名 */
+							,SYOHIN.SEASON_KB							SEASON_KB							/* 28 シーズン */
+							,SEASON.MEISYO_NM							SEASON_NM							/* 29 シーズン名 */
+							,SYOHIN.HAIBUNKANO_SU						HAIBUNKANO_SU						/* 30 配分可能数 */
+							,SYOHIN.HANBAIKANRYO_YMD					HANBAIKANRYO_YMD					/* 31 販売完了日 */
+							,SYOHIN.LOT_SU								LOT_SU								/* 32 ロット数 */
+							,SYOHIN.SUBSIIRESAKI_CD						SUBSIIRESAKI_CD						/* 33 サブ仕入先コード */
+							,MDMT0020_SUB.SIIRESAKI_RYAKU_NM			SUBSIIRESAKI_RYAKU_NM				/* 34 サブ仕入先名 */
+							,SYOHIN.BURANDO_CD							BURANDO_CD							/* 35 ブランドコード */
+							,STMT0500.BURANDO_NMK						BURANDO_NMK							/* 36 ブランド名 */
+							,SYOHIN.SYOHIN_SEISIKI_NM					SYOHIN_SEISIKI_NM					/* 37 商品正式名称 */
+							,SYOHIN.SYOHIN_SEISIKI_NMK					SYOHIN_SEISIKI_NMK					/* 38 商品正式名称カナ */
+							,SYOHIN.SYONM								SYONM								/* 39 商品略式名称 */
+							,SYOHIN.SYONMK								SYONMK								/* 40 商品略式名称カナ */
+							,SYOHIN.HIN_NBR								HIN_NBR								/* 41 メーカー品番 */
+							,SYOHIN.GENKA								GENKA								/* 42 原価 */
+							,SYOHIN.HYOKA_TNK							HYOKA_TNK							/* 43 評価単価 */
+							,SYOHIN.SLPR								SLPR								/* 44 上代１(現売価) */
+							,SYOHIN.JODAI2_TNK							JODAI2_TNK							/* 45 上代２(メーカー単価) */
+							,SYOHIN.HATYUTAISYO_KB						HATYUTAISYO_KB						/* 46 補充発注対象商品区分 */
+							,HOJUKUBN.MEISYO_NM							HATYUTAISYO_NM						/* 47 補充発注対象商品区分名 */
+							,SYOHIN.SIIRE_KB							SIIRE_KB							/* 48 仕入区分 */
+							,SYOHIN.ITEMKBN								ITEMKBN								/* 49 商品区分 */
+							,SYOHIN.MOTOMIYASYOHIN_FLG					MOTOMIYASYOHIN_FLG					/* 50 本宮商品フラグ */
+							,SYOHIN.MOTOMIYALOT_SU						MOTOMIYALOT_SU						/* 51 本宮ロット数 */
+							,SYOHIN.HINKBN								HINKBN								/* 52 品番区分 */
+							,SYOHIN.TYOTATSU_KB							TYOTATSU_KB							/* 53 調達区分 */
+							,SYOHIN.TENKAI_KB							TENKAI_KB							/* 54 展開区分 */
+							,SYOHIN.JIDOHATTYUKANO_FLG					JIDOHATTYUKANO_FLG					/* 55 自動発注可能フラグ */
+							,SYOHIN.ZEI_KB								ZEI_KB								/* 56 税区分 */
+				</parts>
+			</statement>
+			<statement type="replace" name="SEL_CLM_MISETANKA" />
+			<statement type="final" name="final">
+				<parts>
+							,NULL										HYOKA_KB							/* 58 評価区分 */
+							,NULL										HYOKA_NM							/* 59 評価区分名 */
+				</parts>
+			</statement>
+			<statement type="replace" name="SEL_CLM_TENZAIKO" />
+			<statement type="replace" name="SEL_CLM_NYUKASU" />
+			<statement type="replace" name="SEL_CLM_URISU" />
+			<statement type="final" name="final">
+				<parts>
+							,CASE WHEN MDMT0170.KADO_KBN = 1 THEN MDMT0170.JIDO_SU ELSE 0 END	JIDO_SU		/* 63 自動定数 */
+							,MDMT0170.HATTYUPTN_KBN						HATTYUPTN_KBN						/* 64 発注パターン区分 */
+							,HATTYUPTN.MEISYO_NM						HATTYUPTN_NM						/* 65 発注パターン区分名 */
+				</parts>
+			</statement>
+			<statement type="replace" name="SEL_CLM_HACHUSU" />
+			<statement type="replace" name="SEL_CLM_TANPINSU" />
+			<statement type="replace" name="SEL_CLM_BAIHEN" />
+			<statement type="final" name="final">
+				<parts>
+							,MDMT0170.KAISI_YMD							JIDOTESU_KAISI_YMD					/* 70 自動定数開始日 */
+							,MDMT0170.SYURYO_YMD						JIDOTESU_SYURYO_YMD					/* 71 自動定数終了日 */
+							,MDMT0170.JIDO_KBN							JIDO_KBN							/* 72 自動区分 */
+							,JIDOKB.MEISYO_NM							JIDO_KBN_NM							/* 73 自動区分名称 */
+				</parts>
+			</statement>
+			<statement type="replace" name="SEL_CLM_SYUKASIJI_SU" />
+			<statement type="final" name="final">
+				<parts>
+							,MDMT0170.UPD_YMD							JIDOTESU_UPD_YMD					/* 75 自動定数マスタ 更新日 */
+							,MDMT0170.ADD_KBN							JIDOTESU_ADD_KBN					/* 76 自動定数マスタ 登録区分 */
+							,JIDOADD.MEISYO_NM							JIDOTESU_ADD_NM						/* 77 自動定数マスタ 登録区分名称 */
+							,MDMT0170.UPD_TANCD							JIDOTESU_UPD_TANCD					/* 78 自動定数マスタ 更新担当者 */
+							,JIDOADD_TANTO.HANBAIIN_NM					JIDOTESU_UPD_TANNM					/* 79 自動定数マスタ 更新担当者名 */
+							,MDMT0170.KADO_KBN							KADO_KBN							/* 80 自動定数マスタ 稼動区分 */
+				</parts>
+			</statement>
+			<statement type="replace" name="SEL_CLM_ZAIKO_SU" />
+			<statement type="final" name="final">
+				<parts>
+							,SYOHIN.SYOHIN_ZOKUSEI						SYOHIN_ZOKUSEI						/* 83 商品属性 */
+							,SYOHIN.SAISIN_SIIRE_YMD					SAISIN_SIIRE_YMD					/* 84 最新仕入日 */
+							,SYOHIN.HOSYOUSYO_HAKKOU_FLG				HOSYOUSYO_HAKKOU_FLG				/* 85 保証書発行フラグ */
+							,SYOHIN.HATTYUSYO_MONGON_INSATSU_FLG		HATTYUSYO_MONGON_INSATSU_FLG		/* 86 発注書文言印刷フラグ */
+							,TYOTATSUKB.MEISYO_NM						TYOTATSUKB_NM						/* 87 調達区分名称 */
+							,SYOHIN.YOSAN_CD																/* 88 仕入枠グループコード */
+							,(SELECT YOSAN_NM FROM MDMT0250 WHERE MDMT0250.YOSAN_CD = SYOHIN.YOSAN_CD) YOSAN_NM
+																											/* 89 仕入枠グループコード */
+							,SYOHIN.TOSYOBAIKA_TNK															/* 90 当初売価 */
+							,SYOHIN.ZAIKOUMU_FLG															/* 91 在庫有無フラグ */
+							,SYOHIN.TANPINRIREKI_FLG														/* 92 単品履歴フラグ */
+							,MDGETKEIKAKUKIKAN(SYOHIN.HANBAIKANRYO_YMD)	KEIKAKU_YMD							/* 93 計画期間 */
+							,SYOHIN.TAX									TAX									/* 94 税率 */
+							,(SELECT MDMT0270.TAX_CD FROM MDMT0270 WHERE MDMT0270.TAX = SYOHIN.TAX)	TAX_CD	/* 95 税率コード */
+				</parts>
+			</statement>
+			<statement type="replace" name="SEL_CLM_HYOKA" />
+			<statement type="final" name="final">
+				<parts>
+					FROM
+							MDMT0130 SYOHIN	/* 発注マスタ */
+				</parts>
+			</statement>
+			<statement type="replace" name="FRM_MISETANKAMST" />
+			<statement type="final" name="final">
+				<parts>
+					/* 商品群1 */
+					LEFT JOIN
+							MDMT0150
+					ON		SYOHIN.SYOHINGUN1_CD = MDMT0150.SYOHINGUN1_CD
+					/* 商品群2 */
+					LEFT JOIN
+							STMT0060
+					ON		STMT0060.SOSIKI = '0001'
+					AND		STMT0060.TENCD  = '0000'
+					AND		SYOHIN.SYOHINGUN2_CD = STMT0060.GRPCD
+
+					/* 仕入マスタ（仕入先） */
+					LEFT JOIN
+							MDMT0020
+					ON		SYOHIN.SIIRESAKI_CD = MDMT0020.SIIRESAKI_CD
+					/* 仕入マスタ（サブ仕入先） */
+					LEFT JOIN
+							MDMT0020 MDMT0020_SUB
+					ON		SYOHIN.SUBSIIRESAKI_CD = MDMT0020_SUB.SIIRESAKI_CD
+					/* 部門マスタ */
+					LEFT JOIN
+							BOMT0060
+					ON		SYOHIN.BUMON_CD = BOMT0060.BUMON_CD
+					/* 品種マスタ */
+					LEFT JOIN
+							MDMT0070
+					ON		SYOHIN.BUMON_CD  = MDMT0070.BUMON_CD
+					AND		SYOHIN.HINSYU_CD = MDMT0070.HINSYU_CD
+					/* ブランドマスタ */
+					LEFT JOIN
+							STMT0500
+					ON		SYOHIN.BURANDO_CD = STMT0500.BURANDO_CD
+					/* 色マスタ */
+					LEFT JOIN
+							MDMT0080
+					ON		SYOHIN.MAKERCOLOR_CD = MDMT0080.IRO_CD
+					/* サイズマスタ */
+					LEFT JOIN
+							MDMT0090
+					ON		SYOHIN.SIZE_NM = MDMT0090.SIZE_CD
+					/* シーズン */
+					LEFT JOIN
+							MDMT0100 SEASON
+					ON		SEASON.SIKIBETSU_CD = 'HTSN'
+					AND		SYOHIN.SEASON_KB    = SEASON.MEISYO_CD
+					/* 補充対象商品区分 */
+					LEFT JOIN
+							MDMT0100 HOJUKUBN
+					ON		HOJUKUBN.SIKIBETSU_CD = 'HTTS'
+					AND		SYOHIN.HATYUTAISYO_KB = HOJUKUBN.MEISYO_CD
+					/* 自動定数 */
+					LEFT JOIN
+							MDMT0170
+					ON		MDMT0170.TENPO_CD = 
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="BIND_TENPO_CD92" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND		SYOHIN.JAN_CD     = MDMT0170.JAN_CD
+					/* 自動区分 */
+					LEFT JOIN
+							MDMT0100 JIDOKB
+					ON		JIDOKB.SIKIBETSU_CD = 'HTJK'
+					AND		MDMT0170.JIDO_KBN   = JIDOKB.MEISYO_CD
+					/* 発注パターン */
+					LEFT JOIN
+							MDMT0100 HATTYUPTN
+					ON		HATTYUPTN.SIKIBETSU_CD = 'HTPT'
+					AND		MDMT0170.HATTYUPTN_KBN = HATTYUPTN.MEISYO_CD
+				</parts>
+			</statement>
+			<statement type="replace" name="FRM_BAIHEN" />
+			<statement type="final" name="final">
+				<parts>
+					/* 自動定数マスタ 登録区分 */
+					LEFT JOIN
+							MDMT0100 JIDOADD
+					ON		JIDOADD.SIKIBETSU_CD = 'HTTK'
+					AND		MDMT0170.ADD_KBN     = JIDOADD.MEISYO_CD
+					/* 自動定数マスタ 担当者 */
+					LEFT JOIN
+							BOMT0030 JIDOADD_TANTO
+					ON		JIDOADD_TANTO.HANBAIIN_CD = MDMT0170.UPD_TANCD
+					/* 調達区分 */
+					LEFT JOIN
+							MDMT0100 TYOTATSUKB
+					ON		TYOTATSUKB.SIKIBETSU_CD = 'HKNB'
+					AND		TYOTATSUKB.MEISYO_CD = (CASE WHEN TO_NUMBER(SUBSTR(SYOHIN.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN '1' ELSE '-1' END)
+					WHERE 0=0 
+					AND		SYOHIN.ITEMKBN != 0  /* 商品対象外 以外 */
+					AND		SYOHIN.SAKUJYO_FLG = 0 /* 未削除 */
+				</parts>
+			</statement>
+			<statement type="replace" name="WHE_SIJI" />
+			<statement type="replace" name="WHE_TASYA" />
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="replace" name="ADD_GROUPBY" />
+			<statement type="replace" name="ADD_ORDER" />
+			<statement type="replace" name="ADD_COUNT_E" />
+		</sql>
+	</sql-list>
+</sql-included>

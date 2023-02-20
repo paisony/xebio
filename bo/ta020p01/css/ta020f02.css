@@ -1,0 +1,105 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:ta020f02.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+/*--- 区分 ---*/
+.str-search-02 .slt-kbn {
+	width: 120px;
+}
+/*--- 理由 ---*/
+.str-search-02 .slt-riyu {
+	width: 140px;
+}
+.str-search-02 .w-type-01 {
+	width: 85px;
+}
+.str-search-02 .w-type-02 {
+	width: 140px;
+}
+.str-search-02 .w-type-03 {
+	width: 220px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 34px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 部門 ---*/
+.str-result-01 .col2 {
+	width: 152px;
+}
+/*--- 評価 ---*/
+.str-result-01 .col2 .col2-1 {
+	width: 37px;
+}
+/*--- 補充 ---*/
+.str-result-01 .col2 .col2-2 {
+	width: 38px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 在庫 ---*/
+.str-result-01 .col2 .col2-3 {
+	width: 60px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 品種 ---*/
+.str-result-01 .col3 {
+	width: 106px;
+}
+/*--- 入荷 ---*/
+.str-result-01 .col3 .col3-1 {
+	width: 47px;
+}
+/*--- 売上 ---*/
+.str-result-01 .col3 .col3-2 {
+	width: 47px;
+	border-left: 1px solid #ffffff;
+}
+/*--- ブランド ---*/
+.str-result-01 .col4 {
+	width: 166px;
+}
+/*--- 自動定数 ---*/
+.str-result-01 .col4 .col4-1 {
+	width: 90px;
+}
+/*--- 配可数 ---*/
+.str-result-01 .col4 .col4-2 {
+	width: 90px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 自社品番／コア---*/
+.str-result-01 .col5 {
+	width: 68px;
+}
+/*--- 色／サイズ ---*/
+.str-result-01 .col6 {
+	width: 76px;
+}
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col7 {
+	width: 360px;
+}
+/*--- メッセージ／依頼数 ---*/
+.str-result-01 .col8 {
+	width: 90px;
+}
+/*--- スキャンコード／原価金額 ---*/
+.str-result-01 .col9 {
+	width: 125px;
+}
+.str-result-01 .cell {
+	display: block;
+	float: left;
+	/*text-align: center;*/
+}
+

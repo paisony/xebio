@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* =================================
+   ■ print.css
+================================== */
+body {
+	font-size: 12pt;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+a:link,
+a:visited {
+	text-decoration: underline;
+	color: #000000;
+}
+
+img {
+	border: 0;
+}
+div#main{
+	float: none !important;
+}
+/* 　印刷時不要な箇所を消す
+---------------------------------------------------------*/
+div#cmSelection,div.sHeader,#cmFootLinkarea,#cmFooter,div#cmSubheader td.txtRight{
+	display: none;
+}
+
+/* 　見出し分かりやすくする
+---------------------------------------------------------*/
+h2{
+	padding:5px;
+	border:1px solid #999;
+}
+
+/* 　見出し分かりやすくする
+---------------------------------------------------------*/
+.sData table,.sData td,.sData th,
+table#headerTbl,table#headerTbl th,table#headerTbl td,
+div#innerTbl table,div#innerTbl table th,div#innerTbl table td{
+	border-collapse:collapse;
+	border:1px solid #000;
+}

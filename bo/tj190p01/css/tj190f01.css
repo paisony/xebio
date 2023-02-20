@@ -1,0 +1,150 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tj190f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+.str-search-01 .w-type-01 {
+	width: 110px;
+}
+.str-search-01 .w-type-02 {
+	width: 90px;
+}
+.str-search-01 .w-type-03 {
+	width: 380px;
+}
+.str-search-01 .w-type-04 {
+	width: 115px;
+}
+.str-search-01 .w-type-05 {
+	width: 120px;
+}
+.str-search-01 .w-type-06 {
+	width: 100px;
+}
+.str-search-01 .w-type-07 {
+	width: 90px;
+}
+
+/* ラジオボタン間隔 */
+.str-radio-table {
+	margin-left : -10px ;
+	margin-right : auto ;
+	border-spacing : 15px 0px;
+	border-collapse : separate;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+	position: relative;
+	width: 28px;
+}
+/* 店舗／入力日 */
+.str-result-01 .col2 {
+	width: 153px;
+}
+
+/* 臨棚管理No/ロス管理No */
+.str-result-01 .col3 {
+	width: 73px;
+}
+
+/*--- 部門／品種 ---*/
+.str-result-01 .col4 {
+	width: 168px;
+}
+
+/*--- ブランド1/ブランド5 ---*/
+.str-result-01 .col5 {
+	width: 95px;
+}
+
+/*--- ブランド2/ブランド6 ---*/
+.str-result-01 .col6 {
+	width: 95px;
+}
+
+/*--- ブランド3/ブランド7 ---*/
+.str-result-01 .col7 {
+	width: 95px;
+}
+
+/*--- ブランド4/ブランド8 ---*/
+.str-result-01 .col8 {
+	width: 95px;
+}
+
+/*--- 入力担当者 ---*/
+.str-result-01 .col9 {
+	width: 219px;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
+/*--- 棚時帳簿数 ---*/
+.str-result-01 .col9-1 {
+	width: 74px;
+}
+.str-result-01 .col9-1-f {
+	width: 72px;
+}
+/*--- 棚時積送数 ---*/
+.str-result-01 .col9-2 {
+	width: 68px;
+}
+.str-result-01 .col9-2-f {
+	width: 68px;
+}
+/*--- 実棚数 ---*/
+.str-result-01 .col9-3 {
+	width: 67px;
+}
+.str-result-01 .col9-3-f {
+	width: 69px;
+}
+
+/*--- ロス計算日 ---*/
+.str-result-01 .col10 {
+	width: 152px;
+}
+
+/*--- ロス数 ---*/
+.str-result-01 .col10-1 {
+	width: 74px;
+}
+.str-result-01 .col10-1-f {
+	width: 70px;
+}
+/*--- ロス金額 ---*/
+.str-result-01 .col10-2 {
+	width: 73px;
+}
+.str-result-01 .col10-2-f {
+	width: 77px;
+}
+
+.str-result-01 .cell {
+	display: block;
+	float: left;
+}
+
+.str-pad3 {
+	padding-right: 3px;
+}
+
+/*--- ボディの線 ---*/
+.bborderleft {
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+/*--- フッターの線 ---*/
+.fborderleft {
+	border-left: 1px solid #cccccc;
+}
+
+

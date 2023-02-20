@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01001-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 M1.TENPO_CD
+							,M1.TENPO_NM
+							,M1.TENPOKANA_NM
+							,M1.TENPOSEISIKI_NM
+							,M1.TENPOKEITAI_KB
+							,M1.TENPOGYOTAI_KB
+							,M1.TENPOYUBIN_NBR1
+							,M1.TENPOYUBIN_NBR2
+							,M1.TENPOJYUSYO_NM1
+							,M1.TENPOJYUSYO_NM2
+							,M1.TENPOTEL_NBR
+							,M1.TENPOFAX_NBR
+							,M1.AREA_CD
+							,M1.ADD_YMD
+							,M1.ADD_TM
+							,M1.ADDTAN_CD
+							,M1.UPD_YMD
+							,M1.UPD_TM
+							,M1.UPD_TANCD
+							,M1.SAKUJYO_YMD
+							,M1.SAKUJYO_FLG
+							,M1.JYUSIN_YMD
+							,M1.JYUSIN_TM
+					FROM
+							BOMT0010 M1
+					WHERE
+							M1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					AND		M1.SAKUJYO_FLG IN (</parts><bind id="SAKUJYO_FLG1" /><parts>, </parts><bind id="SAKUJYO_FLG2" /><parts>)
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

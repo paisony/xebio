@@ -1,0 +1,30 @@
+<!--
+	IFRAMEを使って擬似的にModalDialog内の画面遷移をするためのダミーHTML
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<meta http-equiv="cache-control" content="no-cache" />
+	<script type="text/javascript">
+	<!--
+		if (window.opener) {
+            contentUrl = window.name;
+            mainWindow = window.opener;
+			mainForm = window.opener.document.forms[0];
+            title = mainForm.Modal_title.value;
+            document.write("<title>" + title + "</title>");
+		}
+		function showContent() {
+			frames.contentFrame.location.href=contentUrl;
+		}
+
+		// ウィンドウclose時にコールバックを呼び出す
+        window.addEventListener('beforeunload', (event) => {
+            window.opener['callback']();
+        });
+	</script>
+	</head>
+    <body onload="showContent()" style="margin:0;">
+		<iframe src="" name="contentFrame" frameborder="0" align="middle" scrolling="no" style="width:100%;height:100%;">
+		</iframe>
+	</body>
+</html>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="BURANDO_SITEI_FLG" name="ブランド指定フラグ">
+		<listItems>
+			<item id="10" value="0" label="全ブランド" itemId="Burando_sitei_flg1" />
+			<item id="20" value="1" label="ブランド指定" itemId="Burando_sitei_flg2" />
+		</listItems>
+	</condition>
+</condition-define>
+

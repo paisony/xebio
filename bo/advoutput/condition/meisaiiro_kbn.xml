@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="MEISAIIRO_KBN" name="明細色区分">
+		<listItems>
+			<item id="10" value="0" label="通常時(未選択状態)" itemId="Nomal" />
+			<item id="20" value="1" label="送信済み" itemId="Sosinzumi" />
+			<item id="30" value="2" label="自社品番/スキャンコード検索、在庫検索の自店" itemId="Shohin_shitei" />
+			<item id="40" value="3" label="N列明細のNoの明細の色" itemId="Nretsu" />
+			<item id="50" value="4" label="明細行のエラー" itemId="Meisai_error" />
+		</listItems>
+	</condition>
+</condition-define>
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01028-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						M1.YOSAN_CD
+						,M1.YOSAN_NM
+						,M1.ADD_YMD
+						,M1.ADD_TM
+						,M1.ADDTAN_CD
+						,M1.UPD_YMD
+						,M1.UPD_TM
+						,M1.UPD_TANCD
+						,M1.SAKUJYO_YMD
+						,M1.SAKUJYO_FLG
+						,M1.JYUSIN_YMD
+						,M1.JYUSIN_TM
+					FROM	MDMT0250 M1
+					WHERE
+							M1.YOSAN_CD = </parts><bind id="YOSAN_CD" /><parts>
+					AND		M1.SAKUJYO_FLG IN (</parts><bind id="SAKUJYO_FLG1" /><parts>, </parts><bind id="SAKUJYO_FLG2" /><parts>)
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

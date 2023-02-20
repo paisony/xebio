@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SINSEI_SB" name="申請種別">
+		<listItems>
+			<item id="10" value="11" label="店舗補充" itemId="Sinsei_sb1" />
+			<item id="20" value="20" label="単品レポート" itemId="Sinsei_sb2" />
+			<item id="30" value="02" label="仕入稟議" itemId="Sinsei_sb3" />
+		</listItems>
+	</condition>
+</condition-define>
+

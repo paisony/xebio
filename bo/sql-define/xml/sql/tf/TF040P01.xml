@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 小口現金登録　月次繰越件数、小口現金件数取得 **/
+		<sql id="TF040P01-01">
+			<statement type="final" name="final">
+				<parts>
+				SELECT
+				  GETUJIKURIKOSICNT
+				, KOGUTIGENKINCNT 
+				FROM
+				( 
+					SELECT
+				  	( 
+						SELECT
+							COUNT(1) 
+						FROM
+							MDAT0060 T1 
+						WHERE
+							0 = 0 
+							AND 	T1.TENPO_CD = </parts><bind id="TENPO_CD1" /><parts>
+							AND 	T1.NENGETSU = TO_CHAR( ADD_MONTHS( TO_DATE(</parts><bind id="KEIJO_YMD1" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST1" /><parts>, - 1), 'YYYYMM' )
+					) AS GETUJIKURIKOSICNT
+					, ( 
+						SELECT
+							COUNT(1) 
+						FROM
+						( 
+							SELECT
+								1
+							FROM
+								MDAT0080 T1 
+							WHERE
+								0 = 0 
+								AND 	T1.TENPO_CD = </parts><bind id="TENPO_CD2" /><parts>
+							UNION ALL 
+							SELECT
+								1
+							FROM
+								MDAT0070 T2 
+							WHERE
+								0 = 0 
+								AND	T2.TENPO_CD = </parts><bind id="TENPO_CD3" /><parts>
+								AND	SUBSTR(T2.KEIJO_YMD, 1, 6) &gt;= SUBSTR( TO_CHAR( TO_DATE(</parts><bind id="KEIJO_YMD3" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST3" /><parts>, 'YYYYMMDD'), 1, 6 )
+						)
+					) AS KOGUTIGENKINCNT 
+					FROM
+						DUAL
+				) 
+				</parts>
+			</statement>
+		</sql>
+		/** 小口現金登録　検索処理 **/
+		<sql id="TF040P01-02">
+			<statement type="final" name="final">
+				<parts>
+				SELECT
+					 NVL(NVL(KGGK1.ZENGETSUKURIKOSI_KIN, 0) + NVL(KGS1_ZANDAKA, 0), 0) AS ZENJITU_ZANDAKA
+					,NVL(KGGK1.ZENGETSUKURIKOSI_KIN, 0) AS ZENGETU_ZANDAKA
+					,LK100.KANRI_NO
+					,LK100.MOTOKANRI_NO
+					,LK100.KEIJO_YMD
+					,LK100.KAMOKU_CD
+					,M1.KAMOKU_NM
+					,LK100.NYUSYUKKIN_KB
+					,LK100.NYUKIN
+					,LK100.SYUKKIN
+					,LK100.TEKIYOU
+					,LK100.HURIKAETENPO_CD
+					,M2.TENPO_NM
+					,LK100.SOSINZUMI_FLG
+				FROM
+				(
+					SELECT 
+						T1.TENPO_CD
+						,T1.KEIJO_YMD
+						,T1.KAMOKU_CD
+						,T1.NYUSYUKKIN_KB
+						,T1.NYUKIN
+						,T1.SYUKKIN
+						,T1.HURIKAETENPO_CD
+						,T1.SYORI_TM
+						,T1.KANRI_NO
+						,T1.MOTOKANRI_NO
+						,T1.TEKIYOU
+						,T1.SOSINZUMI_FLG
+					FROM 
+						MDAT0080 T1
+					WHERE 
+						T1.TENPO_CD = </parts><bind id="TENPO_CD_MDAT0080" /><parts>
+					UNION ALL
+					SELECT 
+						T2.TENPO_CD
+						,T2.KEIJO_YMD
+						,T2.KAMOKU_CD
+						,T2.NYUSYUKKIN_KB
+						,T2.NYUKIN
+						,T2.SYUKKIN
+						,T2.HURIKAETENPO_CD
+						,T2.SYORI_TM
+						,T2.KANRI_NO
+						,T2.MOTOKANRI_NO
+						,T2.TEKIYOU
+						,NULL SOSINZUMI_FLG
+					FROM 
+						MDAT0070 T2
+					WHERE 
+						T2.TENPO_CD = </parts><bind id="TENPO_CD_MDAT0070" /><parts>
+						AND SUBSTR(T2.KEIJO_YMD, 1, 6) &gt;= SUBSTR(TO_CHAR(TO_DATE(</parts><bind id="KEIJO_YMD_MDAT0070" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_MDAT0070" /><parts>, 'YYYYMMDD'), 1, 6)
+					)  LK100
+					LEFT OUTER JOIN
+						MDMT0040 M1
+						ON LK100.KAMOKU_CD = M1.KAMOKU_CD
+					LEFT OUTER JOIN
+						BOMT0010 M2
+						ON LK100.HURIKAETENPO_CD = M2.TENPO_CD
+					LEFT OUTER JOIN
+					(
+						SELECT 
+							T3.TENPO_CD
+							,SUM(T3.NYUKIN - T3.SYUKKIN) AS KGS1_ZANDAKA
+						FROM 
+							MDAT0070 T3
+						WHERE 
+							T3.KEIJO_YMD &lt; </parts><bind id="KEIJO_YMD_KGS1_1" /><parts>
+							AND	T3.KEIJO_YMD &gt;= SUBSTR(TO_CHAR(TO_DATE(</parts><bind id="KEIJO_YMD_KGS1_2" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_KGS1" /><parts>, 'YYYYMMDD'), 1, 6) || '01'
+							AND	T3.TENPO_CD = </parts><bind id="TENPO_CD_KGS1" /><parts>
+						GROUP BY 
+							T3.TENPO_CD
+					)KGS1
+					ON LK100.TENPO_CD = KGS1.TENPO_CD
+					LEFT OUTER JOIN
+					(
+						SELECT 
+							T5.TENPO_CD
+							,MAX(T5.ZENGETSUKURIKOSI_KIN) AS ZENGETSUKURIKOSI_KIN
+						FROM 
+							MDAT0060 T5
+						WHERE	
+							T5.NENGETSU &gt;= TO_CHAR(ADD_MONTHS(TO_DATE(</parts><bind id="KEIJO_YMD_KGGK1" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_KGGK1" /><parts>, -1), 'YYYYMM')
+							AND	T5.TENPO_CD = </parts><bind id="TENPO_CD_KGGK1" /><parts>
+						GROUP BY 
+							T5.TENPO_CD
+					)KGGK1
+					ON LK100.TENPO_CD = KGGK1.TENPO_CD
+					WHERE 
+						LK100.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+						AND LK100.KEIJO_YMD &gt;= TO_NUMBER(SUBSTR(TO_CHAR(TO_DATE(</parts><bind id="KEIJO_YMD" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST" /><parts>, 'YYYYMMDD'), 1, 6) || '01'
+				)
+				ORDER BY
+					LK100.KEIJO_YMD
+					,LK100.SYORI_TM
+					,LK100.KAMOKU_CD
+					,LK100.KANRI_NO
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TF040P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT 
+						 NVL(T1.ZENGETSUKURIKOSI_KIN, 0) AS ZENJITU_ZANDAKA
+						,NVL(T1.ZENGETSUKURIKOSI_KIN, 0) AS ZENGETU_ZANDAKA
+					FROM
+						MDAT0060 T1
+					WHERE
+						T1.TENPO_CD = </parts><bind id="TENPO_CD_MDAT0060" /><parts>
+						AND T1.NENGETSU = TO_CHAR(ADD_MONTHS(TO_DATE(</parts><bind id="KEIJO_YMD_MDAT0060" /><parts> ,'YYYYMMDD') - </parts><bind id="DATE_ADJUST_MDAT0060" /><parts>, -1), 'YYYYMM')
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TF040P01-04">
+			<statement type="final" name="final">
+				<parts>
+				SELECT
+	 				NVL(NVL(KGGK1.ZENGETSUKURIKOSI_KIN , 0) + NVL(KGSZ1_ZANDAKA, 0) + NVL(KGS1_ZANDAKA, 0), 0) AS ZENJITU_ZANDAKA
+					,NVL(KGGK1.ZENGETSUKURIKOSI_KIN, 0) + NVL(KGSZ1_ZANDAKA, 0) AS ZENGETU_ZANDAKA
+					,LK100.KANRI_NO
+					,LK100.MOTOKANRI_NO
+					,LK100.KEIJO_YMD
+					,LK100.KAMOKU_CD
+					,M1.KAMOKU_NM
+					,LK100.NYUSYUKKIN_KB
+					,LK100.NYUKIN
+					,LK100.SYUKKIN
+					,LK100.TEKIYOU
+					,LK100.HURIKAETENPO_CD
+					,M2.TENPO_NM
+					,LK100.SOSINZUMI_FLG
+				FROM
+				(
+					SELECT 
+							T1.TENPO_CD
+							,T1.KEIJO_YMD
+							,T1.KAMOKU_CD
+							,T1.NYUSYUKKIN_KB
+							,T1.NYUKIN
+							,T1.SYUKKIN
+							,T1.HURIKAETENPO_CD
+							,T1.SYORI_TM
+							,T1.KANRI_NO
+							,T1.MOTOKANRI_NO
+							,T1.TEKIYOU
+							,T1.SOSINZUMI_FLG
+						FROM 
+							MDAT0080 T1
+						WHERE 
+							T1.TENPO_CD = </parts><bind id="TENPO_CD_MDAT0080" /><parts>
+						UNION ALL
+						SELECT 
+							T2.TENPO_CD
+							,T2.KEIJO_YMD
+							,T2.KAMOKU_CD
+							,T2.NYUSYUKKIN_KB
+							,T2.NYUKIN
+							,T2.SYUKKIN
+							,T2.HURIKAETENPO_CD
+							,T2.SYORI_TM
+							,T2.KANRI_NO
+							,T2.MOTOKANRI_NO
+							,T2.TEKIYOU
+							,NULL SOSINZUMI_FLG
+						FROM 
+							MDAT0070 T2
+						WHERE 
+							T2.TENPO_CD = </parts><bind id="TENPO_CD_MDAT0070" /><parts>
+							AND SUBSTR(T2.KEIJO_YMD, 1, 6) &gt;= SUBSTR(TO_CHAR(TO_DATE(</parts><bind id="KEIJO_YMD_MDAT0070" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_MDAT0070" /><parts>, 'YYYYMMDD'), 1, 6)
+					)  LK100
+					LEFT OUTER JOIN
+						MDMT0040 M1
+						ON LK100.KAMOKU_CD = M1.KAMOKU_CD
+					LEFT OUTER JOIN
+						BOMT0010 M2
+						ON LK100.HURIKAETENPO_CD = M2.TENPO_CD
+					LEFT OUTER JOIN
+						(
+							SELECT 
+								T3.TENPO_CD
+								,SUM(T3.NYUKIN - T3.SYUKKIN) AS KGS1_ZANDAKA
+							FROM 
+								MDAT0070 T3
+							WHERE 
+								T3.KEIJO_YMD &lt; </parts><bind id="KEIJO_YMD_KGS1_1" /><parts>
+								AND	T3.KEIJO_YMD &gt;= SUBSTR(TO_CHAR(TO_DATE(</parts><bind id="KEIJO_YMD_KGS1_2" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_KGS1" /><parts>, 'YYYYMMDD'), 1, 6) || '01'
+								AND	T3.TENPO_CD = </parts><bind id="TENPO_CD_KGS1" /><parts>
+							GROUP BY 
+								T3.TENPO_CD
+						)KGS1
+						ON LK100.TENPO_CD = KGS1.TENPO_CD
+					LEFT OUTER JOIN
+					(
+						SELECT 
+							T4.TENPO_CD
+							,SUM(T4.NYUKIN - T4.SYUKKIN) AS KGSZ1_ZANDAKA
+
+						FROM 
+							MDAT0070 T4
+						WHERE	
+							SUBSTR(T4.KEIJO_YMD, 1, 6) = TO_CHAR(ADD_MONTHS(TO_DATE(</parts><bind id="KEIJO_YMD_KGSZ1" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_KGSZ1" /><parts>, -1), 'YYYYMM')
+							AND	T4.TENPO_CD = </parts><bind id="TENPO_CD_KGSZ1" /><parts>
+						GROUP BY 
+							T4.TENPO_CD
+						)KGSZ1
+					ON LK100.TENPO_CD = KGSZ1.TENPO_CD
+					LEFT OUTER JOIN
+					(
+						SELECT 
+							T5.TENPO_CD
+							,MAX(T5.ZENGETSUKURIKOSI_KIN) AS ZENGETSUKURIKOSI_KIN
+						FROM 
+							MDAT0060 T5
+						WHERE	
+							T5.NENGETSU &gt;= TO_CHAR(ADD_MONTHS(TO_DATE(</parts><bind id="KEIJO_YMD_KGGK1" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_KGGK1" /><parts>, -2), 'YYYYMM')
+							AND	T5.TENPO_CD = </parts><bind id="TENPO_CD_KGGK1" /><parts>
+						GROUP BY 
+							T5.TENPO_CD
+						)KGGK1
+					ON LK100.TENPO_CD = KGGK1.TENPO_CD
+				WHERE 
+					LK100.KEIJO_YMD &gt;= TO_NUMBER(SUBSTR(TO_CHAR(TO_DATE(</parts><bind id="KEIJO_YMD" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST" /><parts>, 'YYYYMMDD'), 1, 6) || '01')
+				ORDER BY
+					LK100.KEIJO_YMD
+					,LK100.SYORI_TM
+					,LK100.KAMOKU_CD
+					,LK100.KANRI_NO
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TF040P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT 
+						 NVL(SUM(ZGD1.ZENGETSUKURIKOSI_KIN), 0) + NVL(SUM(ZGD1.NYUKIN - ZGD1.SYUKKIN), 0) AS ZENJITU_ZANDAKA
+						,NVL(SUM(ZGD1.ZENGETSUKURIKOSI_KIN), 0) + NVL(SUM(ZGD1.NYUKIN - ZGD1.SYUKKIN), 0) AS ZENGETU_ZANDAKA
+					FROM 
+					(
+						SELECT	
+							T1.TENPO_CD
+							,NULL ZENGETSUKURIKOSI_KIN
+							,SUM(T1.NYUKIN) 	AS NYUKIN
+							,SUM(T1.SYUKKIN)	AS SYUKKIN
+						FROM	
+							MDAT0070 T1
+						WHERE	
+							T1.TENPO_CD = </parts><bind id="TENPO_CD_MDAT0070" /><parts>
+							AND	T1.KEIJO_YMD &gt;= TO_NUMBER(TO_CHAR(ADD_MONTHS(TO_DATE(</parts><bind id="KEIJO_YMD_MDAT0070_1" /><parts>, 'YYYYMMDD'), -1) - </parts><bind id="DATE_ADJUST_MDAT0070_1" /><parts>, 'YYYYMM') || '01')
+							AND	T1.KEIJO_YMD &lt; TO_NUMBER(SUBSTR(TO_CHAR(TO_DATE(</parts><bind id="KEIJO_YMD_MDAT0070_2" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_MDAT0070_2" /><parts>, 'YYYYMMDD'), 1, 6) || '01')
+						GROUP BY T1.TENPO_CD
+						UNION ALL
+						SELECT	
+							T2.TENPO_CD
+							,T2.ZENGETSUKURIKOSI_KIN
+							,NULL NYUKIN
+							,NULL SYUKKIN
+						FROM	
+							MDAT0060 T2
+						WHERE	
+							T2.TENPO_CD = </parts><bind id="TENPO_CD_MDAT0060" /><parts>
+							AND	T2.NENGETSU &gt;= TO_CHAR(ADD_MONTHS(TO_DATE(</parts><bind id="KEIJO_YMD_MDAT0060" /><parts>, 'YYYYMMDD') - </parts><bind id="DATE_ADJUST_MDAT0060" /><parts>, -2), 'YYYYMM')
+						) ZGD1
+				</parts>
+			</statement>
+		</sql>
+		/** 当日小口現金TBL登録 **/
+		<sql id="TF040P01-06">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDAT0080 (
+						  TENPO_CD		/* 店舗コード */
+						, KEIJO_YMD		/* 計上日付 */
+						, SYORI_YMD		/* 処理日付 */
+						, SYORI_TM		/* 処理時間 */
+						, KANRI_NO		/* 管理№ */
+						, KAMOKU_CD		/* 科目コード */
+						, TEKIYOU		/* 摘要 */
+						, NYUSYUKKIN_KB		/* 入出金区分 */
+						, NYUKIN		/* 入金 */
+						, SYUKKIN		/* 出金 */
+						, HURIKAETENPO_CD	/* 振替店舗コード */
+						, MOTOKANRI_NO		/* 元管理No */
+						, ADD_YMD		/* 登録日 */
+						, ADD_TM		/* 登録時間 */
+						, ADDTAN_CD		/* 登録担当者コード */
+						, UPD_YMD		/* 更新日 */
+						, UPD_TM		/* 更新時間 */
+						, UPD_TANCD		/* 更新担当者コード */
+						, SAKUJYO_YMD		/* 削除日 */
+						, SAKUJYO_FLG		/* 削除フラグ */
+						, SOSINIRAI_FLG		/* 送信依頼フラグ */
+						, SOSINZUMI_FLG		/* 送信済フラグ */
+						, SOSIN_YMD		/* 送信日 */
+						, SOSIN_TM		/* 送信時間 */
+					) VALUES (
+						  </parts><bind id="BIND_TENPO_CD" /><parts>
+						, </parts><bind id="BIND_KEIJO_YMD" /><parts>
+						, </parts><bind id="BIND_SYORI_YMD" /><parts>
+						, FLOOR(</parts><bind id="BIND_SYORI_TM" /><parts>/ 1000)
+						, </parts><bind id="BIND_KANRI_NO" /><parts>
+						, </parts><bind id="BIND_KAMOKU_CD" /><parts>
+						, </parts><bind id="BIND_TEKIYOU" /><parts>
+						, </parts><bind id="BIND_NYUSYUKKIN_KB" /><parts>
+						, </parts><bind id="BIND_NYUKIN" /><parts>
+						, </parts><bind id="BIND_SYUKKIN" /><parts>
+						, </parts><bind id="BIND_HURIKAETENPO_CD" /><parts>
+						, </parts><bind id="BIND_MOTOKANRI_NO" /><parts>
+						, </parts><bind id="BIND_ADD_YMD" /><parts>
+						, </parts><bind id="BIND_ADD_TM" /><parts>
+						, </parts><bind id="BIND_ADDTAN_CD" /><parts>
+						, </parts><bind id="BIND_UPD_YMD" /><parts>
+						, </parts><bind id="BIND_UPD_TM" /><parts>
+						, </parts><bind id="BIND_UPD_TANCD" /><parts>
+						, </parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+						, </parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+						, </parts><bind id="BIND_SOSINIRAI_FLG" /><parts>
+						, </parts><bind id="BIND_SOSINZUMI_FLG" /><parts>
+						, </parts><bind id="BIND_SOSIN_YMD" /><parts>
+						, </parts><bind id="BIND_SOSIN_TM" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

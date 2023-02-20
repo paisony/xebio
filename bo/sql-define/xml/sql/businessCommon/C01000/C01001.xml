@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="C01001-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					 TO_CHAR(SYSTIMESTAMP, 'YYYYMMDD') SYS_DATE
+					,TO_CHAR(SYSTIMESTAMP, 'HH24MISS') SYS_TIME
+					,TO_CHAR(SYSTIMESTAMP, 'HH24MISSFF3') SYS_TIME_MILI
+					FROM DUAL
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

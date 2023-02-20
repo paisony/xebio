@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<attribute-checks>
+	<attribute id="B">
+		<attribute-name value="画面構成項目（ボタン等）"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="0"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="D">
+		<attribute-name value="日付"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="0"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="DX">
+		<attribute-name value="セパレート日付"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="0"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="NA">
+		<attribute-name value="数字のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[0-9]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="NB">
+		<attribute-name value="数字と小数点"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[0-9]*[\.]?[0-9]+$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="NC">
+		<attribute-name value="数字とマイナス記号と小数点"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[\+|\-]?[0-9]*[\.]?[0-9]+$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SA">
+		<attribute-name value="英字のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[A-Za-z]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SA1">
+		<attribute-name value="英字（大文字）のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="2"/>
+		<define-string value="^[A-Za-z]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SA2">
+		<attribute-name value="英字（小文字）のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="3"/>
+		<define-string value="^[A-Za-z]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SB">
+		<attribute-name value="英数字のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[A-Za-z0-9]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SB1">
+		<attribute-name value="英数字（大文字）のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="2"/>
+		<define-string value="^[A-Za-z0-9]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SB2">
+		<attribute-name value="英数字（小文字）のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="3"/>
+		<define-string value="^[A-Za-z0-9]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SC">
+		<attribute-name value="英数字記号（&quot;,%()*?_|￥&apos;タブ以外）のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="3"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[A-Za-z0-9 !-/:-@\[-`\{-~]*$"/>
+		<check-string value="&quot;,%()*?_	|\\&apos;"/>
+		<check-include value="2"/>
+	</attribute>
+	<attribute id="SD">
+		<attribute-name value="英数字記号（&quot;,%()*?_|￥&apos;タブ以外）のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="3"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[A-Za-z0-9 !-/:-@\[-`\{-~]*$"/>
+		<check-string value="&quot;,%()*?_	|\\&apos;"/>
+		<check-include value="2"/>
+	</attribute>
+	<attribute id="SG">
+		<attribute-name value="0～9のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[0-9]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SN1">
+		<attribute-name value="ひらがなのみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="　ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんー"/>
+		<check-include value="1"/>
+	</attribute>
+	<attribute id="SN2">
+		<attribute-name value="カタカナのみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="　ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶー"/>
+		<check-include value="1"/>
+	</attribute>
+	<attribute id="SN3">
+		<attribute-name value="全角のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value=" !&quot;#$%&amp;&apos;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ"/>
+		<check-include value="2"/>
+	</attribute>
+	<attribute id="SN4">
+		<attribute-name value="&quot;,%()*?_|￥&apos;タブ以外"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="&quot;,%()*?_|\&apos;	"/>
+		<check-include value="2"/>
+	</attribute>
+	<attribute id="SN5">
+		<attribute-name value="&quot;,%()*?_|￥&apos;タブ以外"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="&quot;,%()*?_|\&apos;	"/>
+		<check-include value="2"/>
+	</attribute>
+	<attribute id="SP1">
+		<attribute-name value="E-mailアドレス"/>
+		<foreign-name value=""/>
+		<note value="xxx@xxx.xx"/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SP2">
+		<attribute-name value="郵便番号"/>
+		<foreign-name value=""/>
+		<note value="999-9999"/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[0-9]{3}-[0-9]{4}$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SN21">
+		<attribute-name value="全半角混合（&quot;,%()*?_|\&apos;タブ以外）"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="2"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="&quot;,%()*?_|\&apos;	"/>
+		<check-include value="2"/>
+	</attribute>
+	<attribute id="SN22">
+		<attribute-name value="全半角混合（&quot;%?|タブ以外）"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="2"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="&quot;%?|	"/>
+		<check-include value="2"/>
+	</attribute>
+	<attribute id="SN6">
+		<attribute-name value="全角のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value=" |\!&quot;#$%&amp;&apos;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ^_\`abcdefghijklmnopqrstuvwxyz	{|}~｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ[]"/>
+		<check-include value="2"/>
+	</attribute>
+	<attribute id="SN7">
+		<attribute-name value="半角英数字カタカナのみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzｦｧｨｩｪｫｬｭｮｯｰ ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ"/>
+		<check-include value="1"/>
+	</attribute>
+	<attribute id="SN8">
+		<attribute-name value="半角カタカナのみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ"/>
+		<check-include value="1"/>
+	</attribute>
+	<attribute id="SUTEL">
+		<attribute-name value="0～9と-のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[0-9\-]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SN9">
+		<attribute-name value="半角（&apos;&quot;,%()*?_|￥タブ以外）"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="!#$&amp;+-./0123456789:;&lt;=&gt;@ABCDEFGHIJKLMNOPQRSTUVWXYZ^`abcdefghijklmnopqrstuvwxyz{}~｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰ ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ””[]"/>
+		<check-include value="1"/>
+	</attribute>
+	<attribute id="ND">
+		<attribute-name value="数字のみ"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[0-9]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SH">
+		<attribute-name value="ALL９NG文字列"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="1"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value="^[0-9]*$"/>
+		<check-string value=""/>
+		<check-include value="0"/>
+	</attribute>
+	<attribute id="SN10">
+		<attribute-name value="ファイル名"/>
+		<foreign-name value=""/>
+		<note value=""/>
+		<check-type value="2"/>
+		<length-type value="1"/>
+		<alphabet-type value="1"/>
+		<define-string value=""/>
+		<check-string value="\/:*?&quot;&lt;&gt;|&apos;,"/>
+		<check-include value="2"/>
+	</attribute>
+</attribute-checks>

@@ -1,0 +1,81 @@
+﻿/*日次カレンダー*/
+.CAL_TBL_MAIN
+{
+	border-collapse: collapse;
+	border: solid 1px gray;
+	/*width: 10px;*/
+	background: #ffffcc;
+	border: medium solid #ffffff;
+	width:250px;
+	height:255px;
+}
+
+.CAL_TBL_MAIN TD
+{
+	font-size: 28px;
+	text-align: center;
+}
+
+.CAL_TD_TITLE
+{
+	background: #4a66f1;
+}
+
+.CAL_PREV
+{
+	cursor: hand;
+	font-weight: bold;
+	color: #cccccc;
+}
+
+.CAL_YMTITLE
+{
+	cursor: default;
+	/*width: 150px;*/
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.CAL_NEXT
+{
+	cursor: hand;
+	font-weight: bold;
+	color: #cccccc;
+}
+
+.CAL_TBL_MAIN SPAN
+{
+	cursor: hand;
+	font-size: 28px;
+	text-decoration: none;
+}
+
+.CAL_TD_DAY
+{
+	text-align: right;
+	width: 20;
+	color: black;
+}
+
+.CAL_TD_SUN
+{
+	text-align: right;
+	width: 20;
+	color: red;
+}
+
+.CAL_TD_SAT
+{
+	text-align: right;
+	width: 20;
+	color: blue;
+}
+
+.CAL_TD_TODAY
+{
+	text-align: right;
+	width: 20;
+	color: navy;
+	text-decoration: underline;
+	font-weight: bold;
+}

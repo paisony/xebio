@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SYONIN_JOTAI" name="承認状態">
+		<listItems>
+			<item id="10" value="1" label="承認" itemId="Syonin_jotai1" />
+			<item id="20" value="2" label="却下" itemId="Syonin_jotai2" />
+			<item id="30" value="3" label="未決裁" itemId="Syonin_jotai3" />
+		</listItems>
+	</condition>
+</condition-define>
+

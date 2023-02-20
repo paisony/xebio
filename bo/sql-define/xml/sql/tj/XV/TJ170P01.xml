@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 棚卸ロスリスト出力-一覧 検索 件数チェック **/
+		<sql id="TJ170P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT COUNT(COUNT(1)) CNT
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME"/>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE0"/>
+			<!-- 集計条件-->
+			<statement type="replace" name="REP_ADD_GROUP_BY"/>
+			<!-- ソート条件-->
+			<statement type="replace" name="REP_ADD_ORDER_BY"/>
+			
+		</sql>
+		/** 棚卸ロスリスト出力-一覧 検索 **/
+		<sql id="TJ170P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT /*TJ170P01-02 一覧検索*/ 
+					A.TENPO_CD AS TENPO_CD
+					,(SELECT BOMT0010.TENPO_NM FROM BOMT0010 WHERE A.TENPO_CD = BOMT0010.TENPO_CD) TENPO_NM
+					,NULL AS JAN_CD
+					,A.SYOHINGUN1_CD AS SYOHINGUN1_CD
+					,(SELECT MDMT0150.SYOHINGUN1_RYAKU_NM FROM MDMT0150 WHERE A.SYOHINGUN1_CD = MDMT0150.SYOHINGUN1_CD) SYOHINGUN1_RYAKU_NM
+					,SUM(A.TANAJITYOBO_SU) AS TANAJITYOBO_SU
+					,SUM(A.JITANA_SU) AS JITANA_SU
+					,SUM(A.LOSS_SU) AS LOSS_SU
+					,SUM(A.LOSS_KIN) AS LOSS_KIN
+					,SUM(A.TANAJISEKISO_SU) AS TANAJISEKISO_SU
+					,SUM(A.IKOUKEBARAI_SU) AS IKOUKEBARAI_SU
+					,SUM(A.RIRONZAIKO_SU) AS RIRONZAIKO_SU
+					,SUM(A.RIRONTANAOROSI_SU) AS RIRONTANAOROSI_SU
+				</parts>
+			</statement>
+			<!-- 出力項目項目 -->
+			<statement type="replace" name="REP_ADD_SELECT"/>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME"/>
+			<statement type="final" name="final">
+				<parts>
+					LEFT JOIN BOMT0010
+					ON   BOMT0010.TENPO_CD = A.TENPO_CD
+					LEFT JOIN MDMT0150
+					ON MDMT0150.SYOHINGUN1_CD = A.SYOHINGUN1_CD
+					
+					LEFT JOIN BOMT0060
+					ON BOMT0060.BUMON_CD = A.BUMON_CD
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE1"/>
+			<!-- 集計条件-->
+			<statement type="replace" name="REP_ADD_GROUP_BY"/>
+			<!-- ソート条件-->
+			<statement type="replace" name="REP_ADD_ORDER_BY"/>
+		</sql>
+		/** 棚卸ロスリスト出力-明細 検索 **/
+		<sql id="TJ170P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT /*TJ170P01-03 明細検索*/ 
+					A.TENPO_CD								 /*0:店舗コード*/
+					,BOMT0010.TENPO_NM								 /*1:店舗名*/
+					,A.JAN_CD								 /*2:ＪＡＮコード*/
+					,A.SYOHINGUN1_CD							 /*3:商品群1コード*/
+					,MDMT0150.SYOHINGUN1_RYAKU_NM					 /*4:商品群1名*/
+					,A.SYOHINGUN2_CD							 /*5:商品群2コード*/
+					,STMT0060.GRPNM									 /*6:商品群2コード*/
+					,A.BUMON_CD								 /*7:部門コード*/
+					,BOMT0060.BUMONKANA_NM							 /*8:部門名*/
+					,A.HINSYU_CD								 /*9:品種コード*/
+					,MDMT0070.HINSYU_RYAKU_NM						 /*10:品種名*/
+					,A.BURANDO_CD							 /*11:ブランドコード*/
+					,STMT0500.BURANDO_NMK							 /*12:ブランド名*/
+					,A.JISYA_HBN								 /*13:自社品番*/
+					,A.MAKER_HBN								 /*14:メーカー品番*/
+					,A.SYONMK								 /*15:商品名(カナ)*/
+					,MDMT0080.IRO_NM								 /*16:色名*/
+					,A.SIZE_NM								 /*17:ｻｲｽﾞ名*/
+					,A.SYOHIN_CD								 /*18:商品コード*/
+					,NVL(A.SLPR,0) GENBAIKA							 /*19:上代１(現売価)*/
+					,NVL(A.JODAI2_TNK,0)						 /*20:上代２(ﾒｰｶｰ価格)*/
+					,NVL(A.HYOKA_TNK,0)	HYOKA_TNK					 /*21:評価単価*/
+					,NVL(A.TANAJITYOBO_SU,0) TANAJITYOBO_SU					 /*22:棚時帳簿数*/
+					,NVL(A.JITANA_SU,0)	JITANA_SU					 /*23:実棚数*/
+					,NVL(A.LOSS_SU,0) LOSS_SU						 /*24:ロス数*/
+					,NVL(A.LOSS_KIN,0) LOSS_KIN					 /*25:ロス金額*/
+					,A.FACE_NO								 /*26:フェイス№*/
+					,A.TANA_DAN								 /*27:棚段*/
+					,( SELECT SUM(NVL(A.TANAJITYOBO_SU,0)) 	FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME1"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE1"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_TANAJITYOBO_SU  									/*28:(合計)棚時帳簿数*/
+					,( SELECT SUM(NVL(A.JITANA_SU,0)) 		FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME2"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE2"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_JITANA_SU  									/*29:(合計)実棚数*/
+					,( SELECT SUM(NVL(A.LOSS_SU,0)) 			FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME3"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE3"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_LOSS_SU  									/*30:(合計)ロス数*/
+					,( SELECT SUM(NVL(A.LOSS_KIN,0)) 		FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME4"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE4"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_LOSS_KIN  									/*31:(合計)ロス金額*/
+					,( SELECT SUM(NVL(A.TANAJISEKISO_SU,0))	FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME5"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE5"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_TANAJISEKISO_SU  									/*32:(合計)棚時積送数*/
+					,NVL(A.TANAJISEKISO_SU,0) TANAJISEKISO_SU    			/*33:棚時積送数*/
+					,( SELECT SUM(NVL(A.IKOUKEBARAI_SU,0))	FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME6"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE6"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_IKOUKEBARAI_SU										/*34:(合計)以降受払数*/
+					,NVL(A.IKOUKEBARAI_SU,0) IKOUKEBARAI_SU				/*35:以降受払数*/
+					,( SELECT SUM(NVL(A.RIRONZAIKO_SU,0))	FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME7"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE7"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_RIRONZAIKO_SU										/*36:(合計)理論在庫数*/
+					,NVL(A.RIRONZAIKO_SU,0) RIRONZAIKO_SU					/*37:理論在庫数*/
+					,( SELECT SUM(NVL(A.RIRONTANAOROSI_SU,0))	FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME8"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE8"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_RIRONTANAOROSI_SU										/*38:(合計)理論棚卸数*/
+					,NVL(A.RIRONTANAOROSI_SU,0) RIRONTANAOROSI_SU				/*39:理論棚卸数*/
+					FROM
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ID_TABLE_NAME9"/>
+			<statement type="final" name="final">
+				<parts>
+					A 
+				</parts>
+			</statement>
+			<statement type="replace" name="REP_ADD_HATYUMST"/>
+			<statement type="final" name="final">
+				<parts>
+					LEFT JOIN		 MDMT0080							/*色マスタ*/
+					ON	A.IRO_CD = MDMT0080.IRO_CD
+					LEFT JOIN		 BOMT0010							/*店舗マスタ*/
+					ON	A.TENPO_CD = BOMT0010.TENPO_CD
+					LEFT JOIN		 STMT0500							/*ブランドマスタ*/
+					ON	A.BURANDO_CD = STMT0500.BURANDO_CD
+					LEFT JOIN		 BOMT0060							/*部門マスタ*/
+					ON	A.BUMON_CD = BOMT0060.BUMON_CD
+					LEFT JOIN		 MDMT0150							/*商品群1マスタ*/
+					ON	A.SYOHINGUN1_CD = MDMT0150.SYOHINGUN1_CD
+					LEFT JOIN		 STMT0060							/*商品群２マスタ（グループマスタ）*/
+					ON	A.SYOHINGUN2_CD = STMT0060.GRPCD
+					AND	STMT0060.SOSIKI = '0001'
+					AND	STMT0060.TENCD = '0000'
+					LEFT JOIN		 MDMT0070							/*品種マスタ*/
+					ON	A.BUMON_CD = MDMT0070.BUMON_CD
+					AND	A.HINSYU_CD = MDMT0070.HINSYU_CD
+					WHERE	0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE9"/>
+			<!-- ソート条件-->
+			<statement type="replace" name="REP_ADD_ORDER_BY"/>
+		</sql>		
+		/** 棚卸ロスリスト出力-CSV出力**/
+		<sql id="TJ170P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					A.TENPO_CD										/*0:店舗コード*/
+					,BOMT0010.TENPO_NM										/*1:店舗名*/
+					,A.SYOHINGUN1_CD									/*2:商品群1コード*/
+					,MDMT0150.SYOHINGUN1_RYAKU_NM							/*3:商品群1名*/
+					,A.SYOHINGUN2_CD									/*4:商品群2コード*/
+					,STMT0060.GRPNM   										/*5:商品群2コード*/
+					,A.BUMON_CD     									/*6:部門コード*/
+					,BOMT0060.BUMON_NM										/*7:部門名*/
+					,A.HINSYU_CD										/*12:品種コード*/
+					,MDMT0070.HINSYU_RYAKU_NM     							/*13:品種名*/
+					,A.BURANDO_CD   									/*14:ブランドコード*/
+					,STMT0500.BURANDO_NMK 									/*15:ブランド名*/
+					,A.MAKER_HBN										/*16:メーカー品番*/
+					,A.SYONMK										/*17:商品名(カナ)*/
+					,A.JISYA_HBN										/*18:自社品番*/
+					,MDMT0080.IRO_NM										/*19:色名*/
+					,A.SIZE_NM        								/*20:ｻｲｽﾞ名*/
+					,A.OLD_JISYA_HBN									/*21:旧自社品番*/
+					,A.JAN_CD										/*22:ＪＡＮコード*/
+					,NVL(A.SLPR,0) SLPR								/*23:上代１(現売価)*/
+					,NVL(A.JODAI2_TNK,0)	JODAI2_TNK					/*24:上代２(ﾒｰｶｰ価格)*/
+					,NVL(A.HYOKA_TNK,0) HYOKA_TNK     				/*25:評価単価*/
+					,NVL(A.TANAJITYOBO_SU,0) TANAJITYOBO_SU   		/*26:棚時帳簿数*/
+					,NVL(A.TANAJISEKISO_SU,0) TANAJISEKISO_SU		/*33:棚時積送数*/
+					,NVL(A.JITANA_SU,0) JITANA_SU      				/*27:実棚数*/
+					,NVL(A.IKOUKEBARAI_SU,0)	IKOUKEBARAI_SU			/*35:以降受払数*/
+					,NVL(A.RIRONZAIKO_SU,0) RIRONZAIKO_SU			/*37:理論在庫数*/
+					,NVL(A.RIRONTANAOROSI_SU,0) RIRONTANAOROSI_SU	/*39:理論棚卸数*/
+					,NVL(A.LOSS_SU,0) LOSS_SU						/*28:ロス数*/
+					,NVL(A.LOSS_KIN,0) LOSS_KIN						/*29:ロス金額*/
+					,A.FACE_NO										/*30:フェイス№*/
+					,A.TANA_DAN      								/*31:棚段*/
+					,( SELECT SUM(NVL(AA.TANAJITYOBO_SU,0))	FROM 	
+				</parts>
+			</statement>
+			<!-- テーブル  -->
+			<statement type="replace" name="REP_ID_TABLE_NAME1"/>
+			<!-- 結合条件 -->
+			<statement type="final" name="final">
+				<parts>
+					 AA WHERE 0=0 AND AA.TENPO_CD = A.TENPO_CD AND AA.SYOHINGUN1_CD = A.SYOHINGUN1_CD   AND AA.SYOHINGUN2_CD = A.SYOHINGUN2_CD  AND AA.BUMON_CD = A.BUMON_CD 
+				</parts>
+			</statement>
+			<!-- 集計用サブクエリ1 -->
+			<statement type="replace" name="REP_SUB1"/>
+			<!--  -->
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_TANAJITYOBO_SU /* 合計項目 (合計)棚時帳簿数 */
+					,( SELECT SUM(NVL(AA.JITANA_SU,0))	FROM
+				</parts>
+			</statement>
+			<!-- テーブル  -->
+			<statement type="replace" name="REP_ID_TABLE_NAME2"/>
+			<!-- 結合条件 -->
+			<statement type="final" name="final">
+				<parts>
+					AA WHERE 0=0 AND AA.TENPO_CD = A.TENPO_CD AND AA.SYOHINGUN1_CD = A.SYOHINGUN1_CD   AND AA.SYOHINGUN2_CD = A.SYOHINGUN2_CD  AND AA.BUMON_CD = A.BUMON_CD
+				</parts>
+			</statement>
+			<!-- 集計用サブクエリ2 -->
+			<statement type="replace" name="REP_SUB2"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_JITANA_SU /* 合計項目 (合計)実棚数 */
+					,( SELECT SUM(NVL(AA.LOSS_SU,0)) FROM
+				</parts>
+			</statement>
+			<!-- テーブル  -->
+			<statement type="replace" name="REP_ID_TABLE_NAME3"/>
+			<!-- 結合条件 -->
+			<statement type="final" name="final">
+				<parts>
+					AA WHERE 0=0 AND AA.TENPO_CD = A.TENPO_CD AND AA.SYOHINGUN1_CD = A.SYOHINGUN1_CD   AND AA.SYOHINGUN2_CD = A.SYOHINGUN2_CD  AND AA.BUMON_CD = A.BUMON_CD
+				</parts>
+			</statement>
+			<!-- 集計用サブクエリ3 -->
+			<statement type="replace" name="REP_SUB3"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_LOSS_SU /*合計項目 (合計)ロス数*/ 
+					,( SELECT SUM(NVL(AA.LOSS_KIN,0)) FROM
+				</parts>
+			</statement>
+			<!-- テーブル  -->
+			<statement type="replace" name="REP_ID_TABLE_NAME4"/>
+			<!-- 結合条件 -->
+			<statement type="final" name="final">
+				<parts>
+					AA WHERE 0=0 AND AA.TENPO_CD = A.TENPO_CD AND AA.SYOHINGUN1_CD = A.SYOHINGUN1_CD   AND AA.SYOHINGUN2_CD = A.SYOHINGUN2_CD  AND AA.BUMON_CD = A.BUMON_CD
+				</parts>
+			</statement>
+			<!-- 集計用サブクエリ4 -->
+			<statement type="replace" name="REP_SUB4"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_LOSS_KIN /*合計項目 (合計)ロス金額*/
+					,( SELECT SUM(NVL(AA.TANAJISEKISO_SU,0)) FROM
+				</parts>
+			</statement>
+			<!-- テーブル  -->
+			<statement type="replace" name="REP_ID_TABLE_NAME5"/>
+			<!-- 結合条件 -->
+			<statement type="final" name="final">
+				<parts>
+					AA WHERE 0=0 AND AA.TENPO_CD = A.TENPO_CD AND AA.SYOHINGUN1_CD = A.SYOHINGUN1_CD   AND AA.SYOHINGUN2_CD = A.SYOHINGUN2_CD  AND AA.BUMON_CD = A.BUMON_CD
+				</parts>
+			</statement>
+			<!-- 集計用サブクエリ5 -->
+			<statement type="replace" name="REP_SUB5"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_TANAJISEKISO_SU /*合計項目  (合計)棚時積送数*/
+					,( SELECT SUM(NVL(AA.IKOUKEBARAI_SU,0)) FROM
+				</parts>
+			</statement>
+			<!-- テーブル  -->
+			<statement type="replace" name="REP_ID_TABLE_NAME6"/>
+			<!-- 結合条件 -->
+			<statement type="final" name="final">
+				<parts>
+					AA WHERE 0=0 AND AA.TENPO_CD = A.TENPO_CD AND AA.SYOHINGUN1_CD = A.SYOHINGUN1_CD   AND AA.SYOHINGUN2_CD = A.SYOHINGUN2_CD  AND AA.BUMON_CD = A.BUMON_CD
+				</parts>
+			</statement>
+			<!-- 集計用サブクエリ6 -->
+			<statement type="replace" name="REP_SUB6"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_IKOUKEBARAI_SU /*合計項目 (合計)以降受払数*/
+					,( SELECT SUM(NVL(AA.RIRONZAIKO_SU,0))  FROM
+				</parts>
+			</statement>
+			<!-- テーブル  -->
+			<statement type="replace" name="REP_ID_TABLE_NAME7"/>
+			<!-- 結合条件 -->
+			<statement type="final" name="final">
+				<parts>
+					AA WHERE 0=0 AND AA.TENPO_CD = A.TENPO_CD AND AA.SYOHINGUN1_CD = A.SYOHINGUN1_CD   AND AA.SYOHINGUN2_CD = A.SYOHINGUN2_CD  AND AA.BUMON_CD = A.BUMON_CD
+				</parts>
+			</statement>
+			<!-- 集計用サブクエリ7 -->
+			<statement type="replace" name="REP_SUB7"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_RIRONZAIKO_SU /*合計項目  (合計)理論在庫数*/
+					,( SELECT SUM(NVL(AA.RIRONTANAOROSI_SU,0)) 	FROM
+				</parts>
+			</statement>
+			<!-- テーブル  -->
+			<statement type="replace" name="REP_ID_TABLE_NAME8"/>
+			<!-- 結合条件 -->
+			<statement type="final" name="final">
+				<parts>
+					AA WHERE 0=0 AND AA.TENPO_CD = A.TENPO_CD AND AA.SYOHINGUN1_CD = A.SYOHINGUN1_CD   AND AA.SYOHINGUN2_CD = A.SYOHINGUN2_CD  AND AA.BUMON_CD = A.BUMON_CD
+				</parts>
+			</statement>
+			<!-- 集計用サブクエリ8 -->
+			<statement type="replace" name="REP_SUB8"/>
+			<statement type="final" name="final">
+				<parts>
+					) GOKEI_RIRONTANAOROSI_SU /*合計項目  (合計)理論棚卸数*/
+					FROM
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ID_TABLE_NAME9"/>
+			<statement type="final" name="final">
+				<parts>
+					A 
+				</parts>
+			</statement>
+			<statement type="replace" name="REP_ADD_HATYUMST"/>
+			<statement type="final" name="final">
+				<parts>
+					LEFT JOIN		 MDMT0080							/*色マスタ*/
+					ON	A.IRO_CD = MDMT0080.IRO_CD
+					LEFT JOIN		 BOMT0010							/*店舗マスタ*/
+					ON	A.TENPO_CD = BOMT0010.TENPO_CD
+					LEFT JOIN		 STMT0500							/*ブランドマスタ*/
+					ON	A.BURANDO_CD = STMT0500.BURANDO_CD
+					LEFT JOIN		 BOMT0060							/*部門マスタ*/
+					ON	A.BUMON_CD = BOMT0060.BUMON_CD
+					LEFT JOIN		 MDMT0150							/*商品群1マスタ*/
+					ON	A.SYOHINGUN1_CD = MDMT0150.SYOHINGUN1_CD
+					LEFT JOIN		 STMT0060							/*商品群２マスタ（グループマスタ）*/
+					ON	A.SYOHINGUN2_CD = STMT0060.GRPCD
+					AND	STMT0060.SOSIKI = '0001'
+					AND	STMT0060.TENCD = '0000'
+					LEFT JOIN		 MDMT0070							/*品種マスタ*/
+					ON	A.BUMON_CD = MDMT0070.BUMON_CD
+					AND	A.HINSYU_CD = MDMT0070.HINSYU_CD
+					WHERE	0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE"/>
+			<!-- ソート条件-->
+			<statement type="replace" name="REP_ADD_ORDER_BY"/>
+		</sql>
+		/** 業者棚卸データ存在チェック **/
+		<sql id="TJ170P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					COUNT(1) CNT
+					FROM	MDIT0090
+					WHERE
+						TENPO_CD      = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND	TANAOROSI_YMD = </parts><bind id="BIND_TANAOROSI_YMD" />
+			</statement>
+		</sql>
+		
+	</sql-list>
+</sql-included>

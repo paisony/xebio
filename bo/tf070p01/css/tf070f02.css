@@ -1,0 +1,383 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tf070f02.css
+--------------------------------------------------------------------------------*/
+/*--------------------------------------------------------- 
+	base.cssを上書き
+--------------------------------------------------------- */
+/*--- 行タイトル ---*/
+.str-result-01 .str-result-hdg-01 > div {
+    line-height: 34px;
+    float: left;
+    text-align: center;
+    /*padding-right: 2px;*/
+    /*padding-left: 2px;*/
+	padding-right: 0px;
+	padding-left: 0px;
+    color: #ffffff;
+    border-left: 1px solid #ffffff;
+    background-color: #1ca7e0;
+}
+.str-result-01 .headcell {
+    display: block;
+    float: left;
+    text-align: center;
+    /*padding-right: 2px;*/
+    /*padding-left: 2px;*/
+	padding-right: 0px;
+	padding-left: 0px;
+}
+/*--- セル ---*/
+.detail_right {
+	text-align: right;
+	/*padding-right: 4px;*/
+	padding-right: 0px;
+}
+.detail_left {
+	text-align: left;
+	/*padding-left: 4px;*/
+	padding-left: 0px;
+}
+.detail_center {
+	text-align: center;
+    /*padding-right: 2px;*/
+    /*padding-left: 2px;*/
+	padding-right: 0px;
+	padding-left: 0px;
+}
+/*--- フッタセル（合計項目） ---*/
+.detail_ftr {
+	text-align: right;
+	/*padding-right: 4px;*/
+	padding-right: 0px;
+	background-color: #ecf9fe;
+	height: 34px;
+}
+/*--- フッタセル（合計標題） ---*/
+.detail_ftr_title {
+	font-weight: bold;
+	color: #ffffff;
+	text-align: right;
+	/*padding-right: 5px;*/
+	padding-right: 0px;
+	height: 34px;
+}
+
+/*--------------------------------------------------------- 
+	parts.cssを上書き
+--------------------------------------------------------- */
+/* ReadOnly 数字(カンマ付き) */
+.inpRONumCma8 {
+	width: 68px;
+}
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+/*--- 届出先警察署名 ---*/
+.inpKeisatsu {
+	width: 260px;
+}
+/*--- 発生場所 ---*/
+.inpHasseiBasho {
+	width: 118px;
+	margin-top: 4px;
+}
+/*--- 発見状況(リスト) ---*/
+.slt-hakkenJokyo {
+	width: 120px;
+	height: 27px;
+}
+/*--- 発見状況(テキスト) ---*/
+.inpHakkenJokyo {
+	width: 480px;
+	margin-top: 4px;
+}
+
+.str-search-02 .w-type-01 {
+  width: 100px;
+}
+.str-search-02 .w-type-02 {
+  width: 120px;
+}
+.str-search-02 .w-type-03 {
+  width: 180px;
+}
+.str-search-02 .w-type-04 {
+  width: 180px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- 明細ヘッダの左端 ---*/
+.str-result-01 .str-result-hdg-01 > div:first-child {
+	border-left: none;
+}
+
+/*--- 3段組みの3段ぶち抜き ---*/
+/*--- ヘッダ行 ---*/
+.str-result-01 .str-result-hdg-01 > div.col_3dan {
+	line-height: 104px;
+	min-height: 104px;
+}
+/*--- 明細行 ---*/
+.str-result-01 .str-result-item-01 > div.col_3dan {
+	line-height: 68px;
+	min-height: 68px;
+	padding-top: 36px;
+}
+
+/*--- 3段組みの2段ぶち抜き ---*/
+/*--- ヘッダ行 ---*/
+.str-result-01 .str-result-hdg-01 > div > .col_2dan {
+	line-height: 69px;
+	min-height: 69px;
+}
+/*--- 明細行 ---*/
+.str-result-01 .str-result-item-01 > div > .col_2dan {
+	line-height: 69px;
+	min-height: 69px;
+}
+
+/*--- ▼１列目▼ ---*/
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 35px;	/* border-leftの1px分、データ行より大きい */
+}
+/*--- No（データ行） ---*/
+.str-result-01 .str-result-item-01 .col1 {
+	width: 34px;
+}
+/*--- ▲１列目▲ ---*/
+
+/*--- ▼２列目▼ ---*/
+/*--- 外枠 ---*/
+.str-result-01 .col2 {
+	width: 184px;
+}
+/*--- 時間 ---*/
+.str-result-01 .col2-1 {
+	width: 42px;
+	display: block;
+	float: left;
+}
+/*--- 発生場所 ---*/
+.str-result-01 .col2-2 {
+	width: 141px;
+	display: block;
+	float: left;
+}
+/*--- 部門 ---*/
+.str-result-01 .col2-3 {
+	width: 184px;
+	display: block;
+	float: left;
+}
+/*--- 品種 ---*/
+.str-result-01 .col2-4 {
+	width: 184px;
+	display: block;
+	float: left;
+}
+/*--- ▲２列目▲ ---*/
+
+/*--- ▼３列目▼ ---*/
+.str-result-01 .col3 {
+	width: 236px;
+}
+/*--- 発見者 ---*/
+.str-result-01 .col3-1 {
+	width: 236px;
+}
+/*--- ブランド ---*/
+.str-result-01 .col3-2 {
+	width: 236px;
+}
+/*--- 自社品番 ---*/
+.str-result-01 .col3-3 {
+	width: 236px;
+	display: block;
+	float: left;
+}
+/*--- ▲３列目▲ ---*/
+
+/*--- ▼４列目▼ ---*/
+/* ヘッダ行 */
+.str-result-01 .col4 {
+	width: 765px;	/* border-rightの1px分、データ行より大きい */
+}
+/* データ行 */
+.str-result-01 .str-result-item-01 .col4 {
+	width: 764px;
+}
+/*--- 発見状況 ---*/
+.str-result-01 .col4-1 {
+	width: 765px;	/* border-rightの1px分、データ行より大きい */
+}
+/*--- 発見状況（データ行） ---*/
+.str-result-01 .str-result-item-01 .col4-1 {
+	width: 764px;
+}
+
+.str-result-01 .col4-99 {
+	width: 255px;
+	display: block;
+	float: left;
+}
+/*--- メーカー品番 ---*/
+.str-result-01 .col4-2 {
+	width: 255px;
+	height: 34px;
+}
+/*--- 商品名 ---*/
+.str-result-01 .col4-9 {
+	width: 255px;
+	height: 34px;
+}
+
+.str-result-01 .col4-98 {
+	width: 85px;
+	display: block;
+	float: left;
+}
+/*--- 色 ---*/
+.str-result-01 .col4-3 {
+	width: 85px;
+	height: 34px;
+}
+/*--- サイズ ---*/
+.str-result-01 .col4-10 {
+	width: 85px;
+	height: 34px;
+}
+
+.str-result-01 .col4-97 {
+	width: 134px;
+	height: 69px;
+	display: block;
+	float: left;
+}
+.str-result-01 .str-result-item-01 .col4-97 {
+	margin-left: 1px;
+}
+/*--- スキャンコード ---*/
+.str-result-01 .col4-4 {
+	width: 134px;
+}
+
+.str-result-01 .col4-96 {
+	width: 54px;
+	height: 69px;
+	display: block;
+	float: left;
+}
+/*--- 申請数 ---*/
+.str-result-01 .col4-5 {
+	width: 54px;
+}
+
+.str-result-01 .col4-95 {
+	width: 54px;
+	height: 69px;
+	display: block;
+	float: left;
+}
+/*--- 受理数 ---*/
+.str-result-01 .col4-6 {
+	width: 54px;
+}
+
+.str-result-01 .col4-94 {
+	width: 83px;
+	height: 69px;
+	display: block;
+	float: left;
+}
+/*--- 売価 ---*/
+.str-result-01 .col4-7 {
+	width: 83px;
+}
+
+.str-result-01 .col4-93 {
+	width: 88px;
+	display: block;
+	float: left;
+}
+/*--- 売価金額 ---*/
+.str-result-01 .col4-8 {
+	width: 93px;
+}
+/*--- ▲４列目▲ ---*/
+
+
+.str-result-01 .cell {
+  display: block;
+  float: left;
+}
+
+/*--- ヘッダ用罫線　下 ---*/
+.str-result-01 .cell_line_btm_h {
+	border-bottom: 1px solid #ffffff;
+}
+/*--- ヘッダ用罫線　左 ---*/
+.str-result-01 .cell_line_left_h {
+	border-left: 1px solid #ffffff;
+}
+/*--- 罫線　下 ---*/
+.str-result-01 .cell_line_btm {
+	border-bottom: 1px solid #cccccc;
+}
+/*--- 罫線　左 ---*/
+.str-result-01 .cell_line_left {
+	border-left: 1px solid #cccccc;
+}
+.str-result-01 .cell_line_right {
+	border-right: 1px solid #cccccc;
+}
+
+/*--- 明細項目 ---*/
+/*--- 左寄せ ---*/
+.detail_left_lv1 {
+	margin-left: 4px;
+}
+.detail_left_lv2 {
+	margin-left: 6px;
+}
+.detail_left_lv3 {
+	margin-left: 8px;
+}
+/*--- 右寄せ ---*/
+.detail_right_lv1 {
+	margin-right: 4px;
+}
+.detail_right_lv2 {
+	margin-right: 6px;
+}
+.detail_right_lv3 {
+	margin-right: 8px;
+}
+/*--- 中央寄せ（左） ---*/
+.detail_center_l_lv1 {
+	margin-left: 2px;
+}
+.detail_center_l_lv2 {
+	margin-left: 4px;
+}
+.detail_center_l_lv3 {
+	margin-left: 6px;
+}
+/*--- 中央寄せ（右） ---*/
+.detail_center_r_lv1 {
+	margin-right: 2px;
+}
+.detail_center_r_lv2 {
+	margin-right: 4px;
+}
+.detail_center_r_lv3 {
+	margin-right: 6px;
+}
+/*--- ２段の中央寄せ（縦） ---*/
+.col_2dan .detail_middle {
+	margin-top: 21px;
+}

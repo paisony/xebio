@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HYOKASON_KYAKKARIYU" name="評価損却下理由">
+		<listItems>
+			<item id="10" value="1" label="メーカー返品対応" itemId="Hyokason_kyakkariyu1" />
+			<item id="20" value="2" label="処分売価対応" itemId="Hyokason_kyakkariyu2" />
+			<item id="30" value="3" label="申請書類不備" itemId="Hyokason_kyakkariyu3" />
+			<item id="40" value="4" label="期間対象外" itemId="Hyokason_kyakkariyu4" />
+			<item id="50" value="9" label="その他" itemId="Hyokason_kyakkariyu5" />
+		</listItems>
+	</condition>
+</condition-define>
+

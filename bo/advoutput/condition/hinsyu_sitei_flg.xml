@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HINSYU_SITEI_FLG" name="品種指定フラグ">
+		<listItems>
+			<item id="10" value="0" label="全品種" itemId="Hinsyu_sitei_flg1" />
+			<item id="20" value="1" label="品種指定" itemId="Hinsyu_sitei_flg2" />
+		</listItems>
+	</condition>
+</condition-define>
+

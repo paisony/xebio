@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SHUTURYOKU_PRINT" name="出力帳票">
+		<listItems>
+			<item id="10" value="1" label="棚卸ロスリスト" itemId="Shuturyoku_print1" />
+			<item id="20" value="2" label="棚卸ロスリストサマリ" itemId="Shuturyoku_print2" />
+		</listItems>
+	</condition>
+</condition-define>
+

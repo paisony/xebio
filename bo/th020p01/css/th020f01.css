@@ -1,0 +1,64 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:th020f01.css
+--------------------------------------------------------------------------------*/
+
+.str-search-01 .w-type-01 {
+  width: 150px;
+}
+.str-search-01 .w-type-02 {
+  width: 620px;
+}
+
+/* ラジオボタン間隔 */
+.str-radio-table {
+  margin-left : -10px ;
+  margin-right : auto ;
+  border-spacing : 15px 0px;
+  border-collapse : separate;
+  font-weight : 100;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* 行 */
+.str-result-01 .col1 {
+  position: relative;
+  width: 30px;
+}
+/* 部門・品種 */
+.str-result-01 .col2 {
+  width: 172px;
+}
+/* ブランド */
+.str-result-01 .col3 {
+  width: 202px;
+}
+/* 自社品番 */
+.str-result-01 .col4 {
+  width: 68px;
+}
+/* コア */
+.str-result-01 .col5 {
+  width: 38px;
+}
+/* メーカー品番・商品名 */
+.str-result-01 .col6 {
+  width: 357px;
+}
+/* 色 */
+.str-result-01 .col7 {
+  width: 120px;
+}
+/* 自店在庫数 */
+.str-result-01 .col8 {
+  width: 70px;
+}
+/* 全店在庫数 */
+.str-result-01 .col9 {
+  width: 70px;
+}
+/* 全店消化率 */
+.str-result-01 .col10 {
+  width: 45px;
+}

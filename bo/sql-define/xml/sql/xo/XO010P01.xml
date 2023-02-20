@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="XO010P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					a.COPCD
+					,a.TTSCD
+					,a.PW
+					,a.TNPCD
+					,a.TEMCD
+					,a.TTSMEI
+					,a.TTSMEIKM
+					,a.MNUPTN
+					,a.MSTKNGGRP
+					,a.SKM
+					,a.RIYFLG1
+					,a.RIYFLG2
+					,a.RIYFLG3
+					,a.RIYFLG4
+					,a.SKJFLG
+					,a.KSNNCJ
+					FROM M_TANTO a
+				</parts>
+			</statement>
+			<statement type="replace" name="01" />
+			<statement type="replace" name="02" />
+			<statement type="replace" name="03" />
+			<statement type="replace" name="04" />
+			<statement type="replace" name="05" />
+			<statement type="replace" name="06" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY a.COPCD, a.TTSCD
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					a.COPCD
+					,a.TTSCD
+					,a.PW
+					,a.TNPCD
+					,t.TNPRKSMES
+					,a.TEMCD
+					,m.MESRKSMES AS TEMMES
+					,a.TTSMEI
+					,a.TTSMEIKM
+					,a.MNUPTN
+					,a.MSTKNGGRP
+					,a.SKM
+					,a.RIYFLG1
+					,a.RIYFLG2
+					,a.RIYFLG3
+					,a.RIYFLG4
+					,a.SKJFLG
+					,a.KSNNCJ
+					FROM M_TANTO a
+					LEFT OUTER JOIN M_TNP    t ON  t.COPCD = a.COPCD AND t.TNPCD = a.TNPCD AND t.SKJFLG = 0
+					LEFT OUTER JOIN M_MEISHO m ON  m.COPCD = a.COPCD AND m.MESKBN = '17'   AND m.MESCD = a.TEMCD AND m.SKJFLG = 0
+					WHERE a.COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND a.TTSCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TTSCD" />
+			</statement>
+		</sql>
+		<sql id="XO010P01-03">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/ 
+					SELECT
+					 a.ROLE_ID
+					,a.LOGIN_ID
+					FROM BS_ROLE_USER_MAP a
+					WHERE a.ROLE_ID = ( SELECT b.ROLE_ID FROM BS_FUNCTION_AUTHORIZATION b WHERE a.ROLE_ID  = b.ROLE_ID GROUP BY b.ROLE_ID )
+					ORDER BY a.LOGIN_ID
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT LOGIN_ID
+					 COMPANY_ID
+					,PASSWORD
+					,NAME
+					,NAME_KANA
+					,USER_TYPE
+					,MAPPING_ID
+					,MENU_PTN_CD
+					,CREATE_DATETIME
+					,CREATE_USER_ID
+					,UPDATE_DATETIME
+					,UPDATE_USER_ID
+					,ROW_UPDATE_ID
+					,DELETE_FLAG
+					,PASSWORD_UPDATE_DATETIME
+					,TEMP_PASSWORD_FLAG
+					,LOCK_FLAG
+					FROM BS_LOGIN_USER
+					WHERE LOGIN_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+		</sql>
+		<sql id="XO010P01-05">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO BS_LOGIN_USER (
+					 LOGIN_ID
+					,COMPANY_ID
+					,PASSWORD
+					,NAME
+					,NAME_KANA
+					,USER_TYPE
+					,MAPPING_ID
+					,MENU_PTN_CD
+					,CREATE_DATETIME
+					,CREATE_USER_ID
+					,UPDATE_DATETIME
+					,UPDATE_USER_ID
+					,ROW_UPDATE_ID
+					,DELETE_FLAG
+					,PASSWORD_UPDATE_DATETIME
+					,TEMP_PASSWORD_FLAG
+					,LOCK_FLAG
+					) VALUES (
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COMPANY_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PASSWORD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="NAME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="NAME_KANA" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="USER_TYPE" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="MAPPING_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="MENU_PTN_CD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="CREATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="CREATE_USER_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_USER_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="ROW_UPDATE_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="DELETE_FLAG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PASSWORD_UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TEMP_PASSWORD_FLAG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOCK_FLAG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-06">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE BS_LOGIN_USER
+					SET COMPANY_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COMPANY_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,PASSWORD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PASSWORD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,NAME =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="NAME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,NAME_KANA =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="NAME_KANA" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,MENU_PTN_CD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="MENU_PTN_CD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,UPDATE_DATETIME =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,UPDATE_USER_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_USER_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,DELETE_FLAG =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="DELETE_FLAG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,PASSWORD_UPDATE_DATETIME =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PASSWORD_UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,TEMP_PASSWORD_FLAG =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TEMP_PASSWORD_FLAG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,LOCK_FLAG =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOCK_FLAG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					WHERE LOGIN_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+		</sql>
+		<sql id="XO010P01-07">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					a.BMNCD
+					FROM M_BMN_TANTO a
+					WHERE a.COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND TTSCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TTSCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-08">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					a.COPCD
+					,a.COPRKSMES
+					FROM M_KAISYA a
+					ORDER BY a.COPCD
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-09">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						t.COPCD, t.TNPCD, t.TNPRKSMES
+					FROM M_TNP t
+					WHERE t.COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND t.TNPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TNPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND t.SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-10">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						m.COPCD, m.MESCD, m.MESRKSMES AS TEMMES
+					FROM M_MEISHO m
+					WHERE m.COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND m.MESCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="MESCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND m.MESKBN = '17' AND m.SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-11">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					k.COPCD, k.COPSSKMES, k.COPSSKMESKM
+					FROM M_KAISYA k
+					WHERE k.COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND k.SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-12">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE BS_LOGIN_USER
+					SET MENU_PTN_CD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="MENU_PTN_CD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,UPDATE_DATETIME =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,UPDATE_USER_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_USER_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					WHERE LOGIN_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+		</sql>
+		<sql id="XO010P01-13">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO BS_PASSWORD_HISTORY (
+					LOGIN_ID
+					,UPDATE_DATETIME
+					,PASSWORD
+					) VALUES (
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PASSWORD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO010P01-14">
+			<statement type="final" name="final">
+				<parts>
+					SELECT DISTINCT
+						TTSCD
+					FROM M_BMN_TANTO t
+					WHERE COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND TTSCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TTSCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SHUTNTFLG = 1
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

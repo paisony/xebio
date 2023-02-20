@@ -1,0 +1,508 @@
+@charset "utf-8";
+/* =================================
+   ■ style.css　各ページ共通要素などのスタイル
+================================== */
+
+/* =================================
+   ■ 汎用的なテキストの位置
+================================== */
+.cmText{
+}
+.txtLeft{
+	text-align:left;
+}
+.txtCenter{
+	text-align:center;
+}
+.txtRight{
+	text-align:right;
+}
+.cmReadOnly{
+  line-height: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-family: 'ＭＳ ゴシック';  
+  border-top-style: none;	
+  border-right-style: none;	
+  border-left-style: none;	
+  border-bottom-style: none;
+  background-color: transparent;
+  color: #2E2E6B;
+}
+/* =================================
+   ■ 汎用的なラベル
+================================== */
+.cmLabel{
+}
+
+/* =================================
+   ■ 汎用的な見出し
+================================== */
+.cmPH100{
+	width: 100px;
+}
+.cmPH110{
+	width: 110px;
+}
+.cmPH120{
+	width: 120px;
+}
+
+/* =================================
+   ■ 汎用Btn
+================================== */
+input.cmBodyBtn {
+	width: 80px;
+}
+input.cmPrintBtn {
+	width: 80px;
+}
+input.cmFooterBtn {	/*cmFooterBtn F1～F12　固定（80px→75px）に変更*/
+	width: 75px;
+}
+.twoBtn {
+	width: 160px;
+}
+
+/* =================================
+   ■ 汎用タグ
+================================== */
+strong{
+	font-weight:bold;
+}
+/* 強調表示 */
+.accent{
+	font-weight:bold;
+	font-size:14px;
+}
+
+/* リードオンリー指定 */
+.cmReadOnly{
+	border:none;
+	background-color:#efefef;
+}
+/*		■ p
+--------------------------------------------------------- */
+p{
+	margin:0 0 .5em 0;
+}	
+
+/*		■ input
+--------------------------------------------------------- */
+input,label{  /*IE7バグ回避策*/
+	zoom:1;
+	overflow: hidden;
+	padding:2px 1px;
+	vertical-align:middle;
+}
+input.bg_y{
+	padding:2px;
+	border:1px solid #a5acb2;
+	background:#fff6c5;
+}
+input.bg_g{
+	padding:2px;
+	border:1px solid #a5acb2;
+	background:#b4b4b6;
+}
+input.searchBtn{
+	padding-right:7px;
+	padding-left:7px;
+}
+input.txtGray{
+	color:#999;
+}
+input.necessary{
+	padding:3px 2px;
+	border:1px solid #a5acb2;
+	background:#f9d0d0;
+}
+
+/* =================================
+   ■ ページ送り
+================================== */
+div#pageArea{
+	width:auto;
+	overflow:hidden;
+}
+div#pageArea p{
+	float:left;
+	margin:0;
+	padding:6px 0 0 0;
+	line-height:1;
+}
+div#pageArea div#pager{
+	float:right;
+	text-align:right;
+	padding:6px 0 0 0;
+}
+div#pageArea div#pager span.here{
+	font-weight:bold;
+}
+
+/*		■ エラー時の吹き出し
+--------------------------------------------------------- */
+div#tooltip{
+	position:absolute;
+	display:none;
+}
+div#tooltip p{
+	line-height:1.5em;
+	width:200px;
+	height:1.5em;
+	margin:0 0 10px 0;
+	padding:4px;
+	text-align:center;
+	color:#fff;
+	background:#ee0101;
+}
+/* =================================
+   ■ Tab area
+================================== */
+td.tab0 {
+	display:block;
+	width:8px;
+	margin:0;
+	padding:0;
+	text-align:center;
+	text-decoration:none;
+	background:url(../images/tab-n0.png) no-repeat 0px 0px;
+}
+td.tab1 {
+	vertical-align:bottom;
+	display:block;
+	width:120px;
+	margin:0;
+	padding:0;
+	text-align:center;
+	text-decoration:none;
+	color:#ff0000;
+	background:url(../images/tab-n1.png) repeat 0px 0px;
+}
+.tab1Default {
+	height: 20;
+	border: 0px;
+	cursor: hand;
+	font-size: 10pt;
+	font-style: normal;
+	line-height: 10pt;
+	font-weight: normal;
+	font-variant: normal;
+	color:#000080;
+	background-color: transparent;
+	text-align: center;
+}
+.tab1Current {
+	height: 20;
+	border: 0px;
+	cursor: hand;
+	font-size: 10pt;
+	font-style: normal;
+	line-height: 10pt;
+	font-weight: normal;
+	font-variant: normal;
+	color:#ffffff;
+	background-color: transparent;
+	text-align: center;
+	font-size: 13px;
+}
+td.tab2 {
+	display:block;
+	width:8px;
+	margin:0;
+	padding:0;
+	text-align:center;
+	text-decoration:none;
+	background:url(../images/tab-n2.png) no-repeat 0px 0px;
+}
+
+td.tabMenu0 {
+	display:block;
+	width:8px;
+	margin:0;
+	padding:0;
+	text-align:center;
+	text-decoration:none;
+	background:url(../images/tab-n0.png) no-repeat 0px 0px;
+}
+td.tabMenu1 {
+	vertical-align:bottom;
+	display:block;
+	width:120px;
+	margin:0;
+	padding:0;
+	text-align:center;
+	text-decoration:none;
+	color:#ff0000;
+	background:url(../images/tab-n1.png) repeat 0px 0px;
+}
+.tab1MenuDefault {
+	height: 20;
+	border: 0px;
+	cursor: hand;
+	font-size: 10pt;
+	font-style: normal;
+	line-height: 10pt;
+	font-weight: normal;
+	font-variant: normal;
+	color:#000080;
+	background-color: transparent;
+	text-align: center;
+}
+.tab1MenuCurrent {
+	height: 20;
+	border: 0px;
+	cursor: hand;
+	font-size: 10pt;
+	font-style: normal;
+	line-height: 10pt;
+	font-weight: normal;
+	font-variant: normal;
+	color:#ffffff;
+	background-color: transparent;
+	text-align: center;
+	font-size: 13px;
+}
+td.tabMenu2 {
+	display:block;
+	width:8px;
+	margin:0;
+	padding:0;
+	text-align:center;
+	text-decoration:none;
+	background:url(../images/tab-n2.png) no-repeat 0px 0px;
+}
+
+/* =================================
+   ■ リンク形状のボタンスタイル
+================================== */
+.linkbtn{
+	background-color:transparent; 
+	border-style:none; 
+	color:blue; 
+	cursor:hand;
+	overflow:visible;
+	text-decoration:underline;
+}
+
+/* フッターリンクエリアには下線を表示しない */
+div#cmFootLinkarea .linkbtn{
+	text-decoration:none;
+	font-size:12px;
+}
+
+
+/* =================================
+   ■ 明細のスタイル
+================================== */
+div#cmContainer .cmGridViewHeaderStyle th
+{
+	background:#373c4f;
+	color:#ffffff;
+}
+
+.cmGridViewHeaderStyle td
+{
+	background:#373c4f;
+	color:#ffffff;
+}
+
+.cmGridViewRowStyle
+{
+	background:#f3f3f3;
+}
+.cmGridViewAlternatingRowStyle
+{
+	background:#d3dfe7;
+}
+/* =================================
+   ■ ページャーのスタイルの上書き
+    （部品内で定義されているため、!importantで変更)
+================================== */
+#Pager{
+	font-size:13px !important;
+}
+
+/* =================================
+   ■ 汎用的なカード部の行の高さ指定
+================================== */
+.cmRow{
+	height:28px;
+}
+
+/* =================================
+   ■ 汎用的な明細の高さ指定
+================================== */
+.cmRow1{
+	height:15px; /* */
+}
+.cmRow2{
+	height:30px;
+}
+.cmRow3{
+	height:45px;
+}
+
+.cmRowHeader1 
+{
+	height:25px;
+}
+
+.cmRowHeader2 
+{
+	height:15px;
+}
+
+/* ラベルのみの明細用 */
+.cmRowLblOnly1
+{
+	height:25px;
+}
+.cmRowLblOnly2
+{
+	height:38px;
+}
+.cmRowLblOnly3
+{
+	height:57px;
+}
+
+/* =================================
+   ■ アコーディオン部分のスタイル
+================================== */
+.accordion{
+	display:block;
+	width:958px;
+	margin:1px 5px 0 5px;
+	padding:5px 0 5px 20px;
+	background:url(../images/open.png) no-repeat 2px center;
+}
+
+.accordionClosed{
+	background:url(../images/close.png) no-repeat 2px center;
+}
+
+.accordionOver{
+	cursor:pointer;
+	background:#d7d5d5 url(../images/open.png) no-repeat 2px center;
+}
+
+/* =================================
+   ■ むしめがねアイコンのスタイル
+================================== */
+
+/* カード部 むしめがね */
+.cardMagnifierIcon{
+	background:url(../images/btn_search.gif);
+	width:18px;
+	height:18px;
+	margin:0px 3px;
+	background-repeat: no-repeat;
+	background-position: left top;
+	border:0px;
+	padding:0px;
+}
+
+/* 明細部 むしめがね */
+.detailsMagnifierIcon{
+	background:url(../images/btn_search.gif);
+	width:18px;
+	height:18px;
+	margin-left:5px;
+	background-repeat: no-repeat;
+	background-position: left top;
+	border:0px;
+	padding:0px;
+}
+
+/* =================================
+   ■ disabled指定用のスタイル
+================================== */
+
+input[type="text"][disabled]
+{
+	background-color:#efefef;
+	color:#ffffff; /* 現在は効果がない指定 */
+}
+
+/* =================================
+   ■ 会社ロゴのスタイル
+================================== */
+
+.logo
+{
+	vertical-align: middle;
+	height:18px;
+}
+
+/* =================================
+   ■ ToolTip箇所指定用クラス
+================================== */
+.cmDetailHighLightTarget
+{
+}
+
+/* =================================
+   ■ ToolTip箇所指定用クラス
+================================== */
+.CALENDAR
+{
+}
+
+/* =================================
+   ■ リンクボタン
+================================== */
+.linkButton{
+	border:none;
+	background-color:Transparent;
+	text-decoration:underline;
+}
+
+.linkButtonNw
+{
+	border:none;
+	background-color:Transparent;
+	visibility:hidden;
+	color:blue;
+    text-align:left;
+    width:70px;
+}
+
+/* =================================
+   ■ ロード時の画面ガード
+================================== */
+div#cmWrapperGuard
+{
+	position:absolute;
+	z-index:99;
+	width:1016px;
+	height:700px;
+	background-color:silver;
+	top:0px;
+	left:0px;
+	filter: alpha(opacity=15);
+}
+
+.cmHeaderLine
+{
+	 background:#373c4f url(../../pjcommon/images/line_th.gif) no-repeat right center;
+}
+
+/* =================================
+   ■ 項目ラベルの下の白線指定
+================================== */
+div#cmContainer th{
+	padding:5px 2px 2px 5px;
+	color:#5a5a5a;
+	border-bottom:1px solid #f1f1f1;
+	vertical-align:bottom;
+}
+
+/* =================================
+   ■ 項目ラベルの下の白線指定
+================================== */
+.txtDisabled
+{
+	border: 2px solid Transparent;
+ 　	background-color: Transparent;
+}

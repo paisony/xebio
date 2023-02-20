@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Tb030f02_Titlebar" xml:space="preserve">
+    <value>仕入入荷確定</value>
+  </data>
+  <data name="Tb030f02_FormCaption" xml:space="preserve">
+    <value>仕入入荷確定 明細</value>
+  </data>
+  <data name="M1PageInfo" xml:space="preserve">
+    <value>Page: %PAGE_NO% of %PAGE_COUNT%</value>
+  </data>
+  <data name="M1PageInfoNoRec" xml:space="preserve">
+    <value>データがありません。</value>
+  </data>
+  <data name="Btnback" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Stkmodeno" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Denpyo_bango" xml:space="preserve">
+    <value>伝票番号</value>
+  </data>
+  <data name="Siiresaki_cd" xml:space="preserve">
+    <value>仕入先</value>
+  </data>
+  <data name="Siiresaki_ryaku_nm1" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Bumon_cd" xml:space="preserve">
+    <value>部門</value>
+  </data>
+  <data name="Bumon_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Kakuteitan_cd" xml:space="preserve">
+    <value>確定担当者</value>
+  </data>
+  <data name="Kakuteitan_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Nyukayotei_ymd" xml:space="preserve">
+    <value>入荷予定日</value>
+  </data>
+  <data name="Siire_kakutei_ymd" xml:space="preserve">
+    <value>仕入確定日</value>
+  </data>
+  <data name="Denpyo_jyotainm" xml:space="preserve">
+    <value>伝票状態</value>
+  </data>
+  <data name="M1rowno" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1hinsyu_ryaku_nm" xml:space="preserve">
+    <value>品種</value>
+  </data>
+  <data name="M1burando_nm" xml:space="preserve">
+    <value>ブランド</value>
+  </data>
+  <data name="M1jisya_hbn" xml:space="preserve">
+    <value>自社品番</value>
+  </data>
+  <data name="M1maker_hbn" xml:space="preserve">
+    <value>メーカー品番</value>
+  </data>
+  <data name="M1syonmk" xml:space="preserve">
+    <value>商品名</value>
+  </data>
+  <data name="M1iro_nm" xml:space="preserve">
+    <value>色</value>
+  </data>
+  <data name="M1size_nm" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="M1scan_cd" xml:space="preserve">
+    <value>スキャンコード</value>
+  </data>
+  <data name="M1nohin_su" xml:space="preserve">
+    <value>納品数</value>
+  </data>
+  <data name="M1kensu" xml:space="preserve">
+    <value>検数</value>
+  </data>
+  <data name="M1gen_tnk" xml:space="preserve">
+    <value>原単価</value>
+  </data>
+  <data name="M1genka_kin" xml:space="preserve">
+    <value>原価金額</value>
+  </data>
+  <data name="M1kensu_hdn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1genka_kin_hdn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1selectorcheckbox" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_kensu" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Genka_kin_gokei" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnenter" xml:space="preserve">
+    <value>確定</value>
+  </data>
+</root>

@@ -1,0 +1,95 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tl020f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+
+/*--- 確定状態 ---*/
+.slt-kakuteijyotai {
+	width: 70px;
+}
+
+/*--- 申請元 ---*/
+.slt-sinseimoto {
+	width: 70px;
+}
+
+/*--- 売変理由 ---*/
+.slt-baihenriyu {
+	width: 90px;
+}
+
+.str-search-01 .w-type-01 {
+	width: 100px;
+}
+.str-search-01 .w-type-02 {
+	width: 85px;
+}
+.str-search-01 .w-type-03 {
+	width: 85px;
+}
+.str-search-01 .w-type-04 {
+	width: 500px;
+}
+
+.str-syuturyokuseal span {
+    color: #666666;
+    position: relative;
+    top: 5px;
+	margin-left: 14px;
+}
+
+.radio-syuturyokuseal table > tbody > tr > td{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+	position: relative;
+	width: 35px;
+}
+/* 申請元 */
+.str-result-01 .col2 {
+	width: 85px;
+}
+/* 申請担当者 */
+.str-result-01 .col3 {
+	width: 140px;
+}
+/* 部門 */
+.str-result-01 .col4 {
+	width: 195px;
+}
+/* 指示No */
+.str-result-01 .col5 {
+	width: 120px;
+}
+/* 作業開始日 */
+.str-result-01 .col6 {
+	width: 90px;
+}
+/* 開始日 */
+.str-result-01 .col7 {
+	width: 90px;
+}
+/* 売変理由 */
+.str-result-01 .col8 {
+	width: 90px;
+}
+/* 品番数 */
+.str-result-01 .col9 {
+	width: 90px;
+}
+/* 在庫点数 */
+.str-result-01 .col10 {
+	width: 90px;
+}
+/* 登録確定者 */
+.str-result-01 .col11 {
+	width: 142px;
+}

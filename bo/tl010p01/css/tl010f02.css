@@ -1,0 +1,80 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tl010f02.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+.str-search-02 .w-type-01 {
+  width: 100px;
+}
+.str-search-02 .w-type-02 {
+  width: 220px;
+}
+.str-search-02 .w-type-03 {
+  width: 350px;
+}
+.str-syuturyokuseal span {
+    color: #666666;
+    position: relative;
+    top: 5px;
+	margin-left: 14px;
+}
+
+.radio-syuturyokuseal table > tbody > tr > td{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- 行 ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 29px;
+	border-left: 1px solid #cccccc;
+}
+
+/*--- ブランド/自社品番 ---*/
+.str-result-01 .col2 {
+	width: 149px;
+}
+/*--- メーカー品番/商品名 ---*/
+.str-result-01 .col3 {
+  width: 379px;
+}
+/*--- 色 ---*/
+.str-result-01 .col4 {
+	width: 86px;
+}
+/*--- 原単価 ---*/
+.str-result-01 .col5 {
+	width: 88px;
+}
+/*--- 現売価 ---*/
+.str-result-01 .col6 {
+	width: 88px;
+}
+/*--- 元売価 ---*/
+.str-result-01 .col7 {
+	width: 88px;
+}
+/*--- 新売価 ---*/
+.str-result-01 .col8 {
+  width: 88px;
+}
+/*--- 値入率現行／値入率売変後 ---*/
+.str-result-01 .col9 {
+	width: 88px;
+}
+/*--- 在庫点数／売上点数 ---*/
+.str-result-01 .col10 {
+	width: 88px;
+}
+
+.str-result-01 .cell {
+  display: block;
+  float: left;
+  /*text-align: center;*/
+}

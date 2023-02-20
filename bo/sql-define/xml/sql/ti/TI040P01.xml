@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** ラベルプリンタ管理(件数チェック) **/
+		<sql id="TI040P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDMT0220 T1
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD"/>
+			<!--抽出条件：ラベル発行機ID FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_FROM"/>
+			<!--抽出条件：ラベル発行機ID TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_TO"/>
+			<!--抽出条件：ラベル発行機IP FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_FROM"/>
+			<!--抽出条件：ラベル発行機IP TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_TO"/>
+			<!--抽出条件：ラベル発行機名-->
+			<statement type="replace" name="REPLACE_ID_LABEL_NM"/>
+			<!--抽出条件：ラベル備考-->
+			<statement type="replace" name="REPLACE_ID_LABEL_BIKO"/>
+		</sql>
+
+		/** ラベルプリンタ管理(検索) **/
+		<sql id="TI040P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.TENPO_CD
+							,SUBSTR(T1.LABEL_CD,  0, 4) LABEL_CD
+							,SUBSTR(T1.LABEL_CD,  5, 3) LABEL_CD2
+							,SUBSTR(T1.LABEL_IP,  0, 3) LABEL_IP
+							,SUBSTR(T1.LABEL_IP,  4, 3) LABEL_IP2
+							,SUBSTR(T1.LABEL_IP,  7, 3) LABEL_IP3
+							,SUBSTR(T1.LABEL_IP, 10, 3) LABEL_IP4
+							,T1.LABEL_NM
+							,T1.LABEL_BIKO
+							,T1.UPD_YMD
+							,T1.UPD_TM
+							,T1.UPD_TANCD
+					FROM
+							MDMT0220 T1
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD"/>
+			<!--抽出条件：ラベル発行機ID FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_FROM"/>
+			<!--抽出条件：ラベル発行機ID TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_TO"/>
+			<!--抽出条件：ラベル発行機IP FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_FROM"/>
+			<!--抽出条件：ラベル発行機IP TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_TO"/>
+			<!--抽出条件：ラベル発行機名-->
+			<statement type="replace" name="REPLACE_ID_LABEL_NM"/>
+			<!--抽出条件：ラベル備考-->
+			<statement type="replace" name="REPLACE_ID_LABEL_BIKO"/>
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.LABEL_CD
+				</parts>
+			</statement>
+		</sql>
+
+		/** ラベルプリンタ管理(削除) **/
+		<sql id="TI040P01-03">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDMT0220 T1
+					WHERE 0=0
+				</parts>
+			</statement>
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD"/>
+			<!--抽出条件：ラベル発行機ID FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_FROM"/>
+			<!--抽出条件：ラベル発行機ID TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_TO"/>
+			<!--抽出条件：ラベル発行機IP FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_FROM"/>
+			<!--抽出条件：ラベル発行機IP TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_TO"/>
+			<!--抽出条件：ラベル発行機名-->
+			<statement type="replace" name="REPLACE_ID_LABEL_NM"/>
+			<!--抽出条件：ラベル備考-->
+			<statement type="replace" name="REPLACE_ID_LABEL_BIKO"/>
+		</sql>
+
+		/** ラベルプリンタ管理(登録) **/
+		<sql id="TI040P01-04">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDMT0220 (
+							 TENPO_CD					  /* 店舗コード */
+							,LABEL_CD					  /* ラベル発行機ＩＤ */
+							,LABEL_IP				  	/* ラベル発行機ＩＰ */
+							,LABEL_NM					  /* ラベル発行機名 */
+							,LABEL_BIKO					/* ラベル備考 */
+							,ADD_YMD				  	/* 登録日 */
+							,ADD_TM				  		/* 登録時間 */
+							,ADDTAN_CD					/* 登録担当者コード */
+							,UPD_YMD		  			/* 更新日 */
+							,UPD_TM		  				/* 更新時間 */
+							,UPD_TANCD					/* 更新担当者コード */
+							,SAKUJYO_YMD				/* 削除日 */
+							,SAKUJYO_FLG				/* 削除フラグ */
+							,JYUSIN_YMD					/* 受信日 */
+							,JYUSIN_TM					/* 受信時間 */
+					) VALUES (
+							 </parts><bind id="BIND_TENPO_CD" /><parts>
+							,</parts><bind id="BIND_LABEL_CD" /><parts>
+							,</parts><bind id="BIND_LABEL_IP" /><parts>
+							,</parts><bind id="BIND_LABEL_NM" /><parts>
+							,</parts><bind id="BIND_LABEL_BIKO" /><parts>
+							,</parts><bind id="BIND_ADD_YMD" /><parts>
+							,</parts><bind id="BIND_ADD_TM" /><parts>
+							,</parts><bind id="BIND_ADDTAN_CD" /><parts>
+							,</parts><bind id="BIND_UPD_YMD" /><parts>
+							,</parts><bind id="BIND_UPD_TM" /><parts>
+							,</parts><bind id="BIND_UPD_TANCD" /><parts>
+							,</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+							,</parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+							,</parts><bind id="BIND_JYUSIN_YMD" /><parts>
+							,</parts><bind id="BIND_JYUSIN_TM" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+
+		/** ラベルプリンタ管理(更新) **/
+		<sql id="TI040P01-05">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDMT0220 SET
+							 LABEL_NM		  	=	</parts><bind id="BIND_LABEL_NM" /><parts>		/* ラベル発行機名 */
+							,LABEL_BIKO		  	=	</parts><bind id="BIND_LABEL_BIKO" /><parts>	/* ラベル備考 */
+							,UPD_YMD		  	=	</parts><bind id="BIND_UPD_YMD" /><parts>	  	/* 更新日 */
+							,UPD_TM			  	=	</parts><bind id="BIND_UPD_TM" /><parts>	  	/* 更新時間 */
+							,UPD_TANCD		  	=	</parts><bind id="BIND_UPD_TANCD" /><parts>		/* 更新担当者コード */
+					WHERE
+							  TENPO_CD			=	</parts><bind id="BIND_TENPO_CD" /><parts>		/* 店舗コード */
+					AND		LABEL_CD			=	</parts><bind id="BIND_LABEL_CD" /><parts>		/* ラベル発行機ＩＤ */
+				</parts>
+			</statement>
+		</sql>
+
+		/** ラベルプリンタ管理(検索条件外で同一IP存在チェック) **/
+		<sql id="TI040P01-06">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDMT0220
+					WHERE
+							LABEL_IP	=			</parts><bind id="BIND_LABEL_IP" /><parts>
+						AND     (TENPO_CD, LABEL_CD) NOT IN(
+												SELECT
+													 TENPO_CD
+													,LABEL_CD
+												FROM
+													MDMT0220
+												WHERE 0=0
+				</parts>
+			</statement>
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD"/>
+			<!--抽出条件：ラベル発行機ID FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_FROM"/>
+			<!--抽出条件：ラベル発行機ID TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_TO"/>
+			<!--抽出条件：ラベル発行機IP FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_FROM"/>
+			<!--抽出条件：ラベル発行機IP TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_TO"/>
+			<!--抽出条件：ラベル発行機名-->
+			<statement type="replace" name="REPLACE_ID_LABEL_NM"/>
+			<!--抽出条件：ラベル備考-->
+			<statement type="replace" name="REPLACE_ID_LABEL_BIKO"/>
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+    
+		/** ラベルプリンタ管理(ラベル発行機ＩＤの存在チェック（検索条件外）) **/
+		<sql id="TI040P01-07">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDMT0220
+					WHERE
+							  TENPO_CD	=	</parts><bind id="BIND_TENPO_CD" /><parts>
+					  AND	  LABEL_CD	=	</parts><bind id="BIND_LABEL_CD" /><parts>
+		              AND     (TENPO_CD, LABEL_CD) NOT IN(
+                                            SELECT
+                                                  TENPO_CD
+                                                 ,LABEL_CD
+                                            FROM
+                                                  MDMT0220
+                                            WHERE 0=0
+				</parts>
+			</statement>                                            
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD"/>
+			<!--抽出条件：ラベル発行機ID FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_FROM"/>
+			<!--抽出条件：ラベル発行機ID TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_CD_TO"/>
+			<!--抽出条件：ラベル発行機IP FROM-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_FROM"/>
+			<!--抽出条件：ラベル発行機IP TO-->
+			<statement type="replace" name="REPLACE_ID_LABEL_IP_TO"/>
+			<!--抽出条件：ラベル発行機名-->
+			<statement type="replace" name="REPLACE_ID_LABEL_NM"/>
+			<!--抽出条件：ラベル備考-->
+			<statement type="replace" name="REPLACE_ID_LABEL_BIKO"/>
+			<statement type="final" name="final">
+				<parts>      
+                )
+				</parts>
+			</statement>
+		</sql>    
+	</sql-list>
+</sql-included>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V03003-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.UPD_YMD UPD_YMD
+							,T1.UPD_TM  UPD_TM
+					FROM 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_TABLEID" />
+			<statement type="final" name="final"><parts> T1
+					WHERE	0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="replace" name="ADD_FORUPDATE" />
+		</sql>
+		<sql id="V03003-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 TO_NUMBER(SUBSTR(MAX(TO_CHAR(T1.UPD_YMD, 'FM00000000') || TO_CHAR(T1.UPD_TM, 'FM000000000')), 1, 8)) UPD_YMD
+							,TO_NUMBER(SUBSTR(MAX(TO_CHAR(T1.UPD_YMD, 'FM00000000') || TO_CHAR(T1.UPD_TM, 'FM000000000')), 9))    UPD_TM
+					FROM 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_TABLEID" />
+			<statement type="final" name="final"><parts> T1
+					WHERE	0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		/** 最大値取得Ver↓未完成 **/
+		<sql id="V03003-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 (
+								SELECT
+									TO_NUMBER(SUBSTR(MAX(TO_CHAR(UPD_YMD, 'FM00000000') || TO_CHAR(UPD_TM, 'FM000000000')), 1, 8))
+								FROM
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_TABLEID1" />
+			<statement type="final" name="final">
+				<parts>
+								WHERE	0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>	
+							) UPD_YMD
+							,(
+								SELECT
+									TO_NUMBER(SUBSTR(MAX(TO_CHAR(UPD_YMD, 'FM00000000') || TO_CHAR(UPD_TM, 'FM000000000')), 9)) UPD_TM
+								FROM
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_TABLEID2" />
+			<statement type="final" name="final">
+				<parts>
+								WHERE	0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="final" name="final">
+				<parts>	
+							) UPD_TM
+					FROM 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_TABLEID3" />
+			<statement type="final" name="final">
+				<parts>
+					WHERE	0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE3" />
+			<statement type="replace" name="ADD_FORUPDATE" />
+		</sql>
+		/** BS_LOGIN_USER用の排他チェックSQL **/
+		<sql id="V03003-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 TO_NUMBER(TO_CHAR(T1.UPDATE_DATETIME, 'YYYYMMDD'))    UPD_YMD
+							,TO_NUMBER(TO_CHAR(T1.UPDATE_DATETIME, 'HH24MISSFF3')) UPD_TM
+					FROM 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_TABLEID" />
+			<statement type="final" name="final"><parts> T1
+					WHERE	0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="replace" name="ADD_FORUPDATE" />
+		</sql>
+	</sql-list>
+</sql-included>

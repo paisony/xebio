@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="XO020P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+				</parts>
+			</statement>
+			<statement type="replace" name="05" />
+			<statement type="final" name="final">
+				<parts>
+					FROM T_LOG_KANRI a
+					WHERE
+					a.SYRNCJ BETWEEN TO_DATE(
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id ="SYRNCJFROM" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,'YYYYMMDD HH24:MI') AND TO_DATE(
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id ="SYRNCJTO" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,'YYYYMMDD HH24:MI')
+				</parts>
+			</statement>
+			<statement type="replace" name="01" />
+			<statement type="replace" name="02" />
+			<statement type="replace" name="03" />
+			<statement type="replace" name="04" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY a.SYRNCJ DESC
+				</parts>
+			</statement>
+		</sql>
+		
+		<sql id="XO020P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					a.SYRNCJ
+					,a.JHOSYB
+					,a.SYRSYB
+					,a.SRVMEI
+					,a.KIWID
+					,a.KIWMEI
+					,a.LOGIN_ID
+					,a.TTSMEI
+					,a.LOGMSG
+					,a.SYRMSG
+					,a.ROWID
+					FROM
+					T_LOG_KANRI a
+					WHERE
+					ROWID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id ="ROWID" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

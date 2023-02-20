@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SORTOPTION" name="並び順オプション">
+		<listItems>
+			<item id="10" value="1" label="昇順" itemId="Sortoption1" />
+			<item id="20" value="2" label="降順" itemId="Sortoption2" />
+		</listItems>
+	</condition>
+</condition-define>
+

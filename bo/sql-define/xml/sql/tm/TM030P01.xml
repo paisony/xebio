@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="TM030P01-01">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-01（返品指示変更リスト件数取得） */
+					SELECT
+							COUNT(*)	CNT
+							,NVL(MIN(T1.INSATSUZUMI_FLG), 0) INSATSUZUMI_FLG
+					FROM
+							MDRT0060 T1		--返品指示変更履歴TBL
+					WHERE
+							T1.TENPO_CD				=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.CHANGE_YMD			BETWEEN 0 AND 99999999
+					AND		T1.MD_INSATSUZUMI_FLG	=	1
+					AND(		T1.INSATSUZUMI_FLG	=	0
+					OR			(T1.INSATSUZUMI_FLG	=	1 AND T1.UPD_YMD = TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))))
+					-- >=に変更
+					AND		T1.CHANGE_YMD			&gt;=	(	SELECT	MAX(ST1.LAST_PRINT_YMD)
+															FROM	MDRT0060 ST1		--返品指示変更履歴TBL
+															WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+															AND		ST1.SIJI_BANGO	=	T1.SIJI_BANGO
+														)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-02">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-02（移動出荷差異リスト件数取得） */
+					SELECT
+							COUNT(*)	CNT
+							,NVL(MIN(T1.INSATSUZUMI_FLG), 0) INSATSUZUMI_FLG
+					FROM
+							MDNT0030 T1		--移動出荷差異リスト
+					WHERE
+							T1.SYUKKAKAISYA_CD	=	(	SELECT	SM1.MEISYOKANA_NM
+														FROM	MDMT0100 SM1		--名称MST
+														WHERE	SM1.SIKIBETSU_CD	=	'CONM'
+														AND		SM1.MEISYO_CD		=	'1'
+													)
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND(		T1.INSATSUZUMI_FLG	=	0
+					OR			(T1.INSATSUZUMI_FLG	=	1 AND T1.UPD_YMD = TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))) )
+					AND T1.JYURYO_YMD &lt; TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-03">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-03（棚卸重複データ件数取得） */
+					SELECT
+							NVL(MAX(COUNT(*)), 0)	CNT		--重複件数の最大
+					FROM
+							MDIT0010 T1		--棚卸確定TBL(H)
+					WHERE
+							T1.TENPO_CD			=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.TANAOROSI_YMD	=	</parts><bind id="TANAOROSI_YMD" /><parts>
+					AND		T1.SOSINZUMI_FLG	=	0
+					GROUP BY
+							T1.TENPO_CD
+						,	T1.FACE_NO
+						,	T1.TANA_DAN
+						,	T1.TANAOROSI_YMD
+						,	T1.SOSINKAI_SU
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-04">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-04（棚卸アンマッチデータ件数取得） */
+					SELECT
+							COUNT(*)	CNT
+					FROM
+							MDIT0010 T1		--棚卸確定TBL(H)
+					WHERE
+							T1.TENPO_CD					=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.TANAOROSI_YMD			=	</parts><bind id="TANAOROSI_YMD" /><parts>
+					AND		T1.SOSINZUMI_FLG			=	0
+					AND		T1.TENSUTANAOROSIGOKEI_SU	!=	T1.TANAOROSIGOKEI_SU
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-05">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-05（経費振替決裁データ件数取得） */
+					SELECT
+							COUNT(*)	CNT
+					FROM
+							MDAT0020 T1		--経費振替申請TBL(H)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" /><parts>
+					AND		T1.KESSAI_FLG	=	1
+					AND		T1.ADDTAN_CD	IS NOT NULL
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-06">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-06（エラー品番リスト件数取得） */
+					SELECT
+							COUNT(*)	CNT
+							,NVL(MIN(T1.INSATSUZUMI_FLG), 0) INSATSUZUMI_FLG
+					FROM
+							MDBT0080 T1		--エラー品番TBL
+					WHERE
+							T1.KAISYA_CD		=	</parts><bind id="KAISYA_CD" /><parts>
+					AND		T1.TENPO_CD			=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.DENPYO_YMD		BETWEEN </parts><bind id="DENPYO_YMD" /><parts> AND 99999999
+					AND(		T1.INSATSUZUMI_FLG	=	0
+					OR			(T1.INSATSUZUMI_FLG	=	1 AND T1.UPD_YMD = TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))))
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-07">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-07（インストアコード振替リスト件数取得） */
+					SELECT
+							COUNT(*)	CNT
+							,NVL(MIN(T1.INSATSUZUMI_FLG), 0) INSATSUZUMI_FLG
+					FROM
+							MDBT0090 T1		--インストアコード振替データTBL
+					WHERE
+							T1.KAISYA_CD		=	</parts><bind id="KAISYA_CD" /><parts>
+					AND		T1.TENPO_CD			=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.HURIKAE_YMD		BETWEEN 0 AND 99999999
+					AND(		T1.INSATSUZUMI_FLG	=	0
+					OR			(T1.INSATSUZUMI_FLG	=	1 AND T1.UPD_YMD = TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))))
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-08">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-08（売変作業指示対象データ件数取得（X）） */
+					SELECT
+							COUNT(*)	CNT
+					FROM
+							MDCT0020 T1		--店舗売変予定TBL
+					WHERE
+							T1.TENPO_CD			=	</parts><bind id="TENPO_CD1" /><parts>
+					AND		T1.BAIHENKAISI_YMD	=	</parts><bind id="BAIHENKAISI_YMD" /><parts>
+					AND		T1.SIJIBAIKA_TNK	!=	T1.GENBAIKA_TNK
+					AND		EXISTS	(
+								SELECT		1
+								FROM		MDMT0130 SM1	--発注MST
+								INNER JOIN	STMT0091 SM2	--店別単価MST
+								ON			SM2.SOSIKI			=	'0001'
+								AND			SM2.TENCD			=	</parts><bind id="TENPO_CD2" /><parts>
+								AND			SM2.SKU				=	SM1.JAN_CD
+								WHERE		SM1.XEBIO_CD		=	T1.JISYA_HBN
+								AND			SM1.MAKERCOLOR_CD	=	T1.IRO_CD
+							)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-09">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-09（売変作業指示対象データ件数取得（V）） */
+					SELECT
+							COUNT(*)	CNT
+					FROM
+							MDCT0010 T1		--売価変更指示TBL
+					WHERE
+							T1.TENPO_CD			=	</parts><bind id="TENPO_CD1" /><parts>
+					AND		T1.BAIHENKAISI_YMD	=	</parts><bind id="BAIHENKAISI_YMD" /><parts>
+					AND		T1.ZAIKO_SU			&gt;	0
+					AND		EXISTS	(
+								SELECT		1
+								FROM		MDMT0130 SM1	--発注MST
+								INNER JOIN	STMT0091 SM2	--店別単価MST
+								ON			SM2.SOSIKI			=	'0001'
+								AND			SM2.TENCD			=	</parts><bind id="TENPO_CD2" /><parts>
+								AND			SM2.SKU				=	SM1.JAN_CD
+								WHERE		SM1.XEBIO_CD		=	T1.JISYA_HBN
+								AND			SM1.MAKERCOLOR_CD	=	T1.IRO_CD
+							)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-10">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-10（客注入荷リスト件数取得） */
+					SELECT
+							COUNT(*)	CNT
+					FROM
+							MDPT0011 T1		--仕入入荷予定TBL(B)
+					WHERE
+							T1.TENPO_CD			=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.SITEINOHIN_YMD	=	</parts><bind id="SITEINOHIN_YMD" /><parts>
+					AND		T1.KAKUTEI_FLG		=	0
+					AND		T1.KYAKUTYU_FLG		IN	(1, 2, 3)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-11">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-11（お知らせ情報取得） */
+					SELECT
+							M1.COMMENT_NM	--コメント
+						,	M1.PRINT_ID		--帳票ID
+						,	M1.PRINT_NM		--帳票名
+						,	M1.REC_NO
+					FROM
+							MDMT0240 M1		--お知らせ機能管理MST
+					WHERE
+							M1.REC_NO	IN	(
+				</parts>
+			</statement>
+			<statement type="replace" name="REC_NO_IN" />
+			<statement type="final" name="final">
+				<parts>
+							)
+					ORDER BY
+							M1.HYOJI_NO
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-12">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-12（返品指示変更履歴TBL更新） */
+					UPDATE
+							MDRT0060 T1		--返品指示変更履歴TBL
+					SET
+							T1.INSATSUZUMI_FLG	=	1
+							,	T1.UPD_YMD			=	TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))
+							,	T1.UPD_TM			=	TO_NUMBER(TO_CHAR(SYSTIMESTAMP, 'HH24MISSFF3'))
+					WHERE
+							T1.TENPO_CD				=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.CHANGE_YMD			BETWEEN 0 AND 99999999
+					AND		T1.MD_INSATSUZUMI_FLG	=	1
+					AND		T1.INSATSUZUMI_FLG		=	0
+					-- >=に変更
+					AND		T1.CHANGE_YMD			&gt;=	(	SELECT	MAX(ST1.LAST_PRINT_YMD)
+															FROM	MDRT0060 ST1		--返品指示変更履歴TBL
+															WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+															AND		ST1.SIJI_BANGO	=	T1.SIJI_BANGO
+														)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-13">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-13（移動出荷差異リスト更新） */
+					UPDATE
+							MDNT0030 T1		--移動出荷差異リスト
+					SET
+							T1.INSATSUZUMI_FLG	=	1
+						,	T1.UPD_YMD			=	</parts><bind id="UPD_YMD" /><parts>
+						,	T1.UPD_TM			=	</parts><bind id="UPD_TM" /><parts>
+					WHERE
+							T1.SYUKKAKAISYA_CD	=	(	SELECT	SM1.MEISYOKANA_NM
+														FROM	MDMT0100 SM1		--名称MST
+														WHERE	SM1.SIKIBETSU_CD	=	'CONM'
+														AND		SM1.MEISYO_CD		=	'1'
+													)
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.INSATSUZUMI_FLG	=	0
+					AND		T1.JYURYO_YMD		&lt;	TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))
+
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-14">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-14（エラー品番TBL更新） */
+					UPDATE
+							MDBT0080 T1		--エラー品番TBL
+					SET
+							T1.INSATSUZUMI_FLG	=	1
+						,	T1.UPD_YMD			=	</parts><bind id="UPD_YMD" /><parts>
+						,	T1.UPD_TM			=	</parts><bind id="UPD_TM" /><parts>
+					WHERE
+							T1.KAISYA_CD		=	</parts><bind id="KAISYA_CD" /><parts>
+					AND		T1.TENPO_CD			=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.DENPYO_YMD		BETWEEN </parts><bind id="DENPYO_YMD" /><parts> AND 99999999
+					AND		T1.INSATSUZUMI_FLG	=	0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM030P01-15">
+			<statement type="final" name="final">
+				<parts>
+					/* TM030P01-15（インストアコード振替データTBL更新） */
+					UPDATE
+							MDBT0090 T1		--インストアコード振替データTBL
+					SET
+							T1.INSATSUZUMI_FLG	=	1
+						,	T1.UPD_YMD			=	</parts><bind id="UPD_YMD" /><parts>
+						,	T1.UPD_TM			=	</parts><bind id="UPD_TM" /><parts>
+					WHERE
+							T1.KAISYA_CD		=	</parts><bind id="KAISYA_CD" /><parts>
+					AND		T1.TENPO_CD			=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.HURIKAE_YMD		BETWEEN 0 AND 99999999
+					AND		T1.INSATSUZUMI_FLG	=	0
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

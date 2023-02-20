@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HAKKENJYOKYO_KB" name="発見状況区分">
+		<listItems>
+			<item id="10" value="1" label="プライス落ち" itemId="Hakkenjyokyo_kb1" />
+			<item id="20" value="2" label="防犯タグ落ち" itemId="Hakkenjyokyo_kb2" />
+			<item id="30" value="3" label="中身を抜かれた" itemId="Hakkenjyokyo_kb3" />
+			<item id="40" value="4" label="中身の入替え" itemId="Hakkenjyokyo_kb4" />
+			<item id="50" value="5" label="臨棚で発見" itemId="Hakkenjyokyo_kb5" />
+			<item id="60" value="6" label="盗難事故" itemId="Hakkenjyokyo_kb6" />
+			<item id="70" value="9" label="その他" itemId="Hakkenjyokyo_kb7" />
+		</listItems>
+	</condition>
+</condition-define>
+

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 在庫検索-一覧 件数チェック **/
+		<sql id="TH020P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							COUNT(COUNT(1)) CNT
+					FROM
+				</parts>
+			</statement>
+			<!-- テーブル設定-->
+			<statement type="replace" name="ADD_TABLE" />
+			<statement type="final" name="final">
+				<parts>
+					WHERE	0 = 0
+				</parts>
+			</statement>
+			<!-- 条件設定 -->
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+							 MDMT0130.XEBIO_CD
+							,CASE WHEN MDMT0130.TENKAI_KB = 1 THEN MDMT0130.MAKERCOLOR_CD ELSE '-1' END
+				</parts>
+			</statement>
+		</sql>
+		/** 在庫検索-一覧 検索 **/
+		<sql id="TH020P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							MAX(MDMT0130.BUMON_CD)	BUMON_CD					/* 部門コード */
+							,MAX(BOMT0060.BUMON_NM) BUMON_NM					/* 部門名 */
+							,MAX(BOMT0060.BUMONKANA_NM) BUMONKANA_NM			/* 部門名カナ */
+							,MAX(MDMT0070.HINSYU_CD) HINSYU_CD					/* 品種コード */
+							,MAX(MDMT0070.HINSYU_RYAKU_NM) HINSYU_RYAKU_NM		/* 品種名 */
+							,MAX(MDMT0130.BURANDO_CD) BURANDO_CD				/* ブランドコード */
+							,MAX(STMT0500.BURANDO_NMK) BURANDO_NMK				/* ブランド名 */
+							,MDMT0130.XEBIO_CD									/* 自社品番 */
+							,MAX(MDMT0130.HIN_NBR) HIN_NBR						/* メーカー品番 */
+							,MAX(MDMT0130.SYONMK) SYONMK						/* 商品名 */
+							,MAX(MDMT0130.MAKERCOLOR_CD) MAKERCOLOR_CD			/* 色コード */
+							,MAX(CASE WHEN MDMT0130.TENKAI_KB = 1 THEN MDMT0080.IRO_NM ELSE NULL END) IRO_NM
+																				/* 色名 */
+							,SUM(NVL(ZAIKO.JI_FREEZAIKO_SU, 0)) JI_FREEZAIKO_SU	/* 自店在庫数 */
+							,SUM(NVL(ZAIKO.FREEZAIKO_SU, 0)) FREEZAIKO_SU		/* 全店在庫数 */
+							,TRIM(TO_CHAR(DECODE(
+									(SUM(NVL(ZAIKO.FREEZAIKO_SU, 0)) + SUM(NVL((SELECT SUM(URIAGE_SU) FROM MDBT0070 URI WHERE MDMT0130.JAN_CD = URI.JAN_CD), 0))),0, 0
+								,ROUND((SUM(NVL((SELECT SUM(URIAGE_SU) FROM MDBT0070 URI WHERE MDMT0130.JAN_CD = URI.JAN_CD), 0)) * 100) / (SUM(NVL(ZAIKO.FREEZAIKO_SU, 0)) + SUM(NVL((SELECT SUM(URIAGE_SU) FROM MDBT0070 URI WHERE MDMT0130.JAN_CD = URI.JAN_CD), 0))), 1)
+								), '9990.0')) SYOKART							/* 全店消化率 */
+							,MAX(MDMT0130.TENKAI_KB) TENKAI_KB					/* 展開区分 */
+							,MAX(MDMT0130.SYOHIN_ZOKUSEI) SYOHIN_ZOKUSEI		/* 商品属性 */
+					FROM
+				</parts>
+			</statement>
+
+			<!-- テーブル設定-->
+			<statement type="replace" name="ADD_TABLE" />
+			<!-- 結合テーブル設定 -->
+			<statement type="replace" name="ADD_JOIN" />
+
+			<statement type="final" name="final">
+				<parts>
+					WHERE	0 = 0
+				</parts>
+			</statement>
+
+			<!-- 条件設定 -->
+			<statement type="replace" name="ADD_WHERE" />
+
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+							MDMT0130.XEBIO_CD
+							,CASE WHEN MDMT0130.TENKAI_KB = 1 THEN MDMT0130.MAKERCOLOR_CD ELSE '-1' END
+					ORDER BY
+							MAX(MDMT0130.BUMON_CD)
+							,MAX(MDMT0130.HINSYU_CD)
+							,MAX(MDMT0130.BURANDO_CD)
+							,MAX(MDMT0130.HIN_NBR)
+							,MDMT0130.XEBIO_CD
+							,CASE WHEN MDMT0130.TENKAI_KB = 1 THEN MDMT0130.MAKERCOLOR_CD ELSE '-1' END
+				</parts>
+			</statement>
+		</sql>
+		/** 在庫検索-明細 サイズリンク **/
+		<sql id="TH020P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 TNP_SHN.TENPO_CD												/* 店舗コード */
+							,MAX(TNP_SHN.TENPO_NM) TENPO_NM									/* 店舗名 */
+							,SUM(NVL(ZAIKO.URIAGERUISEKI_SU, 0)) URIAGERUISEKI_SU			/* 売上数 */
+							,SUM(NVL(ZAIKO.FREEZAIKO_SU, 0))		ZAIKOSU					/* 販売可能在庫数 */
+							,TRIM(TO_CHAR(DECODE(
+								SUM(NVL(ZAIKO.FREEZAIKO_SU, 0)) + SUM(NVL(ZAIKO.URIAGERUISEKI_SU, 0)), 0, 0,
+								ROUND((SUM(NVL(ZAIKO.URIAGERUISEKI_SU, 0)) * 100) / (SUM(NVL(ZAIKO.FREEZAIKO_SU, 0)) + SUM(NVL(ZAIKO.URIAGERUISEKI_SU, 0))), 1)
+							), '9990.0')) SYOKART											/* 消化率 */
+							,SUM(NVL(ZAIKO.TYOBOZAIKO_SU, 0))		TYOBOZAIKO_SU			/* 帳簿在庫数 */
+							,SUM(NVL(ZAIKO.AZUKARI_SU, 0))			AZUKARI_SU				/* 預り予約数 */
+							,SUM(NVL(ZAIKO.SEKISO_SU, 0))			SEKISO_SU				/* 積送数 */
+							,SUM(NVL(ZAIKO.TONANHIKIATE_SU, 0))		TONANHIKIATE_SU			/* 盗難品数 */
+							,SUM(NVL(ZAIKO.KIZUMONOHIKIATE_SU, 0))	KIZUMONOHIKIATE_SU		/* 評価損申請数 */
+					FROM
+				</parts>
+			</statement>
+			<!-- テーブル設定 サブクエリ_商品×店舗 -->
+			<statement type="replace" name="ADD_SUBQUERY_1" />
+			<statement type="final" name="final">
+				<parts>
+					WHERE
+							TNP_SHN.JAN_CD   = ZAIKO.JAN_CD(+)
+					AND	TNP_SHN.TENPO_CD = ZAIKO.TENPO_CD(+)
+					AND	TNP_SHN.JAN_CD   = </parts><bind id="BIND_JAN_CD_W1" /><parts>
+					GROUP BY
+							 TNP_SHN.TENPO_CD				/* 店舗コード */
+							,TNP_SHN.JAN_CD					/* JANコード */
+					ORDER BY
+							 DECODE(TNP_SHN.TENPO_CD, </parts><bind id="BIND_TENPO_CD_W1" /><parts>, '0000', '9999')	-- 自店が先頭
+							,DECODE(MAX(TNP_SHN.TENPOKEITAI_KB), 3, 0, 4, 99, 1)
+							,CASE WHEN SYOKART = 0 AND ZAIKOSU = 0 THEN 9999999999 ELSE TO_NUMBER(SYOKART) END			-- 消化率(昇順) ※0は最終行
+							,ZAIKOSU DESC										-- 在庫数(降順)
+							,AZUKARI_SU											-- 預り在庫数(昇順)
+							,TNP_SHN.TENPO_CD									-- 店舗コード(昇順)
+				</parts>
+			</statement>
+		</sql>
+
+		/** 在庫検索 展開区分取得 **/
+		<sql id="TH020P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT	MAX(MDMT0130.SIZE_NO1) SIZE_NO1, MIN(MDMT0130.SIZE_NO2) SIZE_NO2, MAX(MDMT0130.TENKAI_KB) TENKAI_KB
+				</parts>
+			</statement>
+			<!-- テーブル設定-->
+			<statement type="replace" name="ADD_TABLE" />
+			<statement type="final" name="final">
+				<parts>
+					WHERE	MDMT0130.XEBIO_CD      = </parts><bind id="BIND_JISHAHIN" /><parts>
+					AND		MDMT0130.MAKERCOLOR_CD = </parts><bind id="BIND_IRO_CD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Th020f03_Titlebar" xml:space="preserve">
+    <value>在庫検索</value>
+  </data>
+  <data name="Th020f03_FormCaption" xml:space="preserve">
+    <value>在庫検索 明細（エリア別）</value>
+  </data>
+  <data name="M1PageInfo" xml:space="preserve">
+    <value>Page: %PAGE_NO% of %PAGE_COUNT%</value>
+  </data>
+  <data name="M1PageInfoNoRec" xml:space="preserve">
+    <value>データがありません。</value>
+  </data>
+  <data name="Btnback" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Kaisya_cd" xml:space="preserve">
+    <value>会社</value>
+  </data>
+  <data name="Kaisya_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Bumon_cd" xml:space="preserve">
+    <value>部門</value>
+  </data>
+  <data name="Bumon_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Hinsyu_ryaku_nm" xml:space="preserve">
+    <value>品種</value>
+  </data>
+  <data name="Hinsyu_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Burando_cd" xml:space="preserve">
+    <value>ブランド</value>
+  </data>
+  <data name="Burando_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Jisya_hbn" xml:space="preserve">
+    <value>自社品番</value>
+  </data>
+  <data name="Maker_hbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Syohin_zokusei" xml:space="preserve">
+    <value>コア属性</value>
+  </data>
+  <data name="Syonmk" xml:space="preserve">
+    <value>商品名</value>
+  </data>
+  <data name="Iro_nm" xml:space="preserve">
+    <value>色</value>
+  </data>
+  <data name="Zentenzaiko_su" xml:space="preserve">
+    <value>全店在庫数</value>
+  </data>
+  <data name="Zentensyoka_rtu" xml:space="preserve">
+    <value>全店消化率</value>
+  </data>
+  <data name="Btnprev" xml:space="preserve">
+    <value>前へ</value>
+  </data>
+  <data name="Btnnext" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="Meisaihead_iro_nm1" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm3" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm4" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm5" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm6" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm7" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm8" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm9" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm10" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm11" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm12" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm13" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm14" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm15" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm16" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm17" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm18" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm19" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm20" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm21" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm22" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm23" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm24" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm25" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm26" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm27" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm28" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm29" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisaihead_iro_nm30" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1area_ryaku_nm" xml:space="preserve">
+    <value>エリア</value>
+  </data>
+  <data name="M1area_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1gokei_suryo" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="M1syoka_rtu" xml:space="preserve">
+    <value>消化率</value>
+  </data>
+  <data name="M1suryo1" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo3" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo4" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo5" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo6" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo7" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo8" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo9" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo10" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo11" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo12" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo13" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo14" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo15" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo16" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo17" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo18" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo19" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo20" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo21" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo22" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo23" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo24" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo25" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo26" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo27" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo28" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo29" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1suryo30" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1selectorcheckbox" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Tenpo_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Tenpo_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="All_gokei_suryo" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo1" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo3" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo4" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo5" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo6" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo7" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo8" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo9" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo10" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo11" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo12" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo13" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo14" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo15" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo16" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo17" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo18" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo19" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo20" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo21" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo22" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo23" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo24" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo25" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo26" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo27" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo28" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo29" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_suryo30" xml:space="preserve">
+    <value></value>
+  </data>
+</root>

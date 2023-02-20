@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 仕入入荷確定 件数チェック **/
+		<sql id="TB030P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(*) AS CNT
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+		</sql>
+		/** 仕入入荷確定(H) 削除 **/
+		<sql id="TB030P01-02">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDPT0020
+					WHERE
+						KAKUTEI_SB		= </parts><bind id="BIND_KAKUTEI_SB" /><parts>
+					AND	SIIRESAKI_CD	= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	= </parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		= </parts><bind id="BIND_TENCD" />
+			</statement>
+		</sql>
+		/** 仕入入荷確定(B) 削除 **/
+		<sql id="TB030P01-03">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDPT0021
+					WHERE
+						KAKUTEI_SB		= </parts><bind id="BIND_KAKUTEI_SB" /><parts>
+					AND	SIIRESAKI_CD	= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	= </parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		= </parts><bind id="BIND_TENCD" />
+			</statement>
+		</sql>
+		/** SCM検品督促リストデータ 削除 **/
+		<sql id="TB030P01-04">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDPT0050
+					WHERE
+						SIIRESAKI_CD	= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	= </parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		= </parts><bind id="BIND_TENCD" />
+			</statement>
+		</sql>
+		/** [仕入入荷確定TBL(H)]を更新する。 **/
+		<sql id="TB030P01-05">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDPT0020 SET
+						 INPUT_FLG 		= </parts><bind id="BIND_INPUT_FLG" /><parts>		/* 入力フラグ */
+						,CHECK_TANCD	= </parts><bind id="BIND_CHECK_TANCD" /><parts>		/* チェック担当者コード */
+					WHERE
+						KAKUTEI_SB		= </parts><bind id="BIND_KAKUTEI_SB" /><parts>
+					AND	SIIRESAKI_CD	= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	= </parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		= </parts><bind id="BIND_TENCD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

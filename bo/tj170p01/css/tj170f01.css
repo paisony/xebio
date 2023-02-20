@@ -1,0 +1,98 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tj170f01.css
+--------------------------------------------------------------------------------*/
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+.str-search-01 .w-type-01 {
+  width: 100px;
+}
+.str-search-01 .w-type-02 {
+  width: 80px;
+}
+.str-search-01 .w-type-03 {
+  width: 350px;
+}
+.str-search-01 .w-type-04 {
+  width: 490px;
+}
+/*--- 出力帳票 ---*/
+.str-outrep span{
+    color: #666666;
+    position: relative;
+    top: 5px;
+	margin-left: 14px;
+}
+.str-outrep2 span {
+    color: #666666;
+    position: relative;
+    top: 5px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  position: relative;
+  width: 30px;
+}
+/* 商品群1 */
+.str-result-01 .col2 {
+  width: 166px;
+}
+
+/* 商品群2 */
+.str-result-01 .col3 {
+  width: 170px;
+}
+
+/*--- 部門 ---*/
+.str-result-01 .col4 {
+	width: 180px;
+}
+
+/*--- 臨時帳簿数 ---*/
+.str-result-01 .col5 {
+  width: 77px;
+}
+
+/*--- 臨時積送数 ---*/
+.str-result-01 .col6 {
+  width: 77px;
+}
+
+/*--- 実棚数 ---*/
+.str-result-01 .col7 {
+  width: 77px;
+}
+
+/*--- 以降受払数---*/
+.str-result-01 .col8 {
+  width: 77px;
+}
+
+/*--- 理論在庫数 ---*/
+.str-result-01 .col9 {
+  width: 77px;
+}
+
+/*--- 理論棚卸数 ---*/
+.str-result-01 .col10 {
+  width: 77px;
+}
+
+/*--- ロス数 ---*/
+.str-result-01 .col11 {
+	width: 77px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+/*--- ロス金額 ---*/
+.str-result-01 .col12 {
+	width: 77px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+

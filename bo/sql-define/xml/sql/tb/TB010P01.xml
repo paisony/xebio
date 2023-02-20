@@ -1,0 +1,1214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 仕入入荷検索（予定、確定） 件数チェック **/
+		<sql id="TB010P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						SUM(CNT) AS CNT
+					FROM
+						(
+							SELECT
+								COUNT(*) AS CNT
+							FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+							WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+						UNION ALL
+							SELECT
+								COUNT(*) AS CNT
+							FROM
+				</parts></statement><statement type="replace" name="TABLE_ID2" /><statement type="final" name="final"><parts>
+							WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="final" name="final">
+				<parts>
+						)
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索 件数チェック **/
+		<sql id="TB010P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(*) AS CNT
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+		</sql>
+		/** 仕入入荷検索 一覧(予定、確定テーブル) **/
+		<sql id="TB010P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.SIIRESAKI_CD								AS SIIRESAKI_CD					/*	1 仕入先コード */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO 				/*	2 伝票番号 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD				/*	3 指定納品日 */
+						,T1.TENPO_CD									AS TENPO_CD 					/*	4 店舗コード */
+						,T1.NOHINSYO_YMD								AS NOHINSYO_YMD 				/*	5 納品書日付 */
+						,NULL											AS JYURYO_YMD					/*	6 受領日 */
+						,T1.BUMON_CD									AS BUMON_CD 					/*	7 部門コード */
+						,T1.SUBSIIRESAKI_CD								AS SUBSIIRESAKI_CD				/*	8 サブ仕入先コード */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU			/*	9 仕入予定合計数量 */
+						,T1.SIIREYOTEIGOKEI_KIN							AS SIIREYOTEIGOKEI_KIN			/* 10 仕入予定合計金額 */
+						,NULL											AS SIIREJISSEKIGOKEI_SU 		/* 11 仕入実績合計数量 */
+						,NULL											AS SIIREJISSEKIGOKEI_KIN		/* 12 仕入実績合計金額 */
+						,(
+							SELECT
+									SUM((T1_1.YOTEI_SU * T1_1.GEN_TNK) + MDCALCTAX(T1_1.YOTEI_SU * T1_1.GEN_TNK, JAN_CD))
+							FROM
+									MDPT0011 T1_1
+							WHERE
+									T1_1.SIIRESAKI_CD	= T1.SIIRESAKI_CD
+							AND		T1_1.DENPYO_BANGO	= T1.DENPYO_BANGO
+							AND		T1_1.SITEINOHIN_YMD	= T1.SITEINOHIN_YMD
+							AND		T1_1.TENPO_CD		= T1.TENPO_CD
+						 )												AS ZEIKOMI_DENPYO_KIN			/* 13 仕入実績税込合計金額 */
+/**						,DECODE(T1.DENPYO_JYOTAI, 0, 3, 2, 2, 1, 1)		AS DENPYO_JYOTAI		**/
+						,T1.DENPYO_JYOTAI								AS DENPYO_JYOTAI				/* 14 伝票状態 */
+						,NULL											AS MOTODENPYO_BANGO 			/* 15 元伝票番号 */
+						,T1.ADD_YMD										AS ADD_YMD						/* 16 登録日 */
+						,T1.ADD_TM										AS ADD_TM						/* 17 登録時間 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD					/* 18 登録担当者コード */
+						,T1.UPD_YMD										AS UPD_YMD						/* 19 更新日 */
+						,T1.UPD_TM										AS UPD_TM						/* 20 更新時間 */
+						,T1.UPD_TANCD									AS UPD_TANCD					/* 21 更新担当者コード */
+						,T1.SAKUJYO_YMD									AS SAKUJYO_YMD					/* 22 削除日 */
+						,T1.SAKUJYO_FLG									AS SAKUJYO_FLG					/* 23 削除フラグ */
+						,M1.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM			/* 24 仕入先名 */
+						,M2.BUMON_NM									AS BUMON_NM 					/* 25 部門名 */
+						,M3.HANBAIIN_NM									AS TANTOSYA_NM					/* 26 担当者名 */
+						,M2.SIIREZEI_KB									AS SIIREZEI_KB					/* 27 仕入税区分 */
+						,M2.URIAGEZEI_KB								AS URIAGEZEI_KB 				/* 28 売上税区分 */
+						,NULL											AS SYORI_SHUBETU				/* 29 処理種別 */
+						,NULL											AS SYORI_YMD					/* 30 処理日付 */
+						,NULL											AS SYORI_TM 					/* 31 処理時間 */
+						,0												AS KYAKUTYU_FLG					/* 32 客注フラグ */
+						,0												AS NEGAKIHIN_FLG				/* 33 値書きフラグ */
+						,0												AS SOSINZUMI_FLG				/* 34 送信済みフラグ */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM 				/* 35 部門名カナ */
+						,M4.MEISYO_NM									AS DENPYO_JYOTAI_NM 			/* 36 伝票状態 */
+						,0												AS INPUT_FLG					/* 37 入力フラグ */
+						,0												AS KAKUTEI_JYOTAI				/* 38 確定状態 */
+						,NULL											AS CHECK_TANCD					/* 39 チェック担当者コード */
+						,NULL											AS CHECK_TANNM					/* 40 チェック担当者名 */
+						,NULL											AS KAKUTEI_JYOTAI_NM			/* 41 確定状態(名称) */
+						,T1.HHTSERIAL_NO								AS HHTSERIAL_NO 				/* 42 HHTシリアル番号 */
+						,T1.HHTSEQUENCE_NO								AS HHTSEQUENCE_NO				/* 43 HHTシーケンスNo. */
+						,0												AS RIREKI_NO					/* 44 履歴No */
+						,0												AS AKAKURO_KBN					/* 45 赤黒区分 */
+						,NULL											AS KAKUTEI_SB					/* 46 確定種別 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.UPD_TANCD
+					LEFT JOIN
+							MDMT0100 M4
+					ON		M4.SIKIBETSU_CD = 'SIST'
+					AND		M4.MEISYO_CD = DECODE(T1.DENPYO_JYOTAI,0,3,2,2,1,1)
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+						 T1.SIIRESAKI_CD								AS SIIRESAKI_CD					/*	1 仕入先コード */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO 				/*	2 伝票番号 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD				/*	3 指定納品日 */
+						,T1.TENPO_CD									AS TENPO_CD 					/*	4 店舗コード */
+						,T1.NOHINSYO_YMD								AS NOHINSYO_YMD 				/*	5 納品書日付 */
+						,T1.JYURYO_YMD									AS JYURYO_YMD					/*	6 受領日 */
+						,T1.BUMON_CD									AS BUMON_CD 					/*	7 部門コード */
+						,T1.SUBSIIRESAKI_CD								AS SUBSIIRESAKI_CD				/*	8 サブ仕入先コード */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU			/*	9 仕入予定合計数量 */
+						,T1.SIIREYOTEIGOKEI_KIN							AS SIIREYOTEIGOKEI_KIN			/* 10 仕入予定合計金額 */
+						,T1.SIIREJISSEKIGOKEI_SU						AS SIIREJISSEKIGOKEI_SU 		/* 11 仕入実績合計数量 */
+						,T1.SIIREJISSEKIGOKEI_KIN						AS SIIREJISSEKIGOKEI_KIN		/* 12 仕入実績合計金額 */
+						,T1.ZEIKOMI_DENPYO_KIN							AS ZEIKOMI_DENPYO_KIN			/* 13 仕入実績税込合計金額 */
+/**						,DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)	AS DENPYO_JYOTAI			**/
+						,NULL											AS DENPYO_JYOTAI				/* 14 伝票状態 */
+						,T1.MOTODENPYO_BANGO							AS MOTODENPYO_BANGO 			/* 15 元伝票番号 */
+						,T1.ADD_YMD										AS ADD_YMD						/* 16 登録日 */
+						,T1.ADD_TM										AS ADD_TM						/* 17 登録時間 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD					/* 18 登録担当者コード */
+						,T1.UPD_YMD										AS UPD_YMD						/* 19 更新日 */
+						,T1.UPD_TM										AS UPD_TM						/* 20 更新時間 */
+						,T1.UPD_TANCD									AS UPD_TANCD					/* 21 更新担当者コード */
+						,T1.SAKUJYO_YMD									AS SAKUJYO_YMD					/* 22 削除日 */
+						,T1.SAKUJYO_FLG									AS SAKUJYO_FLG					/* 23 削除フラグ */
+						,M1.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM			/* 24 仕入先名 */
+						,M2.BUMON_NM									AS BUMON_NM 					/* 25 部門名 */
+						,M3.HANBAIIN_NM									AS TANTOSYA_NM					/* 26 担当者名 */
+						,M2.SIIREZEI_KB									AS SIIREZEI_KB					/* 27 仕入税区分 */
+						,M2.URIAGEZEI_KB								AS URIAGEZEI_KB 				/* 28 売上税区分 */
+						,NULL											AS SYORI_SHUBETU				/* 29 処理種別 */
+						,NULL											AS SYORI_YMD					/* 30 処理日付 */
+						,NULL											AS SYORI_TM 					/* 31 処理時間 */
+						,0												AS KYAKUTYU_FLG 				/* 32 客注フラグ */
+						,0												AS NEGAKIHIN_FLG				/* 33 値書きフラグ */
+						,T1.SOSINZUMI_FLG								AS SOSINZUMI_FLG				/* 34 送信済みフラグ */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM 				/* 35 部門名カナ */
+						,M4.MEISYO_NM									AS DENPYO_JYOTAI_NM 			/* 36 伝票状態 */
+						,0												AS INPUT_FLG					/* 37 入力フラグ */
+						,0												AS KAKUTEI_JYOTAI				/* 38 確定状態 */
+						,NULL											AS CHECK_TANCD					/* 39 チェック担当者コード */
+						,NULL											AS CHECK_TANNM					/* 40 チェック担当者名 */
+						,NULL											AS KAKUTEI_JYOTAI_NM			/* 41 確定状態(名称) */
+						,T1.HHTSERIAL_NO								AS HHTSERIAL_NO 				/* 42 HHTシリアル番号 */
+						,T1.HHTSEQUENCE_NO								AS HHTSEQUENCE_NO				/* 43 HHTシーケンスNo. */
+						,0												AS RIREKI_NO					/* 44 履歴No */
+						,0												AS AKAKURO_KBN					/* 45 赤黒区分 */
+						,T1.KAKUTEI_SB									AS KAKUTEI_SB					/* 46 確定種別 */
+					FROM																				
+				</parts></statement><statement type="replace" name="TABLE_ID2" /><statement type="final" name="final"><parts>
+					LEFT JOIN
+							MDPT0010 T2
+					ON		T2.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					AND		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.UPD_TANCD
+					LEFT JOIN
+							MDMT0100 M4
+					ON		M4.SIKIBETSU_CD = 'SIST'
+					AND		M4.MEISYO_CD = DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 DENPYO_JYOTAI
+						,BUMON_CD
+						,SIIRESAKI_CD
+						,SITEINOHIN_YMD
+						,DENPYO_BANGO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索一覧 検索(予定テーブル) **/
+		/** 仕入入荷確定一覧 検索(予定テーブル) **/
+		<sql id="TB010P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.SIIRESAKI_CD								AS SIIRESAKI_CD					/*	1 仕入先コード */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO 				/*	2 伝票番号 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD				/*	3 指定納品日 */
+						,T1.TENPO_CD									AS TENPO_CD 					/*	4 店舗コード */
+						,T1.NOHINSYO_YMD								AS NOHINSYO_YMD 				/*	5 納品書日付 */
+						,NULL											AS JYURYO_YMD					/*	6 受領日 */
+						,T1.BUMON_CD									AS BUMON_CD 					/*	7 部門コード */
+						,T1.SUBSIIRESAKI_CD								AS SUBSIIRESAKI_CD				/*	8 サブ仕入先コード */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU			/*	9 仕入予定合計数量 */
+						,T1.SIIREYOTEIGOKEI_KIN							AS SIIREYOTEIGOKEI_KIN			/* 10 仕入予定合計金額 */
+						,NULL											AS SIIREJISSEKIGOKEI_SU 		/* 11 仕入実績合計数量 */
+						,NULL											AS SIIREJISSEKIGOKEI_KIN		/* 12 仕入実績合計金額 */
+						,(
+							SELECT
+									SUM((T1_1.YOTEI_SU * T1_1.GEN_TNK) + MDCALCTAX(T1_1.YOTEI_SU * T1_1.GEN_TNK, JAN_CD))
+							FROM
+									MDPT0011 T1_1
+							WHERE
+									T1_1.SIIRESAKI_CD	= T1.SIIRESAKI_CD
+							AND		T1_1.DENPYO_BANGO	= T1.DENPYO_BANGO
+							AND		T1_1.SITEINOHIN_YMD	= T1.SITEINOHIN_YMD
+							AND		T1_1.TENPO_CD		= T1.TENPO_CD
+						 )												AS ZEIKOMI_DENPYO_KIN			/* 13 仕入実績税込合計金額 */
+/**						,DECODE(T1.DENPYO_JYOTAI,0,3,2,2,1,1)			AS DENPYO_JYOTAI			**/
+						,T1.DENPYO_JYOTAI								AS DENPYO_JYOTAI				/* 14 伝票状態 */
+						,NULL											AS MOTODENPYO_BANGO 			/* 15 元伝票番号 */
+						,T1.ADD_YMD										AS ADD_YMD						/* 16 登録日 */
+						,T1.ADD_TM										AS ADD_TM						/* 17 登録時間 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD					/* 18 登録担当者コード */
+						,T1.UPD_YMD										AS UPD_YMD						/* 19 更新日 */
+						,T1.UPD_TM										AS UPD_TM						/* 20 更新時間 */
+						,T1.UPD_TANCD									AS UPD_TANCD					/* 21 更新担当者コード */
+						,T1.SAKUJYO_YMD									AS SAKUJYO_YMD					/* 22 削除日 */
+						,T1.SAKUJYO_FLG									AS SAKUJYO_FLG					/* 23 削除フラグ */
+						,M1.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM			/* 24 仕入先名 */
+						,M2.BUMON_NM									AS BUMON_NM 					/* 25 部門名 */
+						,M3.HANBAIIN_NM									AS TANTOSYA_NM					/* 26 担当者名 */
+						,M2.SIIREZEI_KB									AS SIIREZEI_KB					/* 27 仕入税区分 */
+						,M2.URIAGEZEI_KB								AS URIAGEZEI_KB 				/* 28 売上税区分 */
+						,NULL											AS SYORI_SHUBETU				/* 29 処理種別 */
+						,NULL											AS SYORI_YMD					/* 30 処理日付 */
+						,NULL											AS SYORI_TM 					/* 31 処理時間 */
+						,CASE WHEN T2.KYAKUTYU_FLG > 0 THEN '○' ELSE '' END	AS KYAKUTYU_FLG 		/* 32 客注フラグ */
+						,CASE WHEN T2.NEGAKIHIN_FLG > 0 THEN '○' ELSE '' END	AS NEGAKIHIN_FLG		/* 33 値書きフラグ */
+						,0												AS SOSINZUMI_FLG				/* 34 送信済みフラグ */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM 				/* 35 部門名カナ */
+						,M4.MEISYO_NM									AS DENPYO_JYOTAI_NM 			/* 36 伝票状態 */
+						,0												AS INPUT_FLG					/* 37 入力フラグ */
+						,NULL											AS KAKUTEI_JYOTAI				/* 38 確定状態 */
+						,NULL											AS CHECK_TANCD					/* 39 チェック担当者コード */
+						,NULL											AS CHECK_TANNM					/* 40 チェック担当者名 */
+						,NULL											AS KAKUTEI_JYOTAI_NM			/* 41 確定状態(名称) */
+						,T1.HHTSERIAL_NO								AS HHTSERIAL_NO 				/* 42 HHTシリアル番号 */
+						,T1.HHTSEQUENCE_NO								AS HHTSEQUENCE_NO				/* 43 HHTシーケンスNo. */
+						,0												AS RIREKI_NO					/* 44 履歴No */
+						,0												AS AKAKURO_KBN					/* 45 赤黒区分 */
+						,NULL											AS KAKUTEI_SB					/* 46 確定種別 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					INNER JOIN
+							(
+							SELECT
+								 SIIRESAKI_CD
+								,DENPYO_BANGO
+								,MAX(KYAKUTYU_FLG)	KYAKUTYU_FLG
+								,MAX(NEGAKIHIN_FLG) NEGAKIHIN_FLG
+							FROM
+								MDPT0011
+							GROUP BY
+								SIIRESAKI_CD, DENPYO_BANGO
+							) T2
+						ON	T2.SIIRESAKI_CD = T1.SIIRESAKI_CD
+						AND	T2.DENPYO_BANGO = T1.DENPYO_BANGO
+					LEFT JOIN
+							MDMT0020 M1
+						ON	M1.SIIRESAKI_CD	= T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+						ON	M2.BUMON_CD		= T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+						ON	M3.HANBAIIN_CD	= T1.UPD_TANCD
+					LEFT JOIN
+						 MDMT0100 M4
+						ON	M4.SIKIBETSU_CD = 'SIST'
+						AND	M4.MEISYO_CD	= DECODE(T1.DENPYO_JYOTAI, 0, 3, 2, 2, 1, 1)
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 T1.BUMON_CD
+						,T1.SIIRESAKI_CD
+						,T1.SITEINOHIN_YMD
+						,T1.DENPYO_BANGO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索一覧 検索(確定テーブル) **/
+		/** 仕入入荷確定一覧 検索(確定テーブル) **/
+		<sql id="TB010P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.SIIRESAKI_CD								AS SIIRESAKI_CD					/*	1 仕入先コード */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO 				/*	2 伝票番号 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD				/*	3 指定納品日 */
+						,T1.TENPO_CD									AS TENPO_CD 					/*	4 店舗コード */
+						,T1.NOHINSYO_YMD								AS NOHINSYO_YMD 				/*	5 納品書日付 */
+						,T1.JYURYO_YMD									AS JYURYO_YMD					/*	6 受領日 */
+						,T1.BUMON_CD									AS BUMON_CD 					/*	7 部門コード */
+						,T1.SUBSIIRESAKI_CD								AS SUBSIIRESAKI_CD				/*	8 サブ仕入先コード */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU			/*	9 仕入予定合計数量 */
+						,T1.SIIREYOTEIGOKEI_KIN							AS SIIREYOTEIGOKEI_KIN			/* 10 仕入予定合計金額 */
+						,T1.SIIREJISSEKIGOKEI_SU						AS SIIREJISSEKIGOKEI_SU 		/* 11 仕入実績合計数量 */
+						,T1.SIIREJISSEKIGOKEI_KIN						AS SIIREJISSEKIGOKEI_KIN		/* 12 仕入実績合計金額 */
+						,T1.ZEIKOMI_DENPYO_KIN							AS ZEIKOMI_DENPYO_KIN			/* 13 仕入実績税込合計金額 */
+/**						,DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)	AS DENPYO_JYOTAI			**/
+						,NULL											AS DENPYO_JYOTAI				/* 14 伝票状態 */
+						,T1.MOTODENPYO_BANGO							AS MOTODENPYO_BANGO 			/* 15 元伝票番号 */
+						,T1.ADD_YMD										AS ADD_YMD						/* 16 登録日 */
+						,T1.ADD_TM										AS ADD_TM						/* 17 登録時間 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD					/* 18 登録担当者コード */
+						,T1.UPD_YMD										AS UPD_YMD						/* 19 更新日 */
+						,T1.UPD_TM										AS UPD_TM						/* 20 更新時間 */
+						,T1.UPD_TANCD									AS UPD_TANCD					/* 21 更新担当者コード */
+						,T1.SAKUJYO_YMD									AS SAKUJYO_YMD					/* 22 削除日 */
+						,T1.SAKUJYO_FLG									AS SAKUJYO_FLG					/* 23 削除フラグ */
+						,M1.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM			/* 24 仕入先名 */
+						,M2.BUMON_NM									AS BUMON_NM 					/* 25 部門名 */
+						,M3.HANBAIIN_NM									AS TANTOSYA_NM					/* 26 担当者名 */
+						,M2.SIIREZEI_KB									AS SIIREZEI_KB					/* 27 仕入税区分 */
+						,M2.URIAGEZEI_KB								AS URIAGEZEI_KB 				/* 28 売上税区分 */
+						,NULL											AS SYORI_SHUBETU				/* 29 処理種別 */
+						,NULL											AS SYORI_YMD					/* 30 処理日付 */
+						,NULL											AS SYORI_TM 					/* 31 処理時間 */
+						,CASE WHEN T2.KYAKUTYU_FLG > 0 THEN '○' ELSE '' END	AS KYAKUTYU_FLG 		/* 32 客注フラグ */
+						,CASE WHEN T2.NEGAKIHIN_FLG > 0 THEN '○' ELSE '' END	AS NEGAKIHIN_FLG		/* 33 値書きフラグ */
+						,T1.SOSINZUMI_FLG								AS SOSINZUMI_FLG				/* 34 送信済みフラグ */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM 				/* 35 部門名カナ */
+						,M4.MEISYO_NM									AS DENPYO_JYOTAI_NM 			/* 36 伝票状態 */
+						,T1.INPUT_FLG									AS INPUT_FLG					/* 37 入力フラグ */
+						,T1.KAKUTEI_JYOTAI								AS KAKUTEI_JYOTAI				/* 38 確定状態 */
+						,T1.CHECK_TANCD									AS CHECK_TANCD					/* 39 チェック担当者コード */
+						,M6.HANBAIIN_NM									AS CHECK_TANNM					/* 40 チェック担当者名 */
+						,M5.MEISYO_NM									AS KAKUTEI_JYOTAI_NM			/* 41 確定状態(名称) */
+						,T1.HHTSERIAL_NO								AS HHTSERIAL_NO 				/* 42 HHTシリアル番号 */
+						,T1.HHTSEQUENCE_NO								AS HHTSEQUENCE_NO				/* 43 HHTシーケンスNo. */
+						,0												AS RIREKI_NO					/* 44 履歴No */
+						,0												AS AKAKURO_KBN					/* 45 赤黒区分 */
+						,T1.KAKUTEI_SB									AS KAKUTEI_SB					/* 46 確定種別 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					INNER JOIN
+							(
+							SELECT
+								 KAKUTEI_SB
+								,SIIRESAKI_CD
+								,DENPYO_BANGO
+								,SITEINOHIN_YMD
+								,TENPO_CD
+								,MAX(KYAKUTYU_FLG)	KYAKUTYU_FLG
+								,MAX(NEGAKIHIN_FLG) NEGAKIHIN_FLG
+							FROM
+								MDPT0021
+							GROUP BY
+								 KAKUTEI_SB
+								,SIIRESAKI_CD
+								,DENPYO_BANGO
+								,SITEINOHIN_YMD
+								,TENPO_CD
+							) T2
+						ON	T2.KAKUTEI_SB		= T1.KAKUTEI_SB
+						AND	T2.SIIRESAKI_CD		= T1.SIIRESAKI_CD
+						AND	T2.DENPYO_BANGO		= T1.DENPYO_BANGO
+						AND	T2.SITEINOHIN_YMD	= T1.SITEINOHIN_YMD
+						AND	T2.TENPO_CD			= T1.TENPO_CD
+					LEFT JOIN
+							MDMT0020 M1
+						ON	M1.SIIRESAKI_CD		= T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+						ON	M2.BUMON_CD			= T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+						ON	M3.HANBAIIN_CD		= T1.UPD_TANCD
+					LEFT JOIN
+							MDMT0100 M4
+						ON	M4.MEISYO_CD		= DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)
+						AND	M4.SIKIBETSU_CD		= 'SIST'
+					LEFT JOIN
+							MDMT0100 M5
+						ON	M5.MEISYO_CD		= DECODE(T1.KAKUTEI_JYOTAI, 0, 1, 1, 3, 2, 2, 3, 4)
+						AND	M5.SIKIBETSU_CD		= 'SKST'
+					LEFT JOIN
+							BOMT0030 M6
+						ON	M6.HANBAIIN_CD		= T1.CHECK_TANCD
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 DECODE(T1.KAKUTEI_JYOTAI, 0, 1, 2, 2, 1, 3, 3, 4)
+						,T1.BUMON_CD
+						,T1.SIIRESAKI_CD
+						,T1.SITEINOHIN_YMD
+						,T1.DENPYO_BANGO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索(履歴テーブル) **/
+		<sql id="TB010P01-06">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.SIIRESAKI_CD								AS SIIRESAKI_CD						/*	1 仕入先コード */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO 					/*	2 伝票番号 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD					/*	3 指定納品日 */
+						,T1.TENPO_CD									AS TENPO_CD 						/*	4 店舗コード */
+						,T1.NOHINSYO_YMD								AS NOHINSYO_YMD 					/*	5 納品書日付 */
+						,T1.JYURYO_YMD									AS JYURYO_YMD						/*	6 受領日 */
+						,T1.BUMON_CD									AS BUMON_CD 						/*	7 部門コード */
+						,T1.SUBSIIRESAKI_CD								AS SUBSIIRESAKI_CD					/*	8 サブ仕入先コード */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU				/*	9 仕入予定合計数量 */
+						,T1.SIIREYOTEIGOKEI_KIN							AS SIIREYOTEIGOKEI_KIN				/* 10 仕入予定合計金額 */
+						,T1.SIIREJISSEKIGOKEI_SU						AS SIIREJISSEKIGOKEI_SU 			/* 11 仕入実績合計数量 */
+						,T1.SIIREJISSEKIGOKEI_KIN						AS SIIREJISSEKIGOKEI_KIN			/* 12 仕入実績合計金額 */
+						,0												AS ZEIKOMI_DENPYO_KIN				/* 13 仕入実績税込合計金額 */
+/**						,DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4) 				AS DENPYO_JYOTAI			**/
+						,NULL											AS DENPYO_JYOTAI					/* 14 伝票状態 */
+						,T1.MOTODENPYO_BANGO							AS MOTODENPYO_BANGO 				/* 15 元伝票番号 */
+						,T1.ADD_YMD										AS ADD_YMD							/* 16 登録日 */
+						,T1.ADD_TM										AS ADD_TM							/* 17 登録時間 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD						/* 18 登録担当者コード */
+						,T1.UPD_YMD										AS UPD_YMD							/* 19 更新日 */
+						,T1.UPD_TM										AS UPD_TM							/* 20 更新時間 */
+						,T1.UPD_TANCD									AS UPD_TANCD						/* 21 更新担当者コード */
+						,T1.SAKUJYO_YMD									AS SAKUJYO_YMD						/* 22 削除日 */
+						,T1.SAKUJYO_FLG									AS SAKUJYO_FLG						/* 23 削除フラグ */
+						,M1.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM				/* 24 仕入先名 */
+						,M2.BUMON_NM									AS BUMON_NM 						/* 25 部門名 */
+						,M3.HANBAIIN_NM									AS TANTOSYA_NM						/* 26 担当者名 */
+						,M2.SIIREZEI_KB									AS SIIREZEI_KB						/* 27 仕入税区分 */
+						,M2.URIAGEZEI_KB								AS URIAGEZEI_KB 					/* 28 売上税区分 */
+						,M4.MEISYO_NM									AS SYORI_SHUBETU					/* 29 処理種別 */
+						,T1.RIREKI_SYORI_YMD							AS SYORI_YMD						/* 30 処理日付 */
+						,T1.RIREKI_SYORI_TM								AS SYORI_TM 						/* 31 処理時間 */
+						,0												AS KYAKUTYU_FLG 					/* 32 客注フラグ */
+						,0												AS NEGAKIHIN_FLG					/* 33 値書きフラグ */
+						,0												AS SOSINZUMI_FLG					/* 34 送信済みフラグ */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM 					/* 35 部門名カナ */
+						,M5.MEISYO_NM									AS DENPYO_JYOTAI_NM 				/* 36 伝票状態 */
+						,0												AS INPUT_FLG						/* 37 入力フラグ */
+						,NULL											AS KAKUTEI_JYOTAI					/* 38 確定状態 */
+						,NULL											AS CHECK_TANCD						/* 39 チェック担当者コード */
+						,NULL											AS CHECK_TANNM						/* 40 チェック担当者名 */
+						,NULL											AS KAKUTEI_JYOTAI_NM				/* 41 確定状態(名称) */
+						,T1.HHTSERIAL_NO								AS HHTSERIAL_NO 					/* 42 HHTシリアル番号 */
+						,T1.HHTSEQUENCE_NO								AS HHTSEQUENCE_NO					/* 43 HHTシーケンスNo. */
+						,T1.RIREKI_NO									AS RIREKI_NO						/* 44 履歴No */
+						,T1.AKAKURO_KBN									AS AKAKURO_KBN						/* 45 赤黒区分 */
+						,T1.KAKUTEI_SB									AS KAKUTEI_SB						/* 46 確定種別 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					LEFT JOIN
+							MDMT0020 M1
+						ON	M1.SIIRESAKI_CD		= T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+						ON	M2.BUMON_CD			= T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+						ON	M3.HANBAIIN_CD		= T1.UPD_TANCD
+					LEFT JOIN
+							MDMT0100 M4
+						ON	M4.MEISYO_CD		= T1.SYORI_SB
+						AND	M4.SIKIBETSU_CD		= 'SISY'
+					LEFT JOIN
+							MDMT0100 M5
+						ON	M5.MEISYO_CD		= DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)
+						AND	M5.SIKIBETSU_CD		= 'SIST'
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 T1.BUMON_CD
+						,T1.SIIRESAKI_CD
+						,T1.SITEINOHIN_YMD
+						,T1.DENPYO_BANGO
+						,T1.RIREKI_SYORI_YMD
+						,T1.RIREKI_SYORI_TM
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索明細 検索(予定テーブル) **/
+		/** 仕入入荷確定明細 検索(予定テーブル) **/
+		<sql id="TB010P01-07">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.SIIRESAKI_CD											AS SIIRESAKI_CD			/*	1 仕入先コード */
+							,T1.DENPYO_BANGO											AS DENPYO_BANGO 		/*	2 伝票番号 */
+							,T1.SITEINOHIN_YMD											AS SITEINOHIN_YMD		/*	3 指定納品日 */
+							,T1.DENPYOGYO_NO											AS DENPYOGYO_NO 		/*	4 伝票行№ */
+							,T1.TENPO_CD												AS TENPO_CD 			/*	5 店舗コード */
+							,T1.BUMON_CD												AS BUMON_CD 			/*	6 部門コード */
+							,T1.HINSYU_CD												AS HINSYU_CD			/*	7 品種コード */
+							,T1.BURANDO_CD												AS BURANDO_CD			/*	8 ブランドコード */
+							,T1.MAKER_HBN												AS MAKER_HBN			/*	9 メーカー品番 */
+							,T1.JISYA_HBN												AS JISYA_HBN			/* 10 自社品番 */
+							,T1.IRO_CD													AS IRO_CD				/* 11 色コード */
+							,T1.SIZE_CD													AS SIZE_CD				/* 13 サイズコード */
+							,T1.SIZE_NM													AS SIZE_NM				/* 14 サイズ */
+							,T1.YOTEI_SU												AS YOTEI_SU 			/* 15 予定数量 */
+							, NVL(( 
+									SELECT
+										  T2.JISSEKI_SU 
+									FROM
+										MDPT0021 T2 
+									WHERE
+										T2.SIIRESAKI_CD = T1.SIIRESAKI_CD 
+										AND T2.DENPYO_BANGO = T1.DENPYO_BANGO 
+										AND T2.SITEINOHIN_YMD = T1.SITEINOHIN_YMD 
+										AND T2.TENPO_CD = T1.TENPO_CD 
+										AND T2.DENPYOGYO_NO = T1.DENPYOGYO_NO
+										AND T2.KAKUTEI_SB = 0
+								), 0)													AS JISSEKI_SU			/* 16 確定数量 */
+							,T1.JAN_CD													AS JAN_CD				/* 17 ＪＡＮコード */
+							,T1.SYOHIN_CD												AS SYOHIN_CD			/* 18 商品コード */
+							,T1.GEN_TNK													AS GEN_TNK				/* 19 原単価 */
+							,T1.JODAI1_TNK												AS JODAI1_TNK			/* 20 上代１ */
+							,T1.KAKUTEI_FLG												AS KAKUTEI_FLG			/* 21 確定フラグ */
+							,T1.KYAKUTYUDENPYO_NO										AS KYAKUTYUDENPYO_NO	/* 22 客注伝票番号 */
+							,T1.KYAKUTYU_FLG											AS KYAKUTYU_FLG 		/* 23 客注フラグ */
+							,T1.NEGAKIHIN_FLG											AS NEGAKIHIN_FLG		/* 24 値書き品フラグ */
+							,T1.ADD_YMD													AS ADD_YMD				/* 25 登録日 */
+							,T1.ADD_TM													AS ADD_TM				/* 26 登録時間 */
+							,T1.ADDTAN_CD												AS ADDTAN_CD			/* 27 登録担当者コード */
+							,T1.UPD_YMD													AS UPD_YMD				/* 28 更新日 */
+							,T1.UPD_TM													AS UPD_TM				/* 29 更新時間 */
+							,T1.UPD_TANCD												AS UPD_TANCD			/* 30 更新担当者コード */
+							,T1.SAKUJYO_YMD												AS SAKUJYO_YMD			/* 31 削除日 */
+							,T1.SAKUJYO_FLG												AS SAKUJYO_FLG			/* 32 削除フラグ */
+							,M3.IRO_NM													AS IRO_NM				/* 33 色名 */
+							,M2.HANBAIIN_NM												AS TANTOUSYA_NM 		/* 34 販売員名 */
+							,T1.SYONMK													AS SYONMK				/* 35 商品名カナ */
+							,M4.BURANDO_NMK												AS BURANDO_NMK			/* 36 ブランド名カナ */
+							,M5.HINSYU_RYAKU_NM											AS HINSYU_RYAKU_NM		/* 37 品種略名 */
+							,T1.INSTORE_FLG												AS INSTORE_FLG			/* 38 インストアフラグ */
+							,NVL(M1.ZEI_KB,1)											AS ZEI_KB				/* 39 税区分 */
+							,CASE WHEN T1.KYAKUTYU_FLG > 0 THEN '○' ELSE '' END		AS KYAKUTYU_FLG_MK		/* 40 客注 */
+							,CASE WHEN T1.NEGAKIHIN_FLG > 0 THEN '○' ELSE '' END		AS NEGAKIHIN_FLG_MK 	/* 41 値書き */
+							,M1.OLD_XEBIO_CD											AS OLD_XEBIO_CD			/* 42 旧自社品番 */
+					FROM
+							MDPT0011 T1
+					LEFT JOIN
+							MDMT0130 M1
+					ON		M1.JAN_CD			= T1.JAN_CD
+					LEFT JOIN
+							BOMT0030 M2
+					ON		M2.HANBAIIN_CD		= T1.UPD_TANCD
+					LEFT JOIN
+							MDMT0080 M3
+					ON		M3.IRO_CD			= T1.IRO_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		M4.BURANDO_CD		= T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0070 M5
+					ON		M5.BUMON_CD			= T1.BUMON_CD
+					AND		M5.HINSYU_CD		= T1.HINSYU_CD
+					WHERE
+							T1.SIIRESAKI_CD		= </parts><bind id="SIIRESAKI_CD" /><parts>
+					AND		T1.DENPYO_BANGO		= </parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SITEINOHIN_YMD	= </parts><bind id="SITEINOHIN_YMD" /><parts>
+					AND		T1.TENPO_CD			= </parts><bind id="TENPO_CD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索明細 検索(確定テーブル) **/
+		/** 仕入入荷確定明細 検索(確定テーブル) **/
+		/** 仕入伝票訂正明細 検索(確定テーブル) **/
+		<sql id="TB010P01-08">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.SIIRESAKI_CD											AS SIIRESAKI_CD			/*	1 仕入先コード */
+							,T1.DENPYO_BANGO											AS DENPYO_BANGO 		/*	2 伝票番号 */
+							,T1.SITEINOHIN_YMD											AS SITEINOHIN_YMD		/*	3 指定納品日 */
+							,T1.DENPYOGYO_NO											AS DENPYOGYO_NO 		/*	4 伝票行№ */
+							,T1.TENPO_CD												AS TENPO_CD 			/*	5 店舗コード */
+							,T1.BUMON_CD												AS BUMON_CD 			/*	6 部門コード */
+							,T1.HINSYU_CD												AS HINSYU_CD			/*	7 品種コード */
+							,T1.BURANDO_CD												AS BURANDO_CD			/*	8 ブランドコード */
+							,T1.MAKER_HBN												AS MAKER_HBN			/*	9 メーカー品番 */
+							,T1.JISYA_HBN												AS JISYA_HBN			/* 10 自社品番 */
+							,T1.IRO_CD													AS IRO_CD				/* 11 色コード */
+							,T1.SIZE_CD													AS SIZE_CD				/* 13 サイズコード */
+							,T1.SIZE_NM													AS SIZE_NM				/* 14 サイズ */
+							,T1.YOTEI_SU												AS YOTEI_SU 			/* 15 予定数量 */
+							,T1.JISSEKI_SU												AS JISSEKI_SU			/* 16 確定数量 */
+							,T1.JAN_CD													AS JAN_CD				/* 17 ＪＡＮコード */
+							,T1.SYOHIN_CD												AS SYOHIN_CD			/* 18 商品コード */
+							,T1.GEN_TNK													AS GEN_TNK				/* 19 原単価 */
+							,T1.JODAI1_TNK												AS JODAI1_TNK			/* 20 上代１ */
+							,1															AS KAKUTEI_FLG			/* 21 確定フラグ */
+							,T1.KYAKUTYUDENPYO_NO										AS KYAKUTYUDENPYO_NO	/* 22 客注伝票番号 */
+							,T1.KYAKUTYU_FLG											AS KYAKUTYU_FLG 		/* 23 客注フラグ */
+							,T1.NEGAKIHIN_FLG											AS NEGAKIHIN_FLG		/* 24 値書き品フラグ */
+							,NULL														AS ADD_YMD				/* 25 登録日 */
+							,NULL														AS ADD_TM				/* 26 登録時間 */
+							,NULL														AS ADDTAN_CD			/* 27 登録担当者コード */
+							,T2.UPD_YMD													AS UPD_YMD				/* 28 更新日 */
+							,T2.UPD_TM													AS UPD_TM				/* 29 更新時間 */
+							,T2.UPD_TANCD												AS UPD_TANCD			/* 30 更新担当者コード */
+							,NULL														AS SAKUJYO_YMD			/* 31 削除日 */
+							,0															AS SAKUJYO_FLG			/* 32 削除フラグ */
+							,M3.IRO_NM													AS IRO_NM				/* 33 色名 */
+							,M2.HANBAIIN_NM												AS TANTOUSYA_NM 		/* 34 販売員名 */
+							,T1.SYONMK													AS SYONMK				/* 35 商品名カナ */
+							,M4.BURANDO_NMK												AS BURANDO_NMK			/* 36 ブランド名カナ */
+							,M5.HINSYU_RYAKU_NM											AS HINSYU_RYAKU_NM		/* 37 品種略名 */
+							,T1.INSTORE_FLG												AS INSTORE_FLG			/* 38 インストアフラグ */
+							,NVL(M1.ZEI_KB,1)											AS ZEI_KB				/* 39 税区分 */
+							,CASE WHEN T1.KYAKUTYU_FLG > 0 THEN '○' ELSE '' END		AS KYAKUTYU_FLG_MK		/* 40 客注 */
+							,CASE WHEN T1.NEGAKIHIN_FLG > 0 THEN '○' ELSE '' END		AS NEGAKIHIN_FLG_MK 	/* 41 値書き */
+							,M1.OLD_XEBIO_CD											AS OLD_XEBIO_CD			/* 42 旧自社品番 */
+					FROM
+							MDPT0021 T1
+					LEFT JOIN
+							MDMT0130 M1
+					ON		M1.JAN_CD			= T1.JAN_CD
+					LEFT JOIN
+							MDPT0011 T2
+					ON		T2.SIIRESAKI_CD		= T1.SIIRESAKI_CD
+					AND		T2.DENPYO_BANGO		= T1.DENPYO_BANGO
+					AND		T2.SITEINOHIN_YMD	= T1.SITEINOHIN_YMD
+					AND		T2.DENPYOGYO_NO		= T1.DENPYOGYO_NO
+					AND		T2.TENPO_CD			= T1.TENPO_CD
+					LEFT JOIN
+							BOMT0030 M2
+					ON		M2.HANBAIIN_CD		= T2.UPD_TANCD
+					LEFT JOIN
+							MDMT0080 M3
+					ON		M3.IRO_CD			= T1.IRO_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		M4.BURANDO_CD		= T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0070 M5
+					ON		M5.BUMON_CD			= T1.BUMON_CD
+					AND		M5.HINSYU_CD		= T1.HINSYU_CD
+					WHERE
+							T1.KAKUTEI_SB		= </parts><bind id="KAKUTEI_SB" /><parts>
+					AND		T1.SIIRESAKI_CD		= </parts><bind id="SIIRESAKI_CD" /><parts>
+					AND		T1.DENPYO_BANGO		= </parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SITEINOHIN_YMD	= </parts><bind id="SITEINOHIN_YMD" /><parts>
+					AND		T1.TENPO_CD			= </parts><bind id="TENPO_CD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷明細検索(履歴テーブル) **/
+		<sql id="TB010P01-09">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.SIIRESAKI_CD											AS SIIRESAKI_CD			/*	1 仕入先コード */
+							,T1.DENPYO_BANGO											AS DENPYO_BANGO 		/*	2 伝票番号 */
+							,T1.SITEINOHIN_YMD											AS SITEINOHIN_YMD		/*	3 指定納品日 */
+							,T1.DENPYOGYO_NO											AS DENPYOGYO_NO 		/*	4 伝票行№ */
+							,T1.TENPO_CD												AS TENPO_CD 			/*	5 店舗コード */
+							,T1.BUMON_CD												AS BUMON_CD 			/*	6 部門コード */
+							,T1.HINSYU_CD												AS HINSYU_CD			/*	7 品種コード */
+							,T1.BURANDO_CD												AS BURANDO_CD			/*	8 ブランドコード */
+							,T1.MAKER_HBN												AS MAKER_HBN			/*	9 メーカー品番 */
+							,T1.JISYA_HBN												AS JISYA_HBN			/* 10 自社品番 */
+							,T1.IRO_CD													AS IRO_CD				/* 11 色コード */
+							,T1.SIZE_CD													AS SIZE_CD				/* 13 サイズコード */
+							,T1.SIZE_NM													AS SIZE_NM				/* 14 サイズ */
+							,T1.YOTEI_SU												AS YOTEI_SU 			/* 15 予定数量 */
+							,T1.JISSEKI_SU												AS JISSEKI_SU			/* 16 確定数量 */
+							,T1.JAN_CD													AS JAN_CD				/* 17 ＪＡＮコード */
+							,T1.SYOHIN_CD												AS SYOHIN_CD			/* 18 商品コード */
+							,T1.GEN_TNK													AS GEN_TNK				/* 19 原単価 */
+							,T1.JODAI1_TNK												AS JODAI1_TNK			/* 20 上代１ */
+							,1															AS KAKUTEI_FLG			/* 21 確定フラグ */
+							,T1.KYAKUTYUDENPYO_NO										AS KYAKUTYUDENPYO_NO	/* 22 客注伝票番号 */
+							,T1.KYAKUTYU_FLG											AS KYAKUTYU_FLG 		/* 23 客注フラグ */
+							,T1.NEGAKIHIN_FLG											AS NEGAKIHIN_FLG		/* 24 値書き品フラグ */
+							,NULL														AS ADD_YMD				/* 25 登録日 */
+							,NULL														AS ADD_TM				/* 26 登録時間 */
+							,NULL														AS ADDTAN_CD			/* 27 登録担当者コード */
+							,T2.UPD_YMD													AS UPD_YMD				/* 28 更新日 */
+							,T2.UPD_TM													AS UPD_TM				/* 29 更新時間 */
+							,T2.UPD_TANCD												AS UPD_TANCD			/* 30 更新担当者コード */
+							,NULL														AS SAKUJYO_YMD			/* 31 削除日 */
+							,0															AS SAKUJYO_FLG			/* 32 削除フラグ */
+							,M3.IRO_NM													AS IRO_NM				/* 33 色名 */
+							,M2.HANBAIIN_NM												AS TANTOUSYA_NM 		/* 34 販売員名 */
+							,T1.SYONMK													AS SYONMK				/* 35 商品名カナ */
+							,M4.BURANDO_NMK												AS BURANDO_NMK			/* 36 ブランド名カナ */
+							,M5.HINSYU_RYAKU_NM											AS HINSYU_RYAKU_NM		/* 37 品種略名 */
+							,0															AS INSTORE_FLG			/* 38 インストアフラグ */
+							,NVL(M1.ZEI_KB,1)											AS ZEI_KB				/* 39 税区分 */
+							,CASE WHEN T1.KYAKUTYU_FLG > 0 THEN '○' ELSE '' END		AS KYAKUTYU_FLG_MK		/* 40 客注 */
+							,CASE WHEN T1.NEGAKIHIN_FLG > 0 THEN '○' ELSE '' END		AS NEGAKIHIN_FLG_MK 	/* 41 値書き */
+							,M1.OLD_XEBIO_CD											AS OLD_XEBIO_CD			/* 42 旧自社品番 */
+					FROM
+							MDPT0061 T1
+					LEFT JOIN
+							MDMT0130 M1
+					ON		M1.JAN_CD			= T1.JAN_CD
+					LEFT JOIN
+							MDPT0011 T2
+					ON		T2.SIIRESAKI_CD		= T1.SIIRESAKI_CD
+					AND		T2.DENPYO_BANGO		= T1.DENPYO_BANGO
+					AND		T2.SITEINOHIN_YMD	= T1.SITEINOHIN_YMD
+					AND		T2.DENPYOGYO_NO		= T1.DENPYOGYO_NO
+					AND		T2.TENPO_CD			= T1.TENPO_CD
+					LEFT JOIN
+							BOMT0030 M2
+					ON		M2.HANBAIIN_CD		= T2.UPD_TANCD
+					LEFT JOIN
+							MDMT0080 M3
+					ON		M3.IRO_CD			= T1.IRO_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		M4.BURANDO_CD		= T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0070 M5
+					ON		M5.BUMON_CD			= T1.BUMON_CD
+					AND		M5.HINSYU_CD		= T1.HINSYU_CD
+					WHERE
+							T1.KAKUTEI_SB		= </parts><bind id="KAKUTEI_SB" /><parts>
+					AND		T1.SIIRESAKI_CD		= </parts><bind id="SIIRESAKI_CD" /><parts>
+					AND		T1.DENPYO_BANGO		= </parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SITEINOHIN_YMD	= </parts><bind id="SITEINOHIN_YMD" /><parts>
+					AND		T1.TENPO_CD			= </parts><bind id="TENPO_CD" /><parts>
+					AND		T1.RIREKI_NO		= </parts><bind id="RIREKI_NO" /><parts>
+					AND		T1.AKAKURO_KBN		= </parts><bind id="AKAKURO_KBN" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷一覧CSV(予定テーブル、確定テーブル) **/
+		<sql id="TB010P01-10">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.TENPO_CD									AS TENPO_CD						/*	1 店舗コード */
+						,M1.TENPO_NM									AS TENPO_NM						/*	2 店舗名 */
+						,T1.BUMON_CD									AS BUMON_CD						/*	3 部門コード */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM					/*	4 部門名カナ */
+						,T1.SIIRESAKI_CD								AS SIIRESAKI_CD					/*	5 仕入先コード */
+						,M3.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM			/*	6 仕入先名 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD				/*	7 入荷予定日 */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO					/*	8 伝票番号 */
+						,NULL											AS MOTODENPYO_BANGO				/*	9 元伝票番号 */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU			/* 10 合計予定数量 */
+						,NULL											AS SIIREJISSEKIGOKEI_SU			/* 11 合計確定数量 */
+						,NULL											AS SIIREJISSEKIGOKEI_KIN		/* 12 合計原価金額 */
+						,NULL											AS JYURYO_YMD					/* 13 仕入確定日 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD					/* 14 登録担当者コード */
+						,M4.HANBAIIN_NM									AS ADDTAN_NM					/* 15 登録担当者名 */
+						,T1.UPD_TANCD									AS UPD_TANCD					/* 16 更新担当者コード */
+						,M5.HANBAIIN_NM									AS UPD_TANNM					/* 17 更新担当者名 */
+						,M8.MEISYO_NM									AS DENJYOTAI_NM					/* 18 伝票状態 */
+						,NULL											AS SYORI_NM						/* 19 処理	*/
+						,NULL											AS SYORI_YMD					/* 20 処理日  */
+						,NULL											AS SYORI_TM						/* 21 処理時間	*/
+						,T2.DENPYOGYO_NO								AS DENPYOGYO_NO					/* 22 行番号 */
+						,T2.BURANDO_CD									AS BURANDO_CD					/* 23 ブランドコード */
+						,M6.BURANDO_NMK									AS BURANDO_NMK					/* 24 ブランド名 */
+						,T2.JISYA_HBN									AS JISYA_HBN					/* 25 自社品番 */
+						,T2.MAKER_HBN									AS MAKER_HBN					/* 26 メーカ品番 */
+						,T2.SYONMK										AS SYONMK						/* 27 商品名カナ */
+						,M7.IRO_NM										AS IRO_NM						/* 28 色名 */
+						,T2.SIZE_NM										AS SIZE_NM						/* 29 サイズ名 */
+						,T2.JAN_CD										AS JAN_CD						/* 30 JANコード */
+						,T2.SYOHIN_CD									AS SYOHIN_CD					/* 31 商品コード */
+						,T2.YOTEI_SU									AS YOTEI_SU						/* 32 予定数量 */
+						,NULL											AS JISSEKI_SU					/* 33 実績数量 */
+						,T2.GEN_TNK										AS GEN_TNK						/* 34 原単価 */
+						,NULL											AS GENKAKIN						/* 35 原価金額 */
+						,T2.KYAKUTYU_FLG								AS KYAKUTYU_FLG					/* 36 客注フラグ */
+						,T2.NEGAKIHIN_FLG								AS NEGAKIHIN_FLG				/* 37 値書きフラグ */
+						,DECODE(T1.DENPYO_JYOTAI,0,3,2,2,1,1)			AS DENPYO_JYOTAI				/* 38 伝票状態 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					LEFT JOIN
+						MDPT0011 T2		/* 仕入予定(B) */
+					ON	T2.SIIRESAKI_CD			= T1.SIIRESAKI_CD
+					AND	T2.DENPYO_BANGO			= T1.DENPYO_BANGO
+					LEFT JOIN
+						BOMT0010 M1		/* 店舗マスタ */
+					ON	M1.TENPO_CD				= T1.TENPO_CD
+					LEFT JOIN
+						BOMT0060 M2		/* 部門マスタ */
+					ON	M2.BUMON_CD				= T1.BUMON_CD
+					LEFT JOIN
+						MDMT0020 M3		/* 仕入先マスタ */
+					ON	M3.SIIRESAKI_CD			= T1.SIIRESAKI_CD
+					LEFT JOIN
+						BOMT0030 M4		/* 販売員マスタ */
+					ON	M4.HANBAIIN_CD			= T1.ADDTAN_CD
+					LEFT JOIN
+						BOMT0030 M5		/* 販売員マスタ */
+					ON	M5.HANBAIIN_CD			= T1.UPD_TANCD
+					LEFT JOIN
+						STMT0500 M6		/* ブランドマスタ */
+					ON	M6.BURANDO_CD			= T2.BURANDO_CD
+					LEFT JOIN
+						MDMT0080 M7		/* 色マスタ */
+					ON	M7.IRO_CD				= T2.IRO_CD
+					LEFT JOIN
+						MDMT0100 M8		/* 名称マスタ */
+					ON	M8.MEISYO_CD			= DECODE(T1.DENPYO_JYOTAI,0,3,2,2,1,1)
+					AND	M8.SIKIBETSU_CD			= 'SIST'
+					AND T1.DENPYO_JYOTAI		IN (0,2)
+					WHERE (T1.SIIRESAKI_CD,T1.DENPYO_BANGO,T1.SITEINOHIN_YMD,T1.TENPO_CD) IN (
+				</parts></statement><statement type="replace" name="ADD_WHERE1" /><statement type="final" name="final"><parts>
+						)
+				UNION ALL
+					SELECT
+						 T1.TENPO_CD								AS TENPO_CD						/*	1 店舗コード */
+						,M1.TENPO_NM								AS TENPO_NM						/*	2 店舗名 */
+						,T1.BUMON_CD								AS BUMON_CD						/*	3 部門コード */
+						,M2.BUMONKANA_NM							AS BUMONKANA_NM						/*	4 部門名カナ */
+						,T1.SIIRESAKI_CD							AS SIIRESAKI_CD					/*	5 仕入先コード */
+						,M3.SIIRESAKI_RYAKU_NM						AS SIIRESAKI_RYAKU_NM			/*	6 仕入先名 */
+						,T1.SITEINOHIN_YMD							AS SITEINOHIN_YMD				/*	7 入荷予定日 */
+						,T1.DENPYO_BANGO							AS DENPYO_BANGO					/*	8 伝票番号 */
+						,T1.MOTODENPYO_BANGO						AS MOTODENPYO_BANGO				/*	9 元伝票番号 */
+						,T1.SIIREYOTEIGOKEI_SU						AS SIIREYOTEIGOKEI_SU			/* 10 合計予定数量 */
+						,T1.SIIREJISSEKIGOKEI_SU					AS SIIREJISSEKIGOKEI_SU			/* 11 合計確定数量 */
+						,T1.SIIREJISSEKIGOKEI_KIN					AS SIIREJISSEKIGOKEI_KIN		/* 12 合計原価金額 */
+						,T1.JYURYO_YMD								AS JYURYO_YMD					/* 13 仕入確定日 */
+						,T1.ADDTAN_CD								AS ADDTAN_CD					/* 14 登録担当者コード */
+						,M4.HANBAIIN_NM								AS ADDTAN_NM					/* 15 登録担当者名 */
+						,T1.UPD_TANCD								AS UPD_TANCD					/* 16 更新担当者コード */
+						,M5.HANBAIIN_NM								AS UPD_TANNM					/* 17 更新担当者名 */
+						,M8.MEISYO_NM								AS DENJYOTAI_NM					/* 18 伝票状態 */
+						,NULL										AS SYORI_NM						/* 19 処理	*/
+						,NULL										AS SYORI_YMD					/* 20 処理日  */
+						,NULL										AS SYORI_TM						/* 21 処理時間	*/
+						,T2.DENPYOGYO_NO							AS DENPYOGYO_NO					/* 22 行番号 */
+						,T2.BURANDO_CD								AS BURANDO_CD					/* 23 ブランドコード */
+						,M6.BURANDO_NMK								AS BURANDO_NMK					/* 24 ブランド名 */
+						,T2.JISYA_HBN								AS JISYA_HBN					/* 25 自社品番 */
+						,T2.MAKER_HBN								AS MAKER_HBN					/* 26 メーカ品番 */
+						,T2.SYONMK									AS SYONMK						/* 27 商品名カナ */
+						,M7.IRO_NM									AS IRO_NM						/* 28 色名 */
+						,T2.SIZE_NM									AS SIZE_NM						/* 29 サイズ名 */
+						,T2.JAN_CD									AS JAN_CD						/* 30 JANコード */
+						,T2.SYOHIN_CD								AS SYOHIN_CD					/* 31 商品コード */
+						,T2.YOTEI_SU								AS YOTEI_SU						/* 32 予定数量 */
+						,T2.JISSEKI_SU								AS JISSEKI_SU					/* 33 実績数量 */
+						,T2.GEN_TNK									AS GEN_TNK						/* 34 原単価 */
+						,NVL(T2.JISSEKI_SU, 0) * NVL(T2.GEN_TNK, 0)	AS GENKAKIN						/* 35 原価金額 */
+						,T2.KYAKUTYU_FLG							AS KYAKUTYU_FLG					/* 36 客注フラグ */
+						,T2.NEGAKIHIN_FLG							AS NEGAKIHIN_FLG				/* 37 値書きフラグ */
+						,DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)	AS DENPYO_JYOTAI			/* 38 確定種別 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID2" /><statement type="final" name="final"><parts>
+					LEFT JOIN
+						MDPT0021 T2		/* 仕入確定(B) */
+					ON	T1.KAKUTEI_SB			= T2.KAKUTEI_SB
+					AND	T1.SIIRESAKI_CD			= T2.SIIRESAKI_CD
+					AND	T1.DENPYO_BANGO			= T2.DENPYO_BANGO
+					AND	T1.SITEINOHIN_YMD		= T2.SITEINOHIN_YMD
+					LEFT JOIN
+						BOMT0010 M1		/* 店舗マスタ */
+					ON	T1.TENPO_CD				= M1.TENPO_CD
+					LEFT JOIN
+						BOMT0060 M2		/* 部門マスタ */
+					ON	T1.BUMON_CD				= M2.BUMON_CD
+					LEFT JOIN
+						MDMT0020 M3		/* 仕入先マスタ */
+					ON	T1.SIIRESAKI_CD			= M3.SIIRESAKI_CD
+					LEFT JOIN
+						BOMT0030 M4		/* 販売員マスタ */
+					ON	T1.ADDTAN_CD			= M4.HANBAIIN_CD
+					LEFT JOIN
+						BOMT0030 M5		/* 販売員マスタ */
+					ON	T1.UPD_TANCD			= M5.HANBAIIN_CD
+					LEFT JOIN
+						STMT0500 M6		/* ブランドマスタ */
+					ON	T2.BURANDO_CD			= M6.BURANDO_CD
+					LEFT JOIN
+						MDMT0080 M7		/* 色マスタ */
+					ON	T2.IRO_CD				= M7.IRO_CD
+					LEFT JOIN
+						MDMT0100 M8		/* 名称マスタ */
+					ON	DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)	  = M8.MEISYO_CD
+					AND	M8.SIKIBETSU_CD			= 'SIST'
+					WHERE (T1.KAKUTEI_SB,T1.SIIRESAKI_CD,T1.DENPYO_BANGO,T1.SITEINOHIN_YMD,T1.TENPO_CD) IN (
+				</parts></statement><statement type="replace" name="ADD_WHERE2" /><statement type="final" name="final"><parts>
+						)
+					ORDER BY
+						 DENPYO_JYOTAI
+						,BUMON_CD
+						,SIIRESAKI_CD
+						,SITEINOHIN_YMD
+						,DENPYO_BANGO
+						,DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷一覧CSV(予定テーブル) **/
+		<sql id="TB010P01-11">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.TENPO_CD									AS TENPO_CD						/*	1 店舗コード */
+						,M1.TENPO_NM									AS TENPO_NM						/*	2 店舗名 */
+						,T1.BUMON_CD									AS BUMON_CD						/*	3 部門コード */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM					/*	4 部門名カナ */
+						,T1.SIIRESAKI_CD								AS SIIRESAKI_CD					/*	5 仕入先コード */
+						,M3.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM			/*	6 仕入先名 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD				/*	7 入荷予定日 */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO					/*	8 伝票番号 */
+						,NULL											AS MOTODENPYO_BANGO				/*	9 元伝票番号 */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU			/* 10 合計予定数量 */
+						,NULL											AS SIIREJISSEKIGOKEI_SU			/* 11 合計確定数量 */
+						,NULL											AS SIIREJISSEKIGOKEI_KIN		/* 12 合計原価金額 */
+						,NULL											AS JYURYO_YMD					/* 13 仕入確定日 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD					/* 14 登録担当者コード */
+						,M4.HANBAIIN_NM									AS ADDTAN_NM					/* 15 登録担当者名 */
+						,T1.UPD_TANCD									AS UPD_TANCD					/* 16 更新担当者コード */
+						,M5.HANBAIIN_NM									AS UPD_TANNM					/* 17 更新担当者名 */
+						,M8.MEISYO_NM									AS DENJYOTAI_NM					/* 18 伝票状態 */
+						,NULL											AS SYORI_NM						/* 19 処理	*/
+						,NULL											AS SYORI_YMD					/* 20 処理日  */
+						,NULL											AS SYORI_TM						/* 21 処理時間	*/
+						,T2.DENPYOGYO_NO								AS DENPYOGYO_NO					/* 22 行番号 */
+						,T2.BURANDO_CD									AS BURANDO_CD					/* 23 ブランドコード */
+						,M6.BURANDO_NMK									AS BURANDO_NMK					/* 24 ブランド名 */
+						,T2.JISYA_HBN									AS JISYA_HBN					/* 25 自社品番 */
+						,T2.MAKER_HBN									AS MAKER_HBN					/* 26 メーカ品番 */
+						,T2.SYONMK										AS SYONMK						/* 27 商品名カナ */
+						,M7.IRO_NM										AS IRO_NM						/* 28 色名 */
+						,T2.SIZE_NM										AS SIZE_NM						/* 29 サイズ名 */
+						,T2.JAN_CD										AS JAN_CD						/* 30 JANコード */
+						,T2.SYOHIN_CD									AS SYOHIN_CD					/* 31 商品コード */
+						,T2.YOTEI_SU									AS YOTEI_SU						/* 32 予定数量 */
+						,NULL											AS JISSEKI_SU					/* 33 実績数量 */
+						,T2.GEN_TNK										AS GEN_TNK						/* 34 原単価 */
+						,NULL											AS GENKAKIN						/* 35 原価金額 */
+						,T2.KYAKUTYU_FLG								AS KYAKUTYU_FLG					/* 36 客注フラグ */
+						,T2.NEGAKIHIN_FLG								AS NEGAKIHIN_FLG				/* 37 値書きフラグ */
+						,DECODE(T1.DENPYO_JYOTAI,0,3,2,2,1,1)			AS DENPYO_JYOTAI				/* 38 伝票状態 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					LEFT JOIN
+						MDPT0011 T2		/* 仕入予定(B) */
+					ON	T2.SIIRESAKI_CD			= T1.SIIRESAKI_CD
+					AND	T2.DENPYO_BANGO			= T1.DENPYO_BANGO
+					LEFT JOIN
+						BOMT0010 M1		/* 店舗マスタ */
+					ON	M1.TENPO_CD				= T1.TENPO_CD
+					LEFT JOIN
+						BOMT0060 M2		/* 部門マスタ */
+					ON	M2.BUMON_CD				= T1.BUMON_CD
+					LEFT JOIN
+						MDMT0020 M3		/* 仕入先マスタ */
+					ON	M3.SIIRESAKI_CD			= T1.SIIRESAKI_CD
+					LEFT JOIN
+						BOMT0030 M4		/* 販売員マスタ */
+					ON	M4.HANBAIIN_CD			= T1.ADDTAN_CD
+					LEFT JOIN
+						BOMT0030 M5		/* 販売員マスタ */
+					ON	M5.HANBAIIN_CD			= T1.UPD_TANCD
+					LEFT JOIN
+						STMT0500 M6		/* ブランドマスタ */
+					ON	M6.BURANDO_CD			= T2.BURANDO_CD
+					LEFT JOIN
+						MDMT0080 M7		/* 色マスタ */
+					ON	M7.IRO_CD				= T2.IRO_CD
+					LEFT JOIN
+						MDMT0100 M8		/* 名称マスタ */
+					ON	M8.MEISYO_CD			= DECODE(T1.DENPYO_JYOTAI,0,3,2,2,1,1)
+					AND	M8.SIKIBETSU_CD			= 'SIST'
+					AND T1.DENPYO_JYOTAI		IN (0,2)
+					WHERE (T1.SIIRESAKI_CD,T1.DENPYO_BANGO,T1.SITEINOHIN_YMD,T1.TENPO_CD) IN (
+				</parts></statement><statement type="replace" name="ADD_WHERE1" /><statement type="final" name="final"><parts>
+						)
+					ORDER BY
+						 DENPYO_JYOTAI
+						,BUMON_CD
+						,SIIRESAKI_CD
+						,SITEINOHIN_YMD
+						,DENPYO_BANGO
+						,DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷一覧CSV(確定テーブル) **/
+		<sql id="TB010P01-12">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.TENPO_CD									AS TENPO_CD						/*	1 店舗コード */
+						,M1.TENPO_NM									AS TENPO_NM						/*	2 店舗名 */
+						,T1.BUMON_CD									AS BUMON_CD						/*	3 部門コード */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM					/*	4 部門名カナ */
+						,T1.SIIRESAKI_CD								AS SIIRESAKI_CD					/*	5 仕入先コード */
+						,M3.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM			/*	6 仕入先名 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD				/*	7 入荷予定日 */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO					/*	8 伝票番号 */
+						,T1.MOTODENPYO_BANGO							AS MOTODENPYO_BANGO				/*	9 元伝票番号 */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU			/* 10 合計予定数量 */
+						,T1.SIIREJISSEKIGOKEI_SU						AS SIIREJISSEKIGOKEI_SU			/* 11 合計確定数量 */
+						,T1.SIIREJISSEKIGOKEI_KIN						AS SIIREJISSEKIGOKEI_KIN		/* 12 合計原価金額 */
+						,T1.JYURYO_YMD									AS JYURYO_YMD					/* 13 仕入確定日 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD					/* 14 登録担当者コード */
+						,M4.HANBAIIN_NM									AS ADDTAN_NM					/* 15 登録担当者名 */
+						,T1.UPD_TANCD									AS UPD_TANCD					/* 16 更新担当者コード */
+						,M5.HANBAIIN_NM									AS UPD_TANNM					/* 17 更新担当者名 */
+						,M8.MEISYO_NM									AS DENJYOTAI_NM					/* 18 伝票状態 */
+						,NULL											AS SYORI_NM						/* 19 処理	*/
+						,NULL											AS SYORI_YMD					/* 20 処理日  */
+						,NULL											AS SYORI_TM						/* 21 処理時間	*/
+						,T2.DENPYOGYO_NO								AS DENPYOGYO_NO					/* 22 行番号 */
+						,T2.BURANDO_CD									AS BURANDO_CD					/* 23 ブランドコード */
+						,M6.BURANDO_NMK									AS BURANDO_NMK					/* 24 ブランド名 */
+						,T2.JISYA_HBN									AS JISYA_HBN					/* 25 自社品番 */
+						,T2.MAKER_HBN									AS MAKER_HBN					/* 26 メーカ品番 */
+						,T2.SYONMK										AS SYONMK						/* 27 商品名カナ */
+						,M7.IRO_NM										AS IRO_NM						/* 28 色名 */
+						,T2.SIZE_NM										AS SIZE_NM						/* 29 サイズ名 */
+						,T2.JAN_CD										AS JAN_CD						/* 30 JANコード */
+						,T2.SYOHIN_CD									AS SYOHIN_CD					/* 31 商品コード */
+						,T2.YOTEI_SU									AS YOTEI_SU						/* 32 予定数量 */
+						,T2.JISSEKI_SU									AS JISSEKI_SU					/* 33 実績数量 */
+						,T2.GEN_TNK										AS GEN_TNK						/* 34 原単価 */
+						,NVL(T2.JISSEKI_SU, 0) * NVL(T2.GEN_TNK, 0)		AS GENKAKIN						/* 35 原価金額 */
+						,T2.KYAKUTYU_FLG								AS KYAKUTYU_FLG					/* 36 客注フラグ */
+						,T2.NEGAKIHIN_FLG								AS NEGAKIHIN_FLG				/* 37 値書きフラグ */
+						,DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)	AS DENPYO_JYOTAI				/* 38 確定種別 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					LEFT JOIN
+						MDPT0021 T2		/* 仕入確定(B) */
+					ON	T1.KAKUTEI_SB			= T2.KAKUTEI_SB
+					AND	T1.SIIRESAKI_CD			= T2.SIIRESAKI_CD
+					AND	T1.DENPYO_BANGO			= T2.DENPYO_BANGO
+					AND	T1.SITEINOHIN_YMD		= T2.SITEINOHIN_YMD
+					LEFT JOIN
+						BOMT0010 M1		/* 店舗マスタ */
+					ON	T1.TENPO_CD				= M1.TENPO_CD
+					LEFT JOIN
+						BOMT0060 M2		/* 部門マスタ */
+					ON	T1.BUMON_CD				= M2.BUMON_CD
+					LEFT JOIN
+						MDMT0020 M3		/* 仕入先マスタ */
+					ON	T1.SIIRESAKI_CD			= M3.SIIRESAKI_CD
+					LEFT JOIN
+						BOMT0030 M4		/* 販売員マスタ */
+					ON	T1.ADDTAN_CD			= M4.HANBAIIN_CD
+					LEFT JOIN
+						BOMT0030 M5		/* 販売員マスタ */
+					ON	T1.UPD_TANCD			= M5.HANBAIIN_CD
+					LEFT JOIN
+						STMT0500 M6		/* ブランドマスタ */
+					ON	T2.BURANDO_CD			= M6.BURANDO_CD
+					LEFT JOIN
+						MDMT0080 M7		/* 色マスタ */
+					ON	T2.IRO_CD				= M7.IRO_CD
+					LEFT JOIN
+						MDMT0100 M8		/* 名称マスタ */
+					ON	DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)	  = M8.MEISYO_CD
+					AND	M8.SIKIBETSU_CD			= 'SIST'
+					WHERE (T1.KAKUTEI_SB,T1.SIIRESAKI_CD,T1.DENPYO_BANGO,T1.SITEINOHIN_YMD,T1.TENPO_CD) IN (
+				</parts></statement><statement type="replace" name="ADD_WHERE1" /><statement type="final" name="final"><parts>
+						)
+					ORDER BY
+						 BUMON_CD
+						,SIIRESAKI_CD
+						,SITEINOHIN_YMD
+						,DENPYO_BANGO
+						,DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷一覧CSV(履歴テーブル) **/
+		<sql id="TB010P01-13">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.TENPO_CD									AS TENPO_CD						/*	1 店舗コード */
+						,M1.TENPO_NM									AS TENPO_NM						/*	2 店舗名 */
+						,T1.BUMON_CD									AS BUMON_CD						/*	3 部門コード */
+						,M2.BUMONKANA_NM								AS BUMONKANA_NM					/*	4 部門名カナ */
+						,T1.SIIRESAKI_CD								AS SIIRESAKI_CD					/*	5 仕入先コード */
+						,M3.SIIRESAKI_RYAKU_NM							AS SIIRESAKI_RYAKU_NM			/*	6 仕入先名 */
+						,T1.SITEINOHIN_YMD								AS SITEINOHIN_YMD				/*	7 入荷予定日 */
+						,T1.DENPYO_BANGO								AS DENPYO_BANGO					/*	8 伝票番号 */
+						,T1.MOTODENPYO_BANGO							AS MOTODENPYO_BANGO				/*	9 元伝票番号 */
+						,T1.SIIREYOTEIGOKEI_SU							AS SIIREYOTEIGOKEI_SU			/* 10 合計予定数量 */
+						,T1.SIIREJISSEKIGOKEI_SU						AS SIIREJISSEKIGOKEI_SU			/* 11 合計確定数量 */
+						,T1.SIIREJISSEKIGOKEI_KIN						AS SIIREJISSEKIGOKEI_KIN		/* 12 合計原価金額 */
+						,T1.JYURYO_YMD									AS JYURYO_YMD					/* 13 仕入確定日 */
+						,T1.ADDTAN_CD									AS ADDTAN_CD					/* 14 登録担当者コード */
+						,M4.HANBAIIN_NM									AS ADDTAN_NM					/* 15 登録担当者名 */
+						,T1.UPD_TANCD									AS UPD_TANCD					/* 16 更新担当者コード */
+						,M5.HANBAIIN_NM									AS UPD_TANNM					/* 17 更新担当者名 */
+						,M8.MEISYO_NM									AS DENJYOTAI_NM					/* 18 伝票状態 */
+						,M9.MEISYO_NM									AS SYORI_NM						/* 19 処理種別 */
+						,T1.RIREKI_SYORI_YMD							AS SYORI_YMD					/* 20 処理日付 */
+						,T1.RIREKI_SYORI_TM								AS SYORI_TM						/* 21 処理時間 */
+						,T2.DENPYOGYO_NO								AS DENPYOGYO_NO					/* 22 行番号 */
+						,T2.BURANDO_CD									AS BURANDO_CD					/* 23 ブランドコード */
+						,M6.BURANDO_NMK									AS BURANDO_NMK					/* 24 ブランド名 */
+						,T2.JISYA_HBN									AS JISYA_HBN					/* 25 自社品番 */
+						,T2.MAKER_HBN									AS MAKER_HBN					/* 26 メーカ品番 */
+						,T2.SYONMK										AS SYONMK						/* 27 商品名カナ */
+						,M7.IRO_NM										AS IRO_NM						/* 28 色名 */
+						,T2.SIZE_NM										AS SIZE_NM						/* 29 サイズ名 */
+						,T2.JAN_CD										AS JAN_CD						/* 30 JANコード */
+						,T2.SYOHIN_CD									AS SYOHIN_CD					/* 31 商品コード */
+						,T2.YOTEI_SU									AS YOTEI_SU						/* 32 予定数量 */
+						,T2.JISSEKI_SU									AS JISSEKI_SU					/* 33 実績数量 */
+						,T2.GEN_TNK										AS GEN_TNK						/* 34 原単価 */
+						,NVL(T2.JISSEKI_SU, 0) * NVL(T2.GEN_TNK, 0)		AS GENKAKIN						/* 35 原価金額 */
+						,T2.KYAKUTYU_FLG								AS KYAKUTYU_FLG					/* 36 客注フラグ */
+						,T2.NEGAKIHIN_FLG								AS NEGAKIHIN_FLG				/* 37 値書きフラグ */
+						,DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)	AS DENPYO_JYOTAI				/* 38 確定種別 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					LEFT JOIN
+						MDPT0061 T2			/* 仕入履歴(B) */
+					ON	T2.KAKUTEI_SB			= T1.KAKUTEI_SB
+					AND	T2.SIIRESAKI_CD			= T1.SIIRESAKI_CD
+					AND	T2.DENPYO_BANGO			= T1.DENPYO_BANGO
+					AND	T2.SITEINOHIN_YMD		= T1.SITEINOHIN_YMD
+					AND	T2.RIREKI_NO			= T1.RIREKI_NO
+					AND	T2.AKAKURO_KBN			= T1.AKAKURO_KBN
+					LEFT JOIN
+						BOMT0010 M1		/* 店舗マスタ */
+					ON	M1.TENPO_CD				= T1.TENPO_CD
+					LEFT JOIN
+						BOMT0060 M2		/* 部門マスタ */
+					ON	M2.BUMON_CD				= T1.BUMON_CD
+					LEFT JOIN
+						MDMT0020 M3		/* 仕入先マスタ */
+					ON	M3.SIIRESAKI_CD			= T1.SIIRESAKI_CD
+					LEFT JOIN
+						BOMT0030 M4		/* 販売員マスタ */
+					ON	M4.HANBAIIN_CD			= T1.ADDTAN_CD
+					LEFT JOIN
+						BOMT0030 M5		/* 販売員マスタ */
+					ON	M5.HANBAIIN_CD			= T1.UPD_TANCD
+					LEFT JOIN
+						STMT0500 M6		/* ブランドマスタ */
+					ON	M6.BURANDO_CD			= T2.BURANDO_CD
+					LEFT JOIN
+						MDMT0080 M7		/* 色マスタ */
+					ON	M7.IRO_CD				= T2.IRO_CD
+					LEFT JOIN
+						MDMT0100 M8		/* 名称マスタ */
+					ON	M8.MEISYO_CD			= DECODE(T1.KAKUTEI_SB, 0, 1, 1, 4, 2, 1, 3, 4)
+					AND	M8.SIKIBETSU_CD			= 'SIST'
+					LEFT JOIN
+						MDMT0100 M9		/* 名称マスタ */
+					ON	M9.MEISYO_CD			= T1.SYORI_SB
+					AND	M9.SIKIBETSU_CD			= 'SISY'
+					WHERE (T1.KAKUTEI_SB,T1.SIIRESAKI_CD,T1.DENPYO_BANGO,T1.SITEINOHIN_YMD,T1.TENPO_CD,T1.RIREKI_NO,T1.AKAKURO_KBN) IN (
+				</parts></statement><statement type="replace" name="ADD_WHERE1" /><statement type="final" name="final"><parts>
+						)
+					ORDER BY
+						 BUMON_CD
+						,SIIRESAKI_CD
+						,SITEINOHIN_YMD
+						,DENPYO_BANGO
+						,SYORI_SB
+						,DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

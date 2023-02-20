@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HOJUIRAI_KBN" name="補充依頼区分">
+		<listItems>
+			<item id="10" value="1" label="補充依頼" itemId="Hojuirai_kbn1" />
+			<item id="20" value="2" label="単品ﾚﾎﾟｰﾄ" itemId="Hojuirai_kbn2" />
+		</listItems>
+	</condition>
+</condition-define>
+

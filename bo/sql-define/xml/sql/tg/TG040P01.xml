@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 商品ｽﾄｯｸ明細書発行 一覧　検索処理 **/
+		<sql id="TG040P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						T1.UPD_YMD
+						,T1.UPD_TM
+						,M1.HANBAIIN_NM
+						,T1.STOCK_NO
+						,T1.GOKEIYOTEI_SU
+						,T1.KANRI_NO
+						,T1.UPD_TANCD
+						,T1.SYORI_YMD
+						,T1.SYORI_TM
+					FROM
+						MDBT0020 T1 
+					LEFT OUTER JOIN 
+						BOMT0030 M1 
+						ON T1.UPD_TANCD = M1.HANBAIIN_CD 
+					WHERE
+						0 = 0 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						T1.SYORI_YMD
+						,T1.SYORI_TM
+						,T1.KANRI_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 商品ｽﾄｯｸ明細書発行 一覧　日付リンク処理 **/
+		<sql id="TG040P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT 
+						T1.BUMON_CD
+						,M1.BUMONKANA_NM
+						,M3.HINSYU_RYAKU_NM
+						,M4.BURANDO_NMK
+						,T1.JISYA_HBN
+						,T1.MAKER_HBN
+						,T1.SYONMK
+						,T1.JAN_CD
+						,T1.HANBAIKANRYO_YMD
+						,M2.IRO_NM
+						,T1.SIZE_NM
+						,T1.YOTEI_SU
+						,T1.HINSYU_CD
+					FROM 
+						MDBT0021 T1
+					LEFT OUTER JOIN BOMT0060 M1
+						ON	T1.BUMON_CD = M1.BUMON_CD
+					LEFT OUTER JOIN MDMT0080 M2
+						ON	T1.IRO_CD = M2.IRO_CD
+					LEFT OUTER JOIN MDMT0070 M3
+						ON	T1.BUMON_CD = M3.BUMON_CD
+						AND	T1.HINSYU_CD = M3.HINSYU_CD
+					LEFT OUTER JOIN STMT0500 M4
+						ON	T1.BURANDO_CD = M4.BURANDO_CD
+					WHERE 0 = 0
+						AND T1.SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" /><parts>
+						AND T1.KANRI_NO = </parts><bind id="BIND_KANRI_NO" /><parts>
+						AND T1.TENPO_CD = </parts><bind id="BIND_TENPO_CD" /><parts>
+					ORDER BY
+						T1.SYORI_YMD
+						,T1.SYORI_TM
+						,T1.GYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 商品ｽﾄｯｸ明細書発行 一覧　CSV出力処理 **/
+		<sql id="TG040P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT 
+						  T1.TENPO_CD
+						, M2.TENPO_NM
+						, T1.STOCK_NO
+						, T1.SYORI_YMD
+						, T1.UPD_TM
+						, T1.UPD_TANCD 
+						, M1.HANBAIIN_NM
+						, T1.GOKEIYOTEI_SU
+						, T2.GYO_NO
+						, T2.BUMON_CD
+						, M3.BUMONKANA_NM
+						, T2.HINSYU_CD
+						, M6.HINSYU_RYAKU_NM
+						, T2.BURANDO_CD
+						, M4.BURANDO_NMK
+						, T2.JISYA_HBN
+						, T2.MAKER_HBN
+						, T2.SYONMK
+						, T2.HANBAIKANRYO_YMD
+						, M5.IRO_NM
+						, T2.SIZE_NM
+						, T2.JAN_CD
+						, T2.YOTEI_SU 
+					FROM MDBT0020 T1
+					LEFT OUTER JOIN MDBT0021 T2
+						ON  T1.TENPO_CD = T2.TENPO_CD
+						AND T1.KANRI_NO = T2.KANRI_NO
+						AND T1.SYORI_YMD = T2.SYORI_YMD
+					LEFT OUTER JOIN BOMT0030 M1
+						ON  T1.UPD_TANCD = M1.HANBAIIN_CD
+					LEFT OUTER JOIN BOMT0010 M2
+						ON  T1.TENPO_CD = M2.TENPO_CD
+					LEFT OUTER JOIN BOMT0060 M3
+						ON  T2.BUMON_CD = M3.BUMON_CD
+					LEFT OUTER JOIN STMT0500 M4
+						ON  T2.BURANDO_CD = M4.BURANDO_CD
+					LEFT OUTER JOIN MDMT0080 M5
+						ON  T2.IRO_CD = M5.IRO_CD
+					LEFT OUTER JOIN MDMT0070 M6
+						ON  T2.BUMON_CD = M6.BUMON_CD
+						AND T2.HINSYU_CD = M6.HINSYU_CD
+					WHERE (T1.TENPO_CD, T1.KANRI_NO, T1.SYORI_YMD) IN 
+					(
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+						)
+					ORDER BY
+						T1.TENPO_CD
+						,T1.KANRI_NO
+						,T1.SYORI_YMD
+						,T1.UPD_TM
+						,T1.UPD_TANCD
+						,T1.GOKEIYOTEI_SU
+						,T2.GYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 商品ｽﾄｯｸ明細書発行 一覧　[商品明細書TBL(H)]削除処理 **/
+		<sql id="TG040P01-04">
+			<statement type="final" name="final">
+				<parts>
+					DELETE 
+					FROM
+						MDBT0020 
+					WHERE
+						TENPO_CD = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND	KANRI_NO = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND	SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** 商品ｽﾄｯｸ明細書発行 一覧　[商品明細書TBL(B)]削除処理 **/
+		<sql id="TG040P01-05">
+			<statement type="final" name="final">
+				<parts>
+					DELETE 
+					FROM
+						MDBT0021 
+					WHERE
+						TENPO_CD = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND	KANRI_NO = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND	SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** 商品ｽﾄｯｸ明細書発行 明細　[商品明細書一時TBL]登録 **/
+		<sql id="TG040P01-06">
+			<statement type="final" name="final">
+				<parts>
+					INSERT 
+					INTO MDBT0020_TEMP( 
+						ADD_YMD
+						, ADD_TM
+						, TENPO_CD
+						, ADDTAN_CD
+						, BUMON_CD_H
+						, HINSYU_CD_H
+						, BURANDO_CD1
+						, BURANDO_CD2
+						, BURANDO_CD3
+						, BURANDO_CD4
+						, BURANDO_CD5
+						, BURANDO_CD6
+						, BURANDO_CD7
+						, BURANDO_CD8
+						, BUMON_CD
+						, HINSYU_CD
+						, BURANDO_CD
+						, JISYA_HBN
+						, MAKER_HBN
+						, SYONMK
+						, HANBAIKANRYO_YMD
+						, IRO_CD
+						, SIZE_CD
+						, SIZE_NM
+						, JAN_CD
+						, SYOHIN_CD
+						, YOTEI_SU
+					) 
+					VALUES ( 
+						</parts><bind id="BIND_SYSDATE" /><parts>
+						, </parts><bind id="BIND_SYSTIME" /><parts>
+						, </parts><bind id="BIND_TENPO_CD" /><parts>
+						, </parts><bind id="BIND_ADDTAN_CD" /><parts>
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, </parts><bind id="BIND_BUMON_CD" /><parts>
+						, </parts><bind id="BIND_HINSYU_CD" /><parts>
+						, </parts><bind id="BIND_BURANDO_CD" /><parts>
+						, </parts><bind id="BIND_JISYA_HBN" /><parts>
+						, </parts><bind id="BIND_MAKER_HBN" /><parts>
+						, </parts><bind id="BIND_SYONMK" /><parts>
+						, </parts><bind id="BIND_HANBAIKANRYO_YMD" /><parts>
+						, </parts><bind id="BIND_IRO_CD" /><parts>
+						, </parts><bind id="BIND_SIZE_CD" /><parts>
+						, </parts><bind id="BIND_SIZE_NM" /><parts>
+						, </parts><bind id="BIND_JAN_CD" /><parts>
+						, </parts><bind id="BIND_SYOHIN_CD" /><parts>
+						, </parts><bind id="BIND_YOTEI_SU" /><parts>
+					) 
+				</parts>
+			</statement>
+		</sql>
+		/** 商品ｽﾄｯｸ明細書発行 明細　[商品明細書TBL(H)]更新 **/
+		<sql id="TG040P01-07">
+			<statement type="final" name="final">
+				<parts>
+				UPDATE MDBT0020 
+				SET
+					GOKEIYOTEI_SU = </parts><bind id="BIND_GOKEIYOTEI_SU" /><parts>
+					, UPD_YMD = </parts><bind id="BIND_SYSDATE_UPD" /><parts>
+					, UPD_TM = </parts><bind id="BIND_SYSTIME" /><parts>
+					, UPD_TANCD = </parts><bind id="BIND_UPD_TANCD" /><parts>
+					, SAKUJYO_YMD = </parts><bind id="BIND_SYSDATE_DEL" /><parts>
+					, SAKUJYO_FLG = 1 
+				WHERE
+					TENPO_CD = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND KANRI_NO = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** 商品ｽﾄｯｸ明細書発行 明細　[商品明細書TBL(B)]削除 **/
+		<sql id="TG040P01-08">
+			<statement type="final" name="final">
+				<parts>
+				DELETE 
+				FROM
+					MDBT0021 
+				WHERE
+					TENPO_CD = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND KANRI_NO = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** 商品ｽﾄｯｸ明細書発行 明細　[商品明細書TBL(B)]登録 **/
+		<sql id="TG040P01-09">
+			<statement type="final" name="final">
+				<parts>
+					INSERT 
+					INTO MDBT0021( 
+						TENPO_CD
+						, KANRI_NO
+						, SYORI_YMD
+						, SYORI_TM
+						, GYO_NO
+						, BUMON_CD
+						, HINSYU_CD
+						, BURANDO_CD
+						, JISYA_HBN
+						, MAKER_HBN
+						, SYONMK
+						, HANBAIKANRYO_YMD
+						, IRO_CD
+						, SIZE_CD
+						, SIZE_NM
+						, JAN_CD
+						, SYOHIN_CD
+						, YOTEI_SU
+						, ZAIKO_SU
+					) 
+					VALUES ( 
+						</parts><bind id="BIND_TENPO_CD" /><parts>
+						, </parts><bind id="BIND_KANRI_NO" /><parts>
+						, </parts><bind id="BIND_SYORI_YMD" /><parts>
+						, </parts><bind id="BIND_SYORI_TM" /><parts>
+						, </parts><bind id="BIND_GYO_NO" /><parts>
+						, </parts><bind id="BIND_BUMON_CD" /><parts>
+						, </parts><bind id="BIND_HINSYU_CD" /><parts>
+						, </parts><bind id="BIND_BURANDO_CD" /><parts>
+						, </parts><bind id="BIND_JISYA_HBN" /><parts>
+						, </parts><bind id="BIND_MAKER_HBN" /><parts>
+						, </parts><bind id="BIND_SYONMK" /><parts>
+						, </parts><bind id="BIND_HANBAIKANRYO_YMD" /><parts>
+						, </parts><bind id="BIND_IRO_CD" /><parts>
+						, </parts><bind id="BIND_SIZE_CD" /><parts>
+						, </parts><bind id="BIND_SIZE_NM" /><parts>
+						, </parts><bind id="BIND_JAN_CD" /><parts>
+						, </parts><bind id="BIND_SYOHIN_CD" /><parts>
+						, </parts><bind id="BIND_YOTEI_SU" /><parts>
+						, 0
+					) 
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

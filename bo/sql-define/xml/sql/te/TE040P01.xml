@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="TE040P01-01">
+			<statement type="final" name="final">
+				<parts>
+					/* TE040P01-01（他社の発注MST取得） */
+					SELECT
+						 M1.GENKA	-- 原価
+					FROM
+				</parts>
+			</statement>
+			<statement type="replace" name="REP_TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					WHERE
+						M1.JAN_CD = </parts><bind id="BIND_JAN_CD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

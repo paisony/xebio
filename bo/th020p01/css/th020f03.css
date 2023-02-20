@@ -1,0 +1,67 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:th020f03.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+.str-search-02 .w-type-01 {
+  width: 90px;
+}
+.str-search-02 .w-type-02 {
+  width: 320px;
+}
+.str-search-02 .w-type-03 {
+  width: 190px;
+}
+.str-search-02 .w-type-04 {
+  width: 190px;
+}
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/* 行 */
+.str-result-01 .col1 {
+  position: relative;
+  width: 25px;
+}
+/* エリア */
+.str-result-01 .col2 {
+  width: 105px;
+}
+/* 合計点数 */
+.str-result-01 .col3 {
+  width: 56px;
+}
+/* 消化率 */
+.str-result-01 .col4 {
+  width: 40px;
+}
+/* サイズ(1～15) */
+.str-result-01 .col5 {
+  width: 60px;
+}
+.str-result-01 .col5-title {
+	font-size:85%;
+	color: #ffffff;
+}
+
+
+/*--- サイズ名 ---*/
+.str-result-01 .size-link {
+	color: #ffffff;
+	width: 60px;
+	height: 31px;
+}
+/*--- サイズ名フッタ ---*/
+.foot-size-link {
+	color: #ffffff;
+}
+
+.pad-1 {
+	padding-right: 1px;
+}
+
+.pad-4 {
+	padding-right: 4px !important;
+}

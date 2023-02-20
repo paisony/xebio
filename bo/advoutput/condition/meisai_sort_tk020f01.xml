@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="MEISAI_SORT_TK020F01" name="明細ソート＿評価損処理">
+		<listItems>
+			<item id="10" value="1" label="登録順" itemId="Meisai_sort_tk020f011" />
+			<item id="20" value="2" label="メーカー品番順" itemId="Meisai_sort_tk020f012" />
+			<item id="30" value="3" label="入力者／メーカー品番順" itemId="Meisai_sort_tk020f013" />
+			<item id="40" value="4" label="調達順" itemId="Meisai_sort_tk020f014" />
+		</listItems>
+	</condition>
+</condition-define>
+

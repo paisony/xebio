@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01005-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 M1.HANBAIIN_CD
+							,M1.HANBAIIN_NM
+							,M1.HANBAIINKANA_NM
+							,M1.HANBAIIN_KB
+							,M1.HANBAIINTENPO_CD
+							,M1.HANYOHANBAIIN_FLG
+							,M1.ADD_YMD
+							,M1.ADD_TM
+							,M1.ADDTAN_CD
+							,M1.UPD_YMD
+							,M1.UPD_TM
+							,M1.UPD_TANCD
+							,M1.SAKUJYO_YMD
+							,M1.SAKUJYO_FLG
+							,M1.JYUSIN_YMD
+							,M1.JYUSIN_TM
+					FROM
+							BOMT0030 M1
+					WHERE
+							M1.HANBAIIN_CD = </parts><bind id="HANBAIIN_CD" /><parts>
+					AND		M1.SAKUJYO_FLG IN (</parts><bind id="SAKUJYO_FLG1" /><parts>, </parts><bind id="SAKUJYO_FLG2" /><parts>)
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

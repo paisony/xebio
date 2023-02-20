@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<!-- SCM予定TBL(B)取得 -->
+		<sql id="C01020-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.TENPO_CD
+							,T1.SCM_CD
+							,T1.NONYUTYAKUYOTEI_YMD
+					FROM
+							MDPT0031 T1
+					WHERE
+						T1.SIIRESAKI_CD		= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	T1.DENPYO_BANGO		= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	T1.SITEINOHIN_YMD	= </parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	T1.TENPO_CD			= </parts><bind id="BIND_TENCD" /><parts>
+					GROUP BY
+						 T1.TENPO_CD
+						,T1.SCM_CD
+						,T1.NONYUTYAKUYOTEI_YMD
+						
+				</parts>
+			</statement>
+		</sql>
+		<!-- SCM予定TBL(H) FOR UPDATE -->
+		<sql id="C01020-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.SCM_CD
+					FROM
+							MDPT0030 T1
+					WHERE
+						T1.TENPO_CD				= </parts><bind id="BIND_TENCD" /><parts>
+					AND	T1.SCM_CD				= </parts><bind id="BIND_SCM_CD" /><parts>
+					AND	T1.NONYUTYAKUYOTEI_YMD	= </parts><bind id="BIND_TYAKUYOTEI_YMD" /><parts>
+					FOR UPDATE
+				</parts>
+			</statement>
+		</sql>
+		<!-- 仕入予定(B)の更新 -->
+		<sql id="C01020-03">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDPT0011 SET
+						 KAKUTEI_FLG	= </parts><bind id="BIND_KAKUTEI_FLG" /><parts>			/* 確定フラグ */
+						,UPD_YMD		= </parts><bind id="BIND_UPD_YMD" /><parts>				/* 更新日 */
+						,UPD_TM			= </parts><bind id="BIND_UPD_TM" /><parts>				/* 更新時間 */
+						,UPD_TANCD		= </parts><bind id="BIND_UPD_TANCD" /><parts>			/* 更新担当者コード */
+						,SAKUJYO_YMD	= </parts><bind id="BIND_SAKUJYO_YMD" /><parts>			/* 削除日 */
+						,SAKUJYO_FLG	= </parts><bind id="BIND_SAKUJYO_FLG" /><parts>			/* 削除フラグ */
+					WHERE
+						SIIRESAKI_CD	= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	= </parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		= </parts><bind id="BIND_TENCD" />
+			</statement>
+		</sql>
+		<!-- 仕入予定(H)の更新 -->
+		<sql id="C01020-04">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDPT0010 SET
+						 KAKUTEI_FLG	= </parts><bind id="BIND_KAKUTEI_FLG" /><parts>			/* 確定フラグ */
+						,DENPYO_JYOTAI	= </parts><bind id="BIND_DENPYO_JYOTAI" /><parts>		/* 伝票状態 */
+						,UPD_YMD		= </parts><bind id="BIND_UPD_YMD" /><parts>				/* 更新日 */
+						,UPD_TM			= </parts><bind id="BIND_UPD_TM" /><parts>				/* 更新時間 */
+						,UPD_TANCD		= </parts><bind id="BIND_UPD_TANCD" /><parts>			/* 更新担当者コード */
+						,SAKUJYO_YMD	= </parts><bind id="BIND_SAKUJYO_YMD" /><parts>			/* 削除日 */
+						,SAKUJYO_FLG	= </parts><bind id="BIND_SAKUJYO_FLG" /><parts>			/* 削除フラグ */
+					WHERE
+						SIIRESAKI_CD	= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	= </parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		= </parts><bind id="BIND_TENCD" />
+			</statement>
+		</sql>
+		<!-- 仕入確定(H)の登録 -->
+		<sql id="C01020-05">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDPT0020 (
+							 KAKUTEI_SB					/*	3 確定種別 */
+							,SIIRESAKI_CD				/*	4 仕入先コード */
+							,DENPYO_BANGO				/*	5 伝票番号 */
+							,SITEINOHIN_YMD				/*	6 指定納品日 */
+							,TENPO_CD					/*	7 店舗コード */
+							,NOHINSYO_YMD				/*	8 納品書日付 */
+							,JYURYO_YMD					/*	9 受領日 */
+							,BUMON_CD					/* 10 部門コード */
+							,SUBSIIRESAKI_CD			/* 11 サブ仕入先コード */
+							,SIIREYOTEIGOKEI_SU			/* 12 仕入予定合計数量 */
+							,SIIREYOTEIGOKEI_KIN		/* 13 仕入予定合計金額 */
+							,SIIREJISSEKIGOKEI_SU		/* 14 仕入実績合計数量 */
+							,SIIREJISSEKIGOKEI_KIN		/* 15 仕入実績合計金額 */
+							,ZEIKOMI_DENPYO_KIN			/* 16 税込伝票金額 */
+							,SAI_FLG					/* 17 差異フラグ */
+							,BIKO_KB					/* 18 備考区分 */
+							,BIKO1						/* 19 備考1 */
+							,BIKO2						/* 20 備考2 */
+							,INPUT_FLG					/* 21 入力フラグ */
+							,KAKUTEI_JYOTAI				/* 22 確定状態 */
+							,CHECK_TANCD				/* 23 チェック担当者コード */
+							,MOTODENPYO_BANGO			/* 24 元伝票番号 */
+							,MOTOKAKUTEI_SB				/* 25 元確定種別 */
+							,SHINKURO_FLG				/* 26 新黒フラグ */
+							,AKAKURO_KBN				/* 27 赤黒区分 */
+							,ADD_YMD					/* 28 登録日 */
+							,ADD_TM						/* 39 登録時間 */
+							,ADDTAN_CD					/* 30 登録担当者コード */
+							,UPD_YMD					/* 31 更新日 */
+							,UPD_TM						/* 32 更新時間 */
+							,UPD_TANCD					/* 33 更新担当者コード */
+							,SAKUJYO_YMD				/* 34 削除日 */
+							,SAKUJYO_FLG				/* 35 削除フラグ */
+							,SOSINIRAI_FLG				/* 36 送信依頼フラグ */
+							,SOSINZUMI_FLG				/* 37 送信済フラグ */
+							,SOSIN_YMD					/* 38 送信日 */
+							,SOSIN_TM					/* 39 送信時間 */
+							,HHTSERIAL_NO				/* 40 HHTシリアル番号 */
+							,HHTSEQUENCE_NO				/* 41 HHTシーケンスNo. */
+					) VALUES (
+							 </parts><bind id="BIND_KAKUTEI_SB" /><parts>
+							,</parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+							,</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+							,</parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+							,</parts><bind id="BIND_TENPO_CD" /><parts>
+							,</parts><bind id="BIND_NOHINSYO_YMD" /><parts>
+							,</parts><bind id="BIND_JYURYO_YMD" /><parts>
+							,</parts><bind id="BIND_BUMON_CD" /><parts>
+							,</parts><bind id="BIND_SUBSIIRESAKI_CD" /><parts>
+							,</parts><bind id="BIND_SIIREYOTEIGOKEI_SU" /><parts>
+							,</parts><bind id="BIND_SIIREYOTEIGOKEI_KIN" /><parts>
+							,</parts><bind id="BIND_SIIREJISSEKIGOKEI_SU" /><parts>
+							,</parts><bind id="BIND_SIIREJISSEKIGOKEI_KIN" /><parts>
+							,</parts><bind id="BIND_ZEIKOMI_DENPYO_KIN" /><parts>
+							,</parts><bind id="BIND_SAI_FLG" /><parts>
+							,</parts><bind id="BIND_BIKO_KB" /><parts>
+							,</parts><bind id="BIND_BIKO1" /><parts>
+							,</parts><bind id="BIND_BIKO2" /><parts>
+							,</parts><bind id="BIND_INPUT_FLG" /><parts>
+							,</parts><bind id="BIND_KAKUTEI_JYOTAI" /><parts>
+							,</parts><bind id="BIND_CHECK_TANCD" /><parts>
+							,</parts><bind id="BIND_MOTODENPYO_BANGO" /><parts>
+							,</parts><bind id="BIND_MOTOKAKUTEI_SB" /><parts>
+							,</parts><bind id="BIND_SHINKURO_FLG" /><parts>
+							,</parts><bind id="BIND_AKAKURO_KBN" /><parts>
+							,</parts><bind id="BIND_ADD_YMD" /><parts>
+							,</parts><bind id="BIND_ADD_TM" /><parts>
+							,</parts><bind id="BIND_ADDTAN_CD" /><parts>
+							,</parts><bind id="BIND_UPD_YMD" /><parts>
+							,</parts><bind id="BIND_UPD_TM" /><parts>
+							,</parts><bind id="BIND_UPD_TANCD" /><parts>
+							,</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+							,</parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+							,</parts><bind id="BIND_SOSINIRAI_FLG" /><parts>
+							,</parts><bind id="BIND_SOSINZUMI_FLG" /><parts>
+							,</parts><bind id="BIND_SOSIN_YMD" /><parts>
+							,</parts><bind id="BIND_SOSIN_TM" /><parts>
+							,</parts><bind id="BIND_HHTSERIAL_NO" /><parts>
+							,</parts><bind id="BIND_HHTSEQUENCE_NO" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		<!-- 仕入確定(B)の更新 -->
+		<sql id="C01020-06">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDPT0021 (
+						 KAKUTEI_SB				/*	3 確定種別 */
+						,SIIRESAKI_CD			/*	4 仕入先コード */
+						,DENPYO_BANGO			/*	5 伝票番号 */
+						,SITEINOHIN_YMD			/*	6 指定納品日 */
+						,DENPYOGYO_NO			/*	7 伝票行№ */
+						,TENPO_CD				/*	8 店舗コード */
+						,BUMON_CD				/*	9 品種コード */
+						,HINSYU_CD				/* 10 部門コード */
+						,BURANDO_CD				/* 11 ブランドコード */
+						,MAKER_HBN				/* 12 メーカー品番 */
+						,SYONMK					/* 13 商品名(カナ) */
+						,JISYA_HBN				/* 14 自社品番 */
+						,IRO_CD					/* 15 色コード */
+						,SIZE_CD				/* 16 サイズコード */
+						,SIZE_NM				/* 17 サイズ */
+						,YOTEI_SU				/* 18 予定数量 */
+						,JISSEKI_SU				/* 19 実績数量 */
+						,JAN_CD					/* 20 ＪＡＮコード */
+						,SYOHIN_CD				/* 21 商品コード */
+						,GEN_TNK				/* 22 原単価 */
+						,JODAI1_TNK				/* 23 上代１ */
+						,KYAKUTYUDENPYO_NO		/* 24 客注伝票番号 */
+						,KYAKUTYU_FLG			/* 25 客注フラグ */
+						,INSTORE_FLG			/* 26 インストアフラグ */
+						,NEGAKIHIN_FLG			/* 27 値書き品フラグ */
+					) SELECT
+						 </parts><bind id="BIND_KAKUTEI_SB" /><parts>		/*	3 確定種別 */
+						,SIIRESAKI_CD			/*	4 仕入先コード */
+						,DENPYO_BANGO			/*	5 伝票番号 */
+						,SITEINOHIN_YMD			/*	6 指定納品日 */
+						,DENPYOGYO_NO			/*	7 伝票行№ */
+						,TENPO_CD				/*	8 店舗コード */
+						,BUMON_CD				/*	9 品種コード */
+						,HINSYU_CD				/* 10 部門コード */
+						,BURANDO_CD				/* 11 ブランドコード */
+						,MAKER_HBN				/* 12 メーカー品番 */
+						,SYONMK					/* 13 商品名(カナ) */
+						,JISYA_HBN				/* 14 自社品番 */
+						,IRO_CD					/* 15 色コード */
+						,SIZE_CD				/* 16 サイズコード */
+						,SIZE_NM				/* 17 サイズ */
+						,YOTEI_SU				/* 18 予定数量 */
+						</parts></statement><statement type="replace" name="JISSEKI_SU" /><statement type="final" name="final"><parts>
+						,JAN_CD					/* 20 ＪＡＮコード */
+						,SYOHIN_CD				/* 21 商品コード */
+						,GEN_TNK				/* 22 原単価 */
+						,JODAI1_TNK				/* 23 上代１ */
+						,KYAKUTYUDENPYO_NO		/* 24 客注伝票番号 */
+						,KYAKUTYU_FLG			/* 25 客注フラグ */
+						,INSTORE_FLG			/* 26 インストアフラグ */
+						,NEGAKIHIN_FLG			/* 27 値書き品フラグ */
+					FROM
+						MDPT0011
+					WHERE
+						SIIRESAKI_CD	= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	= </parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		= </parts><bind id="BIND_TENCD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		<!-- [仕入入荷確定TBL(H)]を検索し、[仕入入荷履歴TBL(H)]を登録 -->
+		<sql id="C01020-07">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDPT0060 (
+						 KAKUTEI_SB						/* 確定種別 */
+						,SIIRESAKI_CD					/* 仕入先コード */
+						,DENPYO_BANGO					/* 伝票番号 */
+						,SITEINOHIN_YMD					/* 指定納品日 */
+						,TENPO_CD						/* 店舗コード */
+						,RIREKI_NO						/* 履歴No */
+						,AKAKURO_KBN					/* 赤黒区分 */
+						,RIREKI_SYORI_YMD				/* 履歴処理日付 */
+						,RIREKI_SYORI_TM				/* 履歴処理時間 */
+						,NOHINSYO_YMD					/* 納品書日付 */
+						,JYURYO_YMD						/* 受領日 */
+						,BUMON_CD						/* 部門コード */
+						,SUBSIIRESAKI_CD				/* サブ仕入先コード */
+						,SIIREYOTEIGOKEI_SU				/* 仕入予定合計数量 */
+						,SIIREYOTEIGOKEI_KIN			/* 仕入予定合計金額 */
+						,SIIREJISSEKIGOKEI_SU			/* 仕入実績合計数量 */
+						,SIIREJISSEKIGOKEI_KIN			/* 仕入実績合計金額 */
+						,ZEIKOMI_DENPYO_KIN				/* 税込伝票金額 */
+						,SYORI_SB						/* 処理種別 */
+						,BIKO_KB						/* 備考区分 */
+						,BIKO1							/* 備考1 */
+						,BIKO2							/* 備考2 */
+						,MOTODENPYO_BANGO				/* 元伝票番号 */
+						,MOTOKAKUTEI_SB					/* 元確定種別 */
+						,RIREKI_DISP_KB					/* 履歴画面表示区分 */
+						,ADD_YMD						/* 登録日 */
+						,ADD_TM							/* 登録時間 */
+						,ADDTAN_CD						/* 登録担当者コード */
+						,UPD_YMD						/* 更新日 */
+						,UPD_TM							/* 更新時間 */
+						,UPD_TANCD						/* 更新担当者コード */
+						,SAKUJYO_YMD					/* 削除日 */
+						,SAKUJYO_FLG					/* 削除フラグ */
+						,HHTSERIAL_NO					/* HHTシリアル番号 */
+						,HHTSEQUENCE_NO					/* HHTシーケンスNo. */
+					) SELECT
+						 KAKUTEI_SB						/* 確定種別 */
+						,SIIRESAKI_CD					/* 仕入先コード */
+						,DENPYO_BANGO					/* 伝票番号 */
+						,SITEINOHIN_YMD					/* 指定納品日 */
+						,TENPO_CD						/* 店舗コード */
+						,NVL((
+								SELECT
+										MAX(RIREKI_NO)
+								FROM
+										MDPT0060
+								WHERE
+										MDPT0060.KAKUTEI_SB 	= MDPT0020.KAKUTEI_SB
+								AND		MDPT0060.SIIRESAKI_CD	= MDPT0020.SIIRESAKI_CD
+								AND		MDPT0060.DENPYO_BANGO	= MDPT0020.DENPYO_BANGO
+								AND		MDPT0060.SITEINOHIN_YMD = MDPT0020.SITEINOHIN_YMD
+								AND		MDPT0060.TENPO_CD		= MDPT0020.TENPO_CD
+			 			), 0) + 1						/* 履歴No */
+						,</parts><bind id="BIND_AKAKURO_KBN" /><parts>		/* 赤黒区分 */
+						,</parts><bind id="BIND_SYORI_YMD" /><parts>		/* 履歴処理日付 */
+						,</parts><bind id="BIND_SYORI_TM" /><parts>			/* 履歴処理時間 */
+						,NOHINSYO_YMD					/* 納品書日付 */
+						,JYURYO_YMD						/* 受領日 */
+						,BUMON_CD						/* 部門コード */
+						,SUBSIIRESAKI_CD				/* サブ仕入先コード */
+						,SIIREYOTEIGOKEI_SU				/* 仕入予定合計数量 */
+						,SIIREYOTEIGOKEI_KIN			/* 仕入予定合計金額 */
+						</parts></statement><statement type="replace" name="JISSEKIGOKEI_SU" /><statement type="final" name="final"><parts>			/* 仕入実績合計数量 */
+						</parts></statement><statement type="replace" name="JISSEKIGOKEI_KIN" /><statement type="final" name="final"><parts>		/* 仕入実績合計金額 */
+						</parts></statement><statement type="replace" name="ZEIKOMI_DENPYO_KIN" /><statement type="final" name="final"><parts>		/* 税込伝票金額 */
+						,</parts><bind id="BIND_SYORI_SB" /><parts>																					/* 処理種別 */
+						,BIKO_KB						/* 備考区分 */
+						,BIKO1							/* 備考1 */
+						,BIKO2							/* 備考2 */
+						,MOTODENPYO_BANGO				/* 元伝票番号 */
+						,MOTOKAKUTEI_SB					/* 元確定種別 */
+						,1								/* 履歴画面表示区分 */
+						,ADD_YMD						/* 登録日 */
+						,ADD_TM							/* 登録時間 */
+						,ADDTAN_CD						/* 登録担当者コード */
+						,UPD_YMD						/* 更新日 */
+						,UPD_TM							/* 更新時間 */
+						,UPD_TANCD						/* 更新担当者コード */
+						,SAKUJYO_YMD					/* 削除日 */
+						,1								/* 削除フラグ */
+						,HHTSERIAL_NO					/* HHTシリアル番号 */
+						,HHTSEQUENCE_NO					/* HHTシーケンスNo. */
+					FROM
+						MDPT0020
+					WHERE
+						KAKUTEI_SB		=	</parts><bind id="BIND_KAKUTEI_SB" /><parts>
+					AND	SIIRESAKI_CD	=	</parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	=	</parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		=	</parts><bind id="BIND_TENCD" />
+			</statement>
+		</sql>
+		<!-- [仕入入荷確定TBL(B)]を検索し、[仕入入荷履歴TBL(B)]を登録 -->
+		<sql id="C01020-08">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDPT0061 (
+						 KAKUTEI_SB					/* 確定種別 */
+						,SIIRESAKI_CD				/* 仕入先コード */
+						,DENPYO_BANGO				/* 伝票番号 */
+						,SITEINOHIN_YMD				/* 指定納品日 */
+						,TENPO_CD					/* 店舗コード */
+						,RIREKI_NO					/* 履歴No */
+						,AKAKURO_KBN				/* 赤黒区分 */
+						,DENPYOGYO_NO				/* 伝票行№ */
+						,BUMON_CD					/* 部門コード */
+						,HINSYU_CD					/* 品種コード */
+						,BURANDO_CD					/* ブランドコード */
+						,MAKER_HBN					/* メーカー品番 */
+						,SYONMK						/* 商品名(カナ) */
+						,JISYA_HBN					/* 自社品番 */
+						,IRO_CD						/* 色コード */
+						,SIZE_CD					/* サイズコード */
+						,SIZE_NM					/* サイズ */
+						,YOTEI_SU					/* 予定数量 */
+						,JISSEKI_SU					/* 実績数量 */
+						,JAN_CD						/* ＪＡＮコード */
+						,SYOHIN_CD					/* 商品コード */
+						,GEN_TNK					/* 原単価 */
+						,JODAI1_TNK					/* 上代１ */
+						,KYAKUTYUDENPYO_NO			/* 客注伝票番号 */
+						,KYAKUTYU_FLG				/* 客注フラグ */
+						,NEGAKIHIN_FLG				/* 値書き品フラグ */
+					) SELECT
+						 KAKUTEI_SB					/* 確定種別 */
+						,SIIRESAKI_CD				/* 仕入先コード */
+						,DENPYO_BANGO				/* 伝票番号 */
+						,SITEINOHIN_YMD				/* 指定納品日 */
+						,TENPO_CD					/* 店舗コード */
+						,NVL((
+								SELECT
+										MAX(RIREKI_NO)
+								FROM
+										MDPT0060
+								WHERE
+										MDPT0060.KAKUTEI_SB 	= MDPT0021.KAKUTEI_SB
+								AND		MDPT0060.SIIRESAKI_CD	= MDPT0021.SIIRESAKI_CD
+								AND		MDPT0060.DENPYO_BANGO	= MDPT0021.DENPYO_BANGO
+								AND		MDPT0060.SITEINOHIN_YMD = MDPT0021.SITEINOHIN_YMD
+								AND		MDPT0060.TENPO_CD		= MDPT0021.TENPO_CD
+			 			), 0)						/* 履歴No ヘッダが先に作成されている事を前提とする */
+						,</parts><bind id="BIND_AKAKURO_KBN" /><parts>	/* 赤黒区分 */
+						,DENPYOGYO_NO				/* 伝票行№ */
+						,BUMON_CD					/* 部門コード */
+						,HINSYU_CD					/* 品種コード */
+						,BURANDO_CD					/* ブランドコード */
+						,MAKER_HBN					/* メーカー品番 */
+						,SYONMK						/* 商品名(カナ) */
+						,JISYA_HBN					/* 自社品番 */
+						,IRO_CD						/* 色コード */
+						,SIZE_CD					/* サイズコード */
+						,SIZE_NM					/* サイズ */
+						,YOTEI_SU					/* 予定数量 */
+						</parts></statement><statement type="replace" name="JISSEKI_SU" /><statement type="final" name="final"><parts>	/* 実績数量 */
+						,JAN_CD						/* ＪＡＮコード */
+						,SYOHIN_CD					/* 商品コード */
+						,GEN_TNK					/* 原単価 */
+						,JODAI1_TNK					/* 上代１ */
+						,KYAKUTYUDENPYO_NO			/* 客注伝票番号 */
+						,KYAKUTYU_FLG				/* 客注フラグ */
+						,NEGAKIHIN_FLG				/* 値書き品フラグ */
+					FROM
+						MDPT0021
+					WHERE
+						KAKUTEI_SB		=	</parts><bind id="BIND_KAKUTEI_SB" /><parts>
+					AND	SIIRESAKI_CD	=	</parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+					AND	DENPYO_BANGO	=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SITEINOHIN_YMD	=	</parts><bind id="BIND_SITEINOHIN_YMD" /><parts>
+					AND	TENPO_CD		=	</parts><bind id="BIND_TENCD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

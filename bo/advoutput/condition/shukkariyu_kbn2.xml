@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SHUKKARIYU_KBN2" name="出荷理由区分（再入荷防止）">
+		<listItems>
+			<item id="10" value="2" label="店舗判断" itemId="Shukkariyu_kbn22" />
+			<item id="20" value="3" label="店舗客注" itemId="Shukkariyu_kbn23" />
+			<item id="30" value="4" label="EC受注" itemId="Shukkariyu_kbn24" />
+			<item id="40" value="5" label="客注(EC)" itemId="Shukkariyu_kbn25" />
+			<item id="50" value="9" label="その他" itemId="Shukkariyu_kbn29" />
+		</listItems>
+	</condition>
+</condition-define>
+

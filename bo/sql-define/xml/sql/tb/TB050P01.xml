@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** [仕入確定一時TBL]を登録 **/
+		<sql id="TB050P01-01">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDPT0020_TEMP (
+							 KAKUTEI_SB					/*  3 確定種別 */
+							,SIIRESAKI_CD				/*  4 仕入先コード */
+							,DENPYO_BANGO				/*  5 伝票番号 */
+							,TENPO_CD					/*  6 店舗コード */
+							,SUBSIIRESAKI_CD			/*  7 サブ仕入先コード */
+							,BUMON_CD					/*  8 部門コード */
+							,BIKO_KB					/*  9 備考区分 */
+							,BIKO1						/* 10 備考1 */
+							,BIKO2						/* 11 備考2 */
+							,MOTODENPYO_BANGO			/* 12 元伝票番号 */
+							,UPD_YMD					/* 13 更新日 */
+							,UPD_TM						/* 14 更新時間 */
+							,UPD_TANCD					/* 15 更新担当者コード */
+							,DENPYOGYO_NO				/* 16 伝票行№ */
+							,HINSYU_CD					/* 17 品種コード */
+							,BURANDO_CD					/* 18 ブランドコード */
+							,MAKER_HBN					/* 19 メーカー品番 */
+							,SYONMK						/* 20 商品名(カナ) */
+							,JISYA_HBN					/* 21 自社品番 */
+							,IRO_CD						/* 22 色コード */
+							,SIZE_CD					/* 23 サイズコード */
+							,SIZE_NM					/* 24 サイズ */
+							,YOTEI_SU					/* 25 予定数量 */
+							,JISSEKI_SU					/* 26 実績数量 */
+							,JAN_CD						/* 27 ＪＡＮコード */
+							,SYOHIN_CD					/* 28 商品コード */
+							,GEN_TNK					/* 29 原単価 */
+							,JODAI1_TNK					/* 30 上代１ */
+							,KYAKUTYUDENPYO_NO			/* 31 客注伝票番号 */
+							,KYAKUTYU_FLG				/* 32 客注フラグ */
+							,INSTORE_FLG				/* 33 インストアフラグ */
+							,NEGAKIHIN_FLG				/* 34 値書き品フラグ */
+					) VALUES (
+							 </parts><bind id="BIND_KAKUTEI_SB" /><parts>				/*  3 確定種別 */
+							,</parts><bind id="BIND_SIIRE_CD" /><parts>					/*  4 仕入先コード */
+							,</parts><bind id="BIND_DENPYO_BANGO" /><parts>				/*  5 伝票番号 */
+							,</parts><bind id="BIND_TENPO_CD" /><parts>					/*  6 店舗コード */
+							,</parts><bind id="BIND_SUBSIIRE_CD" /><parts>				/*  7 サブ仕入先コード */
+							,</parts><bind id="BIND_BUMON_CD" /><parts>					/*  8 部門コード */
+							,</parts><bind id="BIND_BIKO_KB" /><parts>					/*  9 備考区分 */
+							,</parts><bind id="BIND_BIKO1" /><parts>					/* 10 備考1 */
+							,</parts><bind id="BIND_BIKO2" /><parts>					/* 11 備考2 */
+							,</parts><bind id="BIND_MOTO_BANGO" /><parts>				/* 12 元伝票番号 */
+							,</parts><bind id="BIND_UPD_YMD" /><parts>					/* 13 更新日 */
+							,</parts><bind id="BIND_UPD_TM" /><parts>					/* 14 更新時間 */
+							,</parts><bind id="BIND_UPD_TANCD" /><parts>				/* 15 更新担当者コード */
+							,</parts><bind id="BIND_DENPYOGYO_NO" /><parts>				/* 16 伝票行№ */
+							,</parts><bind id="BIND_HINSYU_CD" /><parts>				/* 17 品種コード */
+							,</parts><bind id="BIND_BURANDO_CD" /><parts>				/* 18 ブランドコード */
+							,</parts><bind id="BIND_MAKER_HBN" /><parts>				/* 19 メーカー品番 */
+							,</parts><bind id="BIND_SYONMK" /><parts>					/* 20 商品名(カナ) */
+							,</parts><bind id="BIND_JISYA_HBN" /><parts>				/* 21 自社品番 */
+							,</parts><bind id="BIND_IRO_CD" /><parts>					/* 22 色コード */
+							,</parts><bind id="BIND_SIZE_CD" /><parts>					/* 23 サイズコード */
+							,</parts><bind id="BIND_SIZE_NM" /><parts>					/* 24 サイズ */
+							,</parts><bind id="BIND_YOTEI_SU" /><parts>					/* 25 予定数量 */
+							,</parts><bind id="BIND_JISSEKI_SU" /><parts>				/* 26 実績数量 */
+							,</parts><bind id="BIND_JAN_CD" /><parts>					/* 27 ＪＡＮコード */
+							,</parts><bind id="BIND_SYOHIN_CD" /><parts>				/* 28 商品コード */
+							,</parts><bind id="BIND_GEN_TNK" /><parts>					/* 29 原単価 */
+							,</parts><bind id="BIND_JODAI1_TNK" /><parts>				/* 30 上代１ */
+							,</parts><bind id="BIND_KYAKUDEN_NO" /><parts>				/* 31 客注伝票番号 */
+							,</parts><bind id="BIND_KYAKUTYU_FLG" /><parts>				/* 32 客注フラグ */
+							,</parts><bind id="BIND_INSTORE_FLG" /><parts>				/* 33 インストアフラグ */
+							,</parts><bind id="BIND_NEGAKIHIN_FLG" /><parts>			/* 34 値書き品フラグ */
+					)
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

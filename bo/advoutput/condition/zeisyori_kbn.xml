@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="ZEISYORI_KBN" name="税処理区分">
+		<listItems>
+			<item id="10" value="0" label="切り捨て" itemId="Zeisyori_kbn1" />
+			<item id="20" value="1" label="四捨五入" itemId="Zeisyori_kbn2" />
+			<item id="30" value="2" label="切上" itemId="Zeisyori_kbn3" />
+		</listItems>
+	</condition>
+</condition-define>
+

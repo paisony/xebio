@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="TORIMORE_KETSUBAN_KBN" name="取漏れ欠番区分">
+		<listItems>
+			<item id="10" value="1" label="取漏れ" itemId="Torimore" />
+			<item id="20" value="2" label="欠番" itemId="Ketsuban" />
+		</listItems>
+	</condition>
+</condition-define>
+

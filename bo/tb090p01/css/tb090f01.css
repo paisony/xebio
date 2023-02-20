@@ -1,0 +1,88 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tb090f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 確定状態 ---*/
+.slt-kakutei {
+	width: 100px;
+}
+
+.str-search-01 .w-type-01 {
+  width: 88px;
+}
+.str-search-01 .w-type-02 {
+  width: 220px;
+}
+.str-search-01 .w-type-03 {
+  width: 270px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  position: relative;
+  width: 28px;
+}
+/* 部門 */
+.str-result-01 .col2 {
+  width: 172px;
+}
+/* 仕入先 */
+.str-result-01 .col3 {
+  width: 174px;
+}
+/* 入荷予定日 */
+.str-result-01 .col4 {
+  width: 70px;
+}
+/* 元伝 */
+.str-result-01 .col5 {
+  width: 55px;
+}
+/* 赤伝 */
+.str-result-01 .col6 {
+  width: 55px;
+}
+/* 黒伝 */
+.str-result-01 .col7 {
+  width: 55px;
+}
+/* 検数 */
+.str-result-01 .col8 {
+  width: 80px;
+}
+/* 訂正数 */
+.str-result-01 .col9 {
+  width: 80px;
+}
+/* 原価金額 */
+.str-result-01 .col10 {
+  width: 80px;
+}
+/* 仕入確定日 */
+.str-result-01 .col11 {
+  width: 70px;
+}
+/* 確定担当者 */
+.str-result-01 .col12 {
+  width: 90px;
+}
+/* 確定種別 */
+.str-result-01 .col13 {
+  width: 68px;
+}
+/* 客注 */
+.str-result-01 .col14 {
+  width: 35px;
+}
+/* 値書 */
+.str-result-01 .col15 {
+  width: 35px;
+}
+

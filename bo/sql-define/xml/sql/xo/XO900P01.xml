@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sql-included>
+<sql-list>
+	<!-- 郵便番号より住所取得SQL -->
+	<sql id="XO900P01-01">
+		<statement type="final" name="final">
+			<parts>
+				SELECT
+				ZKKCHUKUODNTCD
+				,KYUYBNBNG
+				,YBNBNG
+				,TDFSSKMESKM
+				,SKCMESKM
+				,MIKMESKM
+				,SUBSTR(TDFSSKMES || SKCMES || MIKMES, 1, 100) AS TDFSKCMIKMES
+				,YBNBNGKBN1
+				,YBNBNGKBN2
+				,YBNBNGKBN3
+				,YBNBNGKBN4
+				,HKORYUKBN
+				,KSNHYJKBN
+				,SKJFLG
+				FROM M_YBNBNG
+				WHERE
+				YBNBNG =
+			</parts>
+		</statement>
+		<statement type="final" name="final">
+			<bind id="YBNBNG" />
+		</statement>
+	</sql>
+	<sql id="XO900P01-02">
+		<statement type="final" name="final">
+			<parts>
+				SELECT COUNT(*) AS YBNCOUNT2
+				FROM M_YBNBNG
+				WHERE
+				YBNBNG =
+			</parts>
+		</statement>
+		<statement type="final" name="final">
+			<bind id="YBNBNG" />
+		</statement>
+		<statement type="final" name="final">
+			<parts>
+				GROUP BY YBNBNG,TDFSSKMES ,SKCMES
+			</parts>
+		</statement>
+	</sql>
+	<sql id="XO900P01-03">
+		<statement type="final" name="final">
+			<parts>
+				SELECT COUNT(*) AS YBNCOUNT3
+				FROM M_YBNBNG
+				WHERE
+				YBNBNG =
+			</parts>
+		</statement>
+		<statement type="final" name="final">
+			<bind id="YBNBNG" />
+		</statement>
+		<statement type="final" name="final">
+			<parts>
+				GROUP BY YBNBNG,TDFSSKMES
+			</parts>
+		</statement>
+	</sql>
+	<sql id="XO900P01-11">
+		<statement type="final" name="final">
+			<parts>
+				SELECT
+				ZKKCHUKUODNTCD
+				,KYUYBNBNG
+				,YBNBNG
+				,TDFSSKMESKM
+				,SKCMESKM
+				,MIKMESKM
+				,SUBSTR(TDFSSKMES || SKCMES, 1, 100) AS TDFSKCMIKMES
+				,YBNBNGKBN1
+				,YBNBNGKBN2
+				,YBNBNGKBN3
+				,YBNBNGKBN4
+				,HKORYUKBN
+				,KSNHYJKBN
+				,SKJFLG
+				FROM M_YBNBNG
+				WHERE
+				YBNBNG =
+			</parts>
+		</statement>
+		<statement type="final" name="final">
+			<bind id="YBNBNG" />
+		</statement>
+	</sql>
+	<sql id="XO900P01-12">
+		<statement type="final" name="final">
+			<parts>
+				SELECT
+				ZKKCHUKUODNTCD
+				,KYUYBNBNG
+				,YBNBNG
+				,TDFSSKMESKM
+				,SKCMESKM
+				,MIKMESKM
+				,SUBSTR(TDFSSKMES, 1, 100) AS TDFSKCMIKMES
+				,YBNBNGKBN1
+				,YBNBNGKBN2
+				,YBNBNGKBN3
+				,YBNBNGKBN4
+				,HKORYUKBN
+				,KSNHYJKBN
+				,SKJFLG
+				FROM M_YBNBNG
+				WHERE
+				YBNBNG =
+			</parts>
+		</statement>
+		<statement type="final" name="final">
+			<bind id="YBNBNG" />
+		</statement>
+	</sql>
+	<sql id="XO900P01-13">
+		<statement type="final" name="final">
+			<parts>
+				SELECT
+				ZKKCHUKUODNTCD
+				,KYUYBNBNG
+				,YBNBNG
+				,TDFSSKMESKM
+				,SKCMESKM
+				,MIKMESKM
+				,NULL AS TDFSKCMIKMES
+				,YBNBNGKBN1
+				,YBNBNGKBN2
+				,YBNBNGKBN3
+				,YBNBNGKBN4
+				,HKORYUKBN
+				,KSNHYJKBN
+				,SKJFLG
+				FROM M_YBNBNG
+				WHERE
+				YBNBNG =
+			</parts>
+		</statement>
+		<statement type="final" name="final">
+			<bind id="YBNBNG" />
+		</statement>
+	</sql>
+</sql-list>
+</sql-included>

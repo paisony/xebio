@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SHUTURYOKU_KBN" name="出力区分">
+		<listItems>
+			<item id="10" value="0" label="未出力" itemId="Shuturyoku_kbn1" />
+			<item id="20" value="1" label="出力済" itemId="Shuturyoku_kbn2" />
+		</listItems>
+	</condition>
+</condition-define>
+

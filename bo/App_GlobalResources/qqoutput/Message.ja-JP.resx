@@ -1,0 +1,894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="S001" xml:space="preserve">
+    <value>エラー個所があります。確認してください。</value>
+  </data>
+  <data name="S002" xml:space="preserve">
+    <value>無効なファンクションキーが押されました。</value>
+  </data>
+  <data name="S003" xml:space="preserve">
+    <value>前ページがありません。</value>
+  </data>
+  <data name="S004" xml:space="preserve">
+    <value>次ページがありません。</value>
+  </data>
+  <data name="S005" xml:space="preserve">
+    <value>しばらくお待ちください。</value>
+  </data>
+  <data name="S006" xml:space="preserve">
+    <value>該当コードはマスタに登録されていません。</value>
+  </data>
+  <data name="S007" xml:space="preserve">
+    <value>入力内容に誤りがあります。</value>
+  </data>
+  <data name="S008" xml:space="preserve">
+    <value>コード変換出来ない文字が含まれています。</value>
+  </data>
+  <data name="S101" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_LENGTH%桁以下で入力してください。</value>
+  </data>
+  <data name="S102" xml:space="preserve">
+    <value>「%IT_CAPTION%」は小数部%IT_DECIMAL%桁以下で入力してください。</value>
+  </data>
+  <data name="S103" xml:space="preserve">
+    <value>「%IT_CAPTION%」は必ず入力してください。</value>
+  </data>
+  <data name="S104" xml:space="preserve">
+    <value>「%IT_CAPTION%」は必ず入力してください。（%IT_REQUIRED%桁以上）</value>
+  </data>
+  <data name="S105" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%AT_NAME%を入力してください。</value>
+  </data>
+  <data name="S106" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%AT_NAME%を入力してください。（%AT_BIKO%）</value>
+  </data>
+  <data name="S107" xml:space="preserve">
+    <value>「%IT_CAPTION%」に入力したコード [%VALUE%] は見つかりませんでした。</value>
+  </data>
+  <data name="S108" xml:space="preserve">
+    <value>「%IT_CAPTION%」は日付として認識できません。</value>
+  </data>
+  <data name="S109" xml:space="preserve">
+    <value>「%IT_CAPTION%」は数値として認識できません。</value>
+  </data>
+  <data name="S110" xml:space="preserve">
+    <value>「%IT_CAPTION%」は整数部%IT_INTEGER%桁以下で入力してください。</value>
+  </data>
+  <data name="S111" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_REQUIRED%桁以上で入力してください。</value>
+  </data>
+  <data name="S112" xml:space="preserve">
+    <value>ログオンされていません。ログオンページにてログオンを行ってください。</value>
+  </data>
+  <data name="S113" xml:space="preserve">
+    <value>正しい画面遷移ではありません。（「お気に入り」等から直接起動されました。）</value>
+  </data>
+  <data name="S114" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MAX_VAL%より小さくなければなりません。</value>
+  </data>
+  <data name="S115" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MAX_VAL%以下でなければなりません。</value>
+  </data>
+  <data name="S116" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MIN_VAL%より大きくなければなりません。</value>
+  </data>
+  <data name="S117" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MIN_VAL%以上でなければなりません。</value>
+  </data>
+  <data name="S118" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MIN_VAL%より大きく、%IT_MAX_VAL%より小さくなければなりません。</value>
+  </data>
+  <data name="S119" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MIN_VAL%以上、%IT_MAX_VAL%より小さくなければなりません。</value>
+  </data>
+  <data name="S120" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MIN_VAL%より大きく、%IT_MAX_VAL%以下でなければなりません。</value>
+  </data>
+  <data name="S121" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MIN_VAL%以上、%IT_MAX_VAL%以下でなければなりません。</value>
+  </data>
+  <data name="S122" xml:space="preserve">
+    <value>「%IT_CAPTION%」に使用できない文字が含まれています。『{0}』</value>
+  </data>
+  <data name="S123" xml:space="preserve">
+    <value>「%IT_CAPTION%」は時間として認識できません。</value>
+  </data>
+  <data name="S124" xml:space="preserve">
+    <value>「%IT_CAPTION%」に使用できない文字が含まれています。</value>
+  </data>
+  <data name="S125" xml:space="preserve">
+    <value>「%IT_CAPTION%」は%IT_MIN_VAL%以上、%IT_MAX_VAL%以下でなければなりません。</value>
+  </data>
+  <data name="S900" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="E100" xml:space="preserve">
+    <value>{0}が異なる商品です。</value>
+  </data>
+  <data name="E101" xml:space="preserve">
+    <value>{0}が異なる商品は入力できません。</value>
+  </data>
+  <data name="E102" xml:space="preserve">
+    <value>{0}が有効桁数を超えています。</value>
+  </data>
+  <data name="E103" xml:space="preserve">
+    <value>{0}に0は入力できません。</value>
+  </data>
+  <data name="E104" xml:space="preserve">
+    <value>{0}にマイナスは入力できません。</value>
+  </data>
+  <data name="E105" xml:space="preserve">
+    <value>{0}に過去日付は入力できません。</value>
+  </data>
+  <data name="E106" xml:space="preserve">
+    <value>{0}の範囲指定が正しく入力されていません。</value>
+  </data>
+  <data name="E107" xml:space="preserve">
+    <value>{0}は{1}桁で入力してください。</value>
+  </data>
+  <data name="E108" xml:space="preserve">
+    <value>{0}は{1}桁以内で入力して下さい。</value>
+  </data>
+  <data name="E109" xml:space="preserve">
+    <value>{0}は{1}以下で入力して下さい。</value>
+  </data>
+  <data name="E110" xml:space="preserve">
+    <value>{0}は13桁以内、または18桁で入力して下さい。</value>
+  </data>
+  <data name="E111" xml:space="preserve">
+    <value>{0}は存在しません。</value>
+  </data>
+  <data name="E112" xml:space="preserve">
+    <value>{0}はロット数の整数倍で入力して下さい。</value>
+  </data>
+  <data name="E113" xml:space="preserve">
+    <value>{0}は配分可能数を超えて登録できません。</value>
+  </data>
+  <data name="E114" xml:space="preserve">
+    <value>{0}は半角英数字で入力して下さい。</value>
+  </data>
+  <data name="E115" xml:space="preserve">
+    <value>{0}は半角数字で入力して下さい。</value>
+  </data>
+  <data name="E116" xml:space="preserve">
+    <value>{0}は半角数字のみで入力して下さい。</value>
+  </data>
+  <data name="E117" xml:space="preserve">
+    <value>{0}は販売完了日以前を設定して下さい。</value>
+  </data>
+  <data name="E118" xml:space="preserve">
+    <value>{0}は必ず入力して下さい。</value>
+  </data>
+  <data name="E119" xml:space="preserve">
+    <value>{0}を選択して下さい。</value>
+  </data>
+  <data name="E120" xml:space="preserve">
+    <value>{0}を超えています。</value>
+  </data>
+  <data name="E121" xml:space="preserve">
+    <value>{0}を入力して下さい。</value>
+  </data>
+  <data name="E122" xml:space="preserve">
+    <value>{0}件却下理由が未入力の伝票が存在します。</value>
+  </data>
+  <data name="E123" xml:space="preserve">
+    <value>CSV形式ではありません。</value>
+  </data>
+  <data name="E124" xml:space="preserve">
+    <value>CSVの項目数が正しくありません。</value>
+  </data>
+  <data name="E125" xml:space="preserve">
+    <value>LC店舗は入力できません。</value>
+  </data>
+  <data name="E126" xml:space="preserve">
+    <value>アンマッチデータがあるため、確定できません。</value>
+  </data>
+  <data name="E127" xml:space="preserve">
+    <value>指定されていない品種の商品が入力されています。</value>
+  </data>
+  <data name="E128" xml:space="preserve">
+    <value>指定されていないブランドの商品が入力されています。</value>
+  </data>
+  <data name="E129" xml:space="preserve">
+    <value>上代1の２倍を超える売価に設定することはできません。</value>
+  </data>
+  <data name="E130" xml:space="preserve">
+    <value>スキャンコードが重複しています。</value>
+  </data>
+  <data name="E131" xml:space="preserve">
+    <value>送信データが1件もありません。</value>
+  </data>
+  <data name="E132" xml:space="preserve">
+    <value>重複データがあります。</value>
+  </data>
+  <data name="E133" xml:space="preserve">
+    <value>登録データがありません。</value>
+  </data>
+  <data name="E134" xml:space="preserve">
+    <value>取込対象がありません。</value>
+  </data>
+  <data name="E135" xml:space="preserve">
+    <value>発生時間は0以上23以下で入力して下さい。</value>
+  </data>
+  <data name="E136" xml:space="preserve">
+    <value>未送信のデータがあります。</value>
+  </data>
+  <data name="E137" xml:space="preserve">
+    <value>要望売価より低く設定することはできません。</value>
+  </data>
+  <data name="E138" xml:space="preserve">
+    <value>ラベル発行機IPが重複しています。</value>
+  </data>
+  <data name="E139" xml:space="preserve">
+    <value>ラベル発行機IPは既に存在しています。</value>
+  </data>
+  <data name="E140" xml:space="preserve">
+    <value>確定対象がありません。</value>
+  </data>
+  <data name="E141" xml:space="preserve">
+    <value>業者棚卸データは修正・取消できません。</value>
+  </data>
+  <data name="E142" xml:space="preserve">
+    <value>月度は当月／翌月のみ入力可能です。</value>
+  </data>
+  <data name="E143" xml:space="preserve">
+    <value>月別部門合計と{0}の合計が異なります。</value>
+  </data>
+  <data name="E144" xml:space="preserve">
+    <value>検索結果が{0}件を超えています。</value>
+  </data>
+  <data name="E145" xml:space="preserve">
+    <value>検索結果が0件です。</value>
+  </data>
+  <data name="E146" xml:space="preserve">
+    <value>原価がマイナスの商品は入力できません。</value>
+  </data>
+  <data name="E147" xml:space="preserve">
+    <value>最大行数です。これ以上は追加できません。</value>
+  </data>
+  <data name="E148" xml:space="preserve">
+    <value>仕入先の商品ではありません。</value>
+  </data>
+  <data name="E149" xml:space="preserve">
+    <value>指示番号に存在しない商品です。</value>
+  </data>
+  <data name="E150" xml:space="preserve">
+    <value>指定部門、品種、ブランド外の商品が存在しています。</value>
+  </data>
+  <data name="E151" xml:space="preserve">
+    <value>自動発注不可商品です。</value>
+  </data>
+  <data name="E152" xml:space="preserve">
+    <value>実施日({0})まで送信できません。</value>
+  </data>
+  <data name="E153" xml:space="preserve">
+    <value>社員コードと確認入力は同一のコードを入力して下さい。</value>
+  </data>
+  <data name="E154" xml:space="preserve">
+    <value>取込結果が{0}件を超えています。</value>
+  </data>
+  <data name="E155" xml:space="preserve">
+    <value>{0}を行う場合、店舗/業者は業者を選択できません。</value>
+  </data>
+  <data name="E156" xml:space="preserve">
+    <value>受理数は申請数より多く入力できません。</value>
+  </data>
+  <data name="E157" xml:space="preserve">
+    <value>重複する商品は入力できません。</value>
+  </data>
+  <data name="E158" xml:space="preserve">
+    <value>重複データがあります。</value>
+  </data>
+  <data name="E159" xml:space="preserve">
+    <value>出荷店コード入力時は会社コードを入力して下さい。</value>
+  </data>
+  <data name="E160" xml:space="preserve">
+    <value>出荷店コード入力時は出荷会社コードを入力して下さい。</value>
+  </data>
+  <data name="E161" xml:space="preserve">
+    <value>出荷店と入荷店で同一店舗は入力できません。</value>
+  </data>
+  <data name="E162" xml:space="preserve">
+    <value>承り品番の商品は入力できません。</value>
+  </data>
+  <data name="E163" xml:space="preserve">
+    <value>消費税率１は0～100の範囲で入力して下さい。</value>
+  </data>
+  <data name="E164" xml:space="preserve">
+    <value>消費税率２は0～100の範囲で入力して下さい。</value>
+  </data>
+  <data name="E165" xml:space="preserve">
+    <value>正しい確定数を入力して下さい。</value>
+  </data>
+  <data name="E166" xml:space="preserve">
+    <value>税率１開始日と税率２開始日で同一日付は入力できません。</value>
+  </data>
+  <data name="E167" xml:space="preserve">
+    <value>選択された伝票は印刷できません。</value>
+  </data>
+  <data name="E168" xml:space="preserve">
+    <value>他社に存在しない商品です。</value>
+  </data>
+  <data name="E169" xml:space="preserve">
+    <value>他端末にて更新されました。</value>
+  </data>
+  <data name="E170" xml:space="preserve">
+    <value>棚卸管理情報の取得に失敗しました。</value>
+  </data>
+  <data name="E171" xml:space="preserve">
+    <value>棚卸期間外です。</value>
+  </data>
+  <data name="E172" xml:space="preserve">
+    <value>棚卸終了処理が済んでいます。追加・修正がある場合は業務システムへ連絡して下さい。</value>
+  </data>
+  <data name="E173" xml:space="preserve">
+    <value>{0}は{1}以上{2}以下で入力して下さい。</value>
+  </data>
+  <data name="E174" xml:space="preserve">
+    <value>抽出件数は0件です。</value>
+  </data>
+  <data name="E175" xml:space="preserve">
+    <value>伝票状態と仕入先コードのどちらかは必ず入力して下さい。</value>
+  </data>
+  <data name="E176" xml:space="preserve">
+    <value>伝票状態と出荷店コードのどちらかは必ず入力して下さい。</value>
+  </data>
+  <data name="E177" xml:space="preserve">
+    <value>当月内の日付を入力して下さい。</value>
+  </data>
+  <data name="E178" xml:space="preserve">
+    <value>同一自社品番のみ変更可能です。</value>
+  </data>
+  <data name="E179" xml:space="preserve">
+    <value>日付の並び順が間違っています。</value>
+  </data>
+  <data name="E180" xml:space="preserve">
+    <value>入金、出金はどちらか片方のみを必ず入力して下さい。</value>
+  </data>
+  <data name="E181" xml:space="preserve">
+    <value>売上実績がありません。</value>
+  </data>
+  <data name="E182" xml:space="preserve">
+    <value>販売完了日が過ぎています。</value>
+  </data>
+  <data name="E183" xml:space="preserve">
+    <value>品種入力時は部門コードを入力して下さい。</value>
+  </data>
+  <data name="E184" xml:space="preserve">
+    <value>変更前のスキャンコードと自社品番が異なる為変更できません。</value>
+  </data>
+  <data name="E185" xml:space="preserve">
+    <value>補充発注対象外商品です。</value>
+  </data>
+  <data name="E186" xml:space="preserve">
+    <value>報告日に事故発生日より前の日付は入力できません。</value>
+  </data>
+  <data name="E187" xml:space="preserve">
+    <value>防止期限は5年未満を入力して下さい。</value>
+  </data>
+  <data name="E188" xml:space="preserve">
+    <value>枚数は1以上を入力して下さい。</value>
+  </data>
+  <data name="E189" xml:space="preserve">
+    <value>未送信のデータがあります。</value>
+  </data>
+  <data name="E190" xml:space="preserve">
+    <value>発行対象がありません。</value>
+  </data>
+  <data name="E191" xml:space="preserve">
+    <value>桁数は同じ値を入力して下さい。</value>
+  </data>
+  <data name="E192" xml:space="preserve">
+    <value>自社品番ＦＲＯＭと自社品番ＴＯのどちらかは必ず入力して下さい。</value>
+  </data>
+  <data name="E193" xml:space="preserve">
+    <value>ラベル発行機IDが重複しています。</value>
+  </data>
+  <data name="E194" xml:space="preserve">
+    <value>ＦＲＯＭ－ＴＯの値は、指示バーコードNo同士、または指示番号同士で入力して下さい。</value>
+  </data>
+  <data name="E195" xml:space="preserve">
+    <value>送信済みデータが1件もありません。</value>
+  </data>
+  <data name="E196" xml:space="preserve">
+    <value>申請・再申請処理は1日各1回ずつ可能です。翌日以降再申請を行って下さい。</value>
+  </data>
+  <data name="E197" xml:space="preserve">
+    <value>経年商品として登録できません。</value>
+  </data>
+  <data name="E198" xml:space="preserve">
+    <value>店舗に指示番号は存在しません。</value>
+  </data>
+  <data name="E199" xml:space="preserve">
+    <value>{0}を行う場合、削除区分は無効を選択できません。</value>
+  </data>
+  <data name="E200" xml:space="preserve">
+    <value>出荷店コードが指定された店舗コードと一致しません。</value>
+  </data>
+  <data name="E201" xml:space="preserve">
+    <value>入荷店コードが指定された入荷店コードと一致しません。</value>
+  </data>
+  <data name="E202" xml:space="preserve">
+    <value>出荷店コードが指定された指示書の出荷店コードと一致しません。</value>
+  </data>
+  <data name="E203" xml:space="preserve">
+    <value>入荷店コードが指定された指示書の入荷店コードと一致しません。</value>
+  </data>
+  <data name="E204" xml:space="preserve">
+    <value>更新品番数が{0}件を超えています。更新品番数を絞り込んでください。</value>
+  </data>
+  <data name="E205" xml:space="preserve">
+    <value>品種指定の場合、品種は必ず入力して下さい。</value>
+  </data>
+  <data name="E206" xml:space="preserve">
+    <value>ブランド指定の場合、一つ以上ブランドを入力して下さい。</value>
+  </data>
+  <data name="E207" xml:space="preserve">
+    <value>ブランドコードが重複しています。</value>
+  </data>
+  <data name="E208" xml:space="preserve">
+    <value>SCMコード/伝票番号は6桁か14桁か20桁で入力して下さい。</value>
+  </data>
+  <data name="E209" xml:space="preserve">
+    <value>SCMの形式が正しくありません。</value>
+  </data>
+  <data name="E210" xml:space="preserve">
+    <value>伝票が重複しています。</value>
+  </data>
+  <data name="E211" xml:space="preserve">
+    <value>棚卸終了処理が済んでいません。</value>
+  </data>
+  <data name="E212" xml:space="preserve">
+    <value>自社品番とスキャンコードのどちらかは必ず入力して下さい。</value>
+  </data>
+  <data name="E213" xml:space="preserve">
+    <value>明細は{0}行以上登録できません。</value>
+  </data>
+  <data name="E214" xml:space="preserve">
+    <value>確定数量は予定数量以下で入力してください。</value>
+  </data>
+  <data name="E215" xml:space="preserve">
+    <value>{0}に未来日付は入力できません。</value>
+  </data>
+  <data name="E216" xml:space="preserve">
+    <value>{0}は{1}バイト以内で入力して下さい。</value>
+  </data>
+  <data name="E217" xml:space="preserve">
+    <value>{0}に禁則文字は入力できません。</value>
+  </data>
+  <data name="E218" xml:space="preserve">
+    <value>承認もしくは却下をチェックして下さい。</value>
+  </data>
+  <data name="E219" xml:space="preserve">
+    <value>ラベル発行機IDは既に存在しています。</value>
+  </data>
+  <data name="E220" xml:space="preserve">
+    <value>返品入力（ﾏﾆｭｱﾙ）画面に戻り、明細の店舗コードを入力してください。</value>
+  </data>
+  <data name="E221" xml:space="preserve">
+    <value>移動出荷入力（ﾏﾆｭｱﾙ）画面に戻り、ヘッダの店舗コードを入力してください。</value>
+  </data>
+  <data name="E222" xml:space="preserve">
+    <value>指示番号は16桁または、24桁で入力して下さい。</value>
+  </data>
+  <data name="E223" xml:space="preserve">
+    <value>SCMコードは14桁または、20桁で入力して下さい。</value>
+  </data>
+  <data name="E224" xml:space="preserve">
+    <value>複数伝票を追加することができません。</value>
+  </data>
+  <data name="E225" xml:space="preserve">
+    <value>取込エラーの件数が100件を超えています。取込CSVを確認して下さい。</value>
+  </data>
+  <data name="E226" xml:space="preserve">
+    <value>POS連携に失敗しました。</value>
+  </data>
+  <data name="E227" xml:space="preserve">
+    <value>伝票番号が重複しています。</value>
+  </data>
+  <data name="E228" xml:space="preserve">
+    <value>本部指示の中に売変、延長が未チェックのデータが存在する場合、確定処理を行えません。</value>
+  </data>
+  <data name="E229" xml:space="preserve">
+    <value>【下請法対象】返品不可商品です。</value>
+  </data>
+  <data name="E230" xml:space="preserve">
+    <value>使用可能な番号がないため採番できません。</value>
+  </data>
+  <data name="E231" xml:space="preserve">
+    <value>{0}に6ヶ月以前は入力できません。</value>
+  </data>
+  <data name="E232" xml:space="preserve">
+    <value>確定済みのデータに対して削除は行えません。</value>
+  </data>
+  <data name="E233" xml:space="preserve">
+    <value>警察届出日に事故発生日より前の日付は入力できません。</value>
+  </data>
+  <data name="E234" xml:space="preserve">
+    <value>担当者コードが重複しています。</value>
+  </data>
+  <data name="E235" xml:space="preserve">
+    <value>所属店が同じ担当者は入力できません。</value>
+  </data>
+  <data name="E236" xml:space="preserve">
+    <value>店舗C評価、全社C評価の商品は登録できません。</value>
+  </data>
+  <data name="E237" xml:space="preserve">
+    <value>店舗B評価以上の商品は登録できません。</value>
+  </data>
+  <data name="E238" xml:space="preserve">
+    <value>ドロップ品番は補充できません。※仕入稟議品番のフォローは仕入稟議システムで発注して下さい。</value>
+  </data>
+  <data name="E239" xml:space="preserve">
+    <value>初回配分前または今期未投入商品の為、登録できません。</value>
+  </data>
+  <data name="E240" xml:space="preserve">
+    <value>当月の{0}の仕入枠予算を超えています。</value>
+  </data>
+  <data name="E241" xml:space="preserve">
+    <value>経年商品の為集約不可、終売願います。</value>
+  </data>
+  <data name="E242" xml:space="preserve">
+    <value>[補充発注不可単品レポ振替]返品指示が出ている商品です。</value>
+  </data>
+  <data name="E243" xml:space="preserve">
+    <value>有効な移動出荷指示が出ています。</value>
+  </data>
+  <data name="E244" xml:space="preserve">
+    <value>仕入枠グループが異なる商品の為、登録できません。</value>
+  </data>
+  <data name="E245" xml:space="preserve">
+    <value>[補充発注不可単品レポ振替]経年商品の為集約不可、終売願います。</value>
+  </data>
+  <data name="E246" xml:space="preserve">
+    <value>[補充発注不可単品レポ振替]自店舗C評価商品のため、店頭在庫の消化を先行させて下さい。</value>
+  </data>
+  <data name="E247" xml:space="preserve">
+    <value>[補充発注不可単品レポ振替]集約可能な全社在庫数不十分の為、終売願います。</value>
+  </data>
+  <data name="E248" xml:space="preserve">
+    <value>仕入稟議品番は自店責任のもと消化に努めて下さい。</value>
+  </data>
+  <data name="E249" xml:space="preserve">
+    <value>自店舗、全社共にC評価商品です。消化促進にご協力下さい。</value>
+  </data>
+  <data name="E250" xml:space="preserve">
+    <value>投入後間もない商品です。※誤入荷の場合は商品部までご連絡下さい。</value>
+  </data>
+  <data name="E251" xml:space="preserve">
+    <value>経年商品の為放出不可、処分売価にて終売願います。</value>
+  </data>
+  <data name="E252" xml:space="preserve">
+    <value>仕入枠が設定されていません。直接商品部までご要望下さい。</value>
+  </data>
+  <data name="E253" xml:space="preserve">
+    <value>申請不可商品があります。明細画面にて内容をご確認下さい。</value>
+  </data>
+  <data name="E254" xml:space="preserve">
+    <value>補充依頼不可商品があります。明細画面にて内容をご確認下さい。</value>
+  </data>
+  <data name="E255" xml:space="preserve">
+    <value>対象外です。</value>
+  </data>
+  <data name="E256" xml:space="preserve">
+    <value>返品指示が出ている商品です。</value>
+  </data>
+  <data name="E257" xml:space="preserve">
+    <value>LC店舗で移動出荷は登録できません。</value>
+  </data>
+  <data name="E351" xml:space="preserve">
+    <value>{0}はALL9を入力できません。</value>
+  </data>
+  <data name="E408" xml:space="preserve">
+    <value>多重起動されました、確認し再起動してください。</value>
+  </data>
+  <data name="E415" xml:space="preserve">
+    <value>{0}のため実行できません。</value>
+  </data>
+  <data name="E416" xml:space="preserve">
+    <value>担当者マスタに未登録です。</value>
+  </data>
+  <data name="E420" xml:space="preserve">
+    <value>有効なファイルパスを指定して下さい。</value>
+  </data>
+  <data name="E901" xml:space="preserve">
+    <value>「秘密鍵(要求)・公開鍵(要求)・公開鍵(応答)」  もしくは　「公開鍵(要求)・秘密鍵(応答)・公開鍵(応答)」のいずれかの組み合わせで入力してください。</value>
+  </data>
+  <data name="E902" xml:space="preserve">
+    <value>暗号コードは重複して登録できません。</value>
+  </data>
+  <data name="E903" xml:space="preserve">
+    <value>{0}は必ず選択してください。</value>
+  </data>
+  <data name="E904" xml:space="preserve">
+    <value>{0}は不正な鍵形式です。</value>
+  </data>
+  <data name="I014" xml:space="preserve">
+    <value>選択された行の中に下位階層が存在するものがあります。その階層も削除されますがよろしいですか？</value>
+  </data>
+  <data name="I100" xml:space="preserve">
+    <value>印刷します。よろしいですか？</value>
+  </data>
+  <data name="I101" xml:space="preserve">
+    <value>CSV出力します。よろしいですか？</value>
+  </data>
+  <data name="I102" xml:space="preserve">
+    <value>確定します。よろしいですか？</value>
+  </data>
+  <data name="I103" xml:space="preserve">
+    <value>シール発行します。よろしいですか？</value>
+  </data>
+  <data name="I104" xml:space="preserve">
+    <value>以下の商品は補充依頼としては登録できませんでした。\n単品レポートとして登録するか、数量を修正し補充依頼として再度登録して下さい。</value>
+  </data>
+  <data name="I105" xml:space="preserve">
+    <value>重複のチェックは行いますが、取漏れはありませんか？</value>
+  </data>
+  <data name="I106" xml:space="preserve">
+    <value>送信依頼が終了しました。</value>
+  </data>
+  <data name="I107" xml:space="preserve">
+    <value>送信依頼解除が終了しました。</value>
+  </data>
+  <data name="I108" xml:space="preserve">
+    <value>重複・アンマッチのチェックは行いますが、取漏れはありませんか？</value>
+  </data>
+  <data name="I109" xml:space="preserve">
+    <value>モードを変更してもよろしいですか？</value>
+  </data>
+  <data name="I110" xml:space="preserve">
+    <value>臨時棚卸用CSVを出力します。</value>
+  </data>
+  <data name="I111" xml:space="preserve">
+    <value>終了確定処理が終了しました。</value>
+  </data>
+  <data name="I112" xml:space="preserve">
+    <value>終了解除処理が終了しました。</value>
+  </data>
+  <data name="I113" xml:space="preserve">
+    <value>CSV取込を行います。よろしいですか？</value>
+  </data>
+  <data name="I114" xml:space="preserve">
+    <value>確定済みの伝票が存在しました。</value>
+  </data>
+  <data name="I115" xml:space="preserve">
+    <value>以下の商品がPOSに正しく登録されませんでした。</value>
+  </data>
+  <data name="I116" xml:space="preserve">
+    <value>自社品番：{0}、色{1}</value>
+  </data>
+  <data name="I117" xml:space="preserve">
+    <value>行削除します。よろしいですか？</value>
+  </data>
+  <data name="I118" xml:space="preserve">
+    <value>以下の商品を振替て登録を行いますがよろしいですか？</value>
+  </data>
+  <data name="I400" xml:space="preserve">
+    <value>しばらくお待ちください。</value>
+  </data>
+  <data name="I402" xml:space="preserve">
+    <value>更新します。よろしいですか？</value>
+  </data>
+  <data name="I403" xml:space="preserve">
+    <value>削除します。よろしいですか？</value>
+  </data>
+  <data name="I409" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="I410" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="I411" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="I412" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="I413" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="I415" xml:space="preserve">
+    <value>情報</value>
+  </data>
+  <data name="I423" xml:space="preserve">
+    <value>終了します。よろしいですか？</value>
+  </data>
+  <data name="I424" xml:space="preserve">
+    <value>運用時間外になりました。業務を強制終了します。</value>
+  </data>
+  <data name="I425" xml:space="preserve">
+    <value>正常終了</value>
+  </data>
+  <data name="I426" xml:space="preserve">
+    <value>警告有り</value>
+  </data>
+  <data name="I427" xml:space="preserve">
+    <value>エラー有り</value>
+  </data>
+  <data name="I428" xml:space="preserve">
+    <value>警告は{0}件です。</value>
+  </data>
+  <data name="I429" xml:space="preserve">
+    <value>続行</value>
+  </data>
+  <data name="I430" xml:space="preserve">
+    <value>中止</value>
+  </data>
+  <data name="I431" xml:space="preserve">
+    <value>セッションがタイムアウトしました。業務画面を終了します。</value>
+  </data>
+  <data name="I432" xml:space="preserve">
+    <value>アップロード用ファイルのファイル名が長すぎます。（{0}）</value>
+  </data>
+  <data name="I433" xml:space="preserve">
+    <value>出力件数が0件です。</value>
+  </data>
+  <data name="I434" xml:space="preserve">
+    <value>帳票の最大出力件数を超えました。</value>
+  </data>
+  <data name="I435" xml:space="preserve">
+    <value>処理が終了しました。</value>
+  </data>
+  <data name="I436" xml:space="preserve">
+    <value>アップロード用ファイルに空のファイルが指定されています。({0})</value>
+  </data>
+  <data name="I901" xml:space="preserve">
+    <value>登録します。よろしいですか？</value>
+  </data>
+  <data name="W100" xml:space="preserve">
+    <value>フェイスNoと棚段が重複するデータが存在します。登録しますか？</value>
+  </data>
+  <data name="W101" xml:space="preserve">
+    <value>確定データにカラー別売変不可商品が含まれています。確定後、全カラーの売価が変更されます。</value>
+  </data>
+  <data name="W102" xml:space="preserve">
+    <value>自動補充対象商品です。よろしいですか？</value>
+  </data>
+  <data name="W103" xml:space="preserve">
+    <value>数量が4桁以上入力されていますが、よろしいですか？</value>
+  </data>
+  <data name="W104" xml:space="preserve">
+    <value>入荷予定以下です。よろしいですか？</value>
+  </data>
+  <data name="W105" xml:space="preserve">
+    <value>売上実績(4週)の１／２以上の数量が設定されていますがよろしいですか？</value>
+  </data>
+  <data name="W106" xml:space="preserve">
+    <value>売上実績なし商品です。よろしいですか？</value>
+  </data>
+  <data name="W107" xml:space="preserve">
+    <value>編集を破棄して戻りますか？</value>
+  </data>
+  <data name="W108" xml:space="preserve">
+    <value>未確定の本部指示データが存在します。</value>
+  </data>
+  <data name="W109" xml:space="preserve">
+    <value>全明細承認となりますがよろしいですか？</value>
+  </data>
+  <data name="W110" xml:space="preserve">
+    <value>本部配分商品ですがよろしいですか？</value>
+  </data>
+  <data name="W111" xml:space="preserve">
+    <value>売上実績がありませんがよろしいですか？</value>
+  </data>
+  <data name="W112" xml:space="preserve">
+    <value>入荷予定がありますがよろしいですか？</value>
+  </data>
+  <data name="W113" xml:space="preserve">
+    <value>編集を破棄して{0}を行いますか？</value>
+  </data>
+  <data name="W114" xml:space="preserve">
+    <value>一括で承認を行います。よろしいですか？</value>
+  </data>
+  <data name="W115" xml:space="preserve">
+    <value>全てのフェイスNo、棚段が削除されますがよろしいですか？</value>
+  </data>
+  <data name="W116" xml:space="preserve">
+    <value>指定された部門、品種、ブランドが異なるデータの中に同一の商品が存在します。\n指定条件が正しいか再確認して下さい。</value>
+  </data>
+  <data name="W117" xml:space="preserve">
+    <value>選択したラベル発行機は存在しません。シールを印刷する場合は、売変検索から行ってください。</value>
+  </data>
+  <data name="W118" xml:space="preserve">
+    <value>予定数量より少ない値が入力されていますが、よろしいですか？</value>
+  </data>
+  <data name="W119" xml:space="preserve">
+    <value>行削除します。よろしいですか？</value>
+  </data>
+  <data name="W120" xml:space="preserve">
+    <value>数量が指示数以上入力されていますが、よろしいですか？</value>
+  </data>
+  <data name="W121" xml:space="preserve">
+    <value>業者棚卸データが含まれていませんがよろしいですか？</value>
+  </data>
+  <data name="W122" xml:space="preserve">
+    <value>店舗コードを変更しますか？店舗コードを変更する場合、入力済みの明細はクリアされます。</value>
+  </data>
+  <data name="W123" xml:space="preserve">
+    <value>モードを変更してもよろしいですか？モードを変更すると、入力済みの検索条件はクリアされます。</value>
+  </data>
+  <data name="W124" xml:space="preserve">
+    <value>「{0}」は他店舗のプリンタです。このまま確定しますか？</value>
+  </data>
+  <data name="W125" xml:space="preserve">
+    <value>販売完了日間近({0})の商品です。補充数量に注意して下さい。</value>
+  </data>
+  <data name="W126" xml:space="preserve">
+    <value>対象自社品番の売価合計が{0}以下ですがよろしいですか？</value>
+  </data>
+  <data name="W127" xml:space="preserve">
+    <value>自店舗B評価以上の商品です。出荷数量に注意して下さい。</value>
+  </data>
+  <data name="W128" xml:space="preserve">
+    <value>自店舗未展開の商品です。補充数量に注意して下さい。</value>
+  </data>
+  <data name="W129" xml:space="preserve">
+    <value>投入後まもない商品です。補充数量に注意して下さい。</value>
+  </data>
+  <data name="W130" xml:space="preserve">
+    <value>補充可能な商品に置き換えます({0} {1})。</value>
+  </data>
+  <data name="W901" xml:space="preserve">
+    <value>行削除します。よろしいですか？</value>
+  </data>
+</root>

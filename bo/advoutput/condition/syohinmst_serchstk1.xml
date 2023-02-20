@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SYOHINMST_SERCHSTK1" name="商品マスタ検索選択１">
+		<listItems>
+			<item id="10" value="1" label="在庫検索" itemId="Syohinmst_serchstk11" />
+			<item id="20" value="2" label="メーカー品番検索" itemId="Syohinmst_serchstk12" />
+			<item id="30" value="3" label="サイズ別／プライス" itemId="Syohinmst_serchstk13" />
+		</listItems>
+	</condition>
+</condition-define>
+

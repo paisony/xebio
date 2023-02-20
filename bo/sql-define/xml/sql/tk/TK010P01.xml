@@ -1,0 +1,1118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 評価損確定(検索ボタン)件数チェック (確定モード) **/
+		<sql id="TK010P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(COUNT(1)) CNT
+					FROM MDIT0060		/* 評価損申請 */
+					WHERE 0=0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE_1"/>
+			<statement type="final" name="final">
+				<parts>
+					AND   MDIT0060.KESSAI_FLG   = 0
+					AND   MDIT0060.SHINSEI_FLG  = 1
+					GROUP BY
+						MDIT0060.TENPO_CD
+						,MDIT0060.APPLY_YMD
+						,MDIT0060.KESSAI_FLG
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定(検索ボタン)件数チェック (修正モード) **/
+		<sql id="TK010P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(COUNT(1)) CNT
+					FROM MDIT0070		/* 評価損確定 */
+					LEFT JOIN
+						MDIT0060		/* 評価損申請 */
+					ON	MDIT0070.TENPO_CD	= MDIT0060.TENPO_CD(+)
+					AND	MDIT0070.KANRI_NO	= MDIT0060.KANRI_NO(+)
+					AND	MDIT0070.SYORI_YMD	= MDIT0060.SYORI_YMD(+)
+					AND	MDIT0070.GYO_NBR	= MDIT0060.GYO_NBR(+)
+					WHERE 0 = 0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE_1"/>
+			<statement type="final" name="final">
+				<parts>
+					AND   MDIT0070.SOSINZUMI_FLG  = 0
+					AND   MDIT0070.SAISHINSEIZUMI_FLG  = 0
+					GROUP BY
+						MDIT0070.TENPO_CD
+						,MDIT0070.APPLY_YMD
+						,MDIT0070.SYONIN_FLG
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定(検索ボタン)件数チェック (照会モード) **/
+		<sql id="TK010P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT NVL(SUM(A),0) CNT FROM (
+						SELECT
+							COUNT(COUNT(1)) A
+						FROM MDIT0060		/* 評価損申請 */
+						WHERE	0 = 0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE_1"/>
+			<statement type="final" name="final">
+				<parts>
+						AND   MDIT0060.KESSAI_FLG   = 0
+						AND   MDIT0060.SHINSEI_FLG  = 1
+						GROUP BY
+							MDIT0060.TENPO_CD
+							,MDIT0060.APPLY_YMD
+							,MDIT0060.KESSAI_FLG
+						UNION ALL
+						SELECT
+							COUNT(COUNT(1)) A
+						FROM MDIT0070		/* 評価損確定 */
+						LEFT JOIN
+							MDIT0060		/* 評価損申請 */
+						ON	MDIT0070.TENPO_CD	= MDIT0060.TENPO_CD(+)
+						AND	MDIT0070.KANRI_NO	= MDIT0060.KANRI_NO(+)
+						AND	MDIT0070.SYORI_YMD	= MDIT0060.SYORI_YMD(+)
+						AND	MDIT0070.GYO_NBR	= MDIT0060.GYO_NBR(+)
+						WHERE 0 = 0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE_2"/>
+			<statement type="final" name="final">
+				<parts>
+						GROUP BY 
+							 MDIT0070.TENPO_CD 
+							,MDIT0070.APPLY_YMD
+							,MDIT0070.SYONIN_FLG
+						)
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定(検索ボタン)検索 (確定モード) **/
+		<sql id="TK010P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 MDIT0060.TENPO_CD													TENPO_CD														/* 1  店舗コード */
+						,MAX(BOMT0010.TENPO_NM)												TENPO_NM														/* 2  店舗名     */
+						,MDIT0060.APPLY_YMD													APPLY_YMD														/* 3  申請日   */
+						,0 																	SYONIN_FLG														/* 4  承認状態   */
+						,''																	SYONIN_FLG_NM													/* 5  承認状態(名称) */
+						,MDIT0060.KESSAI_FLG												KESSAI_FLG														/* 6  決裁状態 */
+						,MAX(MDMT0100.MEISYO_NM)											KESSAI_FLG_NM													/* 7  決裁状態(名称) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN 0 ELSE MDIT0060.HYOKASON_SU END)	NOTNB_SURYO
+																																							/* 8  数量(NB以外) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN 0 ELSE (MDIT0060.HYOKASON_SU * NVL(MDMT0130.HYOKA_TNK,'0')) END)	NOTNB_GENKA_KIN
+																																							/* 9  原価金額(NB以外) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN MDIT0060.HYOKASON_SU ELSE 0 END)	NB_SURYO
+																																							/* 10  数量(NB) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN (MDIT0060.HYOKASON_SU * NVL(MDMT0130.HYOKA_TNK,'0')) ELSE 0 END)	NB_GENKA_KIN
+																																							/* 11 原価金額(NB) */
+						,SUM(MDIT0060.HYOKASON_SU)	TENPOGOKEI_SU																							/* 12 数量 */
+						,SUM(MDIT0060.HYOKASON_SU * NVL(MDMT0130.HYOKA_TNK,'0'))			TENPOGOKEI_GENKA_KIN											/* 13 原価金額 */
+						,SUBSTR(MAX(MDIT0060.UPD_YMD || LPAD(MDIT0060.UPD_TM,9,'0')),0,8)	UPD_UMD															/* 14 更新日時(最大値) */
+						,SUBSTR(MAX(MDIT0060.UPD_YMD || LPAD(MDIT0060.UPD_TM,9,'0')),9)		UPD_TM															/* 15 更新日内での最大値 */
+						,MDIT0060.SAISHINSEI_FLG											SAISHINSEI_FLG													/* 16 再申請フラグ */
+						,CASE WHEN MDIT0060.SAISHINSEI_FLG = 1 THEN '○' ELSE '' END		SAISHINSEI_FLG_NM												/* 16 再申請フラグ表示名 */
+						,0																	SOSINZUMI_FLG													/* 18 送信済みフラグ */
+					FROM
+						MDIT0060 															/* 評価損申請テーブル */
+						,BOMT0010															/* 店舗マスタ */
+						,MDMT0100 															/* 名称マスタ */
+						,MDMT0130 															/* 発注マスタ */
+					WHERE 
+							MDIT0060.TENPO_CD		= BOMT0010.TENPO_CD(+)
+					AND   MDIT0060.KESSAI_FLG		= MDMT0100.MEISYO_CD(+)
+					AND   MDIT0060.KESSAI_FLG		= 0
+					AND   MDIT0060.SHINSEI_FLG		= 1
+					AND   MDIT0060.JAN_CD			= MDMT0130.JAN_CD(+)
+					AND   MDMT0100.SIKIBETSU_CD(+)	= 'HKKS'
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE_1"/>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY 
+						MDIT0060.TENPO_CD
+						,MDIT0060.APPLY_YMD
+						,MDIT0060.SAISHINSEI_FLG
+						,MDIT0060.KESSAI_FLG
+					ORDER BY 
+						MDIT0060.TENPO_CD
+						,MDIT0060.APPLY_YMD
+						,MDIT0060.SAISHINSEI_FLG
+						,MDIT0060.KESSAI_FLG
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定(検索ボタン)検索 (修正モード) **/
+		<sql id="TK010P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 MDIT0070.TENPO_CD													TENPO_CD											/* 1  店舗コード */
+						,MAX(BOMT0010.TENPO_NM) 											TENPO_NM											/* 2  店舗名     */
+						,MDIT0070.APPLY_YMD													APPLY_YMD											/* 3  申請日   */
+						,MDIT0070.SYONIN_FLG												SYONIN_FLG											/* 4  承認状態   */
+						,MAX(MDMT0100_1.MEISYO_NM)											SYONIN_FLG_NM										/* 5  承認状態(名称) */
+						,1																	KESSAI_FLG											/* 6  決裁状態 */
+						,MAX(MDMT0100_2.MEISYO_NM)											KESSAI_FLG_NM										/* 7  決裁状態(名称) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN 0 ELSE MDIT0070.HYOKASON_SU END)	NOTNB_SURYO
+																																				/* 8  数量(NB以外) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN 0 ELSE (MDIT0070.HYOKASON_SU * NVL(MDIT0070.GEN_TNK,'0')) END)	NOTNB_GENKA_KIN
+																																				/* 9  原価金額(NB以外) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN MDIT0070.HYOKASON_SU ELSE 0 END)	NB_SURYO
+																																				/* 10  数量(NB) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN (MDIT0070.HYOKASON_SU * NVL(MDIT0070.GEN_TNK,'0')) ELSE 0 END)	NB_GENKA_KIN
+																																				/* 11 原価金額(NB) */
+						,SUM(MDIT0070.HYOKASON_SU)											TENPOGOKEI_SU										/* 12 数量 */
+						,SUM(MDIT0070.HYOKASON_SU * MDIT0070.GEN_TNK)						TENPOGOKEI_GENKA_KIN								/* 13 原価金額 */
+						,SUBSTR(MAX(MDIT0070.UPD_YMD || LPAD(MDIT0070.UPD_TM,9,'0')),0,8)	UPD_UMD												/* 14 更新日時(最大値) */
+						,SUBSTR(MAX(MDIT0070.UPD_YMD || LPAD(MDIT0070.UPD_TM,9,'0')),9)	UPD_TM													/* 15 更新日内での最大値 */
+						,NVL(MDIT0060.SAISHINSEI_FLG,0)										SAISHINSEI_FLG										/* 16 再申請フラグ */
+						,CASE WHEN MDIT0060.SAISHINSEI_FLG = 1 THEN '○' ELSE '' END		SAISHINSEI_FLG_NM									/* 16 再申請フラグ表示名 */
+						,0																	SOSINZUMI_FLG										/* 18 送信済みフラグ */
+					FROM
+						 MDIT0070															/* 評価損確定テーブル */
+						,MDIT0060															/* 評価損申請テーブル */
+						,BOMT0010															/* 店舗マスタ */
+						,MDMT0100 MDMT0100_1												/* 名称マスタ */
+						,MDMT0100 MDMT0100_2												/* 名称マスタ(決裁状態) */
+					WHERE 
+							MDIT0070.TENPO_CD		= BOMT0010.TENPO_CD(+) 
+					AND   MDIT0070.SYONIN_FLG		= MDMT0100_1.MEISYO_CD(+)
+					AND   MDIT0070.TENPO_CD			= MDIT0060.TENPO_CD(+)
+					AND   MDIT0070.KANRI_NO			= MDIT0060.KANRI_NO(+)
+					AND   MDIT0070.SYORI_YMD		= MDIT0060.SYORI_YMD(+)
+					AND   MDIT0070.GYO_NBR			= MDIT0060.GYO_NBR(+)
+					AND   MDIT0070.SOSINZUMI_FLG  = 0
+					AND   MDMT0100_1.SIKIBETSU_CD(+) = 'HKSN'
+					AND   MDMT0100_2.MEISYO_CD = 1
+					AND   MDMT0100_2.SIKIBETSU_CD(+) = 'HKKS'
+					AND   MDIT0070.SAISHINSEIZUMI_FLG  = 0
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE_1"/>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY 
+							 MDIT0070.TENPO_CD
+							,MDIT0070.APPLY_YMD
+							,MDIT0060.SAISHINSEI_FLG
+							,MDIT0070.SYONIN_FLG
+					ORDER BY
+							 MDIT0070.TENPO_CD
+							,MDIT0070.APPLY_YMD
+							,MDIT0060.SAISHINSEI_FLG
+							,KESSAI_FLG
+							,MDIT0070.SYONIN_FLG
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定(検索ボタン)検索 (照会モード) **/
+		<sql id="TK010P01-06">
+			<statement type="final" name="final">
+				<parts>
+					/* 申請テーブル */
+					SELECT
+						 MDIT0060.TENPO_CD 													TENPO_CD													/* 1  店舗コード */
+						,MAX(BOMT0010.TENPO_NM) 											TENPO_NM													/* 2  店舗名 */
+						,MDIT0060.APPLY_YMD													APPLY_YMD													/* 3  申請日 */
+						,0			 														SYONIN_FLG													/* 4  承認状態   */
+						,''																	SYONIN_FLG_NM												/* 5  承認状態(名称) */
+						,MDIT0060.KESSAI_FLG 												KESSAI_FLG													/* 6  決裁状態 */
+						,MAX(MDMT0100.MEISYO_NM) 											KESSAI_FLG_NM												/* 7  決裁状態(名称) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN 0 ELSE MDIT0060.HYOKASON_SU END)	NOTNB_SURYO
+																																						/* 8  数量(NB以外) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN 0 ELSE (MDIT0060.HYOKASON_SU * NVL(MDMT0130.HYOKA_TNK,'0')) END)	NOTNB_GENKA_KIN
+																																						/* 9  原価金額(NB以外) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN MDIT0060.HYOKASON_SU ELSE 0 END)	NB_SURYO
+																																						/* 10  数量(NB) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN (MDIT0060.HYOKASON_SU * NVL(MDMT0130.HYOKA_TNK,'0')) ELSE 0 END)	NB_GENKA_KIN
+																																						/* 11 原価金額(NB) */
+						,SUM(MDIT0060.HYOKASON_SU)											TENPOGOKEI_SU												/* 12 数量 */
+						,SUM(MDIT0060.HYOKASON_SU * NVL(MDMT0130.HYOKA_TNK,'0'))			TENPOGOKEI_GENKA_KIN										/* 13 原価金額 */
+						,SUBSTR(MAX(MDIT0060.UPD_YMD || LPAD(MDIT0060.UPD_TM,9,'0')),0,8)	UPD_UMD														/* 14 更新日時(最大値) */
+						,SUBSTR(MAX(MDIT0060.UPD_YMD || LPAD(MDIT0060.UPD_TM,9,'0')),9)		UPD_TM														/* 15 更新日内での最大値 */
+						,MDIT0060.SAISHINSEI_FLG											SAISHINSEI_FLG 												/* 16 再申請フラグ */
+						,CASE WHEN MDIT0060.SAISHINSEI_FLG = 1 THEN '○' ELSE '' END		SAISHINSEI_FLG_NM											/* 16 再申請フラグ表示名 */
+						,0																	SOSINZUMI_FLG												/* 18 送信済みフラグ */
+					FROM
+						 MDIT0060 															/* 評価損申請テーブル */
+						,BOMT0010 															/* 店舗マスタ */
+						,MDMT0100 															/* 名称マスタ */
+						,MDMT0130 															/* 発注マスタ */
+					WHERE 
+					      MDIT0060.TENPO_CD        = BOMT0010.TENPO_CD(+)
+					AND   MDIT0060.KESSAI_FLG      = MDMT0100.MEISYO_CD(+)
+					AND   MDIT0060.KESSAI_FLG      = 0
+					AND   MDIT0060.SHINSEI_FLG     = 1
+					AND   MDIT0060.JAN_CD          = MDMT0130.JAN_CD(+)
+					AND   MDMT0100.SIKIBETSU_CD(+) = 'HKKS'
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE_1"/>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY 
+							 MDIT0060.TENPO_CD 
+							,MDIT0060.APPLY_YMD
+							,MDIT0060.SAISHINSEI_FLG
+							,MDIT0060.KESSAI_FLG 
+					UNION ALL
+					/* 確定テーブル */
+					SELECT
+						 MDIT0070.TENPO_CD 													TENPO_CD											/* 1  店舗コード */
+						,MAX(BOMT0010.TENPO_NM) 											TENPO_NM											/* 2  店舗名     */
+						,MDIT0070.APPLY_YMD													APPLY_YMD											/* 3  申請日   */
+						,MDIT0070.SYONIN_FLG 												SYONIN_FLG											/* 4  承認状態   */
+						,MAX(MDMT0100_1.MEISYO_NM) 											SYONIN_FLG_NM										/* 5  承認状態(名称) */
+						,1 			 														KESSAI_FLG											/* 6  決裁状態 */
+						,MAX(MDMT0100_2.MEISYO_NM) 											KESSAI_FLG_NM										/* 7  決裁状態(名称) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN 0 ELSE MDIT0070.HYOKASON_SU END)	NOTNB_SURYO
+																																				/* 8  数量(NB以外) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN 0 ELSE (MDIT0070.HYOKASON_SU * NVL(MDIT0070.GEN_TNK,'0')) END)	NOTNB_GENKA_KIN
+																																				/* 9  原価金額(NB以外) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN MDIT0070.HYOKASON_SU ELSE 0 END)	NB_SURYO
+																																				/* 10  数量(NB) */
+						,SUM(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN (MDIT0070.HYOKASON_SU * NVL(MDIT0070.GEN_TNK,'0')) ELSE 0 END)	NB_GENKA_KIN
+																																				/* 11 原価金額(NB) */
+						,SUM(MDIT0070.HYOKASON_SU) 											TENPOGOKEI_SU										/* 12 数量 */
+						,SUM(MDIT0070.HYOKASON_SU * MDIT0070.GEN_TNK) 						TENPOGOKEI_GENKA_KIN								/* 13 原価金額 */
+						,SUBSTR(MAX(MDIT0070.UPD_YMD || LPAD(MDIT0070.UPD_TM,9,'0')),0,8)	UPD_UMD												/* 14 更新日時(最大値) */
+						,SUBSTR(MAX(MDIT0070.UPD_YMD || LPAD(MDIT0070.UPD_TM,9,'0')),9)		UPD_TM												/* 15 更新日内での最大値 */
+						,NVL(MDIT0060.SAISHINSEI_FLG,0)										SAISHINSEI_FLG										/* 16 再申請フラグ */
+						,CASE WHEN MDIT0060.SAISHINSEI_FLG = 1 THEN '○' ELSE '' END		SAISHINSEI_FLG_NM									/* 16 再申請フラグ表示名 */
+						,MIN(MDIT0070.SOSINZUMI_FLG)										SOSINZUMI_FLG										/* 18 送信済みフラグ */
+					FROM
+						 MDIT0070 															/* 評価損確定テーブル */
+						,MDIT0060 															/* 評価損申請テーブル */
+						,BOMT0010 															/* 店舗マスタ */
+						,MDMT0100 MDMT0100_1 												/* 名称マスタ */
+						,MDMT0100 MDMT0100_2 												/* 名称マスタ(決裁状態) */
+					WHERE 
+							MDIT0070.TENPO_CD			= BOMT0010.TENPO_CD(+)
+					AND   MDIT0070.SYONIN_FLG			= MDMT0100_1.MEISYO_CD(+)
+					AND   MDIT0070.TENPO_CD				= MDIT0060.TENPO_CD(+)
+					AND   MDIT0070.KANRI_NO				= MDIT0060.KANRI_NO(+)
+					AND   MDIT0070.SYORI_YMD			= MDIT0060.SYORI_YMD(+)
+					AND   MDIT0070.GYO_NBR				= MDIT0060.GYO_NBR(+)
+					AND   MDMT0100_1.SIKIBETSU_CD(+)	= 'HKSN'
+					AND   MDMT0100_2.MEISYO_CD = 1
+					AND   MDMT0100_2.SIKIBETSU_CD(+)	= 'HKKS'
+				</parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE_2"/>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY 
+							 MDIT0070.TENPO_CD
+							,MDIT0070.APPLY_YMD
+							,MDIT0060.SAISHINSEI_FLG
+							,MDIT0070.SYONIN_FLG
+					ORDER BY 
+							 TENPO_CD
+							,APPLY_YMD
+							,SAISHINSEI_FLG
+							,SYONIN_FLG
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定(店舗リンク)検索 (申請テーブル) **/
+		<sql id="TK010P01-07">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 MDIT0060.TENPO_CD				TENPO_CD					/*  1 店舗コード  */
+						,MDIT0060.KANRI_NO				KANRI_NO					/*  2 管理NO  */
+						,MDIT0060.SYORI_YMD				SYORI_YMD					/*  3 処理日付  */
+						,MDIT0060.SYORI_TM				SYORI_TM					/*  4 処理時間  */
+						,MDIT0060.GYO_NBR				GYO_NBR						/*  5 行NO    */
+						,MDIT0060.JAN_CD				JAN_CD						/*  6 JANコード */
+						,MDIT0060.HINSYU_CD				HINSYU_CD					/*  7 品種コード */
+						,MDIT0060.MAKER_HBN				MAKER_HBN					/*  8 メーカー品番 */
+						,MDIT0060.SYOHIN_CD				SYOHIN_CD					/*  9 商品コード */
+						,MDIT0060.SYONMK				SYONMK						/* 10 商品名カナ */
+						,MDIT0060.HANBAIKANRYO_YMD		HANBAIKANRYO_YMD			/* 11 販売完了日 */
+						,MDIT0060.IRO_CD				IRO_CD						/* 12 色コード */
+						,MDMT0080.IRO_NM				IRO_NM						/* 13 色名 */
+						,MDIT0060.SIZE_CD				SIZE_CD						/* 14 サイズコード */
+						,MDIT0060.SIZE_NM				SIZE_NM						/* 15 サイズ名 */
+						,MDMT0130.HYOKA_TNK				GEN_TNK						/* 16 原単価 */
+						,MDIT0060.HYOKASON_SU			HYOKASON_SU					/* 17 評価損数量 */
+						,MDIT0060.HYOKASONSYUBETSU_KB	HYOKASONSYUBETSU_KB			/* 18 評価損種別区分 */
+						,MDMT0100_1.MEISYO_NM			HYOKASONSYUBETSU_KB_NM		/* 19 評価損種別名 */
+						,MDIT0060.HYOKASONRIYU_KB		HYOKASONRIYU_KB				/* 20 評価損理由区分 */
+						,MDIT0060.HYOKASONRIYU			HYOKASONRIYU				/* 21 評価損理由 */
+						,MDMT0100_2.MEISYO_NM			HYOKASONRIYU_NM				/* 22 評価損理由区分名称 */
+						,''								KYAKKARIYU_KB				/* 23 却下理由区分 */
+						,''								KYAKKARIYU					/* 24 却下理由 */
+						,''								KYAKKARIYU_NM				/* 25 却下理由区分名称 */
+						,0								SYONIN_FLG					/* 26 承認フラグ */
+						,MDIT0060.BUMON_CD				BUMON_CD					/* 27 部門コード */
+						,MDIT0060.JISYA_HBN				JISYA_HBN					/* 28 自社品番 */
+						,MDIT0060.JODAI1_TNK			JODAI1_TNK					/* 29 上代1 */
+						,MDIT0060.BURANDO_CD			BURANDO_CD					/* 30 ブランドコード */
+						,MDIT0060.APPLY_YMD				APPLY_YMD					/* 31 申請日 */
+						,MDIT0060.ADD_YMD				ADD_YMD						/* 32 登録日 */
+						,MDIT0060.ADDTAN_CD				ADDTAN_CD					/* 33 登録担当者コード */
+						,MDIT0060.UPD_TANCD				UPD_TANCD					/* 34 更新担当者コード */
+						,BOMT0060.BUMON_NM				BUMONNM						/* 35 部門名 */
+						,BOMT0060.BUMONKANA_NM			BUMONKANA					/* 36 部門名カナ */
+						,STMT0500.BURANDO_NMK			BURANDOKANA					/* 37 ブランド名カナ */
+						,MDIT0060.TYOTATSU_KB			TYOTATSU_KB					/* 38 調達区分 */
+						,MDMT0070.HINSYU_RYAKU_NM		HINSYU_RYAKU_NM				/* 39 品種名 */
+						,MDMT0100_3.MEISYO_NM			TYOTATSU_KB_NM				/* 40 調達区分名称 */
+					FROM
+						MDIT0060													/* 評価損申請テーブル */
+					LEFT JOIN
+						MDMT0080													/* 色マスタ */
+					ON	MDIT0060.IRO_CD				= MDMT0080.IRO_CD
+					LEFT JOIN
+						MDMT0070													/* 品種マスタ */
+					ON	MDIT0060.BUMON_CD			= MDMT0070.BUMON_CD
+					AND	MDIT0060.HINSYU_CD			= MDMT0070.HINSYU_CD
+					LEFT JOIN
+						BOMT0060													/* 部門マスタ */
+					ON	MDIT0060.BUMON_CD			= BOMT0060.BUMON_CD
+					LEFT JOIN
+						STMT0500													/* ブランドマスタ */
+					ON	MDIT0060.BURANDO_CD			= STMT0500.BURANDO_CD
+					LEFT JOIN
+						MDMT0130													/* 発注マスタ */
+					ON	MDIT0060.JAN_CD				= MDMT0130.JAN_CD
+					LEFT JOIN
+						MDMT0100 MDMT0100_1											/* 名称マスタ 評価損種別 */
+					ON	MDIT0060.HYOKASONSYUBETSU_KB = MDMT0100_1.MEISYO_CD
+					AND 'HKSB' = MDMT0100_1.SIKIBETSU_CD
+					LEFT JOIN
+						MDMT0100 MDMT0100_2											/* 名称マスタ 評価損理由 */
+					ON	MDIT0060.HYOKASONRIYU_KB = MDMT0100_2.MEISYO_CD
+					AND 'HKRY' = MDMT0100_2.SIKIBETSU_CD
+					LEFT JOIN
+						MDMT0100 MDMT0100_3											/* 名称マスタ 調達区分 */
+					ON	(CASE WHEN TO_NUMBER(SUBSTR(MDIT0060.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN '1' ELSE '-1' END) = MDMT0100_3.MEISYO_CD
+					AND 'HKNB' = MDMT0100_3.SIKIBETSU_CD 
+					WHERE	0 = 0
+					AND		MDIT0060.TENPO_CD  = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		MDIT0060.APPLY_YMD  = </parts><bind id="BIND_APPLY_YMD" /><parts>
+					AND		MDIT0060.SYORI_YMD  LIKE </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		MDIT0060.SAISHINSEI_FLG  = </parts><bind id="BIND_SAISHINSEI_FLG" /><parts>
+					AND		MDIT0060.HYOKASONSYUBETSU_KB = (CASE WHEN </parts><bind id="BIND1_HYOKASONSYUBETSU" /><parts> &lt;&gt; -1 THEN </parts><bind id="BIND2_HYOKASONSYUBETSU" /><parts> ELSE MDIT0060.HYOKASONSYUBETSU_KB END)
+					AND		MDIT0060.KESSAI_FLG  = 0
+					AND		MDIT0060.SHINSEI_FLG  = 1
+					ORDER BY 
+						 DECODE(MDIT0060.TYOTATSU_KB,1,MDIT0060.TYOTATSU_KB,2)
+						,MDIT0060.BUMON_CD 
+						,MDIT0060.HINSYU_CD 
+						,MDIT0060.BURANDO_CD
+						,MDIT0060.MAKER_HBN 
+						,MDIT0060.SIZE_NM
+						,MDIT0060.ADD_YMD
+						,MDIT0060.ADD_TM
+						,MDIT0060.KANRI_NO
+						,MDIT0060.GYO_NBR
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定(店舗リンク)検索 (確定テーブル) **/
+		<sql id="TK010P01-08">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 MDIT0070.TENPO_CD 						TENPO_CD					/*  1 店舗コード  */
+						,MDIT0070.KANRI_NO 						KANRI_NO					/*  2 管理NO  */
+						,MDIT0070.SYORI_YMD 					SYORI_YMD					/*  3 処理日付  */
+						,MDIT0070.SYORI_TM 						SYORI_TM					/*  4 処理時間  */
+						,MDIT0070.GYO_NBR 						GYO_NBR						/*  5 行NO    */
+						,MDIT0070.JAN_CD 						JAN_CD						/*  6 JANコード */
+						,MDIT0070.HINSYU_CD 					HINSYU_CD					/*  7 品種コード */
+						,MDIT0070.MAKER_HBN 					MAKER_HBN					/*  8 メーカー品番 */
+						,MDIT0070.SYOHIN_CD						SYOHIN_CD					/*  9 商品コード */
+						,MDIT0070.SYONMK						SYONMK						/* 10 商品名カナ */
+						,MDIT0070.HANBAIKANRYO_YMD				HANBAIKANRYO_YMD			/* 11 販売完了日 */
+						,MDIT0070.IRO_CD 						IRO_CD						/* 12 色コード */
+						,MDMT0080.IRO_NM						IRO_NM						/* 13 色名 */
+						,MDIT0070.SIZE_CD						SIZE_CD						/* 14 サイズコード */
+						,MDIT0070.SIZE_NM						SIZE_NM						/* 15 サイズ名 */
+						,MDIT0070.GEN_TNK						GEN_TNK						/* 16 原単価 */
+						,MDIT0070.HYOKASON_SU					HYOKASON_SU					/* 17 評価損数量 */
+						,MDIT0070.HYOKASONSYUBETSU_KB			HYOKASONSYUBETSU_KB			/* 18 評価損種別区分 */
+						,MDMT0100_1.MEISYO_NM					HYOKASONSYUBETSU_KB_NM		/* 19 評価損種別名 */
+						,MDIT0070.HYOKASONRIYU_KB				HYOKASONRIYU_KB				/* 20 評価損理由区分 */
+						,MDIT0070.HYOKASONRIYU					HYOKASONRIYU				/* 21 評価損理由 */
+						,MDMT0100_2.MEISYO_NM					HYOKASONRIYU_NM				/* 22 評価損理由区分名称 */
+						,MDIT0070.KYAKKARIYU_KB					KYAKKARIYU_KB				/* 23 却下理由区分 */
+						,MDIT0070.KYAKKARIYU					KYAKKARIYU					/* 24 却下理由 */
+						,MDMT0100_3.MEISYO_NM					KYAKKARIYU_NM				/* 25 却下理由区分名称 */
+						,MDIT0070.SYONIN_FLG					SYONIN_FLG					/* 26 承認フラグ */
+						,MDIT0070.BUMON_CD						BUMON_CD					/* 27 部門コード */
+						,MDIT0070.JISYA_HBN						JISYA_HBN					/* 28 自社品番 */
+						,MDIT0070.JODAI1_TNK					JODAI1_TNK					/* 29 上代1 */
+						,MDIT0070.BURANDO_CD					BURANDO_CD					/* 30 ブランドコード */
+						,MDIT0070.APPLY_YMD						APPLY_YMD					/* 31 申請日 */
+						,MDIT0060.ADD_YMD						ADD_YMD						/* 32 登録日 */
+						,MDIT0060.ADDTAN_CD						ADDTAN_CD					/* 33 登録担当者コード */
+						,MDIT0060.UPD_TANCD						UPD_TANCD					/* 34 更新担当者コード */
+						,BOMT0060.BUMON_NM						BUMONNM						/* 35 部門名 */
+						,BOMT0060.BUMONKANA_NM					BUMONKANA					/* 36 部門名カナ */
+						,STMT0500.BURANDO_NMK					BURANDOKANA					/* 37 ブランド名カナ */
+						,MDIT0070.TYOTATSU_KB					TYOTATSU_KB					/* 38 調達区分 */
+						,MDMT0070.HINSYU_RYAKU_NM				HINSYU_RYAKU_NM				/* 39 品種名 */
+						,MDMT0100_4.MEISYO_NM 					TYOTATSU_KB_NM				/* 40 調達区分名称 */
+					FROM
+						 MDIT0070 								/* 評価損確定テーブル */
+					INNER JOIN
+						MDIT0060								/* 評価損申請テーブル */
+					ON	MDIT0070.TENPO_CD			= MDIT0060.TENPO_CD
+					AND	MDIT0070.KANRI_NO			= MDIT0060.KANRI_NO
+					AND	MDIT0070.SYORI_YMD			= MDIT0060.SYORI_YMD
+					AND	MDIT0070.GYO_NBR			= MDIT0060.GYO_NBR
+					LEFT JOIN
+						MDMT0080													/* 色マスタ */
+					ON	MDIT0070.IRO_CD				= MDMT0080.IRO_CD
+					LEFT JOIN
+						MDMT0070													/* 品種マスタ */
+					ON	MDIT0070.BUMON_CD			= MDMT0070.BUMON_CD
+					AND	MDIT0070.HINSYU_CD			= MDMT0070.HINSYU_CD
+					LEFT JOIN
+						BOMT0060													/* 部門マスタ */
+					ON	MDIT0070.BUMON_CD			= BOMT0060.BUMON_CD
+					LEFT JOIN
+						STMT0500													/* ブランドマスタ */
+					ON	MDIT0070.BURANDO_CD			= STMT0500.BURANDO_CD
+					LEFT JOIN
+						MDMT0130													/* 発注マスタ */
+					ON	MDIT0070.JAN_CD				= MDMT0130.JAN_CD
+					LEFT JOIN
+						MDMT0100 MDMT0100_1											/* 名称マスタ 評価損種別 */
+					ON	MDIT0070.HYOKASONSYUBETSU_KB = MDMT0100_1.MEISYO_CD
+					AND 'HKSB' = MDMT0100_1.SIKIBETSU_CD
+					LEFT JOIN
+						MDMT0100 MDMT0100_2											/* 名称マスタ 評価損理由 */
+					ON	MDIT0070.HYOKASONRIYU_KB = MDMT0100_2.MEISYO_CD
+					AND 'HKRY' = MDMT0100_2.SIKIBETSU_CD
+					LEFT JOIN
+						MDMT0100 MDMT0100_3											/* 名称マスタ 却下理由 */
+					ON	'HKKR'	=	MDMT0100_3.SIKIBETSU_CD
+					AND	MDIT0070.KYAKKARIYU_KB  = MDMT0100_3.MEISYO_CD
+					LEFT JOIN
+						MDMT0100 MDMT0100_4											/* 名称マスタ 調達区分 */
+					ON	(CASE WHEN TO_NUMBER(SUBSTR(MDIT0070.TYOTATSU_KB, -1)) BETWEEN 1 AND 4 THEN '1' ELSE '-1' END) = MDMT0100_4.MEISYO_CD
+					AND 'HKNB' = MDMT0100_4.SIKIBETSU_CD
+					WHERE 0 = 0
+					AND	MDIT0070.TENPO_CD = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND	MDIT0070.UPD_YMD   LIKE </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND	MDIT0070.SYONIN_FLG          = </parts><bind id="BIND_SYONIN_FLG" /><parts>
+					AND	MDIT0070.APPLY_YMD  = </parts><bind id="BIND_APPLY_YMD" /><parts>
+					AND	MDIT0070.HYOKASONSYUBETSU_KB = (CASE WHEN </parts><bind id="BIND1_HYOKASONSYUBETSU" /><parts> &lt;&gt; -1 THEN </parts><bind id="BIND2_HYOKASONSYUBETSU" /><parts> ELSE MDIT0070.HYOKASONSYUBETSU_KB END)
+					AND	MDIT0060.SAISHINSEI_FLG  = </parts><bind id="BIND_SAISHINSEI_FLG" /><parts>
+					AND	MDIT0070.SOSINZUMI_FLG = (CASE WHEN </parts><bind id="BIND1_UPD_FLG" /><parts> = '1' THEN 0 ELSE MDIT0070.SOSINZUMI_FLG END)
+					AND	MDIT0070.SAISHINSEIZUMI_FLG = (CASE WHEN </parts><bind id="BIND2_UPD_FLG" /><parts> = '1' THEN 0 ELSE MDIT0070.SAISHINSEIZUMI_FLG END)
+					ORDER BY 
+							 DECODE(MDIT0070.TYOTATSU_KB,1,MDIT0070.TYOTATSU_KB,2)
+							,MDIT0070.BUMON_CD 
+							,MDIT0070.HINSYU_CD
+							,MDIT0070.BURANDO_CD
+							,MDIT0070.MAKER_HBN 
+							,MDIT0070.SIZE_NM
+							,MDIT0060.ADD_YMD
+							,MDIT0060.ADD_TM
+							,MDIT0070.KANRI_NO
+							,MDIT0070.GYO_NBR
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-一覧 確定 [評価損確定TBL]を登録 **/
+		<sql id="TK010P01-09">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO  MDIT0070 (	  /* 評価損確定 */
+							 TENPO_CD					/* 店舗コード */
+							,KANRI_NO					/* 管理№ */
+							,SYORI_YMD					/* 処理日付 */
+							,SYORI_TM					/* 処理時間 */
+							,GYO_NBR					/* 行№ */
+							,BUMON_CD					/* 部門コード */
+							,HINSYU_CD					/* 品種コード */
+							,BURANDO_CD 				/* ブランドコード */
+							,MAKER_HBN					/* メーカー品番 */
+							,SYONMK 					/* 商品名(カナ) */
+							,JISYA_HBN					/* 自社品番 */
+							,JAN_CD 					/* ＪＡＮコード */
+							,SYOHIN_CD					/* 商品コード */
+							,HYOKASON_SU				/* 評価損数量 */
+							,HANBAIKANRYO_YMD			/* 販売完了日 */
+							,IRO_CD 					/* 色コード */
+							,SIZE_CD					/* サイズコード */
+							,SIZE_NM					/* サイズ名 */
+							,GEN_TNK					/* 原単価 */
+							,JODAI1_TNK 				/* 上代1 */
+							,HYOKASONSYUBETSU_KB		/* 評価損種別区分 */
+							,HYOKASONRIYU_KB			/* 評価損理由区分 */
+							,HYOKASONRIYU				/* 評価損理由 */
+							,KYAKKARIYU_KB				/* 却下理由区分 */
+							,KYAKKARIYU 				/* 却下理由 */
+							,SYONIN_FLG 				/* 承認状態 */
+							,SAISHINSEIZUMI_FLG			/* 再申請済みフラグ */
+							,APPLY_YMD					/* 申請日 */
+							,TYOTATSU_KB				/* 調達区分 */
+							,ADD_YMD					/* 登録日 */
+							,ADD_TM 					/* 登録時間 */
+							,ADDTAN_CD					/* 登録担当者コード */
+							,UPD_YMD					/* 更新日 */
+							,UPD_TM 					/* 更新時間 */
+							,UPD_TANCD					/* 更新担当者コード */
+							,SAKUJYO_YMD				/* 削除日 */
+							,SAKUJYO_FLG				/* 削除フラグ */
+							,SOSINIRAI_FLG				/* 送信依頼フラグ */
+							,SOSINZUMI_FLG				/* 送信済フラグ */
+							,SOSIN_YMD					/* 送信日 */
+							,SOSIN_TM					/* 送信時間 */
+							,SHINSEI_DATA_SOSINZUMI_FLG /* 申請データ送信済フラグ */
+							,SHINSEI_DATA_SOSIN_YMD 	/* 申請データ送信日 */
+							,SHINSEI_DATA_SOSIN_TM		/* 申請データ送信時間 */
+					) SELECT
+							TENPO_CD																					/* 店舗コード */
+							,KANRI_NO																					/* 管理№ */
+							,SYORI_YMD																					/* 処理日付 */
+							,SYORI_TM																					/* 処理時間 */
+							,GYO_NBR																					/* 行№ */
+							,BUMON_CD																					/* 部門コード */
+							,HINSYU_CD																					/* 品種コード */
+							,BURANDO_CD 																				/* ブランドコード */
+							,MAKER_HBN																					/* メーカー品番 */
+							,SYONMK 																					/* 商品名(カナ) */
+							,JISYA_HBN																					/* 自社品番 */
+							,JAN_CD 																					/* ＪＡＮコード */
+							,SYOHIN_CD																					/* 商品コード */
+							,HYOKASON_SU																				/* 評価損数量 */
+							,HANBAIKANRYO_YMD																			/* 販売完了日 */
+							,IRO_CD 																					/* 色コード */
+							,SIZE_CD																					/* サイズコード */
+							,SIZE_NM																					/* サイズ名 */
+							,NVL((SELECT MDMT0130.HYOKA_TNK FROM MDMT0130 WHERE MDMT0130.JAN_CD = MDIT0060.JAN_CD ),0)	/* 原単価 */
+							,JODAI1_TNK 																				/* 上代1 */
+							,HYOKASONSYUBETSU_KB																		/* 評価損種別区分 */
+							,HYOKASONRIYU_KB																			/* 評価損理由区分 */
+							,HYOKASONRIYU																				/* 評価損理由 */
+							,0																							/* 却下理由区分 */
+							,' '																						/* 却下理由 */
+							,1																							/* 承認状態 */
+							,0																							/* 再申請済みフラグ */
+							,</parts><bind id="BIND1_APPLY_YMD" /><parts>												/* 申請日 */
+							,TYOTATSU_KB																				/* 調達区分 */
+							,</parts><bind id="BIND_ADD_YMD" /><parts>													/* 登録日 */
+							,</parts><bind id="BIND_ADD_TM" /><parts>													/* 登録時間 */
+							,</parts><bind id="BIND_ADD_TANCD" /><parts>												/* 登録担当者コード */
+							,</parts><bind id="BIND_UPD_YMD" /><parts>													/* 更新日 */
+							,</parts><bind id="BIND_UPD_TM" /><parts>													/* 更新時間 */
+							,</parts><bind id="BIND_UPD_TANCD" /><parts>												/* 更新担当者コード */
+							,</parts><bind id="BIND_DEL_YMD" /><parts>													/* 削除日 */
+							,1																							/* 削除フラグ */
+							,1																							/* 送信依頼フラグ */
+							,0																							/* 送信済フラグ */
+							,0																							/* 送信日 */
+							,0																							/* 送信時間 */
+							,0																							/* 申請データ送信済フラグ */
+							,0																							/* 申請データ送信日 */
+							,0																							/* 申請データ送信時間 */
+					FROM
+						 MDIT0060	/* 評価損申請 */
+					WHERE
+						MDIT0060.TENPO_CD			= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND MDIT0060.SYORI_YMD		 LIKE </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND MDIT0060.APPLY_YMD			= </parts><bind id="BIND2_APPLY_YMD" /><parts>
+					AND	MDIT0060.SHINSEI_FLG		= 1
+
+					AND	MDIT0060.SAISHINSEI_FLG		= </parts><bind id="BIND_SAISHINSEI_FLG" /><parts>
+
+					AND MDIT0060.HYOKASONSYUBETSU_KB = CASE </parts><bind id="BIND1_HYOKASONSYUBETSU" /><parts>
+															WHEN -1 THEN MDIT0060.HYOKASONSYUBETSU_KB
+															ELSE         </parts><bind id="BIND2_HYOKASONSYUBETSU" /><parts> END
+					AND	NOT EXISTS (
+						SELECT 1
+						FROM
+							MDIT0070
+						WHERE
+							MDIT0070.TENPO_CD        = MDIT0060.TENPO_CD
+						AND	MDIT0070.KANRI_NO        = MDIT0060.KANRI_NO
+						AND	MDIT0070.SYORI_YMD       = MDIT0060.SYORI_YMD
+						AND	MDIT0070.GYO_NBR         = MDIT0060.GYO_NBR
+					)
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-一覧 確定 [評価損申請TBL]を更新 **/
+		<sql id="TK010P01-10">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0060 SET	/* 評価損申請 */
+						 KESSAI_FLG			= 1												/* 決裁状態 */
+						,UPD_YMD			= </parts><bind id="BIND_UPD_YMD" /><parts>		/* 更新日 */
+						,UPD_TM				= </parts><bind id="BIND_UPD_TM" /><parts>	/* 更新時間 */
+					WHERE
+						TENPO_CD			= </parts><bind id="BIND_TENPO_CD" /><parts>	/* 店舗コード */
+					AND SYORI_YMD			LIKE </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND APPLY_YMD			= </parts><bind id="BIND_APPLY_YMD" /><parts>
+					AND HYOKASONSYUBETSU_KB  = CASE </parts><bind id="BIND1_HYOKASONSYUBETSU" /><parts>
+												WHEN -1 THEN HYOKASONSYUBETSU_KB
+												ELSE  </parts><bind id="BIND2_HYOKASONSYUBETSU" /><parts> END
+					AND	SAISHINSEI_FLG		= </parts><bind id="BIND_SAISHINSEI_FLG" /><parts>
+					AND	SHINSEI_FLG = 1
+					AND	KESSAI_FLG  = 0
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-明細 確定 [評価損申請TBL]を更新 **/
+		<sql id="TK010P01-11">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0060 SET	/* 評価損申請 */
+
+						 KESSAI_FLG		= 1											/* 決裁状態 */
+						,UPD_YMD		= </parts><bind id="BIND_UPD_YMD" /><parts>	/* 更新日 */
+						,UPD_TM			= </parts><bind id="BIND_UPD_TM" /><parts>	/* 更新時間 */
+					WHERE
+						TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>	/* 店舗コード */
+					AND	KANRI_NO		= </parts><bind id="BIND_KANRI_NO" /><parts>	/* 管理NO */
+					AND	SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD" /><parts>	/* 処理日付 */
+					AND	GYO_NBR			= </parts><bind id="BIND_GYO_NBR" /><parts>		/* 行No */
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-明細 確定 [評価損確定TBL]を登録 **/
+		<sql id="TK010P01-12">
+			<statement type="final" name="final">
+				<parts>
+						INSERT INTO MDIT0070 (
+								 TENPO_CD						/* 店舗コード */
+								,KANRI_NO						/* 管理№ */
+								,SYORI_YMD						/* 処理日付 */
+								,SYORI_TM						/* 処理時間 */
+								,GYO_NBR						/* 行№ */
+								,BUMON_CD						/* 部門コード */
+								,HINSYU_CD						/* 品種コード */
+								,BURANDO_CD						/* ブランドコード */
+								,MAKER_HBN						/* メーカー品番 */
+								,SYONMK							/* 商品名(カナ) */
+								,JISYA_HBN						/* 自社品番 */
+								,JAN_CD							/* ＪＡＮコード */
+								,SYOHIN_CD						/* 商品コード */
+								,HYOKASON_SU					/* 評価損数量 */
+								,HANBAIKANRYO_YMD				/* 販売完了日 */
+								,IRO_CD							/* 色コード */
+								,SIZE_CD						/* サイズコード */
+								,SIZE_NM						/* サイズ名 */
+								,GEN_TNK						/* 原単価 */
+								,JODAI1_TNK						/* 上代1 */
+								,HYOKASONSYUBETSU_KB			/* 評価損種別区分 */
+								,HYOKASONRIYU_KB				/* 評価損理由区分 */
+								,HYOKASONRIYU					/* 評価損理由 */
+								,KYAKKARIYU_KB					/* 却下理由区分 */
+								,KYAKKARIYU						/* 却下理由 */
+								,SYONIN_FLG						/* 承認状態 */
+								,SAISHINSEIZUMI_FLG				/* 再申請済みフラグ */
+								,APPLY_YMD						/* 申請日 */
+								,TYOTATSU_KB					/* 調達区分 */
+								,ADD_YMD						/* 登録日 */
+								,ADD_TM							/* 登録時間 */
+								,ADDTAN_CD						/* 登録担当者コード */
+								,UPD_YMD						/* 更新日 */
+								,UPD_TM							/* 更新時間 */
+								,UPD_TANCD						/* 更新担当者コード */
+								,SAKUJYO_YMD					/* 削除日 */
+								,SAKUJYO_FLG					/* 削除フラグ */
+								,SOSINIRAI_FLG					/* 送信依頼フラグ */
+								,SOSINZUMI_FLG					/* 送信済フラグ */
+								,SOSIN_YMD						/* 送信日 */
+								,SOSIN_TM						/* 送信時間 */
+								,SHINSEI_DATA_SOSINZUMI_FLG		/* 申請データ送信済フラグ */
+								,SHINSEI_DATA_SOSIN_YMD			/* 申請データ送信日 */
+								,SHINSEI_DATA_SOSIN_TM			/* 申請データ送信時間 */
+						) VALUES (
+								 </parts><bind id="BIND_TENPO_CD" /><parts>						/* 店舗コード */
+								,</parts><bind id="BIND_KANRI_NO" /><parts>						/* 管理№ */
+								,</parts><bind id="BIND_SYORI_YMD" /><parts>					/* 処理日付 */
+								,</parts><bind id="BIND_SYORI_TM" /><parts>						/* 処理時間 */
+								,</parts><bind id="BIND_GYO_NBR" /><parts>						/* 行№ */
+								,</parts><bind id="BIND_BUMON_CD" /><parts>						/* 部門コード */
+								,</parts><bind id="BIND_HINSYU_CD" /><parts>					/* 品種コード */
+								,</parts><bind id="BIND_BURANDO_CD" /><parts>					/* ブランドコード */
+								,</parts><bind id="BIND_MAKER_HBN" /><parts>					/* メーカー品番 */
+								,</parts><bind id="BIND_SYONMK" /><parts>						/* 商品名(カナ) */
+								,</parts><bind id="BIND_JISYA_HBN" /><parts>					/* 自社品番 */
+								,</parts><bind id="BIND_JAN_CD" /><parts>						/* ＪＡＮコード */
+								,</parts><bind id="BIND_SYOHIN_CD" /><parts>					/* 商品コード */
+								,</parts><bind id="BIND_HYOKASON_SU" /><parts>					/* 評価損数量 */
+								,</parts><bind id="BIND_HANBAIKANRYO_YMD" /><parts>				/* 販売完了日 */
+								,</parts><bind id="BIND_IRO_CD" /><parts>						/* 色コード */
+								,</parts><bind id="BIND_SIZE_CD" /><parts>						/* サイズコード */
+								,</parts><bind id="BIND_SIZE_NM" /><parts>						/* サイズ名 */
+								,</parts><bind id="BIND_GEN_TNK" /><parts>						/* 原単価 */
+								,</parts><bind id="BIND_JODAI1_TNK" /><parts>					/* 上代1 */
+								,</parts><bind id="BIND_HYOKASONSYUBETSU_KB" /><parts>			/* 評価損種別区分 */
+								,</parts><bind id="BIND_HYOKASONRIYU_KB" /><parts>				/* 評価損理由区分 */
+								,</parts><bind id="BIND_HYOKASONRIYU" /><parts>					/* 評価損理由 */
+								,</parts><bind id="BIND_KYAKKARIYU_KB" /><parts>				/* 却下理由区分 */
+								,</parts><bind id="BIND_KYAKKARIYU" /><parts>					/* 却下理由 */
+								,</parts><bind id="BIND_SYONIN_FLG" /><parts>					/* 承認状態 */
+								,0																/* 再申請済みフラグ */
+								,</parts><bind id="BIND_APPLY_YMD" /><parts>					/* 申請日 */
+								,</parts><bind id="BIND_TYOTATSU_KB" /><parts>					/* 調達区分 */
+								,</parts><bind id="BIND_ADD_YMD" /><parts>						/* 登録日 */
+								,</parts><bind id="BIND_ADD_TM" /><parts>						/* 登録時間 */
+								,</parts><bind id="BIND_ADD_TANCD" /><parts>					/* 登録担当者コード */
+								,</parts><bind id="BIND_UPD_YMD" /><parts>						/* 更新日 */
+								,</parts><bind id="BIND_UPD_TM" /><parts>						/* 更新時間 */
+								,</parts><bind id="BIND_UPD_TANCD" /><parts>					/* 更新担当者コード */
+								,</parts><bind id="BIND_DEL_YMD" /><parts>						/* 削除日 */
+								,1																/* 削除フラグ */
+								,</parts><bind id="BIND_SOSINIRAI_FLG" /><parts>				/* 送信依頼フラグ */
+								,0																/* 送信済フラグ */
+								,0																/* 送信日 */
+								,0																/* 送信時間 */
+								,0																/* 申請データ送信済フラグ */
+								,0																/* 申請データ送信日 */
+								,0																/* 申請データ送信時間 */
+						)
+				</parts>
+			</statement>
+		</sql>
+		/** 評価損確定-明細 確定 [評価損申請履歴TBL]を登録 **/
+		<sql id="TK010P01-13">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDIT0050 (
+						 TENPO_CD				/* 店舗コード */
+						,KANRI_NO				/* 管理№ */
+						,SYORI_YMD				/* 処理日付 */
+						,SYORI_TM				/* 処理時間 */
+						,RIREKI_NO				/* 履歴No */
+						,AKAKURO_KBN			/* 赤黒区分 */
+						,RIREKI_SYORI_YMD		/* 履歴処理日付 */
+						,RIREKI_SYORI_TM		/* 履歴処理時間 */
+						,GYO_NBR				/* 行№ */
+						,BUMON_CD				/* 部門コード */
+						,HINSYU_CD				/* 品種コード */
+						,BURANDO_CD 			/* ブランドコード */
+						,MAKER_HBN				/* メーカー品番 */
+						,SYONMK 				/* 商品名(カナ) */
+						,JISYA_HBN				/* 自社品番 */
+						,JAN_CD 				/* ＪＡＮコード */
+						,SYOHIN_CD				/* 商品コード */
+						,HYOKASON_SU			/* 評価損数量 */
+						,HANBAIKANRYO_YMD		/* 販売完了日 */
+						,IRO_CD 				/* 色コード */
+						,SIZE_CD				/* サイズコード */
+						,SIZE_NM				/* サイズ名 */
+						,GEN_TNK				/* 原単価 */
+						,JODAI1_TNK 			/* 上代1 */
+						,HYOKASONSYUBETSU_KB	/* 評価損種別区分 */
+						,HYOKASONRIYU_KB		/* 評価損理由区分 */
+						,HYOKASONRIYU			/* 評価損理由 */
+						,SHINSEI_FLG			/* 申請状態 */
+						,KESSAI_FLG 			/* 決裁状態 */
+						,SAISHINSEI_FLG			/* 再申請フラグ */
+						,APPLY_YMD				/* 申請日 */
+						,TYOTATSU_KB			/* 調達区分 */
+						,RIREKI_DISP_KB 		/* 履歴画面表示区分 */
+						,ADD_YMD				/* 登録日 */
+						,ADD_TM 				/* 登録時間 */
+						,ADDTAN_CD				/* 登録担当者コード */
+						,UPD_YMD				/* 更新日 */
+						,UPD_TM 				/* 更新時間 */
+						,UPD_TANCD				/* 更新担当者コード */
+						,SAKUJYO_YMD			/* 削除日 */
+						,SAKUJYO_FLG			/* 削除フラグ */
+						,SOSINIRAI_FLG			/* 送信依頼フラグ */
+						,SOSINZUMI_FLG			/* 送信済フラグ */
+						,SOSIN_YMD				/* 送信日 */
+						,SOSIN_TM				/* 送信時間 */
+						,HHTSERIAL_NO			/* HHTシリアル番号 */
+						,HHTSEQUENCE_NO 		/* HHTシーケンスNo. */
+					) SELECT
+						 TENPO_CD													/* 店舗コード */
+						,KANRI_NO													/* 管理№ */
+						,SYORI_YMD													/* 処理日付 */
+						,SYORI_TM													/* 処理時間 */
+						,CASE </parts><bind id="BIND_RIREKI_SB" /><parts>					/* 履歴No */
+							 WHEN 1
+							 THEN NVL((
+								SELECT 
+										MAX(RIREKI_NO) 
+								FROM 
+										MDIT0050
+								WHERE
+										MDIT0050.TENPO_CD		=	</parts><bind id="BIND_TENPO_CD_SUB" /><parts>				/* 店舗コード */
+								AND		MDIT0050.KANRI_NO		=	</parts><bind id="BIND_KANRI_NO_SUB" /><parts>				/* 管理№ */
+								AND		MDIT0050.SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD_SUB" /><parts>				/* 処理日付 */
+								AND		MDIT0050.GYO_NBR		=	</parts><bind id="BIND_GYO_NBR_SUB" /><parts>				/* 行№ */
+			 				), 0) + 1
+							 WHEN 2
+							 THEN NVL((
+								SELECT 
+										MAX(RIREKI_NO) 
+								FROM 
+										MDIT0050
+								WHERE
+										MDIT0050.TENPO_CD		=	</parts><bind id="BIND_TENPO_CD_2SUB" /><parts>				/* 店舗コード */
+								AND		MDIT0050.KANRI_NO		=	</parts><bind id="BIND_KANRI_NO_2SUB" /><parts>				/* 管理№ */
+								AND		MDIT0050.SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD_2SUB" /><parts>				/* 処理日付 */
+								AND		MDIT0050.GYO_NBR		=	</parts><bind id="BIND_GYO_NBR_2SUB" /><parts>				/* 行№ */
+				 			), 0)
+						END
+						,</parts><bind id="BIND_AKAKURO_KBN" /><parts>				/* 赤黒区分 */
+						,</parts><bind id="BIND_RIREKI_SYORI_YMD" /><parts>			/* 履歴処理日付 */
+						,</parts><bind id="BIND_RIREKI_SYORI_TM" /><parts>			/* 履歴処理時間 */
+						,GYO_NBR						/* 行№ */
+						,BUMON_CD						/* 部門コード */
+						,HINSYU_CD						/* 品種コード */
+						,BURANDO_CD 					/* ブランドコード */
+						,MAKER_HBN						/* メーカー品番 */
+						,SYONMK 						/* 商品名(カナ) */
+						,JISYA_HBN						/* 自社品番 */
+						,JAN_CD 						/* ＪＡＮコード */
+						,SYOHIN_CD						/* 商品コード */
+						,CASE </parts><bind id="BIND_SYORI_SB" /><parts>			/* 評価損数量 */
+							WHEN '1' THEN HYOKASON_SU * -1
+							ELSE HYOKASON_SU
+						 END
+						,HANBAIKANRYO_YMD				/* 販売完了日 */
+						,IRO_CD 						/* 色コード */
+						,SIZE_CD						/* サイズコード */
+						,SIZE_NM						/* サイズ名 */
+						,GEN_TNK						/* 原単価 */
+						,JODAI1_TNK 					/* 上代1 */
+						,HYOKASONSYUBETSU_KB			/* 評価損種別区分 */
+						,HYOKASONRIYU_KB				/* 評価損理由区分 */
+						,HYOKASONRIYU					/* 評価損理由 */
+						,SHINSEI_FLG					/* 申請状態 */
+						,KESSAI_FLG 					/* 決裁状態 */
+						,SAISHINSEI_FLG					/* 再申請フラグ */
+						,APPLY_YMD						/* 申請日 */
+						,TYOTATSU_KB					/* 調達区分 */
+						,</parts><bind id="BIND_RIREKI_DISP_KB" /><parts>
+														/* 履歴画面表示区分 */
+						,ADD_YMD						/* 登録日 */
+						,ADD_TM							/* 登録時間 */
+						,ADDTAN_CD						/* 登録担当者コード */
+						,</parts><bind id="BIND_UPD_YMD" /><parts>						/* 更新日 */
+						,</parts><bind id="BIND_UPD_TM" /><parts>						/* 更新時間 */
+						,</parts><bind id="BIND_UPD_TANCD" /><parts>					/* 更新担当者コード */
+						,</parts><bind id="BIND_DEL_YMD" /><parts>						/* 削除日 */
+						,1								/* 削除フラグ */  
+						,1								/* 送信依頼フラグ */  
+						,0								/* 送信済フラグ */  
+						,0								/* 送信日 */  
+						,0								/* 送信時間 */  
+						,HHTSERIAL_NO					/* HHTシリアル番号 */  
+						,HHTSEQUENCE_NO					/* HHTシーケンスNo. */ 
+					FROM
+						MDIT0060
+					WHERE
+						TENPO_CD		=	</parts><bind id="BIND_TENPO_CD" /><parts>			/* 店舗コード */
+					AND	KANRI_NO		=	</parts><bind id="BIND_KANRI_NO" /><parts>			/* 管理№ */
+					AND	SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>			/* 処理日付 */
+					AND	GYO_NBR			=	</parts><bind id="BIND_GYO_NBR" /><parts>			/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-明細 確定 [評価損申請TBL]を更新(保留) **/
+		<sql id="TK010P01-14">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0060 SET	/* 評価損申請 */
+						 BUMON_CD				= </parts><bind id="BIND_BUMON_CD" /><parts>			/* 部門コード */
+						,HINSYU_CD				= </parts><bind id="BIND_HINSYU_CD" /><parts>			/* 品種コード */
+						,BURANDO_CD				= </parts><bind id="BIND_BURANDO_CD" /><parts>			/* ブランドコード */
+						,MAKER_HBN				= </parts><bind id="BIND_MAKER_HBN" /><parts>			/* メーカー品番 */
+						,SYONMK					= </parts><bind id="BIND_SYONMK" /><parts>				/* 商品名(カナ) */
+						,JISYA_HBN				= </parts><bind id="BIND_JISYA_HBN" /><parts>			/* 自社品番 */
+						,JAN_CD					= </parts><bind id="BIND_JAN_CD" /><parts>				/* ＪＡＮコード */
+						,SYOHIN_CD				= </parts><bind id="BIND_SYOHIN_CD" /><parts>			/* 商品コード */
+						,HYOKASON_SU			= </parts><bind id="BIND_HYOKASON_SU" /><parts>			/* 評価損数量 */
+						,HANBAIKANRYO_YMD		= </parts><bind id="BIND_HANBAIKANRYO_YMD" /><parts>	/* 販売完了日 */
+						,IRO_CD					= </parts><bind id="BIND_IRO_CD" /><parts>				/* 色コード */
+						,SIZE_CD				= </parts><bind id="BIND_SIZE_CD" /><parts>				/* サイズコード */
+						,SIZE_NM				= </parts><bind id="BIND_SIZE_NM" /><parts>				/* サイズ名 */
+						,GEN_TNK				= </parts><bind id="BIND_GEN_TNK" /><parts>				/* 原単価 */
+						,JODAI1_TNK				= </parts><bind id="BIND_JODAI1_TNK" /><parts>			/* 上代1 */
+						,HYOKASONSYUBETSU_KB	= </parts><bind id="BIND_HYOKASONSYUBETSU_KB" /><parts>	/* 評価損種別区分 */
+						,HYOKASONRIYU_KB		= </parts><bind id="BIND_HYOKASONRIYU_KB" /><parts>		/* 評価損理由区分 */
+						,HYOKASONRIYU			= </parts><bind id="BIND_HYOKASONRIYU" /><parts>		/* 評価損理由 */
+						,SHINSEI_FLG			= 1														/* 申請状態 */
+						,KESSAI_FLG				= 0														/* 決裁状態 */
+						,APPLY_YMD				= </parts><bind id="BIND_APPLY_YMD" /><parts>			/* 申請日 */
+						,TYOTATSU_KB			= </parts><bind id="BIND_TYOTATSU_KB" /><parts>			/* 調達区分 */
+						,UPD_YMD				= </parts><bind id="BIND_UPD_YMD" /><parts>				/* 更新日 */
+						,UPD_TM					= </parts><bind id="BIND_UPD_TM" /><parts>				/* 更新時間 */
+						,UPD_TANCD				= </parts><bind id="BIND_UPD_TANCD" /><parts>			/* 更新担当者コード */
+						,SAKUJYO_YMD			= </parts><bind id="BIND_DEL_YMD" /><parts>				/* 削除日 */
+						,SAKUJYO_FLG			= 1														/* 削除フラグ */
+					WHERE
+						TENPO_CD		=	</parts><bind id="BIND_TENPO_CD" /><parts>				/* 店舗コード */
+						AND	KANRI_NO		=	</parts><bind id="BIND_KANRI_NO" /><parts>			/* 管理№ */
+						AND	SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>			/* 処理日付 */
+						AND	GYO_NBR			=	</parts><bind id="BIND_GYO_NBR" /><parts>			/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-明細 確定 [評価損確定TBL]を更新 **/
+		<sql id="TK010P01-15">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0070 SET	/* 評価損確定 */
+						 SYORI_TM				= </parts><bind id="BIND_SYORI_TM" /><parts>			/* 処理時間 */
+						,BUMON_CD				= </parts><bind id="BIND_BUMON_CD" /><parts>			/* 部門コード */
+						,HINSYU_CD				= </parts><bind id="BIND_HINSYU_CD" /><parts>			/* 品種コード */
+						,BURANDO_CD				= </parts><bind id="BIND_BURANDO_CD" /><parts>			/* ブランドコード */
+						,MAKER_HBN				= </parts><bind id="BIND_MAKER_HBN" /><parts>			/* メーカー品番 */
+						,SYONMK					= </parts><bind id="BIND_SYONMK" /><parts>				/* 商品名(カナ) */
+						,JISYA_HBN				= </parts><bind id="BIND_JISYA_HBN" /><parts>			/* 自社品番 */
+						,JAN_CD					= </parts><bind id="BIND_JAN_CD" /><parts>				/* ＪＡＮコード */
+						,SYOHIN_CD				= </parts><bind id="BIND_SYOHIN_CD" /><parts>			/* 商品コード */
+						,HYOKASON_SU			= </parts><bind id="BIND_HYOKASON_SU" /><parts>			/* 評価損数量 */
+						,HANBAIKANRYO_YMD		= </parts><bind id="BIND_HANBAIKANRYO_YMD" /><parts>	/* 販売完了日 */
+						,IRO_CD					= </parts><bind id="BIND_IRO_CD" /><parts>				/* 色コード */
+						,SIZE_CD				= </parts><bind id="BIND_SIZE_CD" /><parts>				/* サイズコード */
+						,SIZE_NM				= </parts><bind id="BIND_SIZE_NM" /><parts>				/* サイズ名 */
+						,GEN_TNK				= </parts><bind id="BIND_GEN_TNK" /><parts>				/* 原単価 */
+						,JODAI1_TNK				= </parts><bind id="BIND_JODAI1_TNK" /><parts>			/* 上代1 */
+						,HYOKASONSYUBETSU_KB	= </parts><bind id="BIND_HYOKASONSYUBETSU_KB" /><parts>	/* 評価損種別区分 */
+						,HYOKASONRIYU_KB		= </parts><bind id="BIND_HYOKASONRIYU_KB" /><parts>		/* 評価損理由区分 */
+						,HYOKASONRIYU			= </parts><bind id="BIND_HYOKASONRIYU" /><parts>		/* 評価損理由 */
+						,KYAKKARIYU_KB			= </parts><bind id="BIND_KYAKKARIYU_KB" /><parts>		/* 却下理由区分 */
+						,KYAKKARIYU				= </parts><bind id="BIND_KYAKKARIYU" /><parts>			/* 却下理由 */
+						,SYONIN_FLG				= </parts><bind id="BIND_SYONIN_FLG" /><parts>			/* 承認状態 */
+						,APPLY_YMD				= </parts><bind id="BIND_APPLY_YMD" /><parts>			/* 申請日 */
+						,TYOTATSU_KB			= </parts><bind id="BIND_TYOTATSU_KB" /><parts>			/* 調達区分 */
+						,UPD_YMD				= </parts><bind id="BIND_UPD_YMD" /><parts>				/* 更新日 */
+						,UPD_TM					= </parts><bind id="BIND_UPD_TM" /><parts>				/* 更新時間 */
+						,UPD_TANCD				= </parts><bind id="BIND_UPD_TANCD" /><parts>			/* 更新担当者コード */
+						,SAKUJYO_YMD			= </parts><bind id="BIND_DEL_YMD" /><parts>				/* 削除日 */
+						,SAKUJYO_FLG			= 1														/* 削除フラグ */
+						,SOSINIRAI_FLG			= </parts><bind id="BIND_SOSINIRAI_FLG" /><parts>		/* 送信依頼フラグ */
+					WHERE
+						TENPO_CD				=	</parts><bind id="BIND_TENPO_CD" /><parts>					/* 店舗コード */
+					AND	KANRI_NO				=	</parts><bind id="BIND_KANRI_NO" /><parts>					/* 管理№ */
+					AND	SYORI_YMD				=	</parts><bind id="BIND_SYORI_YMD" /><parts>					/* 処理日付 */
+					AND	GYO_NBR					=	</parts><bind id="BIND_GYO_NBR" /><parts>					/* 行№ */
+					AND SOSINZUMI_FLG	= 0
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-明細 確定 [評価損申請TBL]を更新(修正時保留) **/
+		<sql id="TK010P01-16">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0060 SET	/* 評価損申請 */
+						 BUMON_CD				= </parts><bind id="BIND_BUMON_CD" /><parts>			/* 部門コード */
+						,HINSYU_CD				= </parts><bind id="BIND_HINSYU_CD" /><parts>			/* 品種コード */
+						,BURANDO_CD				= </parts><bind id="BIND_BURANDO_CD" /><parts>			/* ブランドコード */
+						,MAKER_HBN				= </parts><bind id="BIND_MAKER_HBN" /><parts>			/* メーカー品番 */
+						,SYONMK					= </parts><bind id="BIND_SYONMK" /><parts>				/* 商品名(カナ) */
+						,JISYA_HBN				= </parts><bind id="BIND_JISYA_HBN" /><parts>			/* 自社品番 */
+						,JAN_CD					= </parts><bind id="BIND_JAN_CD" /><parts>				/* ＪＡＮコード */
+						,SYOHIN_CD				= </parts><bind id="BIND_SYOHIN_CD" /><parts>			/* 商品コード */
+						,HYOKASON_SU			= </parts><bind id="BIND_HYOKASON_SU" /><parts>			/* 評価損数量 */
+						,HANBAIKANRYO_YMD		= </parts><bind id="BIND_HANBAIKANRYO_YMD" /><parts>	/* 販売完了日 */
+						,IRO_CD					= </parts><bind id="BIND_IRO_CD" /><parts>				/* 色コード */
+						,SIZE_CD				= </parts><bind id="BIND_SIZE_CD" /><parts>				/* サイズコード */
+						,SIZE_NM				= </parts><bind id="BIND_SIZE_NM" /><parts>				/* サイズ名 */
+						,GEN_TNK				= </parts><bind id="BIND_GEN_TNK" /><parts>				/* 原単価 */
+						,JODAI1_TNK				= </parts><bind id="BIND_JODAI1_TNK" /><parts>			/* 上代1 */
+						,HYOKASONSYUBETSU_KB	= </parts><bind id="BIND_HYOKASONSYUBETSU_KB" /><parts>	/* 評価損種別区分 */
+						,HYOKASONRIYU_KB		= </parts><bind id="BIND_HYOKASONRIYU_KB" /><parts>		/* 評価損理由区分 */
+						,HYOKASONRIYU			= </parts><bind id="BIND_HYOKASONRIYU" /><parts>		/* 評価損理由 */
+						,SHINSEI_FLG			= 1														/* 申請状態 */
+						,KESSAI_FLG				= 0														/* 決裁状態 */
+						,UPD_YMD				= </parts><bind id="BIND_UPD_YMD" /><parts>				/* 更新日 */
+						,UPD_TM					= </parts><bind id="BIND_UPD_TM" /><parts>				/* 更新時間 */
+						,UPD_TANCD				= </parts><bind id="BIND_UPD_TANCD" /><parts>			/* 更新担当者コード */
+						,SAKUJYO_YMD				= </parts><bind id="BIND_DEL_YMD" /><parts>				/* 削除日 */
+					WHERE 0 = 0
+						AND	TENPO_CD		=	</parts><bind id="BIND_TENPO_CD" /><parts>			/* 店舗コード */
+						AND	KANRI_NO		=	</parts><bind id="BIND_KANRI_NO" /><parts>			/* 管理№ */
+						AND	SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>			/* 処理日付 */
+						AND	GYO_NBR			=	</parts><bind id="BIND_GYO_NBR" /><parts>			/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-明細 確定 [評価損確定TBL]を削除 **/
+		<sql id="TK010P01-17">
+			<statement type="final" name="final">
+				<parts>
+						DELETE FROM MDIT0070 /* 評価損確定 */
+						WHERE
+						TENPO_CD		=	</parts><bind id="BIND_TENPO_CD" /><parts>				/* 店舗コード */
+						AND	KANRI_NO		=	</parts><bind id="BIND_KANRI_NO" /><parts>			/* 管理№ */
+						AND	SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>			/* 処理日付 */
+						AND	GYO_NBR			=	</parts><bind id="BIND_GYO_NBR" /><parts>			/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-明細 確定 [評価損申請TBL]更新日最新化 **/
+		<sql id="TK010P01-18">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0060 SET	/* 評価損申請 */
+						UPD_YMD				= </parts><bind id="BIND_UPD_YMD" /><parts>				/* 更新日 */
+						,UPD_TM				= </parts><bind id="BIND_UPD_TM" /><parts>				/* 更新時間 */
+					WHERE
+						TENPO_CD			=	</parts><bind id="BIND_TENPO_CD" /><parts>			/* 店舗コード */
+						AND	KANRI_NO		=	</parts><bind id="BIND_KANRI_NO" /><parts>			/* 管理№ */
+						AND	SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>			/* 処理日付 */
+						AND	GYO_NBR			=	</parts><bind id="BIND_GYO_NBR" /><parts>			/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+
+		/** 評価損確定-明細 確定 [評価損確定TBL]更新日最新化 **/
+		<sql id="TK010P01-19">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0070 SET	/* 評価損申請 */
+						UPD_YMD				= </parts><bind id="BIND_UPD_YMD" /><parts>				/* 更新日 */
+						,UPD_TM				= </parts><bind id="BIND_UPD_TM" /><parts>				/* 更新時間 */
+					WHERE
+						TENPO_CD			=	</parts><bind id="BIND_TENPO_CD" /><parts>			/* 店舗コード */
+						AND	KANRI_NO		=	</parts><bind id="BIND_KANRI_NO" /><parts>			/* 管理№ */
+						AND	SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>			/* 処理日付 */
+						AND	GYO_NBR			=	</parts><bind id="BIND_GYO_NBR" /><parts>			/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

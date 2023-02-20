@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<!-- 移動入荷予定TBL(H)取得 -->
+		<sql id="C01025-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					 T1.TENPOLC_KBN
+					,T1.SYUKKAKAISYA_CD
+					,M1.MEISYO_NM AS SYUKKAKAISYA_NM
+					,T1.SYUKKATEN_CD
+					,M2.TENPO_NM AS SYUKKATEN_NM
+					,T1.SCM_CD
+					,T1.DENPYO_BANGO
+					,T1.SYUKKA_YMD
+					,T1.NYUKAYOTEIGOKEI_SU
+					,CASE WHEN T1.IDORIYU_KB = 1 THEN '○' ELSE '' END	AS KYAKUCYU
+					,CASE WHEN T1.IDORIYU_KB = 2 THEN '○' ELSE '' END	AS NEGAKI
+					FROM
+					MDNT0010 T1
+					LEFT JOIN MDMT0100 M1
+					ON  M1.SIKIBETSU_CD = 'KASY'
+					AND M1.MEISYO_CD = T1.SYUKKAKAISYA_CD
+					LEFT JOIN BOMT0010_ALL M2
+					ON  M2.KAISYA_CD = T1.SYUKKAKAISYA_CD
+					AND M2.TENPO_CD = T1.SYUKKATEN_CD
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						  T1.TENPOLC_KBN
+						, T1.SYUKKAKAISYA_CD
+						, T1.SYUKKATEN_CD
+						, T1.DENPYO_BANGO
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

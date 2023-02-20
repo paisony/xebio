@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="TM060P01-01">
+			<statement type="final" name="final">
+				<parts>
+					/* TM060P01-01（担当者マスタメンテナンス画面件数チェック） */
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDMT0210				/*担当者権限MST*/
+					INNER JOIN
+							BOMT0030				/*販売員MST*/
+					ON		BOMT0030.HANBAIIN_CD	  = MDMT0210.HANBAIIN_CD
+					AND		BOMT0030.HANBAIINTENPO_CD = </parts><bind id="BIND_TENPO_CD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+		</sql>
+		<sql id="TM060P01-03">
+			<statement type="final" name="final">
+				<parts>
+					/* TM060P01-01（担当者メンテ画面検索） */
+					SELECT
+							 MDMT0210.HANBAIIN_CD 		/*販売者コード*/
+							,BOMT0030.HANBAIIN_NM 		/*販売者名*/
+							,MDMT0100.MEISYO_NM 		/*職制区分名称*/
+							,MDMT0210.KENGEN_KB 		/*権限区分*/
+							,MDMT0210.UPD_YMD			/*更新日付 排他用*/
+							,MDMT0210.UPD_TM			/*更新時間 排他用*/
+					FROM
+							MDMT0210					/*担当者権限MST*/
+					INNER JOIN
+							BOMT0030					/*販売員MST*/
+					ON		BOMT0030.HANBAIIN_CD      = MDMT0210.HANBAIIN_CD
+					AND		BOMT0030.HANBAIINTENPO_CD = </parts><bind id="BIND_TENPO_CD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					LEFT JOIN
+							MDMT0100					/*名称MST*/
+					ON		MDMT0100.SIKIBETSU_CD	  = 'SSKB'
+					AND		MDMT0100.MEISYO_CD		  = BOMT0030.HANBAIIN_KB
+					WHERE	0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							MDMT0210.HANBAIIN_CD
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TM060P01-05">
+			<statement type="final" name="final">
+				<parts>
+					/*(ログインユーザーパスチェックなし)*/
+					UPDATE BS_LOGIN_USER SET	
+						 MENU_PTN_CD	 = </parts><bind id="BIND_MENU" /><parts>
+						,UPDATE_DATETIME = </parts><bind id="BIND_UPD_TM" /><parts>
+						,UPDATE_USER_ID  = </parts><bind id="BIND_TANCD_1" /><parts>
+					WHERE LOGIN_ID		 = </parts><bind id="BIND_TANCD_2" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		<sql id="TM060P01-07">
+			<statement type="final" name="final">
+				<parts>
+					/*(ログインユーザーチェックあり)*/
+					UPDATE BS_LOGIN_USER SET
+						 MENU_PTN_CD			  = </parts><bind id="BIND_MENU" /><parts>
+						,UPDATE_DATETIME		  = </parts><bind id="BIND_UPD_TM" /><parts>
+						,UPDATE_USER_ID			  = </parts><bind id="BIND_TANCD_1" /><parts>
+						,PASSWORD_UPDATE_DATETIME = </parts><bind id="BIND_PASS_TIME" /><parts>/*パスワード変更時追加*/
+						,PASSWORD				  = </parts><bind id="BIND_PASSWORD" /><parts>/*パスワード変更時追加*/
+						,LOCK_FLAG				  = </parts><bind id="BIND_LOCK_FLAG" /><parts>
+					WHERE
+						LOGIN_ID				  = </parts><bind id="BIND_TANCD_2" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		<sql id="TM060P01-08">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE BS_LOGIN_FAILURE SET
+						FAILURE_COUNT			= 0
+					WHERE
+						LOGIN_ID				= </parts><bind id="BIND_TANCD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

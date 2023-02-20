@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+
+  <data name="B" xml:space="preserve">
+    <value>画面構成項目（ボタン等）</value>
+  </data>
+  <data name="D" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="DX" xml:space="preserve">
+    <value>セパレート日付</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>数字のみ</value>
+  </data>
+  <data name="NB" xml:space="preserve">
+    <value>数字と小数点</value>
+  </data>
+  <data name="NC" xml:space="preserve">
+    <value>数字とマイナス記号と小数点</value>
+  </data>
+  <data name="SA" xml:space="preserve">
+    <value>英字のみ</value>
+  </data>
+  <data name="SA1" xml:space="preserve">
+    <value>英字（大文字）のみ</value>
+  </data>
+  <data name="SA2" xml:space="preserve">
+    <value>英字（小文字）のみ</value>
+  </data>
+  <data name="SB" xml:space="preserve">
+    <value>英数字のみ</value>
+  </data>
+  <data name="SB1" xml:space="preserve">
+    <value>英数字（大文字）のみ</value>
+  </data>
+  <data name="SB2" xml:space="preserve">
+    <value>英数字（小文字）のみ</value>
+  </data>
+  <data name="SC" xml:space="preserve">
+    <value>英数字記号（&quot;,%()*?_|￥&apos;タブ以外）のみ</value>
+  </data>
+  <data name="SD" xml:space="preserve">
+    <value>英数字記号（&quot;,%()*?_|￥&apos;タブ以外）のみ</value>
+  </data>
+  <data name="SG" xml:space="preserve">
+    <value>0～9のみ</value>
+  </data>
+  <data name="SN1" xml:space="preserve">
+    <value>ひらがなのみ</value>
+  </data>
+  <data name="SN2" xml:space="preserve">
+    <value>カタカナのみ</value>
+  </data>
+  <data name="SN3" xml:space="preserve">
+    <value>全角のみ</value>
+  </data>
+  <data name="SN4" xml:space="preserve">
+    <value>&quot;,%()*?_|￥&apos;タブ以外</value>
+  </data>
+  <data name="SN5" xml:space="preserve">
+    <value>&quot;,%()*?_|￥&apos;タブ以外</value>
+  </data>
+  <data name="SP1" xml:space="preserve">
+    <value>E-mailアドレス</value>
+  </data>
+  <data name="SP2" xml:space="preserve">
+    <value>郵便番号</value>
+  </data>
+  <data name="SN21" xml:space="preserve">
+    <value>全半角混合（&quot;,%()*?_|\&apos;タブ以外）</value>
+  </data>
+  <data name="SN22" xml:space="preserve">
+    <value>全半角混合（&quot;%?|タブ以外）</value>
+  </data>
+  <data name="SN6" xml:space="preserve">
+    <value>全角のみ</value>
+  </data>
+  <data name="SN7" xml:space="preserve">
+    <value>半角英数字カタカナのみ</value>
+  </data>
+  <data name="SN8" xml:space="preserve">
+    <value>半角カタカナのみ</value>
+  </data>
+  <data name="SUTEL" xml:space="preserve">
+    <value>0～9と-のみ</value>
+  </data>
+  <data name="SN9" xml:space="preserve">
+    <value>半角（&apos;&quot;,%()*?_|￥タブ以外）</value>
+  </data>
+  <data name="ND" xml:space="preserve">
+    <value>数字のみ</value>
+  </data>
+  <data name="SH" xml:space="preserve">
+    <value>ALL９NG文字列</value>
+  </data>
+  <data name="SN10" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+</root>

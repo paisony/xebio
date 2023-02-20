@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="TENKAI_KB" name="展開区分">
+		<listItems>
+			<item id="10" value="1" label="サイズ展開" itemId="Tenkai_kb1" />
+			<item id="20" value="2" label="カラー展開" itemId="Tenkai_kb2" />
+		</listItems>
+	</condition>
+</condition-define>
+

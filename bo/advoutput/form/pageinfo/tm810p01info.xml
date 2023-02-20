@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<form-define>
+	<form-startup>Tm810f01</form-startup>
+	<adv-form id="Tm810f01">
+		<lists>
+			<list id = "M1" dispRow="0" mode="2" groupId="1" />
+		</lists>
+		<items>
+			<item id="M1download_file_name">
+				<attribute name="item-name" value="Ｍ１ダウンロードファイル名" />
+				<attribute name="item-levelId" value="M1" />
+				<attribute name="item-typeId" value="LNK" />
+				<attribute name="item-attId" value="SN21" />
+				<attribute name="item-condId" value="" />
+				<attribute name="item-actionId" value="" />
+				<attribute name="item-actCodeId" value="" />
+				<attribute name="item-autoCodeChk" value="0" />
+				<attribute name="item-actFormId" value="" />
+				<attribute name="item-actProgramId" value="" />
+				<attribute name="item-actParameter" value="" />
+				<attribute name="item-formatID" value="00" />
+				<attribute name="item-length" value="59" />
+				<attribute name="item-decimal" value="0" />
+				<attribute name="item-required" value="0" />
+				<attribute name="item-requiredFlg" value="0" />
+				<attribute name="item-sortNo" value="100" />
+				<attribute name="item-helperCheckMode" value="0" />
+				<attribute name="item-autoTabFlg" value="0" />
+				<attribute name="item-caption" value="ダウンロードファイル名" />
+				<attribute name="item-actCodeName" value="" />
+				<attribute name="item-actParameter2" value="" />
+				<attribute name="item-actParameter3" value="" />
+				<attribute name="item-roundingType" value="" />
+				<attribute name="item-trimFlg" value="1" />
+				<attribute name="item-maxLengthControlFlg" value="0" />
+				<attribute name="item-maxValue" value="" />
+				<attribute name="item-minValue" value="" />
+				<attribute name="item-isIncludeMaxValue" value="0" />
+				<attribute name="item-isIncludeMinValue" value="0" />
+				<attribute name="item-itemCheckFlg" value="0" />
+				<attribute name="item-imeMode" value="0" />
+				<attribute name="item-showDRLKeyItem" value="0" />
+				<attribute name="item-useStaticDRLItem" value="0" />
+				<attribute name="item-codeNameOverwriteFlag" value="0" />
+				<attribute name="item-groupId" value="1" />
+				<attribute name="item-actListId" value="" />
+				<attribute name="item-actFormGroupId" value="" />
+			</item>
+		</items>
+	</adv-form>
+</form-define>

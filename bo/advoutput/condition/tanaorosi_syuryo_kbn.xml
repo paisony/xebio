@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="TANAOROSI_SYURYO_KBN" name="棚卸終了区分">
+		<listItems>
+			<item id="10" value="1" label="棚卸終了確定" itemId="Tanaorosi_syuryo_kbn1" />
+			<item id="20" value="0" label="棚卸終了解除" itemId="Tanaorosi_syuryo_kbn2" />
+		</listItems>
+	</condition>
+</condition-define>
+

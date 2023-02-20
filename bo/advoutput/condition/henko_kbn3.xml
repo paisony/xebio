@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HENKO_KBN3" name="変更区分（出荷要望）">
+		<listItems>
+			<item id="10" value="1" label="承認" itemId="Henko_kbn31" />
+			<item id="20" value="9" label="却下" itemId="Henko_kbn32" />
+		</listItems>
+	</condition>
+</condition-define>
+

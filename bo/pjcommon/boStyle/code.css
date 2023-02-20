@@ -1,0 +1,42 @@
+﻿@charset "UTF-8";
+
+/* 文字サイズの調整 */
+body {
+    font-size: 90%;
+    text-align: center;
+}
+
+#MainTable {
+    margin-top: 5px;
+}
+
+/*--------------------------------------------------------- 
+    一覧領域
+--------------------------------------------------------- */
+
+/*--- 行タイトル ---*/
+.str-result-01 .str-result-hdg-01 > th {
+    /*line-height: 32px;*/
+    line-height: 34px;
+    float: left;
+    /*padding-left: 10px;*/
+    text-align: center;
+    padding-right: 2px;
+    padding-left: 2px;
+    color: #ffffff;
+    border-left: 1px solid #ffffff;
+    background-color: #1ca7e0;
+}
+
+.str-result-01 .str-result-item-01 {
+    width: 100% !import;
+    border-bottom: 1px solid #cccccc;
+    font-size: 92.30769%;
+}
+
+.str-result-01 .str-result-item-01 > td {
+    line-height: 34px;
+    float: left;
+    border-left: 1px solid #cccccc;
+    padding-left: 4px;
+}

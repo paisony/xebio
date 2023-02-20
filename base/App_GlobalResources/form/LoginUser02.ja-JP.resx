@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>　取消　</value>
+  </data>
+  <data name="CompanyCutline" xml:space="preserve">
+    <value>会社を選択してください。</value>
+  </data>
+  <data name="CompanyLbl" xml:space="preserve">
+    <value>会社</value>
+  </data>
+  <data name="CompanyReqValid" xml:space="preserve">
+    <value>会社を選択してください。</value>
+  </data>
+  <data name="ConfirmBtn" xml:space="preserve">
+    <value>　確認　</value>
+  </data>
+  <data name="EmpCutline" xml:space="preserve">
+    <value>英数記号20文字以内</value>
+  </data>
+  <data name="EmpLbl" xml:space="preserve">
+    <value>社員コード</value>
+  </data>
+  <data name="EmpRegValid" xml:space="preserve">
+    <value>社員コードに使用できない文字が含まれています。</value>
+  </data>
+  <data name="Formtitle" xml:space="preserve">
+    <value>利用者情報入力</value>
+  </data>
+  <data name="KanaCutline" xml:space="preserve">
+    <value>全角カタカナ20文字以内</value>
+  </data>
+  <data name="KanaInvalidCharValid" xml:space="preserve">
+    <value>利用者名カナに使用できない文字が含まれています。</value>
+  </data>
+  <data name="KanaLbl" xml:space="preserve">
+    <value>利用者名カナ</value>
+  </data>
+  <data name="KanaRegValid" xml:space="preserve">
+    <value>利用者名カナを全角カタカナで入力してください。</value>
+  </data>
+  <data name="LoginIdCustomValid" xml:space="preserve">
+    <value>ログインIDは予約語で使用できません。</value>
+  </data>
+  <data name="LoginIDCutline" xml:space="preserve">
+    <value>半角英数字%0文字以内</value>
+  </data>
+  <data name="LoginIdLbl" xml:space="preserve">
+    <value>ログインID</value>
+  </data>
+  <data name="LoginIdRegValid" xml:space="preserve">
+    <value>ログインＩＤは半角英数字を入力してください。</value>
+  </data>
+  <data name="LoginIdReqValid" xml:space="preserve">
+    <value>ログインIDを入力してください。</value>
+  </data>
+  <data name="PasswordCutline" xml:space="preserve">
+    <value>%0文字以上%1文字以内</value>
+  </data>
+  <data name="PasswordInvalidCharValid" xml:space="preserve">
+    <value>パスワードに使用できない文字が含まれています。</value>
+  </data>
+  <data name="PasswordLbl1" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="PasswordLbl2" xml:space="preserve">
+    <value>パスワード確認</value>
+  </data>
+  <data name="PasswordMatchCutline" xml:space="preserve">
+    <value>パスワードをもう一度入力してください。</value>
+  </data>
+  <data name="PasswordMatchValid" xml:space="preserve">
+    <value>パスワードとパスワード確認の入力が一致していません。</value>
+  </data>
+  <data name="PasswordRegValid" xml:space="preserve">
+    <value>パスワードに使用できない文字が含まれています。</value>
+  </data>
+  <data name="PasswordReqValid" xml:space="preserve">
+    <value>パスワードを入力してください。</value>
+  </data>
+  <data name="Programtitle" xml:space="preserve">
+    <value>利用者管理</value>
+  </data>
+  <data name="PwdStrengthCusVal" xml:space="preserve">
+    <value>パスワードは%0文字以上%1文字以内で入力してください。</value>
+  </data>
+  <data name="UserNameCutline" xml:space="preserve">
+    <value>20文字以内（’；＊%｜以外）</value>
+  </data>
+  <data name="UserNameInvalidCharValid" xml:space="preserve">
+    <value>利用者名に使用できない文字が含まれています。</value>
+  </data>
+  <data name="UsernameLbl" xml:space="preserve">
+    <value>利用者名</value>
+  </data>
+  <data name="UserNameRegValid" xml:space="preserve">
+    <value>利用者名は' ; * % | を入力しないでください。</value>
+  </data>
+  <data name="UserNameReqValid" xml:space="preserve">
+    <value>利用者名を入力してください。</value>
+  </data>
+</root>

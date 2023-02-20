@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SELECT_FLG" name="選択フラグ">
+		<listItems>
+			<item id="10" value="0" label="なし" itemId="Nasi" />
+			<item id="20" value="1" label="あり" itemId="Ari" />
+		</listItems>
+	</condition>
+</condition-define>
+

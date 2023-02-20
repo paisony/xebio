@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HYOKA_KBN" name="評価区分">
+		<listItems>
+			<item id="10" value="1" label="A" itemId="Hyoka_kbn1" />
+			<item id="20" value="2" label="B" itemId="Hyoka_kbn2" />
+			<item id="30" value="3" label="C" itemId="Hyoka_kbn3" />
+			<item id="40" value="4" label="-" itemId="Hyoka_kbn4" />
+		</listItems>
+	</condition>
+</condition-define>
+

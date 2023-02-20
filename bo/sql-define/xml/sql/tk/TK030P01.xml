@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 評価損NB一括確定(検索ボタン) **/
+		<sql id="TK030P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 MDIT0060.TENPO_CD
+							,BOMT0010.TENPO_NM
+							,MDIT0060.KANRI_NO
+							,MDIT0060.SYORI_YMD
+							,MDIT0060.SYORI_TM
+							,MDIT0060.GYO_NBR
+							,MDIT0060.BUMON_CD
+							,BOMT0060.BUMONKANA_NM		BUMONKANA
+							,MDIT0060.HINSYU_CD
+							,MDMT0070.HINSYU_RYAKU_NM
+							,MDIT0060.BURANDO_CD
+							,STMT0500.BURANDO_NMK		BURANDOKANA
+							,MDIT0060.MAKER_HBN
+							,MDIT0060.JISYA_HBN
+							,MDIT0060.JAN_CD
+							,MDIT0060.SYOHIN_CD
+							,MDIT0060.SYONMK
+							,MDIT0060.HYOKASON_SU
+							,MDIT0060.HANBAIKANRYO_YMD
+							,MDIT0060.IRO_CD
+							,MDMT0080.IRO_NM
+							,MDIT0060.SIZE_CD
+							,MDIT0060.SIZE_NM
+							,MDMT0130.HYOKA_TNK			GEN_TNK
+							,MDIT0060.JODAI1_TNK
+							,MDIT0060.HYOKASONSYUBETSU_KB
+							,MDMT0100_1.MEISYO_NM		HYOKASONSYUBETSU_NM
+							,MDIT0060.HYOKASONRIYU_KB
+							,MDIT0060.HYOKASONRIYU
+							,MDMT0100_2.MEISYO_NM		HYOKASONRIYU_NM
+							,MDIT0060.TYOTATSU_KB
+							,MDIT0060.APPLY_YMD
+							,MDIT0060.ADD_YMD
+							,MDIT0060.ADDTAN_CD
+							,MDIT0060.UPD_YMD
+							,MDIT0060.UPD_TM
+							,MDIT0060.UPD_TANCD
+							,1
+							,''
+							,MDMT0100_3.MEISYO_NM		KYAKKARIYU_NM
+							,0
+							,BOMT0060.BUMON_NM			BUMONM
+					FROM
+							 MDIT0060
+							,MDMT0080
+							,MDMT0070
+							,BOMT0010
+							,BOMT0060
+							,STMT0500
+							,MDMT0130
+							,MDMT0100 MDMT0100_1
+							,MDMT0100 MDMT0100_2
+							,MDMT0100 MDMT0100_3
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗コード FROM-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_FROM"/>
+			<!--抽出条件：店舗コード TO-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_TO"/>
+			<!--抽出条件：処理月-->
+			<statement type="replace" name="REPLACE_ID_SYORI_YM"/>
+			<!--抽出条件：調達区分-->
+			<statement type="replace" name="REPLACE_ID_TYOTATSU_KB"/>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		MDIT0060.TENPO_CD				= 	BOMT0010.TENPO_CD
+					AND		MDIT0060.IRO_CD					=	MDMT0080.IRO_CD(+)
+					AND		MDIT0060.BUMON_CD				=	MDMT0070.BUMON_CD(+)
+					AND		MDIT0060.HINSYU_CD				=	MDMT0070.HINSYU_CD(+)
+					AND		MDIT0060.BUMON_CD				=	BOMT0060.BUMON_CD(+)
+					AND		MDIT0060.BURANDO_CD				=	STMT0500.BURANDO_CD(+)
+					AND		MDMT0100_1.SIKIBETSU_CD(+)		=	'HKSB'
+					AND		MDIT0060.HYOKASONSYUBETSU_KB	=	MDMT0100_1.MEISYO_CD(+)
+					AND		MDMT0100_2.SIKIBETSU_CD(+)		=	'HKRY'
+					AND		MDIT0060.HYOKASONRIYU_KB		=	MDMT0100_2.MEISYO_CD(+)
+					AND		MDIT0060.JAN_CD					=	MDMT0130.JAN_CD(+)
+
+					AND		MDMT0100_3.MEISYO_CD(+)			=	1
+					AND		MDMT0100_3.SIKIBETSU_CD(+)		= 'HKKR'
+					AND		MDIT0060.KESSAI_FLG				=	0
+					AND		MDIT0060.SHINSEI_FLG			=	1
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 MDIT0060.TENPO_CD
+						,MDIT0060.BUMON_CD
+						,MDIT0060.HINSYU_CD
+						,MDIT0060.BURANDO_CD
+						,MDIT0060.MAKER_HBN
+						,MDIT0060.SIZE_NM
+						,MDIT0060.ADD_YMD
+						,MDIT0060.ADD_TM
+						,MDIT0060.KANRI_NO
+						,MDIT0060.GYO_NBR
+				</parts>
+			</statement>
+		</sql>
+		/** 評価損NB一括確定(確定ボタン) **/
+		<sql id="TK030P01-02">
+			<statement type="final" name="final">
+				<parts>
+					INSERT 
+					INTO MDIT0070( 
+						TENPO_CD
+						, KANRI_NO
+						, SYORI_YMD
+						, SYORI_TM
+						, GYO_NBR
+						, BUMON_CD
+						, HINSYU_CD
+						, BURANDO_CD
+						, MAKER_HBN
+						, SYONMK
+						, JISYA_HBN
+						, JAN_CD
+						, SYOHIN_CD
+						, HYOKASON_SU
+						, HANBAIKANRYO_YMD
+						, IRO_CD
+						, SIZE_CD
+						, SIZE_NM
+						, GEN_TNK
+						, JODAI1_TNK
+						, HYOKASONSYUBETSU_KB
+						, HYOKASONRIYU_KB
+						, HYOKASONRIYU
+						, KYAKKARIYU_KB
+						, KYAKKARIYU
+						, SYONIN_FLG
+						, SAISHINSEIZUMI_FLG
+						, APPLY_YMD
+						, TYOTATSU_KB
+						, ADD_YMD
+						, ADD_TM
+						, ADDTAN_CD
+						, UPD_YMD
+						, UPD_TM
+						, UPD_TANCD
+						, SAKUJYO_YMD
+						, SAKUJYO_FLG
+						, SOSINIRAI_FLG
+						, SOSINZUMI_FLG
+						, SOSIN_YMD
+						, SOSIN_TM
+						, SHINSEI_DATA_SOSINZUMI_FLG
+						, SHINSEI_DATA_SOSIN_YMD
+						, SHINSEI_DATA_SOSIN_TM
+					) 
+					VALUES 
+					( 
+						</parts><bind id="BIND_TENPO_CD" /><parts>
+						, </parts><bind id="BIND_KANRI_NO" /><parts>
+						, </parts><bind id="BIND_SYORI_YMD" /><parts>
+						, </parts><bind id="BIND_SYORI_TM" /><parts>
+						, </parts><bind id="BIND_GYO_NBR" /><parts>
+						, </parts><bind id="BIND_BUMON_CD" /><parts>
+						, </parts><bind id="BIND_HINSYU_CD" /><parts>
+						, </parts><bind id="BIND_BURANDO_CD" /><parts>
+						, </parts><bind id="BIND_MAKER_HBN" /><parts>
+						, </parts><bind id="BIND_SYONMK" /><parts>
+						, </parts><bind id="BIND_JISYA_HBN" /><parts>
+						, </parts><bind id="BIND_JAN_CD" /><parts>
+						, </parts><bind id="BIND_SYOHIN_CD" /><parts>
+						, </parts><bind id="BIND_HYOKASON_SU" /><parts>
+						, </parts><bind id="BIND_HANBAIKANRYO_YMD" /><parts>
+						, </parts><bind id="BIND_IRO_CD" /><parts>
+						, </parts><bind id="BIND_SIZE_CD" /><parts>
+						, </parts><bind id="BIND_SIZE_NM" /><parts>
+						, </parts><bind id="BIND_GEN_TNK" /><parts>
+						, </parts><bind id="BIND_JODAI1_TNK" /><parts>
+						, </parts><bind id="BIND_HYOKASONSYUBETSU_KB" /><parts>
+						, </parts><bind id="BIND_HYOKASONRIYU_KB" /><parts>
+						, </parts><bind id="BIND_HYOKASONRIYU" /><parts>
+						, </parts><bind id="BIND_KYAKKARIYU_KB" /><parts>
+						, </parts><bind id="BIND_KYAKKARIYU" /><parts>
+						, </parts><bind id="BIND_SYONIN_FLG" /><parts>
+						, </parts><bind id="BIND_SAISHINSEIZUMI_FLG" /><parts>
+						, </parts><bind id="BIND_APPLY_YMD" /><parts>
+						, </parts><bind id="BIND_TYOTATSU_KB" /><parts>
+						, </parts><bind id="BIND_ADD_YMD" /><parts>
+						, </parts><bind id="BIND_ADD_TM" /><parts>
+						, </parts><bind id="BIND_ADDTAN_CD" /><parts>
+						, </parts><bind id="BIND_UPD_YMD" /><parts>
+						, </parts><bind id="BIND_UPD_TM" /><parts>
+						, </parts><bind id="BIND_UPD_TANCD" /><parts>
+						, </parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+						, </parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+						, </parts><bind id="BIND_SOSINIRAI_FLG" /><parts>
+						, </parts><bind id="BIND_SOSINZUMI_FLG" /><parts>
+						, </parts><bind id="BIND_SOSIN_YMD" /><parts>
+						, </parts><bind id="BIND_SOSIN_TM" /><parts>
+						, </parts><bind id="BIND_SHINSEI_SOSINZUMI_FLG" /><parts>
+						, </parts><bind id="BIND_SHINSEI_SOSIN_YMD" /><parts>
+						, </parts><bind id="BIND_SHINSEI_SOSIN_TM" /><parts>
+					) 
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TK030P01-03">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0060 
+					SET
+						KESSAI_FLG = 1
+						, UPD_YMD = </parts><bind id="BIND_UPD_YMD" /><parts>
+						, UPD_TM = </parts><bind id="BIND_UPD_TM" /><parts>
+					WHERE
+						TENPO_CD = </parts><bind id="BIND_TENPO_CD" /><parts>
+						AND KANRI_NO = </parts><bind id="BIND_KANRI_NO" /><parts>
+						AND SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" /><parts>
+						AND GYO_NBR = </parts><bind id="BIND_GYO_NBR" /><parts>
+						AND EXISTS ( 
+							SELECT 
+								1 
+							FROM  
+								MDIT0070 T1, MDIT0060 T2
+							WHERE	0 = 0
+								AND T1.TENPO_CD= T2.TENPO_CD
+								AND T1.KANRI_NO = T2.KANRI_NO 
+								AND T1.SYORI_YMD = T2.SYORI_YMD
+								AND T1.GYO_NBR = T2.GYO_NBR
+								AND T1.UPD_YMD = </parts><bind id="BIND_SYSDATE" /><parts>
+								AND T1.UPD_TM = </parts><bind id="BIND_SYSTIME" /><parts>
+						)
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

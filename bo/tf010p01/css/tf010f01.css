@@ -1,0 +1,101 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tf010f01.css
+--------------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 承認 ---*/
+.slt-syonin {
+	width: 80px;
+}
+/*--- 申請理由 ---*/
+.slt-sinseiRiyu {
+	width: 300px;
+}
+/*--- 却下理由 ---*/
+.inpKyakkaRiyu {
+	width: 175px;
+	margin-top: 4px;
+}
+
+.str-search-01 .w-type-01 {
+  width: 95px;
+}
+.str-search-01 .w-type-02 {
+  width: 190px;
+}
+.str-search-01 .w-type-03 {
+  width: 280px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  position: relative;
+  width: 38px;
+}
+/* 申請日／確定日 */
+.str-result-01 .col2 {
+  width: 90px;
+}
+/*--- 科目 ---*/
+.str-result-01 .col3 {
+  width: 476px;
+}
+/*--- 申請店舗 ---*/
+.str-result-01 .col3 .col3-1 {
+  width: 160px;
+}
+/*--- 伝票番号 ---*/
+.str-result-01 .col3 .col3-2 {
+	width: 70px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- 業務稟議No ---*/
+.str-result-01 .col3 .col3-3 {
+	width: 90px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- 受理番号 ---*/
+.str-result-01 .col3 .col3-4 {
+	width: 139px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- 数量 ---*/
+.str-result-01 .col4 {
+  width: 60px;
+}
+/*--- 原価金額／売価金額 ---*/
+.str-result-01 .col5 {
+  width: 110px;
+}
+/*--- 申請担当者／確定担当者 ---*/
+.str-result-01 .col6 {
+  width: 130px;
+}
+/*--- 申請理由／却下理由 ---*/
+.str-result-01 .col7 {
+  width: 192px;
+}
+/*--- 承認 ---*/
+.str-result-01 .col8 {
+  width: 40px;
+}
+/*--- 却下 ---*/
+.str-result-01 .col9 {
+  width: 40px;
+}
+
+.str-result-01 .cell {
+  display: block;
+  float: left;
+}
+

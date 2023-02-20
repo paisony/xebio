@@ -1,0 +1,89 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:ta040f02.css
+--------------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+.str-search-02 .w-type-01 {
+  width: 85px;
+}
+.str-search-02 .w-type-02 {
+  width: 140px;
+}
+.str-search-02 .w-type-03 {
+  width: 220px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- 行 ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 34px;
+	border-left: 1px solid #cccccc;
+}
+
+/*--- 品種 ブランド ---*/
+.str-result-01 .col2 {
+	width: 189px;
+}
+/*--- 自社品番 コア ---*/
+.str-result-01 .col3 {
+	width: 62px;
+}
+/*--- スキャンコード ---*/
+.str-result-01 .col4 {
+	width: 100px;
+}
+
+/*--- メーカー品番 商品名 ---*/
+.str-result-01 .col5 {
+	width: 351px;
+}
+/*--- 色 サイズ ---*/
+.str-result-01 .col6 {
+	width: 118px;
+}
+/*--- ｼｰｽﾞﾝ 販売完了日 ---*/
+.str-result-01 .col7 {
+	width: 76px;
+}
+/*--- コメント ---*/
+.str-result-01 .col8 {
+	width: 254px;
+}
+/*--- 発注数量 ---*/
+.str-result-01 .col8 .col8-1 {
+	width: 79px;
+}
+/*--- 配分数量 ---*/
+.str-result-01 .col8 .col8-2 {
+	width: 79px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- 原価金額 ---*/
+.str-result-01 .col8 .col8-3 {
+	width: 79px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+.str-result-01 .cell {
+	display: block;
+	float: left;
+}
+
+
+/*--- 明細合計部 ---*/
+.str-result-01 .str-result-ftr-01 > .col8 .col8-3 span {
+	display: block;
+	text-align: right;
+	background-color: #ecf9fe;
+	border-left: 1px solid #1ca7e0;
+}
+

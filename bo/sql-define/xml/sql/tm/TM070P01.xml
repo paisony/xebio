@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 担当者所属店変更履歴 件数チェック **/
+		<sql id="TM070P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(*) CNT
+					FROM
+						MDBT0100 T1
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+		</sql>
+		/** 担当者所属店変更履歴 検索 **/
+		<sql id="TM070P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.HANBAIIN_CD
+						,M1.HANBAIIN_NM
+						,T1.HANBAIINTENPO_CD
+						,T1.MOTO_TENPO_CD
+						,M2.TENPO_NM AS MOTO_TENPO_NM
+						,T1.HENKO_TENPO_CD
+						,M3.TENPO_NM AS HENKO_TENPO_NM
+						,T1.HENKO_YMD
+						,T1.HENKO_TM
+						,M1.UPD_YMD
+						,M1.UPD_TM
+						,M1.SAKUJYO_FLG
+						,(SELECT MAX(T2.HENKO_TM)
+						  FROM MDBT0100 T2
+						  WHERE T2.HANBAIIN_CD = T1.HANBAIIN_CD
+						  AND T2.HENKO_YMD = </parts><bind id="BIND_SYSDATE" /><parts>
+						 ) AS MAX_HENKO_TM
+					FROM
+						MDBT0100 T1
+					LEFT JOIN
+						BOMT0030 M1
+					ON	M1.HANBAIIN_CD = T1.HANBAIIN_CD
+					LEFT JOIN
+						BOMT0010 M2
+					ON	M2.TENPO_CD = T1.MOTO_TENPO_CD
+					AND M2.SAKUJYO_FLG = 0
+					LEFT JOIN
+						BOMT0010 M3
+					ON	M3.TENPO_CD = T1.HENKO_TENPO_CD
+					AND M3.SAKUJYO_FLG = 0
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 T1.HANBAIIN_CD
+						,T1.HENKO_YMD
+						,T1.HENKO_TM
+				</parts>
+			</statement>
+		</sql>
+		/** [担当者マスタ]を更新 **/
+		<sql id="TM070P01-03">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE BOMT0030 SET
+							 HANBAIINTENPO_CD	= </parts><bind id="BIND_HANBAIINTENPO_CD" /><parts>
+							,UPD_YMD			= </parts><bind id="BIND_UPD_YMD" /><parts>
+							,UPD_TM				= </parts><bind id="BIND_UPD_TM" /><parts>
+							,UPD_TANCD			= </parts><bind id="BIND_UPD_TANCD" /><parts>
+					WHERE
+						HANBAIIN_CD = </parts><bind id="BIND_HANBAIIN_CD" />
+			</statement>
+		</sql>
+		/** [担当者所属店変更履歴TBL]を登録 **/
+		<sql id="TM070P01-04">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDBT0100(
+						 HANBAIIN_CD		/* 担当者コード */
+						,HENKO_YMD			/* 変更日 */
+						,HENKO_TM			/* 変更時間 */
+						,HANBAIINTENPO_CD	/* 担当者店舗コード */
+						,MOTO_TENPO_CD		/* 元店舗コード */
+						,HENKO_TENPO_CD		/* 変更店舗コード */
+						,ADD_YMD			/* 登録日 */
+						,ADD_TM				/* 登録時間 */
+						,ADDTAN_CD			/* 登録担当者コード */
+						,UPD_YMD			/* 更新日 */
+						,UPD_TM				/* 更新時間 */
+						,UPD_TANCD			/* 更新担当者コード */
+						,SAKUJYO_YMD		/* 削除日 */
+						,SAKUJYO_FLG		/* 削除フラグ */
+					) VALUES (
+						 </parts><bind id="BIND_HANBAIIN_CD" /><parts>
+						,</parts><bind id="BIND_HENKO_YMD" /><parts>
+						,</parts><bind id="BIND_HENKO_TM" /><parts>
+						,</parts><bind id="BIND_HANBAIINTENPO_CD" /><parts>
+						,</parts><bind id="BIND_MOTO_TENPO_CD" /><parts>
+						,</parts><bind id="BIND_HENKO_TENPO_CD" /><parts>
+						,</parts><bind id="BIND_ADD_YMD" /><parts>
+						,</parts><bind id="BIND_ADD_TM" /><parts>
+						,</parts><bind id="BIND_ADDTAN_CD" /><parts>
+						,</parts><bind id="BIND_UPD_YMD" /><parts>
+						,</parts><bind id="BIND_UPD_TM" /><parts>
+						,</parts><bind id="BIND_UPD_TANCD" /><parts>
+						,</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+						,</parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** 所属店舗取得 **/
+		<sql id="TM070P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						T1.HANBAIINTENPO_CD
+					FROM
+						MDBT0100 T1
+					WHERE
+						T1.HANBAIIN_CD =
+				</parts>
+				<bind id="BIND_HANBAIIN_CD" />
+				<parts>
+					AND T1.HENKO_YMD =
+				</parts>
+				<bind id="BIND_HENKO_YMD" />
+				<parts>
+					ORDER BY
+						T1.HENKO_TM DESC
+				</parts>
+			</statement>
+		</sql>
+		/** 担当者マスタ チェック **/
+		<sql id="TM070P01-06">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 M1.HANBAIIN_CD
+						,M1.HANBAIIN_NM
+						,M1.HANBAIINTENPO_CD
+						,M2.TENPO_NM
+						,M1.UPD_YMD
+						,M1.UPD_TM
+					FROM
+						BOMT0030 M1
+					LEFT JOIN 
+						BOMT0010 M2
+					ON	M2.TENPO_CD = M1.HANBAIINTENPO_CD
+					AND M2.SAKUJYO_FLG = 0
+					WHERE
+						M1.SAKUJYO_FLG = 0
+					AND M1.HANBAIIN_CD =
+				</parts>
+				<bind id="BIND_HANBAIIN_CD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

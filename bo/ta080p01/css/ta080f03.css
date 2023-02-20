@@ -1,0 +1,172 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:ta080f03.css
+--------------------------------------------------------------------------------*/
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+.str-search-02 .w-type-01 {
+	width: 100px;
+}
+.str-search-02 .w-type-02 {
+	width: 140px;
+}
+.str-search-02 .w-type-03 {
+	width: 220px;
+}
+.str-search-02 .w-type-04 {
+	width: 140px;
+}
+.str-search-02 .w-type-05 {
+	width: 140px;
+}
+
+.str-search-01 .w-type-01-2 {
+	width: 90px;
+}
+.str-search-01 .w-type-02-2 {
+	width: 140px;
+}
+.str-search-01 .w-type-03-2 {
+	width: 110px;
+}
+.str-search-01 .w-type-04-2 {
+	width: 120px;
+}
+.str-search-01 .w-type-05-2 {
+	width: 120px;
+}
+.str-search-01 .w-type-01-2-2 {
+	width: 100px;
+}
+
+/*--- 区分 ---*/
+.str-search-02 .slt-kbn {
+	width: 120px;
+}
+/*--- 理由 ---*/
+.slt-riyu {
+	width: 136px;
+}
+/*--- 理由(明細用) ---*/
+.slt-riyu-m {
+	width: 120px;
+}
+/*--- 評価 ---*/
+.slt-hyoka {
+	width: 40px;
+}
+/*--- 並び順 ---*/
+.slt-sort {
+	width: 96px;
+}
+/*--- 並び順 ---*/
+.slt-sortopt {
+	width: 60px;
+}
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 34px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 商品群2 ---*/
+.str-result-01 .col2 {
+	width: 125px;
+}
+/*--- 部門 ---*/
+.str-result-01 .col3 {
+	width: 143px;
+}
+/*--- 評価 ---*/
+.str-result-01 .col3 .col3-1 {
+	width: 39px;
+}
+/*--- 補充 ---*/
+.str-result-01 .col3 .col3-2 {
+	width: 39px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 在庫 ---*/
+.str-result-01 .col3 .col3-3 {
+	width: 51px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 品種 ---*/
+.str-result-01 .col4 {
+	width: 96px;
+}
+/*--- 入荷 ---*/
+.str-result-01 .col4 .col4-1 {
+	width: 43px;
+}
+/*--- 売上 ---*/
+.str-result-01 .col4 .col4-2 {
+	width: 43px;
+	border-left: 1px solid #ffffff;
+}
+/*--- ブランド ---*/
+.str-result-01 .col5 {
+	width: 189px;
+}
+/*--- 自動定数 ---*/
+.str-result-01 .col5 .col5-1 {
+	width: 42px;
+}
+/*--- 配可数 ---*/
+.str-result-01 .col5 .col5-2 {
+	width: 42px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 自動定数 ---*/
+.str-result-01 .col5 .col5-3 {
+	width: 42px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 配可数 ---*/
+.str-result-01 .col5 .col5-4 {
+	width: 42px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 自社品番／依頼集計 ---*/
+.str-result-01 .col6 {
+	width: 60px;
+}
+/*--- コア／ロット ---*/
+.str-result-01 .col7 {
+	width: 35px;
+}
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col8 {
+	width: 150px;
+}
+/*--- 色／サイズ ---*/
+.str-result-01 .col9 {
+	width: 71px;
+}
+/*--- スキャンコード／依頼数 ---*/
+.str-result-01 .col10 {
+	width: 114px;
+}
+/*--- メッセージ／原価金額 ---*/
+.str-result-01 .col11 {
+	width: 79px;
+}
+.str-result-01 .cell {
+	display: block;
+	float: left;
+	/*text-align: center;*/
+}
+/*--- 登録日／販売完了日 ---*/
+.str-result-01 .col13 {
+	width: 64px;
+}
+/*--- 商品群2 ---*/
+.str-result-01 .col2-1 {
+	width: 24px;
+}
+.str-result-01 .col2-2 {
+	width: 96px;
+}

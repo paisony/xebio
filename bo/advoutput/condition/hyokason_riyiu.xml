@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HYOKASON_RIYIU" name="評価損理由">
+		<listItems>
+			<item id="10" value="11" label="破損" itemId="Hyokason_riyiu1" />
+			<item id="20" value="12" label="傷・汚れ" itemId="Hyokason_riyiu2" />
+			<item id="30" value="13" label="サイズ違い" itemId="Hyokason_riyiu3" />
+			<item id="40" value="14" label="日焼け" itemId="Hyokason_riyiu4" />
+			<item id="50" value="16" label="パッケージ破損" itemId="Hyokason_riyiu5" />
+			<item id="60" value="17" label="縫製不良" itemId="Hyokason_riyiu6" />
+			<item id="70" value="18" label="製品不良" itemId="Hyokason_riyiu7" />
+			<item id="80" value="19" label="部品不良・不良" itemId="Hyokason_riyiu8" />
+			<item id="90" value="20" label="業者加工ミス" itemId="Hyokason_riyiu9" />
+			<item id="100" value="21" label="店内加工ミス" itemId="Hyokason_riyiu10" />
+			<item id="110" value="22" label="賞味期限切れ" itemId="Hyokason_riyiu11" />
+			<item id="120" value="24" label="経年商品" itemId="Hyokason_riyiu12" />
+			<item id="130" value="99" label="その他" itemId="Hyokason_riyiu13" />
+		</listItems>
+	</condition>
+</condition-define>
+

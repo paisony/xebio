@@ -1,0 +1,906 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="TF070P01-01">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-01（一覧検索件数チェック） */
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDAT0040 T1		--盗難品TBL(H)
+					WHERE
+							T1.TENPO_CD				=	</parts><bind id="TENPO_CD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		<sql id="TF070P01-02">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-02（一覧検索） */
+					SELECT
+							T1.KANRI_NO						--管理No
+						,	T1.JIKOHASSEI_YMD				--事故発生日
+						,	T1.HOKOKU_YMD					--報告日
+						,	T1.HOKOKUTAN_CD					--報告担当者コード
+						,	M1.HANBAIIN_NM HOKOKUTAN_NM		--報告担当者名
+						,	T1.TENTYOTAN_CD					--店長担当者コード
+						,	M2.HANBAIIN_NM TENTYOTAN_NM		--店長担当者名
+						,	T1.KEISATSUTODOKE_YMD			--警察届出日
+						,	T1.TODOKEDESAKIKEISATSU_NM		--届出先警察署名
+						,	T1.JYURI_NO						--受理番号
+						,	T1.UPD_YMD						--更新日
+						,	T1.UPD_TM						--更新時間
+						,	T1.SYORI_YMD					--処理日付
+						,	T1.SYORI_TM						--処理時間
+						,	T1.KEIHISINSEI_FLG				--経費申請フラグ
+						,	T1.KEIHISINSEI_YMD				--経費申請日
+						,	T2.UPD_YMD KEIHISINSEI_UPD_YMD	--経費申請更新日
+						,	T2.UPD_TM KEIHISINSEI_UPD_TM	--経費申請更新時間
+					FROM
+							MDAT0040 T1		--盗難品TBL(H)
+					LEFT JOIN
+							BOMT0030 M1		--担当者MST（報告担当者）
+					ON		M1.HANBAIIN_CD	=	T1.HOKOKUTAN_CD
+					LEFT JOIN
+							BOMT0030 M2		--担当者MST（店長担当者）
+					ON		M2.HANBAIIN_CD	=	T1.TENTYOTAN_CD
+					LEFT JOIN
+							MDAT0020 T2		--経費振替申請TBL(H)
+					ON		T2.TONANHINKANRI_NO		=	T1.KANRI_NO
+					AND		T2.TONANHINSYORI_YMD	=	T1.SYORI_YMD
+					AND		T2.TONANHINTENPO_CD		=	T1.TENPO_CD
+					WHERE
+							T1.TENPO_CD				=	</parts><bind id="TENPO_CD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							T1.KANRI_NO
+						,	T1.SYORI_YMD
+						,	T1.JIKOHASSEI_YMD
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TF070P01-03">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-03（明細検索） */
+					SELECT
+							T1.DENPYOGYO_NO		--伝票行No
+						,	T1.HASSEI_TM		--発生時間
+						,	T1.HASSEIBASYO		--発生場所
+						,	T1.BUMON_CD			--部門コード
+						,	M1.BUMONKANA_NM		--部門カナ名
+						,	M3.HINSYU_RYAKU_NM	--品種略名称
+						,	T1.HAKKENTAN_CD		--発見担当者コード
+						,	M5.HANBAIIN_NM		--担当者名
+						,	M2.BURANDO_NMK		--ブランド名カナ
+						,	T1.JISYA_HBN		--自社品番
+						,	T1.HAKKENJYOKYO_KB	--発見状況区分
+						,	T1.HAKKENJYOKYO_NM	--発見状況
+						,	T1.MAKER_HBN		--メーカー品番
+						,	T1.SYONMK			--商品名(カナ)
+						,	M4.IRO_NM			--色略式名称カナ
+						,	T1.SIZE_NM			--サイズ
+						,	T1.JAN_CD			--ＪＡＮコード
+						,	T1.SINSEI_SU		--申請数
+						,	T1.JYURI_SU			--受理数
+						,	T1.BAIKA_TNK		--売価
+					FROM
+							MDAT0041 T1			--盗難品TBL(B)
+					LEFT JOIN
+							BOMT0060 M1			--部門MST
+					ON		M1.BUMON_CD		=	T1.BUMON_CD
+					LEFT JOIN
+							STMT0500 M2			--ブランドMST
+					ON		M2.BURANDO_CD	=	T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0070 M3			--品種MST
+					ON		M3.BUMON_CD		=	T1.BUMON_CD
+					AND		M3.HINSYU_CD	=	T1.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 M4			--色MST
+					ON		M4.IRO_CD		=	T1.IRO_CD
+					LEFT JOIN
+							BOMT0030 M5			--担当者MST
+					ON		M5.HANBAIIN_CD	=	T1.HAKKENTAN_CD
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TF070P01-04">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-04（経費振替申請TBL(B)削除） */
+					DELETE
+					FROM
+							MDAT0021 T1		--経費振替申請TBL(B)
+					WHERE
+							(
+								T1.TENPO_CD
+							,	T1.DENPYO_BANGO
+							,	T1.SYORI_YMD
+							)	IN	(
+								SELECT
+										ST1.TENPO_CD
+									,	ST1.DENPYO_BANGO
+									,	ST1.SYORI_YMD
+								FROM
+										MDAT0020 ST1		--経費振替申請TBL(H)
+								WHERE
+										ST1.TONANHINKANRI_NO	=	</parts><bind id="TONANHINKANRI_NO" /><parts>
+								AND		ST1.TONANHINSYORI_YMD	=	</parts><bind id="TONANHINSYORI_YMD" /><parts>
+								AND		ST1.TONANHINTENPO_CD	=	</parts><bind id="TONANHINTENPO_CD" /><parts>
+							)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TF070P01-05">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-05（経費振替申請TBL(H)削除） */
+					DELETE
+					FROM
+							MDAT0020 T1		--経費振替申請TBL(H)
+					WHERE
+							T1.TONANHINKANRI_NO		=	</parts><bind id="TONANHINKANRI_NO" /><parts>
+					AND		T1.TONANHINSYORI_YMD	=	</parts><bind id="TONANHINSYORI_YMD" /><parts>
+					AND		T1.TONANHINTENPO_CD		=	</parts><bind id="TONANHINTENPO_CD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-06">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-06（盗難品TBL(H)更新） */
+					UPDATE
+							MDAT0040 T1		--盗難品TBL(H)
+					SET
+							T1.GOKEIBAIKA_KIN	=	(	SELECT	SUM(ST1.BAIKA_TNK * ST1.SINSEI_SU)	--SUM([売価] * [申請数])
+														FROM	MDAT0041 ST1	--盗難品TBL(B)
+														WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+														AND		ST1.KANRI_NO	=	T1.KANRI_NO
+														AND		ST1.SYORI_YMD	=	T1.SYORI_YMD
+													)
+						,	T1.KEIHISINSEI_FLG	=	0
+						,	T1.KEIHISINSEI_YMD	=	0
+						,	T1.UPD_YMD			=	</parts><bind id="UPD_YMD" /><parts>
+						,	T1.UPD_TM			=	</parts><bind id="UPD_TM" /><parts>
+						,	T1.UPD_TANCD		=	</parts><bind id="UPD_TANCD" /><parts>
+						,	T1.SAKUJYO_YMD		=	</parts><bind id="SAKUJYO_YMD" /><parts>
+						,	T1.SAKUJYO_FLG		=	0
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-07">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-07（盗難品履歴TBL(B)登録） */
+					INSERT INTO	MDAT0051		--盗難品履歴TBL(B)
+					(
+							KANRI_NO			--管理№
+						,	SYORI_YMD			--処理日付
+						,	SYORI_TM			--処理時間
+						,	TENPO_CD			--店舗コード
+						,	RIREKI_NO			--履歴NO
+						,	AKAKURO_KBN			--赤黒区分
+						,	DENPYOGYO_NO		--伝票行№
+						,	BUMON_CD			--部門コード
+						,	HINSYU_CD			--品種コード
+						,	BURANDO_CD			--ブランドコード
+						,	MAKER_HBN			--メーカー品番
+						,	SYONMK				--商品名(カナ)
+						,	JISYA_HBN			--自社品番
+						,	IRO_CD				--色コード
+						,	SIZE_CD				--サイズコード
+						,	SIZE_NM				--サイズ
+						,	JAN_CD				--ＪＡＮコード
+						,	SYOHIN_CD			--商品コード
+						,	SINSEI_SU			--申請数
+						,	JYURI_SU			--受理数
+						,	BAIKA_TNK			--売価
+						,	HASSEI_TM			--発生時間
+						,	HASSEIBASYO			--発生場所
+						,	HAKKENTAN_CD		--発見担当者コード
+						,	HAKKENJYOKYO_KB		--発見状況区分
+						,	HAKKENJYOKYO_NM		--発見状況
+					)
+					SELECT
+							T1.KANRI_NO			--管理№
+						,	T1.SYORI_YMD		--処理日付
+						,	T1.SYORI_TM			--処理時間
+						,	T1.TENPO_CD			--店舗コード
+						,	(
+								SELECT	NVL(MAX(ST1.RIREKI_NO), 0)
+								FROM	MDAT0050 ST1	--盗難品履歴TBL(H)
+								WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+								AND		ST1.KANRI_NO	=	T1.KANRI_NO
+								AND		ST1.SYORI_YMD	=	T1.SYORI_YMD
+							) + 1				--履歴NO
+						,	1					--赤黒区分
+						,	T1.DENPYOGYO_NO		--伝票行№
+						,	T1.BUMON_CD			--部門コード
+						,	T1.HINSYU_CD		--品種コード
+						,	T1.BURANDO_CD		--ブランドコード
+						,	T1.MAKER_HBN		--メーカー品番
+						,	T1.SYONMK			--商品名(カナ)
+						,	T1.JISYA_HBN		--自社品番
+						,	T1.IRO_CD			--色コード
+						,	T1.SIZE_CD			--サイズコード
+						,	T1.SIZE_NM			--サイズ
+						,	T1.JAN_CD			--ＪＡＮコード
+						,	T1.SYOHIN_CD		--商品コード
+						,	T1.SINSEI_SU * (-1)	--申請数
+						,	T1.JYURI_SU * (-1)	--受理数
+						,	T1.BAIKA_TNK		--売価
+						,	T1.HASSEI_TM		--発生時間
+						,	T1.HASSEIBASYO		--発生場所
+						,	T1.HAKKENTAN_CD		--発見担当者コード
+						,	T1.HAKKENJYOKYO_KB	--発見状況区分
+						,	T1.HAKKENJYOKYO_NM	--発見状況
+					FROM
+							MDAT0041 T1		--盗難品TBL(B)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-08">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-08（盗難品TBL(B)削除） */
+					DELETE
+					FROM
+							MDAT0041 T1		--盗難品TBL(B)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-09">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-09（盗難品履歴TBL(H)登録） */
+					INSERT INTO	MDAT0050	--盗難品履歴TBL(H)
+					(
+							KANRI_NO				--管理№
+						,	SYORI_YMD				--処理日付
+						,	SYORI_TM				--処理時間
+						,	TENPO_CD				--店舗コード
+						,	RIREKI_NO				--履歴NO
+						,	AKAKURO_KBN				--赤黒区分
+						,	RIREKI_SYORI_YMD		--履歴処理日付
+						,	RIREKI_SYORI_TM			--履歴処理時間
+						,	JIKOHASSEI_YMD			--事故発生日
+						,	HOKOKU_YMD				--報告日
+						,	HOKOKUTAN_CD			--報告担当者コード
+						,	TENTYOTAN_CD			--店長担当者コード
+						,	KEISATSUTODOKE_YMD		--警察届出日
+						,	TODOKEDESAKIKEISATSU_NM	--届出先警察署名
+						,	JYURI_NO				--受理番号
+						,	GOKEISINSEI_SU			--合計申請数
+						,	GOKEIJYURI_SU			--合計受理数
+						,	GOKEIBAIKA_KIN			--合計売価金額
+						,	KEIHISINSEI_FLG			--経費申請フラグ
+						,	KEIHISINSEI_YMD			--経費申請日
+						,	RIREKI_DISP_KB			--履歴画面表示区分
+						,	ADD_YMD					--登録日
+						,	ADD_TM					--登録時間
+						,	ADDTAN_CD				--登録担当者コード
+						,	UPD_YMD					--更新日
+						,	UPD_TM					--更新時間
+						,	UPD_TANCD				--更新担当者コード
+						,	SAKUJYO_YMD				--削除日
+						,	SAKUJYO_FLG				--削除フラグ
+						, 	SOSINIRAI_FLG			--送信依頼フラグ
+						,	SOSINZUMI_FLG			--送信済フラグ
+						,	SOSIN_YMD				--送信日
+						,	SOSIN_TM				--送信時間
+						,	HHTSERIAL_NO			--HHTシリアル番号
+						,	HHTSEQUENCE_NO			--HHTシーケンスNO.
+					)
+					SELECT
+							T1.KANRI_NO					--管理№
+						,	T1.SYORI_YMD				--処理日付
+						,	T1.SYORI_TM					--処理時間
+						,	T1.TENPO_CD					--店舗コード
+						,	(
+								SELECT	NVL(MAX(ST1.RIREKI_NO), 0)
+								FROM	MDAT0050 ST1	--盗難品履歴TBL(H)
+								WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+								AND		ST1.KANRI_NO	=	T1.KANRI_NO
+								AND		ST1.SYORI_YMD	=	T1.SYORI_YMD
+							) + 1						--履歴NO
+						,	1							--赤黒区分
+						,	</parts><bind id="RIREKI_SYORI_YMD" /><parts>	--履歴処理日付
+						,	</parts><bind id="RIREKI_SYORI_TM" /><parts>	--履歴処理時間
+						,	T1.JIKOHASSEI_YMD			--事故発生日
+						,	T1.HOKOKU_YMD				--報告日
+						,	T1.HOKOKUTAN_CD				--報告担当者コード
+						,	T1.TENTYOTAN_CD				--店長担当者コード
+						,	T1.KEISATSUTODOKE_YMD		--警察届出日
+						,	T1.TODOKEDESAKIKEISATSU_NM	--届出先警察署名
+						,	T1.JYURI_NO					--受理番号
+						,	T1.GOKEISINSEI_SU * (-1)	--合計申請数
+						,	T1.GOKEIJYURI_SU * (-1)		--合計受理数
+						,	T1.GOKEIBAIKA_KIN * (-1)	--合計売価金額
+						,	T1.KEIHISINSEI_FLG			--経費申請フラグ
+						,	T1.KEIHISINSEI_YMD			--経費申請日
+						,	1							--履歴画面表示区分
+						,	T1.ADD_YMD					--登録日
+						,	T1.ADD_TM					--登録時間
+						,	T1.ADDTAN_CD				--登録担当者コード
+						,	</parts><bind id="UPD_YMD" /><parts>		--更新日
+						,	</parts><bind id="UPD_TM" /><parts>			--更新時間
+						,	</parts><bind id="UPD_TANCD" /><parts>		--更新担当者コード
+						,	</parts><bind id="SAKUJYO_YMD" /><parts>	--削除日
+						,	0							--削除フラグ
+						,	1							--送信依頼フラグ
+						,	0							--送信済フラグ
+						,	0							--送信日
+						,	0							--送信時間
+						,	T1.HHTSERIAL_NO				--HHTシリアル番号
+						,	T1.HHTSEQUENCE_NO			--HHTシーケンスNO.
+					FROM
+							MDAT0040 T1		--盗難品TBL(H)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-10">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-10（盗難品TBL(H)削除） */
+					DELETE
+					FROM
+							MDAT0040 T1		--盗難品TBL(H)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-11">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-11（盗難品履歴TBL(B)登録（赤）） */
+					INSERT INTO	MDAT0051		--盗難品履歴TBL(B)
+					(
+							KANRI_NO			--管理№
+						,	SYORI_YMD			--処理日付
+						,	SYORI_TM			--処理時間
+						,	TENPO_CD			--店舗コード
+						,	RIREKI_NO			--履歴No
+						,	AKAKURO_KBN			--赤黒区分
+						,	DENPYOGYO_NO		--伝票行№
+						,	BUMON_CD			--部門コード
+						,	HINSYU_CD			--品種コード
+						,	BURANDO_CD			--ブランドコード
+						,	MAKER_HBN			--メーカー品番
+						,	SYONMK				--商品名(カナ)
+						,	JISYA_HBN			--自社品番
+						,	IRO_CD				--色コード
+						,	SIZE_CD				--サイズコード
+						,	SIZE_NM				--サイズ
+						,	JAN_CD				--ＪＡＮコード
+						,	SYOHIN_CD			--商品コード
+						,	SINSEI_SU			--申請数
+						,	JYURI_SU			--受理数
+						,	BAIKA_TNK			--売価
+						,	HASSEI_TM			--発生時間
+						,	HASSEIBASYO			--発生場所
+						,	HAKKENTAN_CD		--発見担当者コード
+						,	HAKKENJYOKYO_KB		--発見状況区分
+						,	HAKKENJYOKYO_NM		--発見状況
+					)
+					SELECT
+							T1.KANRI_NO			--管理№
+						,	T1.SYORI_YMD		--処理日付
+						,	T1.SYORI_TM			--処理時間
+						,	T1.TENPO_CD			--店舗コード
+						,	(
+								SELECT	NVL(MAX(ST1.RIREKI_NO), 0)
+								FROM	MDAT0050 ST1	--盗難品履歴TBL(H)
+								WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+								AND		ST1.KANRI_NO	=	T1.KANRI_NO
+								AND		ST1.SYORI_YMD	=	T1.SYORI_YMD
+							) + 1				--履歴No
+						,	1					--赤黒区分
+						,	T1.DENPYOGYO_NO		--伝票行№
+						,	T1.BUMON_CD			--部門コード
+						,	T1.HINSYU_CD		--品種コード
+						,	T1.BURANDO_CD		--ブランドコード
+						,	T1.MAKER_HBN		--メーカー品番
+						,	T1.SYONMK			--商品名(カナ)
+						,	T1.JISYA_HBN		--自社品番
+						,	T1.IRO_CD			--色コード
+						,	T1.SIZE_CD			--サイズコード
+						,	T1.SIZE_NM			--サイズ
+						,	T1.JAN_CD			--ＪＡＮコード
+						,	T1.SYOHIN_CD		--商品コード
+						,	T1.SINSEI_SU * (-1)	--申請数
+						,	T1.JYURI_SU * (-1)	--受理数
+						,	T1.BAIKA_TNK		--売価
+						,	T1.HASSEI_TM		--発生時間
+						,	T1.HASSEIBASYO		--発生場所
+						,	T1.HAKKENTAN_CD		--発見担当者コード
+						,	T1.HAKKENJYOKYO_KB	--発見状況区分
+						,	T1.HAKKENJYOKYO_NM	--発見状況
+					FROM
+							MDAT0041 T1		--盗難品TBL(B)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-12">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-12（盗難品TBL(B)削除） */
+					DELETE
+					FROM
+							MDAT0041 T1		--盗難品TBL(B)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-13">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-13（盗難品履歴TBL(B)登録（黒）） */
+					INSERT INTO	MDAT0051		--盗難品履歴TBL(B)
+					(
+							KANRI_NO			--管理№
+						,	SYORI_YMD			--処理日付
+						,	SYORI_TM			--処理時間
+						,	TENPO_CD			--店舗コード
+						,	RIREKI_NO			--履歴No
+						,	AKAKURO_KBN			--赤黒区分
+						,	DENPYOGYO_NO		--伝票行№
+						,	BUMON_CD			--部門コード
+						,	HINSYU_CD			--品種コード
+						,	BURANDO_CD			--ブランドコード
+						,	MAKER_HBN			--メーカー品番
+						,	SYONMK				--商品名(カナ)
+						,	JISYA_HBN			--自社品番
+						,	IRO_CD				--色コード
+						,	SIZE_CD				--サイズコード
+						,	SIZE_NM				--サイズ
+						,	JAN_CD				--ＪＡＮコード
+						,	SYOHIN_CD			--商品コード
+						,	SINSEI_SU			--申請数
+						,	JYURI_SU			--受理数
+						,	BAIKA_TNK			--売価
+						,	HASSEI_TM			--発生時間
+						,	HASSEIBASYO			--発生場所
+						,	HAKKENTAN_CD		--発見担当者コード
+						,	HAKKENJYOKYO_KB		--発見状況区分
+						,	HAKKENJYOKYO_NM		--発見状況
+					)
+					SELECT
+							T1.KANRI_NO			--管理№
+						,	T1.SYORI_YMD		--処理日付
+						,	T1.SYORI_TM			--処理時間
+						,	T1.TENPO_CD			--店舗コード
+						,	(
+								SELECT	NVL(MAX(ST1.RIREKI_NO), 0)
+								FROM	MDAT0050 ST1	--盗難品履歴TBL(H)
+								WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+								AND		ST1.KANRI_NO	=	T1.KANRI_NO
+								AND		ST1.SYORI_YMD	=	T1.SYORI_YMD
+							) + 1				--履歴No
+						,	0					--赤黒区分
+						,	T1.DENPYOGYO_NO		--伝票行№
+						,	T1.BUMON_CD			--部門コード
+						,	T1.HINSYU_CD		--品種コード
+						,	T1.BURANDO_CD		--ブランドコード
+						,	T1.MAKER_HBN		--メーカー品番
+						,	T1.SYONMK			--商品名(カナ)
+						,	T1.JISYA_HBN		--自社品番
+						,	T1.IRO_CD			--色コード
+						,	T1.SIZE_CD			--サイズコード
+						,	T1.SIZE_NM			--サイズ
+						,	T1.JAN_CD			--ＪＡＮコード
+						,	T1.SYOHIN_CD		--商品コード
+						,	T1.SINSEI_SU		--申請数
+						,	T1.JYURI_SU			--受理数
+						,	T1.BAIKA_TNK		--売価
+						,	T1.HASSEI_TM		--発生時間
+						,	T1.HASSEIBASYO		--発生場所
+						,	T1.HAKKENTAN_CD		--発見担当者コード
+						,	T1.HAKKENJYOKYO_KB	--発見状況区分
+						,	T1.HAKKENJYOKYO_NM	--発見状況
+					FROM
+							MDAT0041 T1		--盗難品TBL(B)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-14">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-14（盗難品履歴TBL(H)登録（赤）） */
+					INSERT INTO	MDAT0050		--盗難品履歴TBL(H)
+					(
+							KANRI_NO					--管理№
+						,	SYORI_YMD					--処理日付
+						,	SYORI_TM					--処理時間
+						,	TENPO_CD					--店舗コード
+						,	RIREKI_NO					--履歴NO
+						,	AKAKURO_KBN					--赤黒区分
+						,	RIREKI_SYORI_YMD			--履歴処理日付
+						,	RIREKI_SYORI_TM				--履歴処理時間
+						,	JIKOHASSEI_YMD				--事故発生日
+						,	HOKOKU_YMD					--報告日
+						,	HOKOKUTAN_CD				--報告担当者コード
+						,	TENTYOTAN_CD				--店長担当者コード
+						,	KEISATSUTODOKE_YMD			--警察届出日
+						,	TODOKEDESAKIKEISATSU_NM		--届出先警察署名
+						,	JYURI_NO					--受理番号
+						,	GOKEISINSEI_SU				--合計申請数
+						,	GOKEIJYURI_SU				--合計受理数
+						,	GOKEIBAIKA_KIN				--合計売価金額
+						,	KEIHISINSEI_FLG				--経費申請フラグ
+						,	KEIHISINSEI_YMD				--経費申請日
+						,	RIREKI_DISP_KB				--履歴画面表示区分
+						,	ADD_YMD						--登録日
+						,	ADD_TM						--登録時間
+						,	ADDTAN_CD					--登録担当者コード
+						,	UPD_YMD						--更新日
+						,	UPD_TM						--更新時間
+						,	UPD_TANCD					--更新担当者コード
+						,	SAKUJYO_YMD					--削除日
+						,	SAKUJYO_FLG					--削除フラグ
+						,	SOSINIRAI_FLG				--送信依頼フラグ
+						,	SOSINZUMI_FLG				--送信済フラグ
+						,	SOSIN_YMD					--送信日
+						,	SOSIN_TM					--送信時間
+						,	HHTSERIAL_NO				--HHTシリアル番号
+						,	HHTSEQUENCE_NO				--HHTシーケンスNO.
+					)
+					SELECT
+							T1.KANRI_NO					--管理№
+						,	T1.SYORI_YMD				--処理日付
+						,	T1.SYORI_TM					--処理時間
+						,	T1.TENPO_CD					--店舗コード
+						,	(
+								SELECT	NVL(MAX(ST1.RIREKI_NO), 0)
+								FROM	MDAT0050 ST1	--盗難品履歴TBL(H)
+								WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+								AND		ST1.KANRI_NO	=	T1.KANRI_NO
+								AND		ST1.SYORI_YMD	=	T1.SYORI_YMD
+							) + 1				--履歴No
+						,	1					--赤黒区分
+						,	</parts><bind id="RIREKI_SYORI_YMD" /><parts>	--履歴処理日付
+						,	</parts><bind id="RIREKI_SYORI_TM" /><parts>	--履歴処理時間
+						,	T1.JIKOHASSEI_YMD			--事故発生日
+						,	T1.HOKOKU_YMD				--報告日
+						,	T1.HOKOKUTAN_CD				--報告担当者コード
+						,	T1.TENTYOTAN_CD				--店長担当者コード
+						,	T1.KEISATSUTODOKE_YMD		--警察届出日
+						,	T1.TODOKEDESAKIKEISATSU_NM	--届出先警察署名
+						,	T1.JYURI_NO					--受理番号
+						,	T1.GOKEISINSEI_SU * (-1)	--合計申請数
+						,	T1.GOKEIJYURI_SU * (-1)		--合計受理数
+						,	T1.GOKEIBAIKA_KIN * (-1)	--合計売価金額
+						,	T1.KEIHISINSEI_FLG			--経費申請フラグ
+						,	T1.KEIHISINSEI_YMD			--経費申請日
+						,	0							--履歴画面表示区分
+						,	T1.ADD_YMD					--登録日
+						,	T1.ADD_TM					--登録時間
+						,	T1.ADDTAN_CD				--登録担当者コード
+						,	</parts><bind id="UPD_YMD" /><parts>		--更新日
+						,	</parts><bind id="UPD_TM" /><parts>			--更新時間
+						,	</parts><bind id="UPD_TANCD" /><parts>		--更新担当者コード
+						,	</parts><bind id="SAKUJYO_YMD" /><parts>	--削除日
+						,	0							--削除フラグ
+						,	1							--送信依頼フラグ
+						,	0							--送信済フラグ
+						,	0							--送信日
+						,	0							--送信時間
+						,	T1.HHTSERIAL_NO				--HHTシリアル番号
+						,	T1.HHTSEQUENCE_NO			--HHTシーケンスNO.
+					FROM
+							MDAT0040 T1		--盗難品TBL(H)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-15">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-15（盗難品TBL(H)更新） */
+					UPDATE
+							MDAT0040 T1		--盗難品TBL(H)
+					SET
+							T1.JIKOHASSEI_YMD			=	</parts><bind id="JIKOHASSEI_YMD" /><parts>				--事故発生日
+						,	T1.HOKOKU_YMD				=	</parts><bind id="HOKOKU_YMD" /><parts>					--報告日
+						,	T1.HOKOKUTAN_CD				=	</parts><bind id="HOKOKUTAN_CD" /><parts>				--報告担当者コード
+						,	T1.TENTYOTAN_CD				=	</parts><bind id="TENTYOTAN_CD" /><parts>				--店長担当者コード
+						,	T1.KEISATSUTODOKE_YMD		=	</parts><bind id="KEISATSUTODOKE_YMD" /><parts>			--警察届出日
+						,	T1.TODOKEDESAKIKEISATSU_NM	=	</parts><bind id="TODOKEDESAKIKEISATSU_NM" /><parts>	--届出先警察署名
+						,	T1.JYURI_NO					=	</parts><bind id="JYURI_NO" /><parts>					--受理番号
+						,	T1.GOKEISINSEI_SU			=	</parts><bind id="GOKEISINSEI_SU" /><parts>				--合計申請数
+						,	T1.GOKEIJYURI_SU			=	</parts><bind id="GOKEIJYURI_SU" /><parts>				--合計受理数
+						,	T1.GOKEIBAIKA_KIN			=	</parts><bind id="GOKEIBAIKA_KIN" /><parts>				--合計売価金額
+						,	T1.KEIHISINSEI_FLG			=	</parts><bind id="KEIHISINSEI_FLG" /><parts>			--経費申請フラグ
+						,	T1.KEIHISINSEI_YMD			=	</parts><bind id="KEIHISINSEI_YMD" /><parts>			--経費申請日
+						,	T1.UPD_YMD					=	</parts><bind id="UPD_YMD" /><parts>					--更新日
+						,	T1.UPD_TM					=	</parts><bind id="UPD_TM" /><parts>						--更新時間
+						,	T1.UPD_TANCD				=	</parts><bind id="UPD_TANCD" /><parts>					--更新担当者コード
+						,	T1.SAKUJYO_YMD				=	</parts><bind id="SAKUJYO_YMD" /><parts>				--削除日
+						,	T1.SAKUJYO_FLG				=	</parts><bind id="SAKUJYO_FLG" /><parts>				--削除フラグ
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-16">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-16（盗難品履歴TBL(H)登録（黒）） */
+					INSERT INTO	MDAT0050		--盗難品履歴TBL(H)
+					(
+							KANRI_NO					--管理№
+						,	SYORI_YMD					--処理日付
+						,	SYORI_TM					--処理時間
+						,	TENPO_CD					--店舗コード
+						,	RIREKI_NO					--履歴NO
+						,	AKAKURO_KBN					--赤黒区分
+						,	RIREKI_SYORI_YMD			--履歴処理日付
+						,	RIREKI_SYORI_TM				--履歴処理時間
+						,	JIKOHASSEI_YMD				--事故発生日
+						,	HOKOKU_YMD					--報告日
+						,	HOKOKUTAN_CD				--報告担当者コード
+						,	TENTYOTAN_CD				--店長担当者コード
+						,	KEISATSUTODOKE_YMD			--警察届出日
+						,	TODOKEDESAKIKEISATSU_NM		--届出先警察署名
+						,	JYURI_NO					--受理番号
+						,	GOKEISINSEI_SU				--合計申請数
+						,	GOKEIJYURI_SU				--合計受理数
+						,	GOKEIBAIKA_KIN				--合計売価金額
+						,	KEIHISINSEI_FLG				--経費申請フラグ
+						,	KEIHISINSEI_YMD				--経費申請日
+						,	RIREKI_DISP_KB				--履歴画面表示区分
+						,	ADD_YMD						--登録日
+						,	ADD_TM						--登録時間
+						,	ADDTAN_CD					--登録担当者コード
+						,	UPD_YMD						--更新日
+						,	UPD_TM						--更新時間
+						,	UPD_TANCD					--更新担当者コード
+						,	SAKUJYO_YMD					--削除日
+						,	SAKUJYO_FLG					--削除フラグ
+						,	SOSINIRAI_FLG				--送信依頼フラグ
+						,	SOSINZUMI_FLG				--送信済フラグ
+						,	SOSIN_YMD					--送信日
+						,	SOSIN_TM					--送信時間
+						,	HHTSERIAL_NO				--HHTシリアル番号
+						,	HHTSEQUENCE_NO				--HHTシーケンスNO.
+					)
+					SELECT
+							T1.KANRI_NO					--管理№
+						,	T1.SYORI_YMD				--処理日付
+						,	T1.SYORI_TM					--処理時間
+						,	T1.TENPO_CD					--店舗コード
+						,	(
+								SELECT	NVL(MAX(ST1.RIREKI_NO), 1)
+								FROM	MDAT0050 ST1	--盗難品履歴TBL(H)
+								WHERE	ST1.TENPO_CD	=	T1.TENPO_CD
+								AND		ST1.KANRI_NO	=	T1.KANRI_NO
+								AND		ST1.SYORI_YMD	=	T1.SYORI_YMD
+							)					--履歴No
+						,	0					--赤黒区分
+						,	</parts><bind id="RIREKI_SYORI_YMD" /><parts>	--履歴処理日付
+						,	</parts><bind id="RIREKI_SYORI_TM" /><parts>	--履歴処理時間
+						,	T1.JIKOHASSEI_YMD			--事故発生日
+						,	T1.HOKOKU_YMD				--報告日
+						,	T1.HOKOKUTAN_CD				--報告担当者コード
+						,	T1.TENTYOTAN_CD				--店長担当者コード
+						,	T1.KEISATSUTODOKE_YMD		--警察届出日
+						,	T1.TODOKEDESAKIKEISATSU_NM	--届出先警察署名
+						,	T1.JYURI_NO					--受理番号
+						,	T1.GOKEISINSEI_SU			--合計申請数
+						,	T1.GOKEIJYURI_SU			--合計受理数
+						,	T1.GOKEIBAIKA_KIN			--合計売価金額
+						,	T1.KEIHISINSEI_FLG			--経費申請フラグ
+						,	T1.KEIHISINSEI_YMD			--経費申請日
+						,	1							--履歴画面表示区分
+						,	T1.ADD_YMD					--登録日
+						,	T1.ADD_TM					--登録時間
+						,	T1.ADDTAN_CD				--登録担当者コード
+						,	</parts><bind id="UPD_YMD" /><parts>		--更新日
+						,	</parts><bind id="UPD_TM" /><parts>			--更新時間
+						,	</parts><bind id="UPD_TANCD" /><parts>		--更新担当者コード
+						,	</parts><bind id="SAKUJYO_YMD" /><parts>	--削除日
+						,	0							--削除フラグ
+						,	1							--送信依頼フラグ
+						,	0							--送信済フラグ
+						,	0							--送信日
+						,	0							--送信時間
+						,	T1.HHTSERIAL_NO				--HHTシリアル番号
+						,	T1.HHTSEQUENCE_NO			--HHTシーケンスNO.
+					FROM
+							MDAT0040 T1		--盗難品TBL(H)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-17">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-17（経費振替伝票番号存在チェック） */
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDAT0020 T1		--経費振替申請TBL(H)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.DENPYO_BANGO	=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-18">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-18（経費振替申請TBL(H)登録） */
+					INSERT INTO	MDAT0020		--経費振替申請TBL(H)
+					(
+							DENPYO_BANGO		--伝票番号
+						,	SYORI_YMD			--処理日付
+						,	SYORI_TM			--処理時間
+						,	TENPO_CD			--店舗コード
+						,	KAMOKU_CD			--科目コード
+						,	SINSEIRIYU_KB		--申請理由区分
+						,	SINSEIRIYU			--申請理由
+						,	KESSAI_FLG			--決裁状態
+						,	APPLY_YMD			--申請日
+						,	SINSEITAN_CD		--申請担当者コード
+						,	TONANHINKANRI_NO	--盗難品管理番号
+						,	TONANHINSYORI_YMD	--盗難品処理日付
+						,	TONANHINTENPO_CD	--盗難品店舗コード
+						,	JYURI_NO			--受理番号
+						,	GYOMURINGI_NO		--業務稟議NO
+						,	KANRI_NO			--管理NO
+						,	ADD_YMD				--登録日
+						,	ADD_TM				--登録時間
+						,	ADDTAN_CD			--登録担当者コード
+						,	UPD_YMD				--更新日
+						,	UPD_TM				--更新時間
+						,	UPD_TANCD			--更新担当者コード
+						,	SAKUJYO_YMD			--削除日
+						,	SAKUJYO_FLG			--削除フラグ
+						,	HHTSERIAL_NO		--HHTシリアル番号
+						,	HHTSEQUENCE_NO		--HHTシーケンスNO.
+					)
+					SELECT
+							</parts><bind id="DENPYO_BANGO" /><parts>	--伝票番号
+						,	</parts><bind id="SYORI_YMD" /><parts>		--処理日付
+						,	</parts><bind id="SYORI_TM" /><parts>		--処理時間
+						,	T1.TENPO_CD			--店舗コード
+						,	TO_NUMBER((
+								SELECT	SM1.MEISYO_NM
+								FROM	MDMT0100 SM1	--名称MST
+								WHERE	SM1.SIKIBETSU_CD	=	'KHKK'	--（盗難品科目コード）
+								AND		SM1.MEISYO_CD		=	'1'
+							))					--科目コード
+						,	TO_NUMBER((
+								SELECT	SM1.MEISYO_NM
+								FROM	MDMT0100 SM1	--名称MST
+								WHERE	SM1.SIKIBETSU_CD	=	'KHSR'	--（盗難品申請理由）
+								AND		SM1.MEISYO_CD		=	'1'
+							))					--申請理由区分
+						,	(
+								SELECT	SM1.MEISYO_NM
+								FROM	MDMT0100 SM1	--名称MST
+								WHERE	SM1.SIKIBETSU_CD	=	'KHSR'	--（盗難品申請理由）
+								AND		SM1.MEISYO_CD		=	'2'
+							)					--申請理由
+						,	0					--決裁状態
+						,	</parts><bind id="APPLY_YMD" /><parts>		--申請日
+						,	T1.UPD_TANCD		--申請担当者コード
+						,	T1.KANRI_NO			--盗難品管理番号
+						,	T1.SYORI_YMD		--盗難品処理日付
+						,	T1.TENPO_CD			--盗難品店舗コード
+						,	T1.JYURI_NO			--受理番号
+						,	0					--業務稟議NO
+						,	0					--管理NO
+						,	</parts><bind id="ADD_YMD" /><parts>		--登録日
+						,	</parts><bind id="ADD_TM" /><parts>			--登録時間
+						,	</parts><bind id="ADDTAN_CD" /><parts>		--登録担当者コード
+						,	</parts><bind id="UPD_YMD" /><parts>		--更新日
+						,	</parts><bind id="UPD_TM" /><parts>			--更新時間
+						,	</parts><bind id="UPD_TANCD" /><parts>		--更新担当者コード
+						,	</parts><bind id="SAKUJYO_YMD" /><parts>	--削除日
+						,	0					--削除フラグ
+						,	T1.HHTSERIAL_NO		--HHTシリアル番号
+						,	T1.HHTSEQUENCE_NO	--HHTシーケンスNO.
+					FROM
+							MDAT0040 T1			--盗難品TBL(H)
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD2" />
+			</statement>
+		</sql>
+		<sql id="TF070P01-19">
+			<statement type="final" name="final">
+				<parts>
+					/* TF070P01-19（経費振替申請TBL(B)登録） */
+					INSERT INTO	MDAT0021		--経費振替申請TBL(B)
+					(
+							DENPYO_BANGO		--伝票番号
+						,	SYORI_YMD			--処理日付
+						,	SYORI_TM			--処理時間
+						,	TENPO_CD			--店舗コード
+						,	DENPYOGYO_NO		--伝票行№
+						,	BUMON_CD			--部門コード
+						,	HINSYU_CD			--品種コード
+						,	BURANDO_CD			--ブランドコード
+						,	MAKER_HBN			--メーカー品番
+						,	SYONMK				--商品名(カナ)
+						,	JISYA_HBN			--自社品番
+						,	IRO_CD				--色コード
+						,	SIZE_CD				--サイズコード
+						,	SIZE_NM				--サイズ
+						,	JAN_CD				--ＪＡＮコード
+						,	SYOHIN_CD			--商品コード
+						,	SURYO				--数量
+						,	GEN_TNK				--原単価
+						,	BAIKA_TNK			--売価
+					)
+					SELECT
+							</parts><bind id="DENPYO_BANGO" /><parts>	--伝票番号
+						,	</parts><bind id="SYORI_YMD" /><parts>		--処理日付
+						,	</parts><bind id="SYORI_TM" /><parts>		--処理時間
+						,	T1.TENPO_CD			--店舗コード
+						,	T1.DENPYOGYO_NO		--伝票行№
+						,	T1.BUMON_CD			--部門コード
+						,	T1.HINSYU_CD		--品種コード
+						,	T1.BURANDO_CD		--ブランドコード
+						,	T1.MAKER_HBN		--メーカー品番
+						,	T1.SYONMK			--商品名(カナ)
+						,	T1.JISYA_HBN		--自社品番
+						,	T1.IRO_CD			--色コード
+						,	T1.SIZE_CD			--サイズコード
+						,	T1.SIZE_NM			--サイズ
+						,	T1.JAN_CD			--ＪＡＮコード
+						,	T1.SYOHIN_CD		--商品コード
+						,	T1.JYURI_SU			--数量
+						,	M1.GENKA			--原単価
+						,	T1.BAIKA_TNK		--売価
+					FROM
+							MDAT0041 T1			--盗難品TBL(B)
+					LEFT JOIN
+							MDMT0130 M1			--発注MST
+					ON		M1.JAN_CD		=	T1.JAN_CD
+					WHERE
+							T1.TENPO_CD		=	</parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KANRI_NO		=	</parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD	=	</parts><bind id="SYORI_YMD2" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

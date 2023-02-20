@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 返品確定 件数チェック **/
+		<sql id="TD010P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							COUNT(*) CNT
+					FROM
+							
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+						 T1
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		/** 返品確定 一覧検索(予定) **/
+		<sql id="TD010P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.SIJI_BANGO
+							,T1.BUMON_CD
+							,M2.BUMONKANA_NM
+							,M4.BURANDO_NMK
+							,T1.SIIRESAKI_CD
+							,M1.SIIRESAKI_RYAKU_NM
+							,T1.HENPIN_YMD
+							,''	DENPYO_BANGO
+							,T1.UPD_YMD ADD_YMD
+							,T1.KANRI_NO
+							,T1.HENPINYOTEIGOKEI_SU GOKEI_SU
+							,T1.HENPINYOTEIGOUKEI_KIN GOUKEI_KIN
+							,M3.HANBAIIN_NM
+							,M5.MEISYO_NM HENPIN_RIYU_NM
+							,M2.BUMON_NM
+							,T1.SYORI_YMD
+							,T1.SYORI_TM
+							,T1.TENPO_CD
+							,T1.BURANDO_CD
+							,T1.SUBSIIRESAKI_CD
+							,T1.HENPIN_RIYU
+							,T1.TANTOSYA_CD
+							,T1.UPD_YMD
+							,T1.UPD_TM
+							,T1.UPD_TANCD
+							,T1.HHTSERIAL_NO
+							,T1.HHTSEQUENCE_NO
+							,0 SOSINZUMI_FLG
+					FROM
+							MDRT0010 T1
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.UPD_TANCD
+					LEFT JOIN
+							STMT0500 M4
+					ON		M4.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0100 M5
+					ON		M5.SIKIBETSU_CD = 'RTRN'
+					AND		M5.MEISYO_CD = T1.HENPIN_RIYU
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.BUMON_CD
+							,T1.SIIRESAKI_CD
+							,T1.HENPIN_YMD
+							,T1.ADD_YMD
+							,T1.KANRI_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 返品確定 一覧検索(確定) **/
+		<sql id="TD010P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.SIJI_BANGO
+							,T1.BUMON_CD
+							,M2.BUMONKANA_NM
+							,M4.BURANDO_NMK
+							,T1.SIIRESAKI_CD
+							,M1.SIIRESAKI_RYAKU_NM
+							,T1.HENPIN_YMD
+							,T1.DENPYO_BANGO
+							,T1.HHTADD_YMD ADD_YMD
+							,T1.KANRI_NO
+							,T1.HENPINJISSEKIGOKEI_SU GOKEI_SU
+							,T1.HENPINJISSEKIGOUKEI_KIN GOUKEI_KIN
+							,M3.HANBAIIN_NM
+							,M5.MEISYO_NM HENPIN_RIYU_NM
+							,M2.BUMON_NM
+							,T1.SYORI_YMD
+							,T1.SYORI_TM
+							,T1.TENPO_CD
+							,T1.BURANDO_CD
+							,T1.SUBSIIRESAKI_CD
+							,T1.HENPIN_RIYU
+							,T1.TANTOSYA_CD
+							,T1.UPD_YMD
+							,T1.UPD_TM
+							,T1.UPD_TANCD
+							,T1.HHTSERIAL_NO
+							,T1.HHTSEQUENCE_NO
+							,T1.SOSINZUMI_FLG
+					FROM
+							MDRT0020 T1
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.HHTADDTAN_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		M4.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0100 M5
+					ON		M5.SIKIBETSU_CD = 'RTRN'
+					AND		M5.MEISYO_CD = T1.HENPIN_RIYU
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.BUMON_CD
+							,T1.SIIRESAKI_CD
+							,T1.HENPIN_YMD
+							,T1.DENPYO_BANGO
+							,T1.ADD_YMD
+							,T1.KANRI_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 返品確定 明細検索(予定) **/
+		<sql id="TD010P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.DENPYOGYO_NO
+							,M1.HINSYU_RYAKU_NM
+							,T1.JISYA_HBN
+							,T1.MAKER_HBN
+							,T1.SYONMK
+							,M2.IRO_NM
+							,T1.SIZE_NM
+							,T1.JAN_CD
+							,T1.HENPINYOTEI_SU SURYO
+							,T1.GEN_TNK
+							,T1.HENPINYOTEI_SU * T1.GEN_TNK GENKA_KIN
+					FROM
+							MDRT0011 T1
+					LEFT JOIN
+							MDMT0070 M1
+					ON		T1.BUMON_CD = M1.BUMON_CD
+					AND		T1.HINSYU_CD = M1.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 M2
+					ON		T1.IRO_CD = M2.IRO_CD
+					WHERE
+							T1.KANRI_NO = </parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD = </parts><bind id="SYORI_YMD" /><parts>
+					AND		T1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 返品確定 明細検索(確定) **/
+		<sql id="TD010P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.DENPYOGYO_NO
+							,M1.HINSYU_RYAKU_NM
+							,T1.JISYA_HBN
+							,T1.MAKER_HBN
+							,T1.SYONMK
+							,M2.IRO_NM
+							,T1.SIZE_NM
+							,T1.JAN_CD
+							,T1.HENPINJISSEKI_SU SURYO
+							,T1.GEN_TNK
+							,T1.HENPINJISSEKI_SU * T1.GEN_TNK GENKA_KIN
+					FROM
+							MDRT0021 T1
+					LEFT JOIN
+							MDMT0070 M1
+					ON		T1.BUMON_CD = M1.BUMON_CD
+					AND		T1.HINSYU_CD = M1.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 M2
+					ON		T1.IRO_CD = M2.IRO_CD
+					WHERE
+							T1.DENPYO_BANGO = </parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYORI_YMD = </parts><bind id="SYORI_YMD" /><parts>
+					AND		T1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 返品予定Bデータ削除 **/
+		<sql id="TD010P01-06">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDRT0011
+					WHERE
+							TENPO_CD  = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		KANRI_NO  = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** 返品予定Hデータ更新(明細画面用) **/
+		<sql id="TD010P01-07">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDRT0010 SET
+							 HENPINYOTEIGOKEI_SU	=	</parts><bind id="BIND_HENPINYOTEIGOKEI_SU" /><parts>
+							,HENPINYOTEIGOUKEI_KIN	=	</parts><bind id="BIND_HENPINYOTEIGOUKEI_KIN" /><parts>
+							,TANTOSYA_CD			=	</parts><bind id="BIND_TANTOSYA_CD" /><parts>
+							,UPD_YMD				=	</parts><bind id="BIND_UPD_YMD" /><parts>
+							,UPD_TM					=	</parts><bind id="BIND_UPD_TM" /><parts>
+							,UPD_TANCD				=	</parts><bind id="BIND_UPD_TANCD" /><parts>
+							,SAKUJYO_YMD			=	</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+					WHERE
+							TENPO_CD  = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		KANRI_NO  = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** 返品確定Hデータ登録 **/
+		<sql id="TD010P01-08">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDRT0020 (
+							 DENPYO_BANGO				/* 伝票番号 */
+							,SYORI_YMD					/* 処理日付 */
+							,SYORI_TM					/* 処理時間 */
+							,TENPO_CD					/* 店舗コード */
+							,KANRI_NO					/* 管理№ */
+							,KAKUTEI_SB					/* 確定種別 */
+							,HENPIN_YMD					/* 返品日 */
+							,BUMON_CD					/* 部門コード */
+							,BURANDO_CD					/* ブランドコード */
+							,SIIRESAKI_CD				/* 仕入先コード */
+							,SUBSIIRESAKI_CD			/* サブ仕入先コード */
+							,HENPINYOTEIGOKEI_SU		/* 返品予定合計数量 */
+							,HENPINYOTEIGOUKEI_KIN		/* 返品予定合計金額 */
+							,HENPINJISSEKIGOKEI_SU		/* 返品実績合計数量 */
+							,HENPINJISSEKIGOUKEI_KIN	/* 返品実績合計原価金額 */
+							,SIJI_BANGO					/* 指示番号 */
+							,HENPIN_RIYU				/* 返品理由 */
+							,TANTOSYA_CD				/* 担当者コード */
+							,BIKO						/* 備考 */
+							,MOTODENPYO_BANGO			/* 元伝票番号 */
+							,HHTADD_YMD					/* HHT登録日 */
+							,HHTADDTAN_CD				/* HHT登録担当者コード */
+							,SHINKURO_FLG				/* 新黒フラグ */
+							,AKAKURO_KBN				/* 赤黒区分 */
+							,ADD_YMD					/* 登録日 */
+							,ADD_TM						/* 登録時間 */
+							,ADDTAN_CD					/* 登録担当者コード */
+							,UPD_YMD					/* 更新日 */
+							,UPD_TM						/* 更新時間 */
+							,UPD_TANCD					/* 更新担当者コード */
+							,SAKUJYO_YMD				/* 削除日 */
+							,SAKUJYO_FLG				/* 削除フラグ */
+							,SOSINIRAI_FLG				/* 送信依頼フラグ */
+							,SOSINZUMI_FLG				/* 送信済フラグ */
+							,SOSIN_YMD					/* 送信日 */
+							,SOSIN_TM					/* 送信時間 */
+							,HHTSERIAL_NO				/* HHTシリアル番号 */
+							,HHTSEQUENCE_NO				/* HHTシーケンスNo. */
+					) VALUES (
+							 </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+							,</parts><bind id="BIND_SYORI_YMD" /><parts>
+							,</parts><bind id="BIND_SYORI_TM" /><parts>
+							,</parts><bind id="BIND_TENPO_CD" /><parts>
+							,</parts><bind id="BIND_KANRI_NO" /><parts>
+							,</parts><bind id="BIND_KAKUTEI_SB" /><parts>
+							,</parts><bind id="BIND_HENPIN_YMD" /><parts>
+							,</parts><bind id="BIND_BUMON_CD" /><parts>
+							,</parts><bind id="BIND_BURANDO_CD" /><parts>
+							,</parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+							,</parts><bind id="BIND_SUBSIIRESAKI_CD" /><parts>
+							,</parts><bind id="BIND_YOTEIGOKEI_SU" /><parts>
+							,</parts><bind id="BIND_YOTEIGOUKEI_KIN" /><parts>
+							,</parts><bind id="BIND_JISSEKIGOKEI_SU" /><parts>
+							,</parts><bind id="BIND_JISSEKIGOUKEI_KIN" /><parts>
+							,</parts><bind id="BIND_SIJI_BANGO" /><parts>
+							,</parts><bind id="BIND_HENPIN_RIYU" /><parts>
+							,</parts><bind id="BIND_TANTOSYA_CD" /><parts>
+							,</parts><bind id="BIND_BIKO" /><parts>
+							,</parts><bind id="BIND_MOTODENPYO_BANGO" /><parts>
+							,</parts><bind id="BIND_HHTADD_YMD" /><parts>
+							,</parts><bind id="BIND_HHTADDTAN_CD" /><parts>
+							,</parts><bind id="BIND_SHINKURO_FLG" /><parts>
+							,</parts><bind id="BIND_AKAKURO_KBN" /><parts>
+							,</parts><bind id="BIND_ADD_YMD" /><parts>
+							,</parts><bind id="BIND_ADD_TM" /><parts>
+							,</parts><bind id="BIND_ADDTAN_CD" /><parts>
+							,</parts><bind id="BIND_UPD_YMD" /><parts>
+							,</parts><bind id="BIND_UPD_TM" /><parts>
+							,</parts><bind id="BIND_UPD_TANCD" /><parts>
+							,</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+							,</parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+							,</parts><bind id="BIND_SOSINIRAI_FLG" /><parts>
+							,</parts><bind id="BIND_SOSINZUMI_FLG" /><parts>
+							,</parts><bind id="BIND_SOSIN_YMD" /><parts>
+							,</parts><bind id="BIND_SOSIN_TM" /><parts>
+							,</parts><bind id="BIND_HHTSERIAL_NO" /><parts>
+							,</parts><bind id="BIND_HHTSEQUENCE_NO" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** [返品予定TBL(B)]を検索し、[返品確定TBL(B)]を登録 **/
+		<sql id="TD010P01-09">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDRT0021(
+							 DENPYO_BANGO			/* 伝票番号 */
+							,SYORI_YMD				/* 処理日付 */
+							,SYORI_TM				/* 処理時間 */
+							,TENPO_CD				/* 店舗コード */
+							,KANRI_NO				/* 管理№ */
+							,DENPYOGYO_NO			/* 伝票行№ */
+							,BUMON_CD				/* 部門コード */
+							,HINSYU_CD				/* 品種コード */
+							,BURANDO_CD				/* ブランドコード */
+							,JISYA_HBN				/* 自社品番 */
+							,MAKER_HBN				/* メーカー品番 */
+							,SYONMK					/* 商品名(カナ) */
+							,IRO_CD					/* 色コード */
+							,SIZE_CD				/* サイズコード */
+							,SIZE_NM				/* サイズ */
+							,JAN_CD					/* ＪＡＮコード */
+							,SYOHIN_CD				/* 商品コード */
+							,HENPINYOTEI_SU			/* 返品予定数 */
+							,HENPINJISSEKI_SU		/* 返品実績数 */
+							,GEN_TNK				/* 原単価 */
+							,SIJI_BANGO				/* 指示番号 */
+					) SELECT
+							 </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+							,SYORI_YMD				/* 処理日付 */
+							,SYORI_TM				/* 処理時間 */
+							,TENPO_CD				/* 店舗コード */
+							,KANRI_NO				/* 管理№ */
+							,DENPYOGYO_NO			/* 伝票行№ */
+							,BUMON_CD				/* 部門コード */
+							,HINSYU_CD				/* 品種コード */
+							,BURANDO_CD				/* ブランドコード */
+							,JISYA_HBN				/* 自社品番 */
+							,MAKER_HBN				/* メーカー品番 */
+							,SYONMK					/* 商品名(カナ) */
+							,IRO_CD					/* 色コード */
+							,SIZE_CD				/* サイズコード */
+							,SIZE_NM				/* サイズ */
+							,JAN_CD					/* ＪＡＮコード */
+							,SYOHIN_CD				/* 商品コード */
+							,HENPINYOTEI_SU			/* 返品予定数 */
+							,HENPINYOTEI_SU			/* 返品実績数 */
+							,GEN_TNK				/* 原単価 */
+							,SIJI_BANGO				/* 指示番号 */
+					FROM
+							MDRT0011
+					WHERE 	KANRI_NO	= </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND 	SYORI_YMD	= </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND 	TENPO_CD	= </parts><bind id="BIND_TENPO_CD" />
+			</statement>
+		</sql>
+		/** [返品確定TBL(H)]を検索し、[返品確定履歴TBL(H)]を登録 **/
+		<sql id="TD010P01-10">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDRT0030(
+							 DENPYO_BANGO					/* 伝票番号 */
+							,SYORI_YMD						/* 処理日付 */
+							,SYORI_TM						/* 処理時間 */
+							,TENPO_CD						/* 店舗コード */
+							,RIREKI_NO						/* 履歴No */
+							,AKAKURO_KBN					/* 赤黒区分 */
+							,RIREKI_SYORI_YMD				/* 履歴処理日付 */
+							,RIREKI_SYORI_TM				/* 履歴処理時間 */
+							,KANRI_NO						/* 管理№ */
+							,KAKUTEI_SB						/* 確定種別 */
+							,HENPIN_YMD						/* 返品日 */
+							,BUMON_CD						/* 部門コード */
+							,BURANDO_CD						/* ブランドコード */
+							,SIIRESAKI_CD					/* 仕入先コード */
+							,SUBSIIRESAKI_CD				/* サブ仕入先コード */
+							,HENPINYOTEIGOKEI_SU			/* 返品予定合計数量 */
+							,HENPINYOTEIGOUKEI_KIN			/* 返品予定合計金額 */
+							,HENPINJISSEKIGOKEI_SU			/* 返品実績合計数量 */
+							,HENPINJISSEKIGOUKEI_KIN		/* 返品実績合計原価金額 */
+							,SIJI_BANGO						/* 指示番号 */
+							,HENPIN_RIYU					/* 返品理由 */
+							,TANTOSYA_CD					/* 担当者コード */
+							,BIKO							/* 備考 */
+							,SYORI_SB						/* 処理種別 */
+							,MOTODENPYO_BANGO				/* 元伝票番号 */
+							,RIREKI_DISP_KB					/* 履歴画面表示区分 */
+							,HHTADD_YMD						/* HHT登録日 */
+							,HHTADDTAN_CD					/* HHT登録担当者コード */
+							,ADD_YMD						/* 登録日 */
+							,ADD_TM							/* 登録時間 */
+							,ADDTAN_CD						/* 登録担当者コード */
+							,UPD_YMD						/* 更新日 */
+							,UPD_TM							/* 更新時間 */
+							,UPD_TANCD						/* 更新担当者コード */
+							,SAKUJYO_YMD					/* 削除日 */
+							,SAKUJYO_FLG					/* 削除フラグ */
+							,HHTSERIAL_NO					/* HHTシリアル番号 */
+							,HHTSEQUENCE_NO					/* HHTシーケンスNo. */
+					) SELECT 
+							 </parts><bind id="BIND_DENPYO_BANGO1" /><parts>	/* 伝票番号 */
+							,SYORI_YMD											/* 処理日付 */
+							,SYORI_TM											/* 処理時間 */
+							,TENPO_CD											/* 店舗コード */
+							,CASE </parts><bind id="BIND_SYORI_SB1" /><parts>	/* 履歴No */
+								WHEN 1 THEN 1
+								WHEN 2 THEN (
+												SELECT	
+													MAX(RIREKI_NO) + 1
+												FROM	MDRT0030
+												WHERE	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO2" /><parts>
+												AND		SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD1" /><parts>
+												AND		TENPO_CD		= </parts><bind id="BIND_TENPO_CD1" /><parts>
+											)
+							 END
+							,CASE </parts><bind id="BIND_SYORI_SB2" /><parts>	/* 赤黒区分 */
+								WHEN 1 THEN 0
+								WHEN 2 THEN 1
+							 END
+							,</parts><bind id="BIND_RIREKI_SYORI_YMD" /><parts>	/* 履歴処理日付 */
+							,</parts><bind id="BIND_RIREKI_SYORI_TM" /><parts>	/* 履歴処理時間 */
+							,KANRI_NO											/* 管理№ */
+							,KAKUTEI_SB											/* 確定種別 */
+							,HENPIN_YMD											/* 返品日 */
+							,BUMON_CD											/* 部門コード */
+							,BURANDO_CD											/* ブランドコード */
+							,SIIRESAKI_CD										/* 仕入先コード */
+							,SUBSIIRESAKI_CD									/* サブ仕入先コード */
+							,HENPINYOTEIGOKEI_SU								/* 返品予定合計数量 */
+							,HENPINYOTEIGOUKEI_KIN								/* 返品予定合計金額 */
+							,CASE </parts><bind id="BIND_SYORI_SB3" /><parts>	/* 返品実績合計数量 */
+								WHEN 1 THEN HENPINJISSEKIGOKEI_SU
+								WHEN 2 THEN HENPINJISSEKIGOKEI_SU * -1
+								ELSE HENPINJISSEKIGOKEI_SU
+							 END
+							,CASE </parts><bind id="BIND_SYORI_SB4" /><parts>	/* 返品実績合計原価金額 */
+								WHEN 1 THEN HENPINJISSEKIGOUKEI_KIN
+								WHEN 2 THEN HENPINJISSEKIGOUKEI_KIN * -1
+								ELSE HENPINJISSEKIGOUKEI_KIN
+							 END
+							,SIJI_BANGO											/* 指示番号 */
+							,HENPIN_RIYU										/* 返品理由 */
+							,TANTOSYA_CD										/* 担当者コード */
+							,BIKO												/* 備考 */
+							,</parts><bind id="BIND_SYORI_SB5" /><parts>		/* 処理種別 */
+							,MOTODENPYO_BANGO									/* 元伝票番号 */
+							,</parts><bind id="BIND_RIREKI_DISP_KB" /><parts>	/* 履歴画面表示区分 */
+							,HHTADD_YMD											/* HHT登録日 */
+							,HHTADDTAN_CD										/* HHT登録担当者コード */
+							,ADD_YMD											/* 登録日 */
+							,ADD_TM												/* 登録時間 */
+							,ADDTAN_CD											/* 登録担当者コード */
+							,</parts><bind id="BIND_UPD_YMD" /><parts>			/* 更新日 */
+							,</parts><bind id="BIND_UPD_TM" /><parts>			/* 更新時間 */
+							,</parts><bind id="BIND_UPD_TANCD" /><parts>		/* 更新担当者コード */
+							,SAKUJYO_YMD										/* 削除日 */
+							,</parts><bind id="BIND_SAKUJYO_FLG" /><parts>		/* 削除フラグ */
+							,HHTSERIAL_NO										/* HHTシリアル番号 */
+							,HHTSEQUENCE_NO										/* HHTシーケンスNo. */
+					FROM
+							MDRT0020
+					WHERE 	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO3" /><parts>
+					AND 	SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD2" /><parts>
+					AND 	TENPO_CD		= </parts><bind id="BIND_TENPO_CD2" />
+			</statement>
+		</sql>
+		/** [返品確定TBL(B)]を検索し、[返品確定履歴TBL(B)]を登録 **/
+		<sql id="TD010P01-11">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDRT0031(
+							 DENPYO_BANGO					/* 伝票番号 */
+							,SYORI_YMD						/* 処理日付 */
+							,SYORI_TM						/* 処理時間 */
+							,TENPO_CD						/* 店舗コード */
+							,RIREKI_NO						/* 履歴No */
+							,AKAKURO_KBN					/* 赤黒区分 */
+							,KANRI_NO						/* 管理№ */
+							,DENPYOGYO_NO					/* 伝票行№ */
+							,BUMON_CD						/* 部門コード */
+							,HINSYU_CD						/* 品種コード */
+							,BURANDO_CD						/* ブランドコード */
+							,JISYA_HBN						/* 自社品番 */
+							,MAKER_HBN						/* メーカー品番 */
+							,SYONMK							/* 商品名(カナ) */
+							,IRO_CD							/* 色コード */
+							,SIZE_CD						/* サイズコード */
+							,SIZE_NM						/* サイズ */
+							,JAN_CD							/* ＪＡＮコード */
+							,SYOHIN_CD						/* 商品コード */
+							,HENPINYOTEI_SU					/* 返品予定数 */
+							,HENPINJISSEKI_SU   			/* 返品実績数 */
+							,GEN_TNK						/* 原単価 */
+							,SIJI_BANGO						/* 指示番号 */
+					) SELECT
+							 </parts><bind id="BIND_DENPYO_BANGO1" /><parts>	/* 伝票番号 */
+							,SYORI_YMD											/* 処理日付 */
+							,SYORI_TM											/* 処理時間 */
+							,TENPO_CD											/* 店舗コード */
+							,CASE </parts><bind id="BIND_SYORI_SB1" /><parts>	/* 履歴No */
+								WHEN 1 THEN 1
+								WHEN 2 THEN (	/* 既にヘッダ作成時に+1しているのでここでは加算しない */
+												SELECT	
+														MAX(RIREKI_NO)
+												FROM	MDRT0030
+												WHERE	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO2" /><parts>
+												AND		SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD1" /><parts>
+												AND		TENPO_CD		= </parts><bind id="BIND_TENPO_CD1" /><parts>
+											)
+						 	 END
+							,CASE </parts><bind id="BIND_SYORI_SB2" /><parts>	/* 赤黒区分 */
+								WHEN 1 THEN 0
+								WHEN 2 THEN 1
+							 END
+							,KANRI_NO											/* 管理№ */
+							,DENPYOGYO_NO										/* 伝票行№ */
+							,BUMON_CD											/* 部門コード */
+							,HINSYU_CD											/* 品種コード */
+							,BURANDO_CD											/* ブランドコード */
+							,JISYA_HBN											/* 自社品番 */
+							,MAKER_HBN											/* メーカー品番 */
+							,SYONMK												/* 商品名(カナ) */
+							,IRO_CD												/* 色コード */
+							,SIZE_CD											/* サイズコード */
+							,SIZE_NM											/* サイズ */
+							,JAN_CD												/* ＪＡＮコード */
+							,SYOHIN_CD											/* 商品コード */
+							,HENPINYOTEI_SU										/* 返品予定数 */
+							,CASE </parts><bind id="BIND_SYORI_SB3" /><parts>	/* 返品実績数*/
+								WHEN 1 THEN HENPINJISSEKI_SU
+								WHEN 2 THEN HENPINJISSEKI_SU * -1
+								ELSE HENPINJISSEKI_SU
+							 END
+							,GEN_TNK											/* 原単価 */
+							,SIJI_BANGO											/* 指示番号 */
+					FROM
+							MDRT0021
+					WHERE 	DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO3" /><parts>
+					AND 	SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD2" /><parts>
+					AND 	TENPO_CD		= </parts><bind id="BIND_TENPO_CD2" />
+			</statement>
+		</sql>
+		/** [返品予定TBL(H)]を更新(一覧用) **/
+		<sql id="TD010P01-12">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDRT0010 SET
+							 KAKUTEI_FLG	= </parts><bind id="BIND_KAKUTEI_FLG" /><parts>
+							,UPD_YMD		= </parts><bind id="BIND_UPD_YMD" /><parts>
+							,UPD_TM			= </parts><bind id="BIND_UPD_TM" /><parts>
+							,UPD_TANCD		= </parts><bind id="BIND_UPD_TANCD" /><parts>
+							,SAKUJYO_YMD	= </parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+							,SAKUJYO_FLG	= </parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+					WHERE
+							TENPO_CD  = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		KANRI_NO  = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** [返品予定TBL(B)]を削除 **/
+		<sql id="TD010P01-13">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDRT0011
+					WHERE
+							TENPO_CD  = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		KANRI_NO  = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** [返品予定TBL(H)]を削除 **/
+		<sql id="TD010P01-14">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDRT0010
+					WHERE
+							TENPO_CD  = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		KANRI_NO  = </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** [返品確定TBL(B)]を削除 **/
+		<sql id="TD010P01-15">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDRT0021
+					WHERE
+							TENPO_CD     = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		DENPYO_BANGO = </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYORI_YMD    = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** [返品確定TBL(H)]を削除 **/
+		<sql id="TD010P01-16">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDRT0020
+					WHERE
+							TENPO_CD     = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		DENPYO_BANGO = </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYORI_YMD    = </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

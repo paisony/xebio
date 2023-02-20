@@ -1,0 +1,1541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 売変検索(X)-一覧(件数チェック) **/
+		<sql id="TL020P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(1)	CNT
+					
+					FROM (
+						/* 予定テーブル */
+						SELECT
+							COUNT(1)
+						FROM MDCT0020		/* 売変予定 */
+						WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：条件有無-->
+			<statement type="replace" name="REPLACE_ID_JYOUKEN_UMU1"/>
+
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD1"/>
+			<!--抽出条件：部門コードFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BUMON_CD1"/>
+			<!--抽出条件：売変指示NoFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BAIHENSIJI_NO1"/>
+			<!--抽出条件：作業開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_SAGYOKAISI_YMD1"/>
+			<!--抽出条件：開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAISI_YMD1"/>
+			<!--抽出条件：確定日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_YMD1"/>
+			<!--抽出条件：確定フラグ-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_FLG1"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN1"/>
+			<!--抽出条件：確定者コード-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEITAN_CD1"/>
+			<!--抽出条件：売変理由-->
+			<statement type="replace" name="REPLACE_ID_BAIHEN_RIYTU1"/>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		EXISTS (
+								SELECT 1
+								FROM
+								 MDMT0130
+								,STMT0091
+								WHERE
+									MDMT0130.XEBIO_CD      = MDCT0020.JISYA_HBN
+								AND	MDMT0130.MAKERCOLOR_CD = MDCT0020.IRO_CD
+								AND	STMT0091.SOSIKI        = '0001'
+								AND	STMT0091.TENCD         = </parts><bind id="BIND_TENPO_CD1" /><parts>
+								AND	STMT0091.SKU           = MDMT0130.JAN_CD
+							)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+						AND		MDCT0020.SIJIBAIKA_TNK &lt;&gt; MDCT0020.GENBAIKA_TNK
+				</parts>
+			</statement>
+			
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 MDCT0020.TENPO_CD
+					,MDCT0020.BAIHENKAISI_YMD
+					,MDCT0020.BAIHEN_NO
+					,MDCT0020.BUMON_CD
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					/* 確定テーブル */
+					SELECT
+						COUNT(1)
+					FROM MDCT0030		/* 売変確定 */
+					WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：条件有無-->
+			<statement type="replace" name="REPLACE_ID_JYOUKEN_UMU2"/>
+
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD2"/>
+			<!--抽出条件：部門コードFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BUMON_CD2"/>
+			<!--抽出条件：売変指示NoFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BAIHENSIJI_NO2"/>
+			<!--抽出条件：作業開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_SAGYOKAISI_YMD2"/>
+			<!--抽出条件：開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAISI_YMD2"/>
+			<!--抽出条件：確定日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_YMD2"/>
+			<!--抽出条件：確定フラグ-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_FLG2"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN2"/>
+			<!--抽出条件：確定者コード-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEITAN_CD2"/>
+			<!--抽出条件：売変理由-->
+			<statement type="replace" name="REPLACE_ID_BAIHEN_RIYTU2"/>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		EXISTS (
+								SELECT 1
+								FROM
+								 MDMT0130
+								,STMT0091
+								WHERE
+									MDMT0130.XEBIO_CD      = MDCT0030.JISYA_HBN
+								AND	MDMT0130.MAKERCOLOR_CD = MDCT0030.IRO_CD
+								AND	STMT0091.SOSIKI        = '0001'
+								AND	STMT0091.TENCD         = </parts><bind id="BIND_TENPO_CD2" /><parts>
+								AND	STMT0091.SKU           = MDMT0130.JAN_CD
+							)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 MDCT0030.TENPO_CD
+					,MDCT0030.BAIHENKAISI_YMD
+					,MDCT0030.BAIHEN_NO
+					,MDCT0030.BUMON_CD
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					/* 指示テーブル */
+					SELECT /*+ INDEX(MDCT0010 MDCT0010_INDEX2) */
+						COUNT(1)
+					FROM	 MDCT0010		/* 売変指示 */
+							,MDCT0040		/* 事前売変 */
+					WHERE	0=0
+					AND		MDCT0010.TENPO_CD        = MDCT0040.TENPO_CD(+)
+					AND		MDCT0010.BAIHENKAISI_YMD = MDCT0040.BAIHENKAISI_YMD(+)
+					AND		MDCT0010.BAIHEN_NO       = MDCT0040.BAIHEN_NO(+)
+					AND		MDCT0010.BAIHENGYO_NO    = MDCT0040.BAIHENGYO_NO(+)
+					AND		MDCT0010.JISYA_HBN       = MDCT0040.JISYA_HBN(+)
+					AND		MDCT0010.IRO_CD          = MDCT0040.IRO_CD(+)
+				</parts>
+			</statement>
+
+			<!--抽出条件：条件有無-->
+			<statement type="replace" name="REPLACE_ID_JYOUKEN_UMU3"/>
+
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD3"/>
+			<!--抽出条件：部門コードFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BUMON_CD3"/>
+			<!--抽出条件：売変指示NoFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BAIHENSIJI_NO3"/>
+			<!--抽出条件：作業開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_SAGYOKAISI_YMD3"/>
+			<!--抽出条件：開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAISI_YMD3"/>
+			<!--抽出条件：確定日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_YMD3"/>
+			<!--抽出条件：確定フラグ-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_FLG3"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN3"/>
+			<!--抽出条件：確定者コード-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEITAN_CD3"/>
+			<!--抽出条件：売変理由-->
+			<statement type="replace" name="REPLACE_ID_BAIHEN_RIYTU3"/>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		EXISTS (
+								SELECT 1
+								FROM
+								 MDMT0130
+								,STMT0091
+								WHERE
+									MDMT0130.XEBIO_CD      = MDCT0010.JISYA_HBN
+								AND	MDMT0130.MAKERCOLOR_CD = MDCT0010.IRO_CD
+								AND	STMT0091.SOSIKI        = '0001'
+								AND	STMT0091.TENCD         = </parts><bind id="BIND_TENPO_CD3" /><parts>
+								AND	STMT0091.SKU           = MDMT0130.JAN_CD
+							)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		(
+								(
+										MDCT0010.SIJIBAIKA_TNK &lt;&gt; MDCT0010.GENBAIKA_TNK
+									AND	MDCT0010.ADD_KBN = '1'
+								) OR
+								(
+									MDCT0010.ADD_KBN = '2'
+								)
+							)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		(
+								(
+									(CASE WHEN MDCT0010.KAKUTEI_FLG = 0
+										 THEN ( NVL((SELECT SUM(MDBT0030.FREEZAIKO_SU) FROM MDBT0030 WHERE MDBT0030.TENPO_CD = </parts><bind id="BIND_TENPO_CD31" /><parts> AND MDBT0030.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0030.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0030.IRO_CD = MDCT0010.IRO_CD), 0)
+											  + NVL((SELECT SUM(MDBT0040.FREEZAIKO_SU) FROM MDBT0040 WHERE MDBT0040.TENPO_CD = </parts><bind id="BIND_TENPO_CD32" /><parts> AND MDBT0040.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0040.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0040.IRO_CD = MDCT0010.IRO_CD), 0)
+											  + NVL((SELECT SUM(MDBT0060.FREEZAIKO_SU) FROM MDBT0060 WHERE MDBT0060.TENPO_CD = </parts><bind id="BIND_TENPO_CD33" /><parts> AND MDBT0060.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0060.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0060.IRO_CD = MDCT0010.IRO_CD), 0))
+										 ELSE MDCT0010.ZAIKO_SU
+										 END
+									) &gt; 0
+									AND	MDCT0010.ADD_KBN = '1'
+								) OR
+									(MDCT0010.ADD_KBN = '2')
+							)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 MDCT0010.TENPO_CD
+					,MDCT0010.BAIHENKAISI_YMD
+					,MDCT0010.BUMON_CD
+					,MDCT0010.BURANDO_CD
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+
+		/** 売変検索(X)-一覧(検索ボタン) **/
+		<sql id="TL020P01-02">
+			<statement type="final" name="final">
+				<parts>
+					/* 予定テーブル */
+					SELECT
+					 MAX(BOMT0030.HANBAIIN_NM)						SINSEITAN_NM			/* 1  申請担当者 */
+					,MDCT0020.BUMON_CD								BUMON_CD				/* 2  部門コード */
+					,MAX(BOMT0060.BUMON_NM)							BUMON_NM				/* 3  部門名 */
+					,MAX(MDCT0020.BAIHENKAISI_YMD)					BAIHENKAISI_YMD			/* 4  売変開始日 */
+					,COUNT(1)										HINBAN_SU				/* 5  品番数 */
+					,SUM(
+						  NVL((SELECT SUM(MDBT0030.FREEZAIKO_SU) FROM MDBT0030 WHERE MDBT0030.TENPO_CD = </parts><bind id="BIND_TENPO_CD11" /><parts> AND MDBT0030.TENPO_CD = MDCT0020.TENPO_CD AND MDBT0030.JISYA_HBN = MDCT0020.JISYA_HBN AND MDBT0030.IRO_CD = MDCT0020.IRO_CD), 0)
+						+ NVL((SELECT SUM(MDBT0040.FREEZAIKO_SU) FROM MDBT0040 WHERE MDBT0040.TENPO_CD = </parts><bind id="BIND_TENPO_CD12" /><parts> AND MDBT0040.TENPO_CD = MDCT0020.TENPO_CD AND MDBT0040.JISYA_HBN = MDCT0020.JISYA_HBN AND MDBT0040.IRO_CD = MDCT0020.IRO_CD), 0)
+						+ NVL((SELECT SUM(MDBT0060.FREEZAIKO_SU) FROM MDBT0060 WHERE MDBT0060.TENPO_CD = </parts><bind id="BIND_TENPO_CD13" /><parts> AND MDBT0060.TENPO_CD = MDCT0020.TENPO_CD AND MDBT0060.JISYA_HBN = MDCT0020.JISYA_HBN AND MDBT0060.IRO_CD = MDCT0020.IRO_CD), 0)
+					)												ZAIKO_SU				/* 6  在庫点数 */
+					,''												ADDTAN_NM				/* 7  確定担当者 */
+					,0												ADD_YMD					/* 8  確定日 */
+					,0												ADD_TM					/* 9  確定時間 */
+					,MAX(MDCT0020.SINSEITAN_CD)						SINSEITAN_CD			/* 10 申請担当者コード */
+					,''												KAKUTEITAN_CD			/* 11 確定担当者コード */
+					,MAX(MDCT0020.BAIHEN_NO)						BAIHEN_NO				/* 12 売変NO */
+					,MAX(MDCT0020.UPD_YMD)							UPD_YMD					/* 13 更新日 */
+					,MAX(MDCT0020.UPD_TM)							UPD_TM					/* 14 更新時間 */
+					,MAX(MDCT0020.UPD_TANCD)						UPD_TANCD				/* 15 更新担当者コード */
+					,MAX(MDCT0020.HHTSERIAL_NO)						HHTSERIAL_NO			/* 16 HHTシリアル番号 */
+					,MAX(MDCT0020.HHTSEQUENCE_NO)					HHTSEQUENCE_NO			/* 17 HHTシーケンスNO */
+					,0												SYONIN_FLG				/* 18 印刷対象存在フラグ */
+					,MAX(BOMT0060.BUMONKANA_NM)						BUMONKANA_NM			/* 19 部門カナ名 */
+					,MAX(MDMT0100.MEISYO_NM)						SINSEIMOTO_NM			/* 20 申請元(名称) */
+					,2												SINSEIMOTO_KBN			/* 21 申請元区分 */
+					,''												SINSEICOMMENT_NM		/* 22 申請コメント */
+					,0												BAIHENSAGYOKAISI_YMD	/* 23 作業開始日 */
+					,''												BAIHEN_RIYTU_NM			/* 24 売変理由(名称) */
+					,0												BAIHEN_RIYTU			/* 25 売変理由(コード) */
+					,0												SOSINZUMI_FLG			/* 26 送信済みフラグ */
+					FROM
+						MDCT0020,BOMT0030,BOMT0060,MDMT0100			/* 売変予定,担当者マスタ,部門マスタ,名称マスタ */
+					WHERE MDCT0020.SINSEITAN_CD    = BOMT0030.HANBAIIN_CD(+)
+					AND   MDCT0020.BUMON_CD        = BOMT0060.BUMON_CD(+)
+					AND   MDMT0100.MEISYO_CD(+)    = '2'
+					AND   MDMT0100.SIKIBETSU_CD(+) = 'PCSM'
+					AND		EXISTS (
+								SELECT 1
+								FROM
+									 MDMT0130
+									,STMT0091
+								WHERE
+									MDMT0130.XEBIO_CD		= MDCT0020.JISYA_HBN
+								AND	MDMT0130.MAKERCOLOR_CD	= MDCT0020.IRO_CD
+								AND	STMT0091.SOSIKI			= '0001'
+								AND	STMT0091.TENCD			= </parts><bind id="BIND_TENPO_CD1" /><parts>
+								AND	STMT0091.SKU			= MDMT0130.JAN_CD
+					)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		MDCT0020.SIJIBAIKA_TNK &lt;&gt; MDCT0020.GENBAIKA_TNK
+				</parts>
+			</statement>			
+			
+			<!--抽出条件：条件有無-->
+			<statement type="replace" name="REPLACE_ID_JYOUKEN_UMU1"/>
+
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD1"/>
+			<!--抽出条件：部門コードFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BUMON_CD1"/>
+			<!--抽出条件：売変指示NoFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BAIHENSIJI_NO1"/>
+			<!--抽出条件：作業開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_SAGYOKAISI_YMD1"/>
+			<!--抽出条件：開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAISI_YMD1"/>
+			<!--抽出条件：確定日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_YMD1"/>
+			<!--抽出条件：確定フラグ-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_FLG1"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN1"/>
+			<!--抽出条件：確定者コード-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEITAN_CD1"/>
+			<!--抽出条件：売変理由-->
+			<statement type="replace" name="REPLACE_ID_BAIHEN_RIYTU1"/>
+
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 MDCT0020.TENPO_CD
+					,MDCT0020.BAIHENKAISI_YMD
+					,MDCT0020.BAIHEN_NO
+					,MDCT0020.BUMON_CD
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					/* 確定テーブル */
+					SELECT
+					 MAX(TAN1.HANBAIIN_NM)			SINSEITAN_NM			/* 1  申請担当者 */
+					,MDCT0030.BUMON_CD				BUMON_CD				/* 2  部門コード */
+					,MAX(BOMT0060.BUMON_NM)			BUMON_NM				/* 3  部門名 */
+					,MAX(MDCT0030.BAIHENKAISI_YMD)	BAIHENKAISI_YMD			/* 4  売変開始日 */
+					,COUNT(1)						HINBAN_SU				/* 5  品番数 */
+					,SUM(MDCT0030.ZAIKO_SU)			ZAIKO_SU				/* 6  在庫点数 */
+					,MAX(TAN2.HANBAIIN_NM)			ADDTAN_NM				/* 7  確定担当者 */
+					,MAX(MDCT0030.ADD_YMD)			ADD_YMD					/* 8  確定日 */
+					,MAX(MDCT0030.ADD_TM)			ADD_TM					/* 9  確定時間 */
+					,MAX(MDCT0030.SINSEITAN_CD)		SINSEITAN_CD			/* 10 申請担当者コード */
+					,MAX(MDCT0030.KAKUTEITAN_CD)	KAKUTEITAN_CD			/* 11 確定担当者コード */
+					,MAX(MDCT0030.BAIHEN_NO)		BAIHEN_NO				/* 12 売変NO */
+					,MAX(MDCT0030.UPD_YMD)			UPD_YMD					/* 13 更新日 */
+					,MAX(MDCT0030.UPD_TM)			UPD_TM					/* 14 更新時間 */
+					,MAX(MDCT0030.UPD_TANCD)		UPD_TANCD				/* 15 更新担当者コード */
+					,MAX(MDCT0030.HHTSERIAL_NO)		HHTSERIAL_NO			/* 16 HHTシリアル番号 */
+					,MAX(MDCT0030.HHTSEQUENCE_NO)	HHTSEQUENCE_NO			/* 17 HHTシーケンスNO */
+					,MIN(MDCT0030.SYONIN_FLG)		SYONIN_FLG				/* 18 印刷対象存在フラグ */
+					,MAX(BOMT0060.BUMONKANA_NM)		BUMONKANA_NM			/* 19 部門カナ名 */
+					,MAX(MDMT0100.MEISYO_NM)		SINSEIMOTO_NM			/* 20 申請元(名称) */
+					,2								SINSEIMOTO_KBN			/* 21 申請元区分 */
+					,''								SINSEICOMMENT_NM		/* 22 申請コメント */
+					,0								BAIHENSAGYOKAISI_YMD	/* 23 作業開始日 */
+					,''								BAIHEN_RIYTU_NM			/* 24 売変理由(名称) */
+					,0								BAIHEN_RIYTU			/* 25 売変理由(コード) */
+					,MIN(MDCT0030.SOSINZUMI_FLG)	SOSINZUMI_FLG			/* 26 送信済みフラグ */
+					FROM
+						MDCT0030,BOMT0030 TAN1,BOMT0030 TAN2,BOMT0060,MDMT0100   /* 売変予定,担当者マスタ,部門マスタ */
+					WHERE MDCT0030.SINSEITAN_CD    = TAN1.HANBAIIN_CD(+)
+					AND   MDCT0030.KAKUTEITAN_CD   = TAN2.HANBAIIN_CD(+)
+					AND   MDCT0030.BUMON_CD        = BOMT0060.BUMON_CD(+)
+					AND   MDMT0100.MEISYO_CD(+)    = '2'
+					AND   MDMT0100.SIKIBETSU_CD(+) = 'PCSM'
+					AND		EXISTS (
+								SELECT 1
+								FROM
+									MDMT0130
+								,STMT0091
+								WHERE
+									MDMT0130.XEBIO_CD      = MDCT0030.JISYA_HBN
+								AND	MDMT0130.MAKERCOLOR_CD = MDCT0030.IRO_CD
+								AND	STMT0091.SOSIKI        = '0001'
+								AND	STMT0091.TENCD         = </parts><bind id="BIND_TENPO_CD2" /><parts>
+								AND	STMT0091.SKU           = MDMT0130.JAN_CD
+							)
+				</parts>
+			</statement>
+					
+			<!--抽出条件：条件有無-->
+			<statement type="replace" name="REPLACE_ID_JYOUKEN_UMU2"/>
+
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD2"/>
+			<!--抽出条件：部門コードFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BUMON_CD2"/>
+			<!--抽出条件：売変指示NoFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BAIHENSIJI_NO2"/>
+			<!--抽出条件：作業開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_SAGYOKAISI_YMD2"/>
+			<!--抽出条件：開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAISI_YMD2"/>
+			<!--抽出条件：確定日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_YMD2"/>
+			<!--抽出条件：確定フラグ-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_FLG2"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN2"/>
+			<!--抽出条件：確定者コード-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEITAN_CD2"/>
+			<!--抽出条件：売変理由-->
+			<statement type="replace" name="REPLACE_ID_BAIHEN_RIYTU2"/>
+
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 MDCT0030.TENPO_CD
+					,MDCT0030.BAIHENKAISI_YMD
+					,MDCT0030.BAIHEN_NO
+					,MDCT0030.BUMON_CD
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					/* 指示テーブル */
+					SELECT /*+ INDEX(MDCT0010 MDCT0010_INDEX2) */
+					 ''										SINSEITAN_NM			/* 1  申請担当者 */
+					,MDCT0010.BUMON_CD						BUMON_CD				/* 2  部門コード */
+					,MAX(BOMT0060.BUMON_NM)					BUMON_NM				/* 3  部門名 */
+					,MDCT0010.BAIHENKAISI_YMD				BAIHENKAISI_YMD			/* 4  売変開始日 */
+					,COUNT(1)								HINBAN_SU				/* 5  品番数 */
+					,SUM(
+						CASE WHEN MDCT0010.KAKUTEI_FLG = 0
+							 THEN( NVL((SELECT SUM(MDBT0030.FREEZAIKO_SU) FROM MDBT0030 WHERE MDBT0030.TENPO_CD = </parts><bind id="BIND_TENPO_CD31" /><parts> AND MDBT0030.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0030.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0030.IRO_CD = MDCT0010.IRO_CD), 0)
+								 + NVL((SELECT SUM(MDBT0040.FREEZAIKO_SU) FROM MDBT0040 WHERE MDBT0040.TENPO_CD = </parts><bind id="BIND_TENPO_CD32" /><parts> AND MDBT0040.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0040.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0040.IRO_CD = MDCT0010.IRO_CD), 0)
+								 + NVL((SELECT SUM(MDBT0060.FREEZAIKO_SU) FROM MDBT0060 WHERE MDBT0060.TENPO_CD = </parts><bind id="BIND_TENPO_CD33" /><parts> AND MDBT0060.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0060.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0060.IRO_CD = MDCT0010.IRO_CD), 0))
+							 ELSE MDCT0010.ZAIKO_SU
+							 END
+					)										ZAIKO_SU				/* 6  在庫点数 */
+					,''										ADDTAN_NM				/* 7  確定担当者 */
+					,0										ADD_YMD					/* 8  確定日 */
+					,0										ADD_TM					/* 9  確定時間 */
+					,''										SINSEITAN_CD			/* 10 申請担当者コード */
+					,''										KAKUTEITAN_CD			/* 11 確定担当者コード */
+					,MAX(MDCT0010.BAIHEN_NO)				BAIHEN_NO				/* 12 売変NO */
+					,MAX(MDCT0010.UPD_YMD)					UPD_YMD					/* 13 更新日 */
+					,MAX(MDCT0010.UPD_TM)					UPD_TM					/* 14 更新時間 */
+					,MAX(MDCT0010.UPD_TANCD)				UPD_TANCD				/* 15 更新担当者コード */
+					,''										HHTSERIAL_NO			/* 16 HHTシリアル番号 */
+					,0										HHTSEQUENCE_NO			/* 17 HHTシーケンスNO */
+					,0										SYONIN_FLG				/* 18 印刷対象存在フラグ */
+					,MAX(BOMT0060.BUMONKANA_NM)				BUMONKANA_NM			/* 19 部門カナ名 */
+					,MAX(MDMT0100.MEISYO_NM)				SINSEIMOTO_NM			/* 20 申請元(名称) */
+					,1										SINSEIMOTO_KBN			/* 21 申請元区分 */
+					,MAX(MDCT0010.SINSEICOMMENT_NM)			SINSEICOMMENT_NM		/* 22 申請コメント */
+					,MAX(MDCT0010.BAIHENSAGYOKAISI_YMD)		BAIHENSAGYOKAISI_YMD	/* 23 作業開始日 */
+					,MAX(RIYU.MEISYO_NM)					BAIHEN_RIYTU_NM			/* 24 売変理由(名称) */
+					,MDCT0010.BAIHEN_RIYTU					BAIHEN_RIYTU			/* 25 売変理由(コード) */
+					,0										SOSINZUMI_FLG			/* 26 送信済みフラグ */
+					FROM
+						 MDCT0010,BOMT0060,MDMT0100,MDMT0100 RIYU       /* 売変指示,部門マスタ,名称マスタ */
+						,MDCT0040										/* 事前売変 */
+					WHERE MDCT0010.BUMON_CD        = BOMT0060.BUMON_CD(+)
+					AND   MDMT0100.MEISYO_CD(+)    = '1'
+					AND   MDMT0100.SIKIBETSU_CD(+) = 'PCSM'
+					AND   RIYU.MEISYO_CD(+)	       = MDCT0010.BAIHEN_RIYTU
+					AND   RIYU.SIKIBETSU_CD(+)     = 'BHRY'
+					AND   MDCT0010.TENPO_CD        = MDCT0040.TENPO_CD(+)
+					AND   MDCT0010.BAIHENKAISI_YMD = MDCT0040.BAIHENKAISI_YMD(+)
+					AND   MDCT0010.BAIHEN_NO       = MDCT0040.BAIHEN_NO(+)
+					AND   MDCT0010.BAIHENGYO_NO    = MDCT0040.BAIHENGYO_NO(+)
+					AND   MDCT0010.JISYA_HBN       = MDCT0040.JISYA_HBN(+)
+					AND   MDCT0010.IRO_CD          = MDCT0040.IRO_CD(+)
+
+					AND		EXISTS (
+								SELECT 1
+								FROM
+								 MDMT0130
+								,STMT0091
+								WHERE
+									MDMT0130.XEBIO_CD      = MDCT0010.JISYA_HBN
+								AND	MDMT0130.MAKERCOLOR_CD = MDCT0010.IRO_CD
+								AND	STMT0091.SOSIKI        = '0001'
+								AND	STMT0091.TENCD         = </parts><bind id="BIND_TENPO_CD3" /><parts>
+								AND	STMT0091.SKU           = MDMT0130.JAN_CD
+							)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		(
+								(
+										MDCT0010.SIJIBAIKA_TNK &lt;&gt; MDCT0010.GENBAIKA_TNK
+									AND	MDCT0010.ADD_KBN = '1'
+								) OR
+								(
+									MDCT0010.ADD_KBN = '2'
+								)
+							)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		(
+								(
+									(CASE WHEN MDCT0010.KAKUTEI_FLG = 0
+										 THEN ( NVL((SELECT SUM(MDBT0030.FREEZAIKO_SU) FROM MDBT0030 WHERE MDBT0030.TENPO_CD = </parts><bind id="BIND_TENPO_CD34" /><parts> AND MDBT0030.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0030.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0030.IRO_CD = MDCT0010.IRO_CD), 0)
+											  + NVL((SELECT SUM(MDBT0040.FREEZAIKO_SU) FROM MDBT0040 WHERE MDBT0040.TENPO_CD = </parts><bind id="BIND_TENPO_CD35" /><parts> AND MDBT0040.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0040.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0040.IRO_CD = MDCT0010.IRO_CD), 0)
+											  + NVL((SELECT SUM(MDBT0060.FREEZAIKO_SU) FROM MDBT0060 WHERE MDBT0060.TENPO_CD = </parts><bind id="BIND_TENPO_CD36" /><parts> AND MDBT0060.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0060.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0060.IRO_CD = MDCT0010.IRO_CD), 0))
+										 ELSE MDCT0010.ZAIKO_SU
+										 END
+									) &gt; 0
+									AND	MDCT0010.ADD_KBN = '1'
+								) OR
+									(MDCT0010.ADD_KBN = '2')
+							)
+				</parts>
+			</statement>
+
+			<!--抽出条件：条件有無-->
+			<statement type="replace" name="REPLACE_ID_JYOUKEN_UMU3"/>
+
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD3"/>
+			<!--抽出条件：部門コードFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BUMON_CD3"/>
+			<!--抽出条件：売変指示NoFROM-TO-->
+			<statement type="replace" name="REPLACE_ID_BAIHENSIJI_NO3"/>
+			<!--抽出条件：作業開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_SAGYOKAISI_YMD3"/>
+			<!--抽出条件：開始日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAISI_YMD3"/>
+			<!--抽出条件：確定日FROM-TO-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_YMD3"/>
+			<!--抽出条件：確定フラグ-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEI_FLG3"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN3"/>
+			<!--抽出条件：確定者コード-->
+			<statement type="replace" name="REPLACE_ID_KAKUTEITAN_CD3"/>
+			<!--抽出条件：売変理由-->
+			<statement type="replace" name="REPLACE_ID_BAIHEN_RIYTU3"/>
+
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 MDCT0010.TENPO_CD
+					,MDCT0010.BAIHENKAISI_YMD
+					,MDCT0010.BAIHEN_NO
+					,MDCT0010.BUMON_CD
+					,MDCT0010.BAIHENSAGYOKAISI_YMD
+					,MDCT0010.BAIHEN_RIYTU
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+					 SINSEITAN_CD
+					,BUMON_CD
+					,BAIHENKAISI_YMD
+					,BAIHEN_RIYTU
+					,BAIHEN_NO
+				</parts>
+			</statement>
+		</sql>
+
+		/** 売変検索(X)-一覧(M1部門リンク)  予定 **/
+		<sql id="TL020P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					 MDCT0020.BAIHENGYO_NO								/* 1  行 */
+					,MDMT0070.HINSYU_RYAKU_NM							/* 2  品種名 */
+					,MDCT0020.JISYA_HBN									/* 3  自社品番 */
+					,MDCT0020.MAKER_HBN									/* 4  メーカー品番 */
+					,MDCT0020.IRO_CD									/* 5  色コード */
+					,MDMT0080.IRO_NM									/* 6  色名 */
+					,MDCT0020.SEASON_KB									/* 7  シーズン */
+
+					,MIN(CASE WHEN KAKUTEI_FLG = 1
+							  THEN MDCT0020.GENBAIKA_TNK
+							  ELSE (CASE WHEN STMT0091.SLPR IS NULL
+										 THEN MDMT0130.SLPR
+										 ELSE STMT0091.SLPR
+										 END)
+							  END)					GENBAIKA_TNK		/* 8  現売価 */
+					,MDCT0020.SIJIBAIKA_TNK			SIJIBAIKA_TNK		/* 9  指示売価 */
+					,MDCT0020.GEN_TNK									/* 10 原単価 */
+					,MAX(NVL((SELECT SUM(MDBT0030.FREEZAIKO_SU) FROM MDBT0030 WHERE MDBT0030.TENPO_CD = </parts><bind id="BIND_TENPO_CD11" /><parts> AND MDBT0030.TENPO_CD = MDCT0020.TENPO_CD AND MDBT0030.JISYA_HBN = MDCT0020.JISYA_HBN AND MDBT0030.IRO_CD = MDCT0020.IRO_CD), 0)
+					   + NVL((SELECT SUM(MDBT0040.FREEZAIKO_SU) FROM MDBT0040 WHERE MDBT0040.TENPO_CD = </parts><bind id="BIND_TENPO_CD12" /><parts> AND MDBT0040.TENPO_CD = MDCT0020.TENPO_CD AND MDBT0040.JISYA_HBN = MDCT0020.JISYA_HBN AND MDBT0040.IRO_CD = MDCT0020.IRO_CD), 0)
+					   + NVL((SELECT SUM(MDBT0060.FREEZAIKO_SU) FROM MDBT0060 WHERE MDBT0060.TENPO_CD = </parts><bind id="BIND_TENPO_CD13" /><parts> AND MDBT0060.TENPO_CD = MDCT0020.TENPO_CD AND MDBT0060.JISYA_HBN = MDCT0020.JISYA_HBN AND MDBT0060.IRO_CD = MDCT0020.IRO_CD), 0)
+					 )								ZAIKO_SU			/* 11 在庫数 */
+					,MDCT0020.SIJIBAIKA_TNK			KAKUTEIBAIKA_TNK	/* 12 確定売価 */
+					,MDCT0020.URIAGE_SU									/* 13 売上数 */
+					,'1'												/* 14 承認状態(名称) (検索画面で使用しているので、1固定)*/
+					,MDCT0020.BAIHENKAISI_YMD							/* 15 売変開始日 */
+					,MDCT0020.BAIHENSYURYO_YMD							/* 16 売変終了日 */
+					,MDCT0020.BAIHEN_NO									/* 17 売変NO */
+					,MDCT0020.BUMON_CD									/* 18 部門コード */
+					,MDCT0020.HINSYU_CD									/* 19 品種コード */
+					,MDCT0020.BURANDO_CD								/* 20 ブランドコード */
+					,STMT0500.BURANDO_NMK								/* 21 ブランド名 */
+					,MDCT0020.SYONMK									/* 22 商品名(カナ) */
+					,MDCT0020.JODAI1_TNK								/* 23 上代1 */
+					,MDCT0020.HANDLBL_KB								/* 24 ハンドラベル */
+					,MDCT0020.UPD_YMD									/* 25 更新日 */
+					,MDCT0020.UPD_TM									/* 26 更新時間 */
+					,MDCT0020.UPD_TANCD									/* 27 更新担当者コード */
+					,1								SYONIN_FLG			/* 28 承認状態 (確定を行う場合の判断に使用) */
+					,MAX(MDMT0130.HANBAIKANRYO_YMD)	HANBAIKANRYO_YMD	/* 29 販売完了日 */
+					,MAX(CASE WHEN MDCT0020.ADDTAN_CD IS NULL
+							  THEN 0
+							  ELSE 1
+							  END) CHG_FLG
+					,MAX(CASE WHEN MDMT0130.OLD_XEBIO_CD &lt;&gt; '0000000000' AND MDMT0130.TENKAI_KB = 2
+							  THEN 1
+							  ELSE 0
+							  END) OLD_COLOR_FLG
+					,COUNT(1) OVER (PARTITION BY JISYA_HBN) JISYA_HBN_CNT
+					
+					FROM
+						 MDCT0020			/* 売価変更予定TBL */
+						,MDMT0070			/* 品種MST */
+						,MDMT0080			/* 色MST */
+						,MDMT0130			/* 発注マスタ */
+						,STMT0091			/* 店別単価 */
+						,STMT0500			/* ブランドマスタ */
+					
+					WHERE 	MDCT0020.BUMON_CD		= MDMT0070.BUMON_CD(+)
+					AND 	MDCT0020.HINSYU_CD		= MDMT0070.HINSYU_CD(+)
+					AND 	MDCT0020.IRO_CD			= MDMT0080.IRO_CD(+)
+					AND		MDCT0020.BURANDO_CD		= STMT0500.BURANDO_CD(+)
+					AND		STMT0091.SOSIKI			= '0001'
+					AND		STMT0091.TENCD			= </parts><bind id="BIND_TENPO_CD1" /><parts>
+					AND		MDCT0020.JISYA_HBN		= MDMT0130.XEBIO_CD
+					AND		STMT0091.SKU			= MDMT0130.JAN_CD
+					AND	    MDMT0130.MAKERCOLOR_CD	= MDCT0020.IRO_CD
+					
+					AND		MDCT0020.SIJIBAIKA_TNK &lt;&gt; MDCT0020.GENBAIKA_TNK
+
+					AND 	MDCT0020.TENPO_CD			= </parts><bind id="BIND_TENPO_CD2" /><parts>
+					AND 	MDCT0020.BAIHENKAISI_YMD	= </parts><bind id="BIND_BAIHENKAISI_YMD" /><parts>
+					AND 	MDCT0020.BAIHEN_NO			= </parts><bind id="BIND_BAIHEN_NO" /><parts>
+					AND 	MDCT0020.KAKUTEI_FLG		= 0
+					AND		MDCT0020.BUMON_CD			= </parts><bind id="BIND_BUMON_CD" /><parts>
+
+					GROUP BY
+						 MDCT0020.BAIHENGYO_NO
+						,MDMT0070.HINSYU_RYAKU_NM
+						,MDCT0020.JISYA_HBN
+						,MDCT0020.MAKER_HBN
+						,MDCT0020.IRO_CD
+						,MDMT0080.IRO_NM
+						,MDCT0020.SEASON_KB
+						,MDCT0020.SIJIBAIKA_TNK
+						,MDCT0020.GEN_TNK
+						,MDCT0020.ZAIKO_SU
+						,MDCT0020.URIAGE_SU
+						,MDCT0020.BAIHENKAISI_YMD
+						,MDCT0020.BAIHENSYURYO_YMD
+						,MDCT0020.BAIHEN_NO
+						,MDCT0020.BUMON_CD
+						,MDCT0020.HINSYU_CD
+						,MDCT0020.BURANDO_CD
+						,STMT0500.BURANDO_NMK
+						,MDCT0020.SYONMK
+						,MDCT0020.JODAI1_TNK
+						,MDCT0020.HANDLBL_KB
+						,MDCT0020.UPD_YMD
+						,MDCT0020.UPD_TM
+						,MDCT0020.UPD_TANCD
+
+					ORDER BY
+						 HINSYU_CD
+						,BURANDO_CD
+						,JISYA_HBN
+						,CHG_FLG DESC
+						,IRO_CD
+				</parts>
+			</statement>
+		</sql>
+
+		/** 売変検索(X)-一覧(M1部門リンク)  確定 **/
+		<sql id="TL020P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 MDCT0030.BAIHENGYO_NO									/* 1  行 */
+						,MDMT0070.HINSYU_RYAKU_NM								/* 2  品種名 */
+						,MDCT0030.JISYA_HBN										/* 3  自社品番 */
+						,MDCT0030.MAKER_HBN										/* 4  メーカー品番 */
+						,MDCT0030.IRO_CD										/* 5  色コード */
+						,MDMT0080.IRO_NM										/* 6  色名 */
+						,MDCT0030.SEASON_KB										/* 7  シーズン */
+						,MIN(MDCT0030.GENBAIKA_TNK)		GENBAIKA_TNK
+						,MDCT0030.SIJIBAIKA_TNK									/* 9  指示売価 */
+						,MDCT0030.GEN_TNK										/* 10 原単価 */
+						,MDCT0030.ZAIKO_SU										/* 11 在庫数 */
+						,MDCT0030.KAKUTEIBAIKA_TNK								/* 12 確定売価 */
+						,MDCT0030.URIAGE_SU										/* 13 売上数 */
+						,MDMT0100.MEISYO_NM										/* 14 承認状態(名称) */
+						,MDCT0030.BAIHENKAISI_YMD								/* 15 売変開始日 */
+						,MDCT0030.BAIHENSYURYO_YMD								/* 16 売変終了日 */
+						,MDCT0030.BAIHEN_NO										/* 17 売変NO */
+						,MDCT0030.BUMON_CD										/* 18 部門コード */
+						,MDCT0030.HINSYU_CD										/* 19 品種コード */
+						,MDCT0030.BURANDO_CD									/* 20 ブランドコード */
+						,STMT0500.BURANDO_NMK									/* 21 ブランド名 */
+						,MDCT0030.SYONMK										/* 22 商品名(カナ) */
+						,MDCT0030.JODAI1_TNK									/* 23 上代1 */
+						,MDCT0030.HANDLBL_KB									/* 24 ハンドラベル */
+						,MDCT0030.UPD_YMD										/* 25 更新日 */
+						,MDCT0030.UPD_TM										/* 26 更新時間 */
+						,MDCT0030.UPD_TANCD										/* 27 更新担当者コード */
+						,MDCT0030.SYONIN_FLG									/* 28 承認状態 */
+						,MAX(MDMT0130.HANBAIKANRYO_YMD)	HANBAIKANRYO_YMD		/* 29 販売完了日 */
+						,0				CHG_FLG
+						,0				OLD_COLOR_FLG
+						,0				JISYA_HBN_CNT
+					
+					FROM
+						 MDCT0030			/* 売価変更確定TBL */
+						,MDMT0070			/* 品種MST */
+						,MDMT0080			/* 色MST */
+						,MDMT0100			/* 名称MST */
+						,MDMT0130			/* 共通商品 */
+						,STMT0091			/* 店別単価 */
+						,STMT0500			/* ブランドMST */
+					
+					WHERE	MDCT0030.BUMON_CD			= MDMT0070.BUMON_CD(+)
+					AND		MDCT0030.HINSYU_CD			= MDMT0070.HINSYU_CD(+)
+					AND		MDCT0030.IRO_CD				= MDMT0080.IRO_CD(+)
+					AND		MDCT0030.BURANDO_CD			= STMT0500.BURANDO_CD(+)
+					AND		MDCT0030.SYONIN_FLG			= MDMT0100.MEISYO_CD(+)
+					AND		MDMT0100.SIKIBETSU_CD(+)	= 'PCSN'
+					AND		MDMT0130.XEBIO_CD			= MDCT0030.JISYA_HBN
+					AND		MDMT0130.MAKERCOLOR_CD		= MDCT0030.IRO_CD
+					AND		STMT0091.SOSIKI				= '0001'
+					AND		STMT0091.TENCD				= </parts><bind id="BIND_TENPO_CD1" /><parts>
+					AND		STMT0091.SKU				= MDMT0130.JAN_CD
+					AND		MDCT0030.TENPO_CD			= </parts><bind id="BIND_TENPO_CD2" /><parts>
+					AND		MDCT0030.BAIHENKAISI_YMD	= </parts><bind id="BIND_BAIHENKAISI_YMD" /><parts>
+					AND		MDCT0030.BAIHEN_NO			= </parts><bind id="BIND_BAIHEN_NO" /><parts>
+					AND		MDCT0030.BUMON_CD			= </parts><bind id="BIND_BUMON_CD" /><parts>
+					
+					GROUP BY
+						 MDCT0030.BAIHENGYO_NO
+						,MDMT0070.HINSYU_RYAKU_NM
+						,MDCT0030.JISYA_HBN
+						,MDCT0030.MAKER_HBN
+						,MDCT0030.IRO_CD
+						,MDMT0080.IRO_NM
+						,MDCT0030.SEASON_KB
+						,MDCT0030.SIJIBAIKA_TNK
+						,MDCT0030.GEN_TNK
+						,MDCT0030.ZAIKO_SU
+						,MDCT0030.KAKUTEIBAIKA_TNK
+						,MDCT0030.URIAGE_SU
+						,MDMT0100.MEISYO_NM
+						,MDCT0030.BAIHENKAISI_YMD
+						,MDCT0030.BAIHENSYURYO_YMD
+						,MDCT0030.BAIHEN_NO
+						,MDCT0030.BUMON_CD
+						,MDCT0030.HINSYU_CD
+						,MDCT0030.BURANDO_CD
+						,STMT0500.BURANDO_NMK
+						,MDCT0030.SYONMK
+						,MDCT0030.JODAI1_TNK
+						,MDCT0030.HANDLBL_KB
+						,MDCT0030.UPD_YMD
+						,MDCT0030.UPD_TM
+						,MDCT0030.UPD_TANCD
+						,MDCT0030.SYONIN_FLG
+
+					ORDER BY
+						MDCT0030.BAIHENGYO_NO
+				</parts>
+			</statement>
+		</sql>
+
+		/** 売変検索(X)-一覧(M1部門リンク)  指示 **/
+		<sql id="TL020P01-06">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					 BAIHENGYO_NO
+					,HINSYU_RYAKU_NM
+					,JISYA_HBN
+					,MAKER_HBN
+					,IRO_CD
+					,IRO_NM
+					,SEASON_KB
+					,GENBAIKA_TNK
+					,SIJIBAIKA_TNK
+					,GEN_TNK
+					,ZAIKO_SU
+					,KAKUTEIBAIKA_TNK
+					,URIAGE_SU
+					,FLG
+					,BAIHENKAISI_YMD
+					,BAIHENSYURYO_YMD
+					,BAIHEN_NO
+					,BUMON_CD
+					,HINSYU_CD
+					,BURANDO_CD
+					,BURANDO_NMK
+					,SYONMK
+					,JODAI1_TNK
+					,HANDLBL_KB
+					,UPD_YMD
+					,UPD_TM
+					,UPD_TANCD
+					,SHONIN_FLG	SYONIN_FLG
+					,HANBAIKANRYO_YMD
+					,CASE WHEN OLD_COLOR_FLG = 1
+						  THEN (CASE WHEN ROW_NUMBER() OVER(PARTITION BY JISYA_HBN ORDER BY JISYA_HBN, IRO_CD) = 1
+									 THEN 1
+									 ELSE 0
+									 END)
+						  ELSE 1
+						  END CHG_FLG
+					,OLD_COLOR_FLG
+					,JISYA_HBN_CNT
+					
+					FROM (
+					SELECT
+					 MDCT0010.BAIHENGYO_NO								/* 1  行 */
+					,MDMT0070.HINSYU_RYAKU_NM							/* 2  品種名 */
+					,MDCT0010.JISYA_HBN									/* 3  自社品番 */
+					,MDCT0010.MAKER_HBN									/* 4  メーカー品番 */
+					,MDCT0010.IRO_CD									/* 5  色コード */
+					,MDMT0080.IRO_NM									/* 6  色名 */
+					,MDCT0010.SEASON_KB									/* 7  シーズン */
+					,MIN(CASE WHEN KAKUTEI_FLG = 1
+							  THEN MDCT0010.GENBAIKA_TNK
+							  ELSE (CASE WHEN STMT0091.SLPR IS NULL
+										 THEN MDMT0130.SLPR
+										 ELSE STMT0091.SLPR
+										 END)
+							  END) GENBAIKA_TNK
+					,MDCT0010.SIJIBAIKA_TNK								/* 9  指示売価 */
+					,MDCT0010.GEN_TNK									/* 10 原単価 */
+					,MAX(CASE WHEN MDCT0010.KAKUTEI_FLG = 0
+							  THEN (NVL((SELECT SUM(MDBT0030.FREEZAIKO_SU) FROM MDBT0030 WHERE MDBT0030.TENPO_CD = </parts><bind id="BIND_TENPO_CD11" /><parts> AND MDBT0030.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0030.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0030.IRO_CD = MDCT0010.IRO_CD), 0)
+								  + NVL((SELECT SUM(MDBT0040.FREEZAIKO_SU) FROM MDBT0040 WHERE MDBT0040.TENPO_CD = </parts><bind id="BIND_TENPO_CD12" /><parts> AND MDBT0040.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0040.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0040.IRO_CD = MDCT0010.IRO_CD), 0)
+								  + NVL((SELECT SUM(MDBT0060.FREEZAIKO_SU) FROM MDBT0060 WHERE MDBT0060.TENPO_CD = </parts><bind id="BIND_TENPO_CD13" /><parts> AND MDBT0060.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0060.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0060.IRO_CD = MDCT0010.IRO_CD), 0))
+							  ELSE MDCT0010.ZAIKO_SU
+							  END
+					 ) ZAIKO_SU											/* 11 在庫数 */
+					,MDCT0010.SIJIBAIKA_TNK KAKUTEIBAIKA_TNK			/* 12 確定売価 */
+					,MDCT0010.URIAGE_SU									/* 13 売上数 */
+					,MIN(CASE
+						/* 事前売変データがある場合、3で検索 */
+						WHEN	(
+									SELECT	COUNT(1)
+									FROM	MDCT0040
+									WHERE	TENPO_CD		=	MDCT0010.TENPO_CD
+									AND		BAIHENKAISI_YMD	=	MDCT0010.BAIHENKAISI_YMD
+									AND		BAIHEN_NO		=	MDCT0010.BAIHEN_NO
+									AND		BAIHENGYO_NO	=	MDCT0010.BAIHENGYO_NO
+									AND		JISYA_HBN		=	MDCT0010.JISYA_HBN
+									AND		IRO_CD			=	MDCT0010.IRO_CD
+								) &gt; 0 THEN (SELECT MDMT0100.MEISYO_NM FROM MDMT0100 WHERE MDMT0100.MEISYO_CD(+) = '3' AND MDMT0100.SIKIBETSU_CD(+) = 'PCSN')
+
+						/* 自動売変延長データがある場合、4 */
+						WHEN	(
+									SELECT	COUNT(1)
+									FROM	MDCT0050
+									WHERE	TENPO_CD		=	MDCT0010.TENPO_CD
+									AND		BAIHENKAISI_YMD	=	MDCT0010.BAIHENKAISI_YMD
+									AND		BAIHEN_NO		=	MDCT0010.BAIHEN_NO
+									AND		BAIHENGYO_NO	=	MDCT0010.BAIHENGYO_NO
+									AND		JISYA_HBN		=	MDCT0010.JISYA_HBN
+									AND		IRO_CD			=	MDCT0010.IRO_CD
+									AND		SAKUJYO_FLG		=	0
+								) &gt; 0 THEN (SELECT MDMT0100.MEISYO_NM FROM MDMT0100	WHERE MDMT0100.MEISYO_CD(+) = '4' AND MDMT0100.SIKIBETSU_CD(+) = 'PCSN')
+						
+						ELSE
+							' '
+						END) FLG
+
+					,MDCT0010.BAIHENKAISI_YMD							/* 15 売変開始日 */
+					,MDCT0010.BAIHENSYURYO_YMD							/* 16 売変終了日 */
+					,MDCT0010.BAIHEN_NO									/* 17 売変NO */
+					,MDCT0010.BUMON_CD									/* 18 部門コード */
+					,MDCT0010.HINSYU_CD									/* 19 品種コード */
+					,MDCT0010.BURANDO_CD								/* 20 ブランドコード */
+					,STMT0500.BURANDO_NMK								/* 21 ブランド名 */
+					,MDCT0010.SYONMK									/* 22 商品名(カナ) */
+					,MDCT0010.JODAI1_TNK								/* 23 上代1 */
+					,MDCT0010.HANDLBL_KB								/* 24 ハンドラベル */
+					,MDCT0010.UPD_YMD									/* 25 更新日 */
+					,MDCT0010.UPD_TM									/* 26 更新時間 */
+					,MDCT0010.UPD_TANCD									/* 27 更新担当者コード */
+					,MIN(CASE
+					 /* 事前売変データがある場合、3 */
+					 WHEN	(
+								SELECT	COUNT(1)
+								FROM	MDCT0040
+								WHERE	TENPO_CD		=	MDCT0010.TENPO_CD
+								AND		BAIHENKAISI_YMD	=	MDCT0010.BAIHENKAISI_YMD
+								AND		BAIHEN_NO		=	MDCT0010.BAIHEN_NO
+								AND		BAIHENGYO_NO	=	MDCT0010.BAIHENGYO_NO
+								AND		JISYA_HBN		=	MDCT0010.JISYA_HBN
+								AND		IRO_CD			=	MDCT0010.IRO_CD
+							) &gt; 0	THEN	3
+					 /* 自動売変延長データがある場合、4 */
+					 WHEN	(
+								SELECT	COUNT(1)
+								FROM	MDCT0050
+								WHERE	TENPO_CD		=	MDCT0010.TENPO_CD
+								AND		BAIHENKAISI_YMD	=	MDCT0010.BAIHENKAISI_YMD
+								AND		BAIHEN_NO		=	MDCT0010.BAIHEN_NO
+								AND		BAIHENGYO_NO	=	MDCT0010.BAIHENGYO_NO
+								AND		JISYA_HBN		=	MDCT0010.JISYA_HBN
+								AND		IRO_CD			=	MDCT0010.IRO_CD
+								AND		SAKUJYO_FLG		=	0
+							) &gt; 0	THEN	4
+					 ELSE
+						0
+					 END) SHONIN_FLG
+					,MAX(MDMT0130.HANBAIKANRYO_YMD) HANBAIKANRYO_YMD	/* 29 販売完了日 */
+					,MAX(CASE WHEN MDMT0130.OLD_XEBIO_CD &lt;&gt; '0000000000' AND MDMT0130.TENKAI_KB = 2
+							  THEN 1
+							  ELSE 0
+							  END) OLD_COLOR_FLG
+					,COUNT(1) OVER(PARTITION BY JISYA_HBN) JISYA_HBN_CNT
+					,0	SORT1
+
+					FROM
+					 MDCT0010			/* 売価変更指示TBL */
+					,MDMT0070			/* 品種MST */
+					,MDMT0080			/* 色MST */
+					,MDMT0130			/* 共通商品 */
+					,STMT0091			/* 店別単価 */
+					,STMT0500			/* ブランドMST */
+					
+					WHERE 	MDCT0010.BUMON_CD		= MDMT0070.BUMON_CD(+)
+					AND 	MDCT0010.HINSYU_CD		= MDMT0070.HINSYU_CD(+)
+					AND 	MDCT0010.IRO_CD			= MDMT0080.IRO_CD(+)
+					AND		MDCT0010.BURANDO_CD		= STMT0500.BURANDO_CD(+)
+					AND		MDMT0130.XEBIO_CD		= MDCT0010.JISYA_HBN
+					AND		MDMT0130.MAKERCOLOR_CD	= MDCT0010.IRO_CD
+					AND		STMT0091.SOSIKI			= '0001'
+					AND		STMT0091.TENCD			= </parts><bind id="BIND_TENPO_CD1" /><parts>
+					AND		STMT0091.SKU			= MDMT0130.JAN_CD
+					
+					AND		(((MDCT0010.SIJIBAIKA_TNK &lt;&gt; MDCT0010.GENBAIKA_TNK) AND MDCT0010.ADD_KBN = '1') OR (MDCT0010.ADD_KBN = '2'))
+					
+					AND 	MDCT0010.TENPO_CD			= </parts><bind id="BIND_TENPO_CD2" /><parts>
+					AND 	MDCT0010.BAIHENKAISI_YMD	= </parts><bind id="BIND_BAIHENKAISI_YMD" /><parts>
+					AND 	MDCT0010.BAIHEN_NO			= </parts><bind id="BIND_BAIHEN_NO" /><parts>
+					AND		(
+							(CASE WHEN MDCT0010.KAKUTEI_FLG = 0
+									THEN (NVL((SELECT SUM(MDBT0030.FREEZAIKO_SU) FROM MDBT0030 WHERE MDBT0030.TENPO_CD = </parts><bind id="BIND_TENPO_CD14" /><parts> AND MDBT0030.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0030.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0030.IRO_CD = MDCT0010.IRO_CD), 0)
+										+ NVL((SELECT SUM(MDBT0040.FREEZAIKO_SU) FROM MDBT0040 WHERE MDBT0040.TENPO_CD = </parts><bind id="BIND_TENPO_CD15" /><parts> AND MDBT0040.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0040.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0040.IRO_CD = MDCT0010.IRO_CD), 0)
+										+ NVL((SELECT SUM(MDBT0060.FREEZAIKO_SU) FROM MDBT0060 WHERE MDBT0060.TENPO_CD = </parts><bind id="BIND_TENPO_CD16" /><parts> AND MDBT0060.TENPO_CD = MDCT0010.TENPO_CD AND MDBT0060.JISYA_HBN = MDCT0010.JISYA_HBN AND MDBT0060.IRO_CD = MDCT0010.IRO_CD), 0))
+									ELSE MDCT0010.ZAIKO_SU
+									END &gt; 0 AND MDCT0010.ADD_KBN = 1)
+							OR (MDCT0010.ADD_KBN = 2)
+							)
+					AND		MDCT0010.BAIHEN_RIYTU &lt;&gt; 999
+					AND		MDCT0010.KAKUTEI_FLG = CASE
+													WHEN </parts><bind id="BIND_KAKUTEI_FLG1" /><parts> = 1 THEN 1
+													WHEN </parts><bind id="BIND_KAKUTEI_FLG2" /><parts> = 2 THEN 0
+													ELSE MDCT0010.KAKUTEI_FLG
+													END
+					AND		MDCT0010.BUMON_CD  				=	</parts><bind id="BIND_BUMON_CD" /><parts>
+					AND		MDCT0010.BAIHENSAGYOKAISI_YMD	=	</parts><bind id="BIND_BAIHENSAGYOKAISI_YMD" /><parts>
+					AND		MDCT0010.BAIHEN_RIYTU 			=	</parts><bind id="BIND_BAIHEN_RIYTU" />
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 MDCT0010.BAIHENGYO_NO
+					,MDMT0070.HINSYU_RYAKU_NM
+					,MDCT0010.JISYA_HBN
+					,MDCT0010.MAKER_HBN
+					,MDCT0010.IRO_CD
+					,MDMT0080.IRO_NM
+					,MDCT0010.SEASON_KB
+					,MDCT0010.SIJIBAIKA_TNK
+					,MDCT0010.GEN_TNK
+					,MDCT0010.ZAIKO_SU
+					,MDCT0010.SIJIBAIKA_TNK
+					,MDCT0010.URIAGE_SU
+					,MDCT0010.BAIHENKAISI_YMD
+					,MDCT0010.BAIHENSYURYO_YMD
+					,MDCT0010.BAIHEN_NO
+					,MDCT0010.BUMON_CD
+					,MDCT0010.HINSYU_CD
+					,MDCT0010.BURANDO_CD
+					,STMT0500.BURANDO_NMK
+					,MDCT0010.SYONMK
+					,MDCT0010.JODAI1_TNK
+					,MDCT0010.HANDLBL_KB
+					,MDCT0010.UPD_YMD
+					,MDCT0010.UPD_TM
+					,MDCT0010.UPD_TANCD
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+					 SORT1		DESC
+					,HINSYU_CD
+					,BURANDO_CD
+					,JISYA_HBN
+					,CHG_FLG	DESC
+					,IRO_CD
+				</parts>
+			</statement>
+		</sql>
+
+		/** 売変検索(X)-一覧(印刷ボタン) 帳票出力用CSV作成 **/
+		<sql id="TL020P01-07">
+			<!--確定-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 2 SINSEIMOTO																	/*  1 申請元(本部:1,店舗:2) */
+							,DECODE(SIGN(MDCT0030.KAKUTEIBAIKA_TNK - MDCT0030.GENBAIKA_TNK),1,1,2) HANTEI	/*  2 値上げ判定 */
+							,MDCT0030.TENPO_CD TENPO_CD														/*  3 店舗コード */
+							,BOMT0010.TENPO_NM																/*  4 店舗名 */
+							,MDCT0030.BUMON_CD BUMON_CD														/*  5 部門コード */
+							,BOMT0060.BUMON_NM																/*  6 部門名 */
+							,BOMT0030.HANBAIIN_NM															/*  7 登録確定者 */
+							,'' SINSEICOMMENT_NM															/*  8 コメント */
+							,MDMT0070.HINSYU_RYAKU_NM														/*  9 品種名 */
+							,MDCT0030.BAIHENKAISI_YMD														/* 10 開始日 */
+							,STMT0500.BURANDO_NMK															/* 11 ブランド */
+							,MDCT0030.MAKER_HBN MAKER_HBN													/* 12 メーカー品番 */
+							,MDCT0030.SYONMK																/* 13 商品名(カナ) */
+							,MDCT0030.JISYA_HBN JISYA_HBN													/* 14 自社品番 */
+							,MDMT0080.IRO_NM																/* 15 色名 */
+							,MDCT0030.JODAI1_TNK															/* 16 現売価 */
+							,MIN(MDCT0030.GENBAIKA_TNK) GENBAIKA_TNK										/* 17 旧売価 */
+							,MDCT0030.KAKUTEIBAIKA_TNK														/* 18 新売価 */
+							,MDMT0130.ZEI_KB																/* 19 税区分 */
+							,MDCT0030.ZAIKO_SU																/* 20 在庫数 */
+							,MDMT0100.MEISYO_NM 															/* 21 ラベル */
+							,MDCT0030.TENPO_CD || MDCT0030.BUMON_CD || DECODE(SIGN(MDCT0030.KAKUTEIBAIKA_TNK - MDCT0030.GENBAIKA_TNK),1,1,2) || '' || 2 || MDCT0030.ADDTAN_CD BREAK
+																											/* 22 ブレークキー （店舗-部門-値上げ判定-申請元-登録担当者コード） */
+							,0	BAIHENSAGYOKAISI_YMD														/* 23 作業開始日 */
+							,MAX(MDMT0130.HANBAIKANRYO_YMD) HANBAIKANRYO_YMD								/* 24 販売完了日 */
+							,MDCT0030.HANDLBL_KB HANDLBL_KB													/* 24 ハンドラベル（出力順用） */
+							,MDCT0030.BURANDO_CD BURANDO_CD													/* 25 ブランドコード（出力順用） */
+							,MDCT0030.IRO_CD IRO_CD 														/* 26 色コード（出力順用） */
+							,MDCT0030.ADDTAN_CD ADDTAN_CD													/* 27 登録担当者コード（出力順用） */
+							,MDMT0270.TAX_CD TAX_CD 														/* 28 税率コード */
+
+					FROM
+							 MDCT0030					/* 売価変更確定TBL */
+							,BOMT0010					/* 店舗MST */
+							,BOMT0030					/* 販売員MST */
+							,BOMT0060					/* 部門MST */
+							,MDMT0070					/* 品種MST */
+							,MDMT0080					/* 色MST */
+							,MDMT0100					/* 名称MST */
+							,STMT0500					/* ブランドマスタ */
+							,MDMT0130					/* 発注マスタ */
+							,STMT0091					/* 店別単価 */
+							,MDMT0270					/* 税率管理マスタ */
+					WHERE	MDCT0030.TENPO_CD		 = BOMT0010.TENPO_CD(+)
+					AND		MDCT0030.BUMON_CD		 = MDMT0070.BUMON_CD(+)
+					AND		MDCT0030.HINSYU_CD		 = MDMT0070.HINSYU_CD(+)
+					AND		MDCT0030.BUMON_CD		 = BOMT0060.BUMON_CD(+)
+					AND		MDCT0030.HANDLBL_KB 	 = MDMT0100.MEISYO_CD(+)
+					AND		MDCT0030.ADDTAN_CD		 = BOMT0030.HANBAIIN_CD(+)
+					AND		MDCT0030.BURANDO_CD 	 = STMT0500.BURANDO_CD(+)
+					AND		MDCT0030.IRO_CD 		 = MDMT0080.IRO_CD(+)
+					AND		MDCT0030.JISYA_HBN		 = MDMT0130.XEBIO_CD(+)
+					AND		MDCT0030.IRO_CD 		 = MDMT0130.MAKERCOLOR_CD(+)
+					AND		MDMT0100.SIKIBETSU_CD(+) = 'HDLB'
+					AND		MDCT0030.TENPO_CD		 = </parts><bind id="BIND_TENPO_CD_01" /><parts>
+					AND		STMT0091.SOSIKI			 = '0001'
+					AND		STMT0091.TENCD			 = </parts><bind id="BIND_TENPO_CD_02" /><parts>
+					AND		STMT0091.SKU			 = MDMT0130.JAN_CD
+					AND		MDCT0030.ZAIKO_SU		 &gt; 0
+					AND		MDCT0030.SIJIBAIKA_TNK	 &lt;&gt; MDCT0030.GENBAIKA_TNK
+					AND		MDCT0030.SYONIN_FLG 	 = 1
+					AND		MDMT0130.TAX = MDMT0270.TAX
+				</parts>
+			</statement>
+			<!--検索条件1 確定-->
+			<statement type="replace" name="REPLACE_WHERE_1"/>
+			<statement type="final" name="final">
+				<parts>
+					AND (
+						 MDCT0030.TENPO_CD
+						,MDCT0030.BAIHENKAISI_YMD
+						,MDCT0030.BAIHEN_NO
+						,MDCT0030.JISYA_HBN
+						,MDCT0030.IRO_CD
+					) IN (
+						SELECT
+							 MDCT0030_MAX.TENPO_CD
+							,TO_NUMBER(SUBSTR(MAX(MDCT0030_MAX.BAIHEN_NO || MDCT0030_MAX.BAIHENKAISI_YMD), 11, 8))
+							,SUBSTR(MAX(MDCT0030_MAX.BAIHEN_NO || MDCT0030_MAX.BAIHENKAISI_YMD), 1, 10)
+							,MDCT0030_MAX.JISYA_HBN
+							,MDCT0030_MAX.IRO_CD
+						FROM
+							MDCT0030 MDCT0030_MAX
+						WHERE
+							MDCT0030_MAX.TENPO_CD		 = </parts><bind id="BIND_TENPO_CD_03" />
+			</statement>
+			<!--検索条件2 確定 最大売変No-->
+			<statement type="replace" name="REPLACE_WHERE_2"/>
+			<statement type="final" name="final">
+				<parts>
+						GROUP BY
+							 MDCT0030_MAX.TENPO_CD
+							,MDCT0030_MAX.JISYA_HBN
+							,MDCT0030_MAX.IRO_CD
+					)
+				GROUP BY
+						 MDCT0030.TENPO_CD				/*  3 店舗コード */
+						,BOMT0010.TENPO_NM				/*  4 店舗名 */
+						,MDCT0030.BUMON_CD				/*  5 部門コード */
+						,BOMT0060.BUMON_NM				/*  6 部門名 */
+						,BOMT0030.HANBAIIN_NM			/*  7 登録確定者 */
+						,MDMT0070.HINSYU_RYAKU_NM		/*  9 品種名 */
+						,MDCT0030.BAIHENKAISI_YMD		/* 10 開始日 */
+						,STMT0500.BURANDO_NMK			/* 11 ブランド */
+						,MDCT0030.MAKER_HBN 			/* 12 メーカー品番 */
+						,MDCT0030.SYONMK				/* 13 商品名(カナ) */
+						,MDCT0030.JISYA_HBN 			/* 14 自社品番 */
+						,MDMT0080.IRO_NM				/* 15 色名 */
+						,MDCT0030.JODAI1_TNK			/* 16 現売価 */
+						,MDCT0030.GENBAIKA_TNK			/* 17 旧売価 */
+						,MDCT0030.KAKUTEIBAIKA_TNK		/* 18 新売価 */
+						,MDMT0130.ZEI_KB				/* 19 税区分 */
+						,MDCT0030.ZAIKO_SU				/* 20 在庫数 */
+						,MDMT0100.MEISYO_NM 			/* 21 ラベル */
+						,MDCT0030.HANDLBL_KB			/* 23 ハンドラベル（出力順用） */
+						,MDCT0030.TENPO_CD || MDCT0030.BUMON_CD || DECODE(SIGN(MDCT0030.KAKUTEIBAIKA_TNK - MDCT0030.GENBAIKA_TNK),1,1,2) || '                                                                                                    ' || 2 || MDCT0030.ADDTAN_CD
+														/* 22 ブレークキー （店舗-部門-値上げ判定-申請元-登録担当者コード） */
+						,MDCT0030.BURANDO_CD			/* 24 ブランドコード（出力順用） */
+						,MDCT0030.IRO_CD				/* 25 色コード（出力順用） */
+						,MDCT0030.ADDTAN_CD 			/* 26 登録担当者コード（出力順用） */
+						,DECODE(SIGN(MDCT0030.KAKUTEIBAIKA_TNK - MDCT0030.GENBAIKA_TNK),1,1,2)	  /*  2 値上げ判定 */
+						,MDMT0270.TAX_CD  				/* 28 税率コード */
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<!--指示-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 1 SINSEIMOTO																/*  1 申請元(本部:1,店舗:2) */
+							,DECODE(SIGN(MDCT0010.SIJIBAIKA_TNK - MDCT0010.GENBAIKA_TNK),1,1,2) HANTEI	/*  2 値上げ判定 */
+							,MDCT0010.TENPO_CD TENPO_CD													/*  3 店舗コード */
+							,BOMT0010.TENPO_NM															/*  4 店舗名 */
+							,MDCT0010.BUMON_CD BUMON_CD													/*  5 部門コード */
+							,BOMT0060.BUMON_NM															/*  6 部門名 */
+							,''  HANBAIIN_NM															/*  7 登録確定者 */
+							,NVL(MDCT0010.SINSEICOMMENT_NM,'') SINSEICOMMENT_NM
+																										/*  8 コメント */
+							,MDMT0070.HINSYU_RYAKU_NM													/*  9 品種名 */
+							,MDCT0010.BAIHENKAISI_YMD													/* 10 開始日 */
+							,STMT0500.BURANDO_NMK														/* 11 ブランド */
+							,MDCT0010.MAKER_HBN MAKER_HBN												/* 12 メーカー品番 */
+							,MDCT0010.SYONMK															/* 13 商品名(カナ) */
+							,MDCT0010.JISYA_HBN JISYA_HBN												/* 14 自社品番 */
+							,MDMT0080.IRO_NM															/* 15 色名 */
+							,MDCT0010.JODAI1_TNK														/* 16 現売価 */
+							,	 MIN(CASE
+										WHEN KAKUTEI_FLG = 1 THEN MDCT0010.GENBAIKA_TNK
+										ELSE (CASE WHEN STMT0091.SLPR IS NULL THEN MDMT0130.SLPR ELSE STMT0091.SLPR END)
+								 END)  GENBAIKA_TNK 													/* 17 旧売価 */
+							,MDCT0010.SIJIBAIKA_TNK 													/* 18 新売価 */
+							,MDMT0130.ZEI_KB															/* 19 税区分 */
+							,MDCT0010.ZAIKO_SU															/* 20 在庫数 */
+							,MDMT0100.MEISYO_NM 														/* 21 ラベル */
+							,MDCT0010.TENPO_CD || MDCT0010.BUMON_CD || DECODE(SIGN(MDCT0010.SIJIBAIKA_TNK - MDCT0010.GENBAIKA_TNK),1,1,2) || NVL(MDCT0010.SINSEICOMMENT_NM,'                                                                                                    ') || 1 || '       ' BREAK
+																										/* 22 ブレークキー （店舗-部門-値上げ判定-申請元-登録担当者コード） */
+							,MDCT0010.BAIHENSAGYOKAISI_YMD												/* 23 作業開始日 */
+							,MAX(MDMT0130.HANBAIKANRYO_YMD)												/* 28 販売完了日 */
+							,MDCT0010.HANDLBL_KB HANDLBL_KB												/* 24 ハンドラベル（出力順用） */
+							,MDCT0010.BURANDO_CD BURANDO_CD												/* 25 ブランドコード（出力順用） */
+							,MDCT0010.IRO_CD IRO_CD														/* 26 色コード（出力順用） */
+							,'' ADDTAN_CD																/* 27 登録担当者コード（出力順用） */
+							,MDMT0270.TAX_CD TAX_CD 													/* 28 税率コード */
+					FROM
+							 MDCT0010					/* 売価変更確定TBL */
+							,BOMT0010					/* 店舗MST */
+							,BOMT0030					/* 販売員MST */
+							,BOMT0060					/* 部門MST */
+							,MDMT0070					/* 品種MST */
+							,MDMT0080					/* 色MST */
+							,MDMT0100					/* 名称MST */
+							,STMT0500					/* ブランドマスタ */
+							,MDMT0130					/* 発注マスタ */
+							,STMT0091					/* 店別単価 */
+							,MDMT0270					/* 税率管理マスタ */
+					WHERE	MDCT0010.TENPO_CD 	= BOMT0010.TENPO_CD(+)
+					AND		MDCT0010.BUMON_CD 	= MDMT0070.BUMON_CD(+)
+					AND		MDCT0010.HINSYU_CD	= MDMT0070.HINSYU_CD(+)
+					AND		MDCT0010.BUMON_CD 	= BOMT0060.BUMON_CD(+)
+					AND		MDCT0010.HANDLBL_KB	= MDMT0100.MEISYO_CD(+)
+					AND		MDCT0010.ADDTAN_CD	= BOMT0030.HANBAIIN_CD(+)
+					AND		MDCT0010.BURANDO_CD	= STMT0500.BURANDO_CD(+)
+					AND		MDCT0010.IRO_CD		= MDMT0080.IRO_CD(+)
+					AND		MDCT0010.JISYA_HBN	= MDMT0130.XEBIO_CD(+)
+					AND		MDCT0010.IRO_CD		= MDMT0130.MAKERCOLOR_CD(+)
+					AND		MDMT0100.SIKIBETSU_CD(+) = 'HDLB'
+					AND		MDCT0010.TENPO_CD	 = </parts><bind id="BIND_TENPO_CD_04" /><parts>
+					AND		STMT0091.SOSIKI		 = '0001'
+					AND		STMT0091.TENCD		 = </parts><bind id="BIND_TENPO_CD_05" /><parts>
+					AND		STMT0091.SKU		 = MDMT0130.JAN_CD
+					AND		((  MDCT0010.ZAIKO_SU 	 &gt; 0 AND MDCT0010.ADD_KBN = '1') OR (MDCT0010.ADD_KBN = '2'))
+					AND		(
+								(   MDCT0010.SIJIBAIKA_TNK &lt;&gt; MDCT0010.GENBAIKA_TNK
+								   AND MDCT0010.ADD_KBN = '1'
+								)
+								OR
+								(
+								   MDCT0010.ADD_KBN = '2'
+								)
+							)
+					AND   MDCT0010.KAKUTEI_FLG = 1
+					AND		MDMT0130.TAX = MDMT0270.TAX
+				</parts>
+			</statement>
+			<!--検索条件3 指示-->
+			<statement type="replace" name="REPLACE_WHERE_3"/>
+			<statement type="final" name="final">
+				<parts>
+					AND (
+						 MDCT0010.TENPO_CD
+						,MDCT0010.BAIHENKAISI_YMD
+						,MDCT0010.BAIHEN_NO
+						,MDCT0010.JISYA_HBN
+						,MDCT0010.IRO_CD
+					) IN (
+						SELECT
+							 MDCT0010_MAX.TENPO_CD
+							,TO_NUMBER(SUBSTR(MAX(MDCT0010_MAX.BAIHEN_NO || MDCT0010_MAX.BAIHENKAISI_YMD), 11, 8))
+							,SUBSTR(MAX(MDCT0010_MAX.BAIHEN_NO || MDCT0010_MAX.BAIHENKAISI_YMD), 1, 10)
+							,MDCT0010_MAX.JISYA_HBN
+							,MDCT0010_MAX.IRO_CD
+						FROM
+							MDCT0010 MDCT0010_MAX
+						WHERE
+							MDCT0010_MAX.TENPO_CD		 = </parts><bind id="BIND_TENPO_CD_06" />
+			</statement>
+			<!--検索条件4 指示 最大売変No-->
+			<statement type="replace" name="REPLACE_WHERE_4"/>
+			<statement type="final" name="final">
+				<parts>
+						GROUP BY
+							 MDCT0010_MAX.TENPO_CD
+							,MDCT0010_MAX.JISYA_HBN
+							,MDCT0010_MAX.IRO_CD
+					)
+					GROUP BY
+							 MDCT0010.TENPO_CD			/*	3 店舗コード */
+							,BOMT0010.TENPO_NM			/*	4 店舗名 */
+							,MDCT0010.BUMON_CD			/*	5 部門コード */
+							,BOMT0060.BUMON_NM			/*	6 部門名 */
+							,MDCT0010.SINSEICOMMENT_NM	/*	8 コメント */
+							,MDMT0070.HINSYU_RYAKU_NM 	/*	9 品種名 */
+							,MDCT0010.BAIHENKAISI_YMD 	/* 10 開始日 */
+							,STMT0500.BURANDO_NMK 		/* 11 ブランド */
+							,MDCT0010.MAKER_HBN			/* 12 メーカー品番 */
+							,MDCT0010.SYONMK			/* 13 商品名(カナ) */
+							,MDCT0010.JISYA_HBN			/* 14 自社品番 */
+							,MDMT0080.IRO_NM			/* 15 色名 */
+							,MDCT0010.JODAI1_TNK		/* 16 現売価 */
+							,MDCT0010.GENBAIKA_TNK		/* 17 旧売価 */
+							,MDCT0010.SIJIBAIKA_TNK		/* 18 新売価 */
+							,MDMT0130.ZEI_KB			/* 19 税区分 */
+							,MDCT0010.ZAIKO_SU			/* 20 在庫数 */
+							,MDMT0100.MEISYO_NM			/* 21 ラベル */
+							,MDCT0010.TENPO_CD || MDCT0010.BUMON_CD || DECODE(SIGN(MDCT0010.SIJIBAIKA_TNK - MDCT0010.GENBAIKA_TNK),1,1,2) || NVL(MDCT0010.SINSEICOMMENT_NM,'                                                                                                    ') || 1 || '       '
+														/* 22 ブレークキー （店舗-部門-値上げ判定-申請元-登録担当者コード） */
+							,MDCT0010.BAIHENSAGYOKAISI_YMD	/* 23 売変作業開始日 */
+							,MDCT0010.HANDLBL_KB		/* 24 ハンドラベル（出力順用） */
+							,MDCT0010.BURANDO_CD		/* 25 ブランドコード（出力順用） */
+							,MDCT0010.IRO_CD			/* 26 色コード（出力順用） */
+							,DECODE(SIGN(MDCT0010.SIJIBAIKA_TNK - MDCT0010.GENBAIKA_TNK),1,1,2) 
+							,MDMT0270.TAX_CD  			/* 28 税率コード */
+					ORDER BY
+							 TENPO_CD
+							,BUMON_CD
+							,HANTEI
+							,SINSEICOMMENT_NM
+							,SINSEIMOTO
+							,ADDTAN_CD
+							,HANDLBL_KB
+							,BURANDO_CD
+							,MAKER_HBN
+							,JISYA_HBN
+							,IRO_CD
+				</parts>
+			</statement>
+		</sql>
+
+		/** 売変検索(X)-一覧(シール発行ボタン) シール発行用CSV作成 **/
+		<sql id="TL020P01-08">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 MAX(MDCT0030.BUMON_CD) BUMON_CD					/* 部門コード */
+							,MAX(BOMT0060.BUMON_NM) BUMON_NM					/* 部門名 */
+							,MAX(MDCT0030.HANDLBL_KB) HANDLBL_KB				/* ラベル */
+							,MAX(MDMT0100.MEISYO_NM) MEISYO_NM					/* ラベル名 */
+							,MAX((SELECT MAX(ZEI_KB) FROM MDMT0130 WHERE MDMT0130.XEBIO_CD = MDCT0030.JISYA_HBN AND MDMT0130.MAKERCOLOR_CD = MDCT0030.IRO_CD)) ZEI_KB /* 税区分 */
+							,MAX(MDCT0030.KAKUTEIBAIKA_TNK) KAKUTEIBAIKA_TNK	/* 税抜価格 */
+							,MAX(MDCT0030.KAKUTEIBAIKA_TNK) KAKUTEIBAIKA_TNK2	/* 税込価格 */
+							,NVL(SUM(ZAIKO1.FREEZAIKO_SU),0) FREEZAIKO_SU		/* 在庫数 */
+							,MAX(MDCT0030.BURANDO_CD) BURANDO_CD				/* ブランドコード */
+							,MAX(MDCT0030.JISYA_HBN) JISYA_HBN					/* 自社品番 */
+							,MAX(MDCT0030.IRO_CD) IRO_CD						/* 色 */
+							,MAX((SELECT MAX(TAX_CD) FROM MDMT0270 WHERE MDMT0270.TAX = 
+								(SELECT MAX(TAX) FROM MDMT0130 WHERE MDMT0130.XEBIO_CD = MDCT0030.JISYA_HBN AND MDMT0130.MAKERCOLOR_CD = MDCT0030.IRO_CD))) TAX_CD
+					FROM
+							 MDCT0030		  /* 売変確定 */
+							,BOMT0060		  /* 部門マスタ */
+							,MDMT0100		  /* 名称マスタ */
+							,(
+								SELECT
+									 MDBT0030.TENPO_CD
+									,MDBT0030.JISYA_HBN
+									,MDBT0030.IRO_CD
+									,MDBT0030.FREEZAIKO_SU
+								FROM
+									MDBT0030  /* 前日在庫 */
+								UNION ALL
+								SELECT
+									 MDBT0040.TENPO_CD
+									,MDBT0040.JISYA_HBN
+									,MDBT0040.IRO_CD
+									,MDBT0040.FREEZAIKO_SU
+								FROM
+									MDBT0040  /* 当日受払 */
+								UNION ALL
+								SELECT
+									 MDBT0060.TENPO_CD
+									,MDBT0060.JISYA_HBN
+									,MDBT0060.IRO_CD
+									,MDBT0060.FREEZAIKO_SU
+								FROM
+									MDBT0060  /* 受払履歴集計 */
+							) ZAIKO1		  /* リアル在庫 */
+					WHERE
+							MDCT0030.BUMON_CD	 = BOMT0060.BUMON_CD
+					AND MDMT0100.SIKIBETSU_CD(+) = 'HDSL'
+					AND MDCT0030.HANDLBL_KB 	 = MDMT0100.MEISYO_CD(+)
+					AND MDCT0030.TENPO_CD		 = ZAIKO1.TENPO_CD(+)
+					AND MDCT0030.JISYA_HBN		 = ZAIKO1.JISYA_HBN(+)
+					AND MDCT0030.IRO_CD 		 = ZAIKO1.IRO_CD(+)
+					AND MDCT0030.SYONIN_FLG 	 = 1  /* 確定済みのデータのみ */
+					AND MDCT0030.KAKUTEIBAIKA_TNK &lt;= 999999
+				</parts>
+			</statement>
+			<!--検索条件1-->
+			<statement type="replace" name="REPLACE_WHERE_1"/>
+			<statement type="final" name="final">
+				<parts>
+					AND (
+						 MDCT0030.TENPO_CD
+						,MDCT0030.BAIHENKAISI_YMD
+						,MDCT0030.BAIHEN_NO
+						,MDCT0030.JISYA_HBN
+						,MDCT0030.IRO_CD
+					) IN (
+						SELECT
+							 MDCT0030_MAX.TENPO_CD
+							,TO_NUMBER(SUBSTR(MAX(MDCT0030_MAX.BAIHEN_NO || MDCT0030_MAX.BAIHENKAISI_YMD), 11, 8))
+							,SUBSTR(MAX(MDCT0030_MAX.BAIHEN_NO || MDCT0030_MAX.BAIHENKAISI_YMD), 1, 10)
+							,MDCT0030_MAX.JISYA_HBN
+							,MDCT0030_MAX.IRO_CD
+						FROM
+							MDCT0030 MDCT0030_MAX
+						WHERE 1 = 1
+				</parts>
+			</statement>
+			<!--検索条件2-->
+			<statement type="replace" name="REPLACE_WHERE_2"/>
+			<statement type="final" name="final">
+				<parts>
+						GROUP BY
+							 MDCT0030_MAX.TENPO_CD
+							,MDCT0030_MAX.JISYA_HBN
+							,MDCT0030_MAX.IRO_CD
+					)
+					GROUP BY
+							 MDCT0030.JISYA_HBN
+							,MDCT0030.IRO_CD
+					HAVING
+							NVL(SUM(ZAIKO1.FREEZAIKO_SU),0) &gt; 0
+					 UNION ALL 
+					SELECT
+							 MAX(MDCT0010.BUMON_CD) BUMON_CD				/* 部門コード */
+							,MAX(BOMT0060.BUMON_NM) BUMON_NM				/* 部門名 */
+							,MAX(MDCT0010.HANDLBL_KB) HANDLBL_KB			/* ラベル */
+							,MAX(MDMT0100.MEISYO_NM) MEISYO_NM				/* ラベル名 */
+							,MAX((SELECT MAX(ZEI_KB) FROM MDMT0130 WHERE MDMT0130.XEBIO_CD = MDCT0010.JISYA_HBN AND MDMT0130.MAKERCOLOR_CD = MDCT0010.IRO_CD)) ZEI_KB /* 税区分 */
+							,MAX(MDCT0010.SIJIBAIKA_TNK) KAKUTEIBAIKA_TNK	/* 税抜価格 */
+							,MAX(MDCT0010.SIJIBAIKA_TNK) KAKUTEIBAIKA_TNK2	/* 税込価格 */
+							,NVL(SUM(ZAIKO2.FREEZAIKO_SU),0) FREEZAIKO_SU	/* 在庫数 */
+							,MAX(MDCT0010.BURANDO_CD) BURANDO_CD			/* ブランドコード */
+							,MAX(MDCT0010.JISYA_HBN) JISYA_HBN				/* 自社品番 */
+							,MAX(MDCT0010.IRO_CD) IRO_CD					/* 色 */
+							,MAX((SELECT MAX(TAX_CD) FROM MDMT0270 WHERE MDMT0270.TAX = 
+								(SELECT MAX(TAX) FROM MDMT0130 WHERE MDMT0130.XEBIO_CD = MDCT0010.JISYA_HBN AND MDMT0130.MAKERCOLOR_CD = MDCT0010.IRO_CD))) TAX_CD
+					FROM
+							 MDCT0010		  /* 売変指示 */
+							,BOMT0060		  /* 部門マスタ */
+							,MDMT0100		  /* 名称マスタ */
+							,(
+								SELECT
+									 MDBT0030.TENPO_CD
+									,MDBT0030.JISYA_HBN
+									,MDBT0030.IRO_CD
+									,MDBT0030.FREEZAIKO_SU
+								FROM
+									MDBT0030  /* 前日在庫 */
+								UNION ALL
+								SELECT
+									 MDBT0040.TENPO_CD
+									,MDBT0040.JISYA_HBN
+									,MDBT0040.IRO_CD
+									,MDBT0040.FREEZAIKO_SU
+								FROM
+									MDBT0040  /* 当日受払 */
+								UNION ALL
+								SELECT
+									 MDBT0060.TENPO_CD
+									,MDBT0060.JISYA_HBN
+									,MDBT0060.IRO_CD
+									,MDBT0060.FREEZAIKO_SU
+								FROM
+									MDBT0060  /* 受払履歴集計 */
+							) ZAIKO2		  /* リアル在庫 */
+					WHERE
+						MDCT0010.BUMON_CD		 = BOMT0060.BUMON_CD
+					AND MDMT0100.SIKIBETSU_CD(+) = 'HDSL'
+					AND MDCT0010.HANDLBL_KB 	 = MDMT0100.MEISYO_CD(+)
+					AND MDCT0010.TENPO_CD		 = ZAIKO2.TENPO_CD(+)
+					AND MDCT0010.JISYA_HBN		 = ZAIKO2.JISYA_HBN(+)
+					AND MDCT0010.IRO_CD 		 = ZAIKO2.IRO_CD(+)
+					AND MDCT0010.SIJIBAIKA_TNK &lt;= 999999
+					AND MDCT0010.KAKUTEI_FLG = 1
+				</parts>
+			</statement>
+			<!--検索条件3-->
+			<statement type="replace" name="REPLACE_WHERE_3"/>
+			<statement type="final" name="final">
+				<parts>
+					AND (
+						 MDCT0010.TENPO_CD
+						,MDCT0010.BAIHENKAISI_YMD
+						,MDCT0010.BAIHEN_NO
+						,MDCT0010.JISYA_HBN
+						,MDCT0010.IRO_CD
+					) IN (
+						SELECT
+							 MDCT0010_MAX.TENPO_CD
+							,TO_NUMBER(SUBSTR(MAX(MDCT0010_MAX.BAIHEN_NO || MDCT0010_MAX.BAIHENKAISI_YMD), 11, 8))
+							,SUBSTR(MAX(MDCT0010_MAX.BAIHEN_NO || MDCT0010_MAX.BAIHENKAISI_YMD), 1, 10)
+							,MDCT0010_MAX.JISYA_HBN
+							,MDCT0010_MAX.IRO_CD
+						FROM
+							MDCT0010 MDCT0010_MAX
+						WHERE 1 = 1
+				</parts>
+			</statement>
+			<!--検索条件4-->
+			<statement type="replace" name="REPLACE_WHERE_4"/>
+			<statement type="final" name="final">
+				<parts>
+						GROUP BY
+							 MDCT0010_MAX.TENPO_CD
+							,MDCT0010_MAX.JISYA_HBN
+							,MDCT0010_MAX.IRO_CD
+					)
+					GROUP BY
+							 MDCT0010.JISYA_HBN
+							,MDCT0010.IRO_CD
+					HAVING
+							NVL(SUM(ZAIKO2.FREEZAIKO_SU),0) &gt; 0
+					ORDER BY
+							 HANDLBL_KB 		  /* ラベル */
+							,BUMON_CD			  /* 部門コード */
+							,BURANDO_CD 		  /* ブランドコード */
+							,KAKUTEIBAIKA_TNK2	  /* 税抜価格 */
+							,JISYA_HBN			  /* 自社品番 */
+							,IRO_CD 			  /* 色 */
+				</parts>
+			</statement>
+		</sql>
+
+	</sql-list>
+</sql-included>

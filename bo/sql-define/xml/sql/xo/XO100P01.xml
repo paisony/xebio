@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="XO100P01-01">
+			<statement type="final" name="final">
+				<parts>
+						SELECT
+						M1.COPCD
+						,M1.TTSCD
+						,M1.PW
+						,M1.TTSMEI
+						,M1.TTSMEIKM
+						,M1.KSNNCJ
+						,M2.COPRKSMES
+						,M3.PASSWORD_UPDATE_DATETIME
+						FROM BS_LOGIN_USER M3, M_TANTO M1
+						LEFT OUTER JOIN M_KAISYA M2 ON  M2.COPCD = M1.COPCD AND M2.SKJFLG = 0
+						WHERE M1.COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+						 AND M1.TTSCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TTSCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+						 AND M3.LOGIN_ID =
+				</parts>
+			</statement>
+				<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+		</sql>
+		<sql id="XO100P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT LOGIN_ID
+					 COMPANY_ID
+					,PASSWORD
+					,NAME
+					FROM BS_LOGIN_USER
+					WHERE LOGIN_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+		</sql>
+		<sql id="XO100P01-03">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE BS_LOGIN_USER
+					SET PASSWORD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PASSWORD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,UPDATE_DATETIME =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,UPDATE_USER_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+					<bind id="UPDATE_USER_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,PASSWORD_UPDATE_DATETIME =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PASSWORD_UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					WHERE LOGIN_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+		</sql>
+		<sql id="XO100P01-04">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO BS_PASSWORD_HISTORY (
+					LOGIN_ID
+					,UPDATE_DATETIME
+					,PASSWORD
+					) VALUES (
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="UPDATE_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PASSWORD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

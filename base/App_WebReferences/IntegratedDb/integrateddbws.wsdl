@@ -1,0 +1,1199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="Com.Fujitsu.SmartBase.DataIntegration.Common" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="Com.Fujitsu.SmartBase.DataIntegration.Common" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="Com.Fujitsu.SmartBase.DataIntegration.Common">
+      <s:element name="GetJobStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetJobStatusResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WaitJobComplete">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WaitJobCompleteResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UploadXmlData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadXmlDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadXmlDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadHeaderlessXmlData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aspCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="solutionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="synchronizeDatetime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formatId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="diff" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="insertXmlData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="removeXmlData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadHeaderlessXmlDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadHeaderlessXmlDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadXmlData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadXmlDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadXmlDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveAllOldXmlFile">
+        <s:complexType />
+      </s:element>
+      <s:element name="RemoveAllOldXmlFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RemoveAllOldXmlFileResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Import">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filePath" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportXmlData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportXmlDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportXmlDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportHeaderlessXmlData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aspCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="solutionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="synchronizeDatetime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formatId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="diff" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="insertXmlData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="removeXmlData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportHeaderlessXmlDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportHeaderlessXmlDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWhereParamSetting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWhereParamSettingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWhereParamSettingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Export">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aspCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formatId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="whereParams" type="tns:ArrayOfArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxNumber" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="filePath" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExportResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportXmlData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aspCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formatId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="whereParams" type="tns:ArrayOfArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxNumber" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportXmlDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExportXmlDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aspCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formatId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataWithWhereCondition">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aspCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formatId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="whereParams" type="tns:ArrayOfArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxNumber" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataWithWhereConditionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataWithWhereConditionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSynchronizeDateTime">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aspCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSynchronizeDateTimeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSynchronizeDateTimeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="int" type="s:int" />
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetJobStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="WaitJobCompleteSoapIn">
+    <wsdl:part name="parameters" element="tns:WaitJobComplete" />
+  </wsdl:message>
+  <wsdl:message name="WaitJobCompleteSoapOut">
+    <wsdl:part name="parameters" element="tns:WaitJobCompleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadXmlDataSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadXmlData" />
+  </wsdl:message>
+  <wsdl:message name="UploadXmlDataSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadXmlDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadHeaderlessXmlDataSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadHeaderlessXmlData" />
+  </wsdl:message>
+  <wsdl:message name="UploadHeaderlessXmlDataSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadHeaderlessXmlDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadXmlDataSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadXmlData" />
+  </wsdl:message>
+  <wsdl:message name="DownloadXmlDataSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadXmlDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveAllOldXmlFileSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveAllOldXmlFile" />
+  </wsdl:message>
+  <wsdl:message name="RemoveAllOldXmlFileSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveAllOldXmlFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportSoapIn">
+    <wsdl:part name="parameters" element="tns:Import" />
+  </wsdl:message>
+  <wsdl:message name="ImportSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportXmlDataSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportXmlData" />
+  </wsdl:message>
+  <wsdl:message name="ImportXmlDataSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportXmlDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportHeaderlessXmlDataSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportHeaderlessXmlData" />
+  </wsdl:message>
+  <wsdl:message name="ImportHeaderlessXmlDataSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportHeaderlessXmlDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWhereParamSettingSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWhereParamSetting" />
+  </wsdl:message>
+  <wsdl:message name="GetWhereParamSettingSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWhereParamSettingResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExportSoapIn">
+    <wsdl:part name="parameters" element="tns:Export" />
+  </wsdl:message>
+  <wsdl:message name="ExportSoapOut">
+    <wsdl:part name="parameters" element="tns:ExportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExportXmlDataSoapIn">
+    <wsdl:part name="parameters" element="tns:ExportXmlData" />
+  </wsdl:message>
+  <wsdl:message name="ExportXmlDataSoapOut">
+    <wsdl:part name="parameters" element="tns:ExportXmlDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="GetDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDataWithWhereConditionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDataWithWhereCondition" />
+  </wsdl:message>
+  <wsdl:message name="GetDataWithWhereConditionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDataWithWhereConditionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSynchronizeDateTimeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSynchronizeDateTime" />
+  </wsdl:message>
+  <wsdl:message name="GetSynchronizeDateTimeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSynchronizeDateTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusHttpGetIn">
+    <wsdl:part name="jobId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="WaitJobCompleteHttpGetIn">
+    <wsdl:part name="jobId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WaitJobCompleteHttpGetOut" />
+  <wsdl:message name="UploadXmlDataHttpGetIn">
+    <wsdl:part name="xmlData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadXmlDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadHeaderlessXmlDataHttpGetIn">
+    <wsdl:part name="aspCode" type="s:string" />
+    <wsdl:part name="companyId" type="s:string" />
+    <wsdl:part name="solutionId" type="s:string" />
+    <wsdl:part name="synchronizeDatetime" type="s:string" />
+    <wsdl:part name="formatId" type="s:string" />
+    <wsdl:part name="diff" type="s:string" />
+    <wsdl:part name="insertXmlData" type="s:string" />
+    <wsdl:part name="removeXmlData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadHeaderlessXmlDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DownloadXmlDataHttpGetIn">
+    <wsdl:part name="jobId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DownloadXmlDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RemoveAllOldXmlFileHttpGetIn" />
+  <wsdl:message name="RemoveAllOldXmlFileHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="ImportHttpGetIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="filePath" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportXmlDataHttpGetIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="xmlData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportXmlDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportHeaderlessXmlDataHttpGetIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="aspCode" type="s:string" />
+    <wsdl:part name="companyId" type="s:string" />
+    <wsdl:part name="solutionId" type="s:string" />
+    <wsdl:part name="synchronizeDatetime" type="s:string" />
+    <wsdl:part name="formatId" type="s:string" />
+    <wsdl:part name="diff" type="s:string" />
+    <wsdl:part name="insertXmlData" type="s:string" />
+    <wsdl:part name="removeXmlData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportHeaderlessXmlDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWhereParamSettingHttpGetIn">
+    <wsdl:part name="dataType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWhereParamSettingHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDataHttpGetIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="aspCode" type="s:string" />
+    <wsdl:part name="companyId" type="s:string" />
+    <wsdl:part name="formatId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSynchronizeDateTimeHttpGetIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="aspCode" type="s:string" />
+    <wsdl:part name="companyId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSynchronizeDateTimeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusHttpPostIn">
+    <wsdl:part name="jobId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetJobStatusHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="WaitJobCompleteHttpPostIn">
+    <wsdl:part name="jobId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WaitJobCompleteHttpPostOut" />
+  <wsdl:message name="UploadXmlDataHttpPostIn">
+    <wsdl:part name="xmlData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadXmlDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadHeaderlessXmlDataHttpPostIn">
+    <wsdl:part name="aspCode" type="s:string" />
+    <wsdl:part name="companyId" type="s:string" />
+    <wsdl:part name="solutionId" type="s:string" />
+    <wsdl:part name="synchronizeDatetime" type="s:string" />
+    <wsdl:part name="formatId" type="s:string" />
+    <wsdl:part name="diff" type="s:string" />
+    <wsdl:part name="insertXmlData" type="s:string" />
+    <wsdl:part name="removeXmlData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadHeaderlessXmlDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DownloadXmlDataHttpPostIn">
+    <wsdl:part name="jobId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DownloadXmlDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RemoveAllOldXmlFileHttpPostIn" />
+  <wsdl:message name="RemoveAllOldXmlFileHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="ImportHttpPostIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="filePath" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportXmlDataHttpPostIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="xmlData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportXmlDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportHeaderlessXmlDataHttpPostIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="aspCode" type="s:string" />
+    <wsdl:part name="companyId" type="s:string" />
+    <wsdl:part name="solutionId" type="s:string" />
+    <wsdl:part name="synchronizeDatetime" type="s:string" />
+    <wsdl:part name="formatId" type="s:string" />
+    <wsdl:part name="diff" type="s:string" />
+    <wsdl:part name="insertXmlData" type="s:string" />
+    <wsdl:part name="removeXmlData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ImportHeaderlessXmlDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWhereParamSettingHttpPostIn">
+    <wsdl:part name="dataType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWhereParamSettingHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDataHttpPostIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="aspCode" type="s:string" />
+    <wsdl:part name="companyId" type="s:string" />
+    <wsdl:part name="formatId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSynchronizeDateTimeHttpPostIn">
+    <wsdl:part name="dataType" type="s:string" />
+    <wsdl:part name="aspCode" type="s:string" />
+    <wsdl:part name="companyId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSynchronizeDateTimeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="IntegratedDbWsSoap">
+    <wsdl:operation name="GetJobStatus">
+      <wsdl:input message="tns:GetJobStatusSoapIn" />
+      <wsdl:output message="tns:GetJobStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WaitJobComplete">
+      <wsdl:input message="tns:WaitJobCompleteSoapIn" />
+      <wsdl:output message="tns:WaitJobCompleteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadXmlData">
+      <wsdl:input message="tns:UploadXmlDataSoapIn" />
+      <wsdl:output message="tns:UploadXmlDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadHeaderlessXmlData">
+      <wsdl:input message="tns:UploadHeaderlessXmlDataSoapIn" />
+      <wsdl:output message="tns:UploadHeaderlessXmlDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadXmlData">
+      <wsdl:input message="tns:DownloadXmlDataSoapIn" />
+      <wsdl:output message="tns:DownloadXmlDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAllOldXmlFile">
+      <wsdl:input message="tns:RemoveAllOldXmlFileSoapIn" />
+      <wsdl:output message="tns:RemoveAllOldXmlFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Import">
+      <wsdl:input message="tns:ImportSoapIn" />
+      <wsdl:output message="tns:ImportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportXmlData">
+      <wsdl:input message="tns:ImportXmlDataSoapIn" />
+      <wsdl:output message="tns:ImportXmlDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportHeaderlessXmlData">
+      <wsdl:input message="tns:ImportHeaderlessXmlDataSoapIn" />
+      <wsdl:output message="tns:ImportHeaderlessXmlDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWhereParamSetting">
+      <wsdl:input message="tns:GetWhereParamSettingSoapIn" />
+      <wsdl:output message="tns:GetWhereParamSettingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Export">
+      <wsdl:input message="tns:ExportSoapIn" />
+      <wsdl:output message="tns:ExportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExportXmlData">
+      <wsdl:input message="tns:ExportXmlDataSoapIn" />
+      <wsdl:output message="tns:ExportXmlDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <wsdl:input message="tns:GetDataSoapIn" />
+      <wsdl:output message="tns:GetDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataWithWhereCondition">
+      <wsdl:input message="tns:GetDataWithWhereConditionSoapIn" />
+      <wsdl:output message="tns:GetDataWithWhereConditionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSynchronizeDateTime">
+      <wsdl:input message="tns:GetSynchronizeDateTimeSoapIn" />
+      <wsdl:output message="tns:GetSynchronizeDateTimeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IntegratedDbWsHttpGet">
+    <wsdl:operation name="GetJobStatus">
+      <wsdl:input message="tns:GetJobStatusHttpGetIn" />
+      <wsdl:output message="tns:GetJobStatusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WaitJobComplete">
+      <wsdl:input message="tns:WaitJobCompleteHttpGetIn" />
+      <wsdl:output message="tns:WaitJobCompleteHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadXmlData">
+      <wsdl:input message="tns:UploadXmlDataHttpGetIn" />
+      <wsdl:output message="tns:UploadXmlDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadHeaderlessXmlData">
+      <wsdl:input message="tns:UploadHeaderlessXmlDataHttpGetIn" />
+      <wsdl:output message="tns:UploadHeaderlessXmlDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadXmlData">
+      <wsdl:input message="tns:DownloadXmlDataHttpGetIn" />
+      <wsdl:output message="tns:DownloadXmlDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAllOldXmlFile">
+      <wsdl:input message="tns:RemoveAllOldXmlFileHttpGetIn" />
+      <wsdl:output message="tns:RemoveAllOldXmlFileHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Import">
+      <wsdl:input message="tns:ImportHttpGetIn" />
+      <wsdl:output message="tns:ImportHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportXmlData">
+      <wsdl:input message="tns:ImportXmlDataHttpGetIn" />
+      <wsdl:output message="tns:ImportXmlDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportHeaderlessXmlData">
+      <wsdl:input message="tns:ImportHeaderlessXmlDataHttpGetIn" />
+      <wsdl:output message="tns:ImportHeaderlessXmlDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWhereParamSetting">
+      <wsdl:input message="tns:GetWhereParamSettingHttpGetIn" />
+      <wsdl:output message="tns:GetWhereParamSettingHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <wsdl:input message="tns:GetDataHttpGetIn" />
+      <wsdl:output message="tns:GetDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSynchronizeDateTime">
+      <wsdl:input message="tns:GetSynchronizeDateTimeHttpGetIn" />
+      <wsdl:output message="tns:GetSynchronizeDateTimeHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IntegratedDbWsHttpPost">
+    <wsdl:operation name="GetJobStatus">
+      <wsdl:input message="tns:GetJobStatusHttpPostIn" />
+      <wsdl:output message="tns:GetJobStatusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WaitJobComplete">
+      <wsdl:input message="tns:WaitJobCompleteHttpPostIn" />
+      <wsdl:output message="tns:WaitJobCompleteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadXmlData">
+      <wsdl:input message="tns:UploadXmlDataHttpPostIn" />
+      <wsdl:output message="tns:UploadXmlDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadHeaderlessXmlData">
+      <wsdl:input message="tns:UploadHeaderlessXmlDataHttpPostIn" />
+      <wsdl:output message="tns:UploadHeaderlessXmlDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadXmlData">
+      <wsdl:input message="tns:DownloadXmlDataHttpPostIn" />
+      <wsdl:output message="tns:DownloadXmlDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAllOldXmlFile">
+      <wsdl:input message="tns:RemoveAllOldXmlFileHttpPostIn" />
+      <wsdl:output message="tns:RemoveAllOldXmlFileHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Import">
+      <wsdl:input message="tns:ImportHttpPostIn" />
+      <wsdl:output message="tns:ImportHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportXmlData">
+      <wsdl:input message="tns:ImportXmlDataHttpPostIn" />
+      <wsdl:output message="tns:ImportXmlDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportHeaderlessXmlData">
+      <wsdl:input message="tns:ImportHeaderlessXmlDataHttpPostIn" />
+      <wsdl:output message="tns:ImportHeaderlessXmlDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWhereParamSetting">
+      <wsdl:input message="tns:GetWhereParamSettingHttpPostIn" />
+      <wsdl:output message="tns:GetWhereParamSettingHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <wsdl:input message="tns:GetDataHttpPostIn" />
+      <wsdl:output message="tns:GetDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSynchronizeDateTime">
+      <wsdl:input message="tns:GetSynchronizeDateTimeHttpPostIn" />
+      <wsdl:output message="tns:GetSynchronizeDateTimeHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IntegratedDbWsSoap" type="tns:IntegratedDbWsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetJobStatus">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetJobStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitJobComplete">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/WaitJobComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadXmlData">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/UploadXmlData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadHeaderlessXmlData">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/UploadHeaderlessXmlData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadXmlData">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/DownloadXmlData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAllOldXmlFile">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/RemoveAllOldXmlFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Import">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/Import" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportXmlData">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/ImportXmlData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportHeaderlessXmlData">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/ImportHeaderlessXmlData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWhereParamSetting">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetWhereParamSetting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Export">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/Export" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportXmlData">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/ExportXmlData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataWithWhereCondition">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetDataWithWhereCondition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSynchronizeDateTime">
+      <soap:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetSynchronizeDateTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IntegratedDbWsSoap12" type="tns:IntegratedDbWsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetJobStatus">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetJobStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitJobComplete">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/WaitJobComplete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadXmlData">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/UploadXmlData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadHeaderlessXmlData">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/UploadHeaderlessXmlData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadXmlData">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/DownloadXmlData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAllOldXmlFile">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/RemoveAllOldXmlFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Import">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/Import" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportXmlData">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/ImportXmlData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportHeaderlessXmlData">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/ImportHeaderlessXmlData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWhereParamSetting">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetWhereParamSetting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Export">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/Export" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportXmlData">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/ExportXmlData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataWithWhereCondition">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetDataWithWhereCondition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSynchronizeDateTime">
+      <soap12:operation soapAction="Com.Fujitsu.SmartBase.DataIntegration.Common/GetSynchronizeDateTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IntegratedDbWsHttpGet" type="tns:IntegratedDbWsHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetJobStatus">
+      <http:operation location="/GetJobStatus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitJobComplete">
+      <http:operation location="/WaitJobComplete" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UploadXmlData">
+      <http:operation location="/UploadXmlData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadHeaderlessXmlData">
+      <http:operation location="/UploadHeaderlessXmlData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadXmlData">
+      <http:operation location="/DownloadXmlData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAllOldXmlFile">
+      <http:operation location="/RemoveAllOldXmlFile" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Import">
+      <http:operation location="/Import" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportXmlData">
+      <http:operation location="/ImportXmlData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportHeaderlessXmlData">
+      <http:operation location="/ImportHeaderlessXmlData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWhereParamSetting">
+      <http:operation location="/GetWhereParamSetting" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <http:operation location="/GetData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSynchronizeDateTime">
+      <http:operation location="/GetSynchronizeDateTime" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IntegratedDbWsHttpPost" type="tns:IntegratedDbWsHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetJobStatus">
+      <http:operation location="/GetJobStatus" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitJobComplete">
+      <http:operation location="/WaitJobComplete" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="UploadXmlData">
+      <http:operation location="/UploadXmlData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadHeaderlessXmlData">
+      <http:operation location="/UploadHeaderlessXmlData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadXmlData">
+      <http:operation location="/DownloadXmlData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAllOldXmlFile">
+      <http:operation location="/RemoveAllOldXmlFile" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Import">
+      <http:operation location="/Import" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportXmlData">
+      <http:operation location="/ImportXmlData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportHeaderlessXmlData">
+      <http:operation location="/ImportHeaderlessXmlData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWhereParamSetting">
+      <http:operation location="/GetWhereParamSetting" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <http:operation location="/GetData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSynchronizeDateTime">
+      <http:operation location="/GetSynchronizeDateTime" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IntegratedDbWs">
+    <wsdl:port name="IntegratedDbWsSoap" binding="tns:IntegratedDbWsSoap">
+      <soap:address location="http://10.74.54.118/integrateddbws/integrateddbws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IntegratedDbWsSoap12" binding="tns:IntegratedDbWsSoap12">
+      <soap12:address location="http://10.74.54.118/integrateddbws/integrateddbws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IntegratedDbWsHttpGet" binding="tns:IntegratedDbWsHttpGet">
+      <http:address location="http://10.74.54.118/integrateddbws/integrateddbws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IntegratedDbWsHttpPost" binding="tns:IntegratedDbWsHttpPost">
+      <http:address location="http://10.74.54.118/integrateddbws/integrateddbws.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

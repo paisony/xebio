@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="TG070P01-01">
+			<statement type="final" name="final">
+				<parts>
+					/* インストアコード振替データTBL更新 */
+					UPDATE
+						MDBT0090
+					SET
+						UPD_YMD				= </parts><bind id="BIND_UPD_YMD" /><parts>		/* 更新日時 */
+						,UPD_TM				= </parts><bind id="BIND_UPD_TM" /><parts>		/* 更新時間 */
+						,INSATSUZUMI_FLG	= 1
+					WHERE
+						MDBT0090.KAISYA_CD	= </parts><bind id="BIND_KAISYA_CD" /><parts>	/* 会社コード */
+					AND	MDBT0090.TENPO_CD	= </parts><bind id="BIND_TENPO_CD" /><parts>	/* 店舗コード */
+					AND	MDBT0090.HURIKAE_YMD BETWEEN 
+											  </parts><bind id="BIND_HURIKAE_YMD_FROM" /><parts>				/* 振替日付From */
+										  AND </parts><bind id="BIND_HURIKAE_YMD_TO" /><parts>				/* 振替日付To */
+					AND	INSATSUZUMI_FLG		= 0
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

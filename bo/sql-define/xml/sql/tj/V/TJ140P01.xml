@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/**  **/
+		<sql id="TJ140P01-01">
+			/** ③-2 棚卸データ 未送信存在チェック**/
+			<statement type="final" name="final">
+				<parts>
+					SELECT COUNT(1) CNT
+					FROM MDIT0010
+					WHERE
+						TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					AND	SOSINIRAI_FLG	= '0'		
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ140P01-02">
+		/** ③-3 棚卸データ 送信データ存在チェック**/
+			<statement type="final" name="final">
+				<parts>
+					SELECT COUNT(1) CNT
+					FROM MDIT0010
+					WHERE
+						TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					AND	SOSINIRAI_FLG	= '1'		
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ140P01-03">
+		/** [棚卸実施日TBL]更新**/
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0030 SET
+						 UPD_YMD 				= </parts><bind id="BIND_UPD_YMD" /><parts>					--更新日
+						,UPD_TM 				= </parts><bind id="BIND_UPD_TM" /><parts>					--更新時間
+						,UPD_TANCD 				= </parts><bind id="BIND_UPD_TANCD" /><parts>					--更新担当者
+						,TANAOROSISYURYO_FLG 	= </parts><bind id="BIND_TANAOROSISYURYO_FLG" /><parts>		--棚卸終了フラグ
+					WHERE
+						TENCD					= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND TANAOROSIKIJUN_YMD		= </parts><bind id="BIND_TANAOROSI_YMD" />
+			</statement>
+		</sql>
+		<sql id="TJ140P01-04">
+		/** 棚卸業務共通 棚卸終了チェック **/
+			<statement type="final" name="final">
+				<parts>
+					SELECT	TANAOROSISYURYO_FLG
+					FROM	MDIT0030
+					WHERE	
+						TENCD				= </parts><bind id="BIND_TENCD" /><parts>
+					AND	TANAOROSIKIJUN_YMD	= </parts><bind id="BIND_TANAOROSIKIJUN_YMD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

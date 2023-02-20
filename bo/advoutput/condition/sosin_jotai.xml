@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SOSIN_JOTAI" name="送信状態">
+		<listItems>
+			<item id="10" value="1" label="未送信" itemId="Sosin_jotai1" />
+			<item id="20" value="2" label="送信済" itemId="Sosin_jotai2" />
+		</listItems>
+	</condition>
+</condition-define>
+

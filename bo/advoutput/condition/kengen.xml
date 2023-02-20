@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="KENGEN" name="権限">
+		<listItems>
+			<item id="10" value="1" label="本部" itemId="H_kengen1" />
+			<item id="20" value="2" label="店長" itemId="H_kengen2" />
+			<item id="30" value="3" label="一般" itemId="H_kengen3" />
+			<item id="40" value="4" label="アルバイト" itemId="H_kengen4" />
+		</listItems>
+	</condition>
+</condition-define>
+

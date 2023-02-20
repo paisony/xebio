@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Th010f01_Titlebar" xml:space="preserve">
+    <value>商品マスタ検索</value>
+  </data>
+  <data name="Th010f01_FormCaption" xml:space="preserve">
+    <value>商品マスタ検索 一覧</value>
+  </data>
+  <data name="M1PageInfo" xml:space="preserve">
+    <value>Page: %PAGE_NO% of %PAGE_COUNT%</value>
+  </data>
+  <data name="M1PageInfoNoRec" xml:space="preserve">
+    <value>データがありません。</value>
+  </data>
+  <data name="Head_tenpo_cd" xml:space="preserve">
+    <value>店舗</value>
+  </data>
+  <data name="Btnheadtenpocd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnmodejishahinban" xml:space="preserve">
+    <value>自社品番</value>
+  </data>
+  <data name="Btnmodescancd" xml:space="preserve">
+    <value>スキャンコード</value>
+  </data>
+  <data name="Btnmodemakerhbn" xml:space="preserve">
+    <value>メーカー品番</value>
+  </data>
+  <data name="Btnmodesonota" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="Old_jisya_hbn_from" xml:space="preserve">
+    <value>旧自社品番ＦＲＯＭ</value>
+  </data>
+  <data name="Old_jisya_hbn_to" xml:space="preserve">
+    <value>旧自社品番ＴＯ</value>
+  </data>
+  <data name="Scan_cd" xml:space="preserve">
+    <value>スキャンコード</value>
+  </data>
+  <data name="Maker_hbn" xml:space="preserve">
+    <value>メーカー品番</value>
+  </data>
+  <data name="Btnmaker_hbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Bumon_cd" xml:space="preserve">
+    <value>部門</value>
+  </data>
+  <data name="Btnbumon_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Bumon_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Hinsyu_cd" xml:space="preserve">
+    <value>品種</value>
+  </data>
+  <data name="Btnhinsyu_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Hinsyu_ryaku_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Burando_cd" xml:space="preserve">
+    <value>ブランド</value>
+  </data>
+  <data name="Btnburando_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Burando_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Siiresaki_cd" xml:space="preserve">
+    <value>仕入先</value>
+  </data>
+  <data name="Btnsiiresaki_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Siiresaki_ryaku_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Genbaika_tnk_from" xml:space="preserve">
+    <value>現売価ＦＲＯＭ</value>
+  </data>
+  <data name="Genbaika_tnk_to" xml:space="preserve">
+    <value>現売価ＴＯ</value>
+  </data>
+  <data name="Makerkakaku_tnk_from" xml:space="preserve">
+    <value>メーカー価格ＦＲＯＭ</value>
+  </data>
+  <data name="Makerkakaku_tnk_to" xml:space="preserve">
+    <value>メーカー価格ＴＯ</value>
+  </data>
+  <data name="Hanbaikanryo_ymd_from" xml:space="preserve">
+    <value>販売完了日ＦＲＯＭ</value>
+  </data>
+  <data name="Hanbaikanryo_ymd_to" xml:space="preserve">
+    <value>販売完了日ＴＯ</value>
+  </data>
+  <data name="Searchcnt" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnsearch" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Syohinmst_serchstk" xml:space="preserve">
+    <value>商品マスタ検索選択</value>
+  </data>
+  <data name="Modeno" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Stkmodeno" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btncsv" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Pgr" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1siiresaki_cd" xml:space="preserve">
+    <value>仕入先</value>
+  </data>
+  <data name="M1siiresaki_ryaku_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1bumon_cd" xml:space="preserve">
+    <value>部門</value>
+  </data>
+  <data name="M1bumonkana_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1hinsyu_cd" xml:space="preserve">
+    <value>品種</value>
+  </data>
+  <data name="M1hinsyu_ryaku_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1burando_nm" xml:space="preserve">
+    <value>ブランド</value>
+  </data>
+  <data name="M1jisya_hbn" xml:space="preserve">
+    <value>自社品番</value>
+  </data>
+  <data name="M1old_jisya_hbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1syohin_zokusei" xml:space="preserve">
+    <value>コア</value>
+  </data>
+  <data name="M1maker_hbn" xml:space="preserve">
+    <value>メーカー品番</value>
+  </data>
+  <data name="M1syonmk" xml:space="preserve">
+    <value>商品名</value>
+  </data>
+  <data name="M1iro_nm" xml:space="preserve">
+    <value>色</value>
+  </data>
+  <data name="M1hanbaikanryo_ymd" xml:space="preserve">
+    <value>販売完了日</value>
+  </data>
+  <data name="M1zeiritsu" xml:space="preserve">
+    <value>税率</value>
+  </data>
+  <data name="M1saisinbaika_tnk" xml:space="preserve">
+    <value>最新売価</value>
+  </data>
+  <data name="M1genka" xml:space="preserve">
+    <value>原価</value>
+  </data>
+  <data name="M1genbaika_tnk" xml:space="preserve">
+    <value>現売価</value>
+  </data>
+  <data name="M1makerkakaku_tnk" xml:space="preserve">
+    <value>ﾒｰｶｰ価格</value>
+  </data>
+  <data name="M1selectorcheckbox" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn" xml:space="preserve">
+    <value></value>
+  </data>
+</root>

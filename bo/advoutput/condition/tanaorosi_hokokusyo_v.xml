@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="TANAOROSI_HOKOKUSYO_V" name="棚卸報告書(V)">
+		<listItems>
+			<item id="10" value="1" label="棚卸集計表" itemId="Tanaorosi_hokokusyo_x1" />
+			<item id="20" value="2" label="棚卸欠番報告書" itemId="Tanaorosi_hokokusyo_x2" />
+			<item id="30" value="3" label="棚卸修正報告書" itemId="Tanaorosi_hokokusyo_x4" />
+		</listItems>
+	</condition>
+</condition-define>
+

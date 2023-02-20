@@ -1,0 +1,223 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:te090f02.css
+--------------------------------------------------------------------------------*/
+/*--------------------------------------------------------- 
+	base.cssを上書き
+--------------------------------------------------------- */
+/*--- 行タイトル ---*/
+.str-result-01 .str-result-hdg-01 > div {
+    line-height: 34px;
+    float: left;
+    text-align: center;
+    /*padding-right: 2px;*/
+    /*padding-left: 2px;*/
+	padding-right: 0px;
+	padding-left: 0px;
+    color: #ffffff;
+    border-left: 1px solid #ffffff;
+    background-color: #1ca7e0;
+}
+
+/*--------------------------------------------------------- 
+	parts.cssを上書き
+--------------------------------------------------------- */
+/* ReadOnly 数字(カンマ付き) */
+.inpRONumCma8 {
+	width: 68px;
+}
+.inpRONumCma9 {
+	width: 74px;
+}
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+/*--- 区分 ---*/
+.str-search-02 .slt-kbn {
+	width: 120px;
+}
+/*--- 理由 ---*/
+.str-search-02 .slt-riyu {
+	width: 140px;
+}
+.str-search-02 .w-type-01 {
+  width: 100px;
+}
+.str-search-02 .w-type-02 {
+  width: 220px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+.str-result-01 .str-result-item-01 > div > div.detail_right {
+	padding-right: 4px;
+}
+.str-result-01 .str-result-item-01 > div > div.detail_left {
+	padding-left: 4px;
+}
+.str-result-01 .str-result-item-01 > div > div.detail_center {
+	padding-right: 2px;
+    padding-left: 2px;
+}
+
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	border-left: 1px solid #cccccc;
+}
+.str-result-01 .str-result-hdg-01 > div.col1 {
+	width: 30px;
+}
+.str-result-01 .str-result-item-01 > div.col1 {
+	width: 26px;
+}
+
+/*--- 部門／品種 ---*/
+.str-result-01 .str-result-hdg-01 > div.col2 {
+	width: 174px;
+}
+.str-result-01 .str-result-item-01 > div.col2 > div {
+	width: 170px;
+}
+
+/*--- ブランド／自社品番 ---*/
+.str-result-01 .str-result-hdg-01 > div.col3 {
+	width: 150px;
+}
+.str-result-01 .str-result-item-01 > div.col3 > div {
+	width: 146px;
+}
+
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .str-result-hdg-01 > div.col4 {
+	width: 359px;
+}
+.str-result-01 .str-result-item-01 > div.col4 > div {
+	width: 355px;
+}
+
+/*--- 色／サイズ ---*/
+.str-result-01 .str-result-hdg-01 > div.col5 {
+	width: 77px;
+}
+.str-result-01 .str-result-item-01 > div.col5 > div {
+	width: 73px;
+}
+
+/*--- スキャンコード ---*/
+.str-result-01 .col6 {
+}
+.str-result-01 .str-result-hdg-01 > div.col6 {
+	width: 104px;
+}
+.str-result-01 .str-result-item-01 > div.col6 {
+	width: 100px;
+}
+
+/*--- 予定数量 ---*/
+.str-result-01 .col7 {
+}
+.str-result-01 .str-result-hdg-01 > div.col7 {
+	width: 74px;
+}
+.str-result-01 .str-result-item-01 > div.col7 {
+	width: 70px;
+}
+
+/*--- 確定数量 ---*/
+.str-result-01 .col8 {
+}
+.str-result-01 .str-result-hdg-01 > div.col8 {
+	width: 85px;
+}
+.str-result-01 .str-result-item-01 > div.col8 {
+	width: 81px;
+}
+
+/*--- 原単価 ---*/
+.str-result-01 .col9 {
+}
+.str-result-01 .str-result-hdg-01 > div.col9 {
+	width: 74px;
+}
+.str-result-01 .str-result-item-01 > div.col9 {
+	width: 70px;
+}
+
+/*--- 原価金額 ---*/
+.str-result-01 .col10 {
+}
+.str-result-01 .str-result-hdg-01 > div.col10 {
+	width: 85px;
+}
+.str-result-01 .str-result-item-01 > div.col10 {
+	width: 80px;
+}
+
+
+/*--- 明細合計部 ---*/
+.str-result-01 .str-result-ftr-01 {
+	width: 1222px;
+	padding: 1px 0;
+	/*background-color: #1ca7e0;*/
+	background-color: #1ca7e0;
+}
+.str-result-01 .str-result-ftr-01 > div {
+	line-height: 34px;
+	float: left;
+	empty-cells: show;
+	text-align: center;
+	border-color: #1ca7e0 !important;
+	border-left: 1px solid #cccccc;
+}
+.str-result-01 .str-result-ftr-01 > div.col1 {
+	border-left: none;
+	width: 26px;
+}
+.str-result-01 .str-result-ftr-01 > div.col2 {
+	width: 170px;
+}
+.str-result-01 .str-result-ftr-01 > div.col3 {
+	width: 146px;
+}
+.str-result-01 .str-result-ftr-01 > div.col4 {
+	width: 355px;
+}
+.str-result-01 .str-result-ftr-01 > div.col5 {
+	width: 73px;
+}
+.str-result-01 .str-result-ftr-01 > div.col6 {
+	font-weight: bold;
+	text-align: right;
+	color: #ffffff;
+	width: 100px;
+}
+.str-result-01 .str-result-ftr-01 > div.col7 {
+	width: 70px;
+}
+.str-result-01 .str-result-ftr-01 > div.col8 {
+	width: 81px;
+}
+.str-result-01 .str-result-ftr-01 > div.col9 {
+	width: 70px;
+}
+.str-result-01 .str-result-ftr-01 > div.col10 {
+	width: 80px;
+}
+
+.str-result-01 .str-result-ftr-01 > div.col7 span {
+	display: block;
+	text-align: right;
+	background-color: #ecf9fe;
+}
+.str-result-01 .str-result-ftr-01 > div.col8 span {
+	display: block;
+	text-align: right;
+	background-color: #ecf9fe;
+}
+.str-result-01 .str-result-ftr-01 > div.col10 span {
+	display: block;
+	text-align: right;
+	background-color: #ecf9fe;
+}

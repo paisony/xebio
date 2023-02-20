@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01020-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 M1.SIJI_BANGO			AS SIJI_BANGO					/* 指示番号          */
+							,M1.SIJI_YMD			AS SIJI_YMD						/* 指示年月日        */
+							,M1.JYURYOKAISYA_CD		AS JYURYOKAISYA_CD				/* 入荷会社コード    */
+							,M2.MEISYO_NM			AS JYURYOKAISYA_NM				/* 入荷会社名        */
+							,M1.JYURYOTEN_CD		AS JYURYOTEN_CD					/* 入荷店コード      */
+							,M4.TENPO_NM			AS JYURYOTEN_NM					/* 入荷店名          */
+							,M1.SYUKKAKAISYA_CD		AS SYUKKAKAISYA_CD				/* 出荷会社コード    */
+							,M3.MEISYO_NM			AS SYUKKAKAISYA_NM				/* 出荷会社名        */
+							,M1.SYUKKATEN_CD		AS SYUKKATEN_CD					/* 出荷店コード      */
+							,M5.TENPO_NM			AS SYUKKATEN_NM					/* 出荷店名          */
+							,M1.NYURYOKUTAN_CD		AS NYURYOKUTAN_CD				/* 入力担当者        */
+							,M1.TYAKU_YMD			AS TYAKU_YMD					/* 着日              */
+							,M1.SYUKKASITEI_YMD		AS SYUKKASITEI_YMD				/* 出荷指定日        */
+							,M1.COMMENT_NM			AS COMMENT_NM					/* コメント          */
+							,M1.IDORIYU_KB			AS IDORIYU_KB					/* 移動指示理由      */
+							,M1.ADD_YMD
+							,M1.ADD_TM
+							,M1.ADDTAN_CD
+							,M1.UPD_YMD
+							,M1.UPD_TM
+							,M1.UPD_TANCD
+							,M1.SAKUJYO_YMD
+							,M1.SAKUJYO_FLG
+					FROM
+							MDUT0030 M1
+					LEFT OUTER JOIN MDMT0100 M2										/* [名称MST]  入荷会社           */
+							ON M2.SIKIBETSU_CD  = 'KASY' 
+						   AND M2.MEISYO_CD	  = M1.JYURYOKAISYA_CD
+					LEFT OUTER JOIN MDMT0100 M3										/* [名称MST]  出荷会社           */
+							ON M3.SIKIBETSU_CD  = 'KASY' 
+						   AND M3.MEISYO_CD	  = M1.SYUKKAKAISYA_CD
+					LEFT OUTER JOIN BOMT0010_ALL M4									/* [店舗MST(全社)]               */
+							ON M1.JYURYOKAISYA_CD  = M4.KAISYA_CD
+						   AND M1.JYURYOTEN_CD  = M4.TENPO_CD
+					LEFT OUTER JOIN BOMT0010_ALL M5									/* [店舗MST(全社)]               */
+							ON M1.SYUKKAKAISYA_CD  = M5.KAISYA_CD
+						   AND M1.SYUKKATEN_CD  = M5.TENPO_CD
+					WHERE
+							M1.SAKUJYO_FLG = 0
+					AND		M1.SIJI_BANGO = </parts><bind id="SIJI_BANGO" /><parts>
+					AND		M1.SYUKKAKAISYA_CD = </parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		M1.SYUKKATEN_CD = </parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		M1.JYURYOKAISYA_CD = </parts><bind id="JYURYOKAISYA_CD" /><parts>
+					AND		M1.JYURYOTEN_CD = </parts><bind id="JYURYOTEN_CD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

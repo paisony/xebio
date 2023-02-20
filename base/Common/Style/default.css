@@ -1,0 +1,1547 @@
+/* All Rights Reserved, Copyright (c) 2008-2009 FUJITSU SYSTEM SOLUTIONS */
+/* FUJITSU SYSTEM SOLUTIONS LIMITED CONFIDENTIAL */
+/*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start*/
+/*BODY
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	background: #FFFFFF;
+	font-family: "MS UI Gothic";
+	font-size: x-small;
+	color: #000000;
+}
+
+.TABLE_M_REC_VIEW
+{
+}
+.TABLE_M
+{
+}
+
+INPUT
+{
+	font-family: "ＭＳ ゴシック";
+	letter-spacing: -1px;
+}
+.TEXT_R
+{
+	text-align: right;
+}
+
+.TEXT_L
+{
+	text-align: left;
+}
+.TXR_R
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: #ffffff;
+	border-bottom-style: none;
+	text-align: right;
+}
+.TXR_L
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: #ffffff;
+	border-bottom-style: none;
+	text-align: left;
+}
+.RDO
+{
+	font-size: x-small;
+}
+
+.ITEM_BUTTON
+{
+}
+
+.BTN_COG
+{
+	visibility: hidden;
+}
++/
+/*スマートソリューション*/
+/*.DIV_SCROLL
+{
+	width: 100%;
+	position: relative;
+	height: 100%;
+}*/
+/*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End*/
+/*プログラム名用*/
+.TABLE_PGTITLE
+{
+	height: 28px;
+	width: 100%;
+	color: #999999;
+	font-weight: bold;
+	font-size: 12pt;
+	text-align: left;
+	padding: 0px;
+	border-collapse: collapse;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+/*フォーム名用*/
+.TABLE_FRMTITLE
+{	
+	font-weight: bold;
+	font-size: 11pt;
+	color: #000000;
+	text-align: left;
+	padding: 0px;
+	border-collapse: collapse;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+
+/*画面作成部分用*/
+.TD_FRM
+{
+	width: 100%;
+    /*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start*/
+	/*font-size: x-small;*/
+    /*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End*/
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+/*カード部用*/
+.TABLE_ARTICLE
+{
+	width: 100%;
+	font-size: x-small;
+	border: 1px solid #ffffff;
+	border-width: 1px;
+	border-collapse: separate;
+    /*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start*/
+    padding-right: 5px;
+    /*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End*/
+	padding-left: 5px;
+}
+/*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start*/
+/*.TR_ARTICLE
+{
+	height: 25px;
+}
+.TR_ARTICLE_BTN
+{
+}
+.TD_ARTICLE_1
+{
+	width: 1px;
+	border: 1px solid #999999;
+	background-color: #000066;
+}
+.TD_ARTICLE_2
+{
+	border: 1px solid #999999;
+	background-color: #cccccc;
+	text-align: center;
+}
+.TD_ARTICLE_3
+{
+	border: 1px solid #999999;
+	background-color: #ffffff;
+	text-align: left;
+	vertical-align: middle;
+	padding-right: 5px;
+	padding-left: 5px;
+	word-break:break-all;
+}*/
+/*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End*/
+/*表示項目テーブル内にあってボーダーで囲いたくない時指定。*/
+.TD_ARTICLE_BTN
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	background-color: #ffffff;
+    /*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start*/
+    padding:5px;
+    /*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End*/
+}
+
+/*明細部用　*/
+.TABLE_DG
+{
+	font-size: x-small;
+	border: 1px solid #999999;
+}
+.TR_ITEM_HEADER_DG
+{
+	font-weight: bold;
+	text-align: center;
+	background-color: #cccccc;
+	color: Black;
+	height: 20px;
+}
+.TR_ITEM_DG
+{
+	background-color: #ffffff;
+	color: Black;
+	height: 20px;
+}
+.TR_ALITEM_DG
+{
+	background-color: #f3f3f3;
+	color: Black;
+	height: 20px;
+}
+.TD_ITEM_HEADER_DG
+{
+	border: 1px solid #999999;
+	padding-right: 5px;
+	padding-left: 5px;
+	word-break:keep-all;
+}
+.TD_ITEM_DG
+{
+	border: 1px solid #999999;
+	padding-right: 5px;
+	padding-left: 5px;
+	word-break:break-all;
+}
+
+/*リンク*/
+/*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start*/
+/*A
+{
+	font-size: x-small;
+}
+A:link
+{
+	color: #0033ff;
+	background-color: transparent;
+	text-decoration: none;
+}
+A:visited
+{
+	color: #0033ff;
+	background-color: transparent;
+	text-decoration: none;
+}
+A:active
+{
+	color: #0033ff;
+	background-color: transparent;
+	text-decoration: none;
+}
+A:hover
+{
+	color: #f0f;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+.MUST_MERK
+{
+	color: Red;
+}*/
+/*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start*/
+.CUTLINE
+{
+    font-size:x-small;
+	color: Gray;
+}
+
+/*インフレーム用*/
+DIV.LAYER
+{
+border: solid 1px #7e8b94; 
+overflow: auto;
+}
+
+/*お知らせ用*/
+/*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start*/
+/*.dateunderline{
+	white-space: nowrap;
+	border-bottom:solid 1px #cccccc;
+}
+.underline{
+	border-bottom:solid 1px #cccccc;
+}
+.topInfometion
+{
+	overflow: auto;
+	border-width: 0px;
+	width: 100%;
+	height: 87%;
+}*/
+.info-table td{
+    font-size:small;
+    word-break:break-all;
+}
+/*2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End*/
+
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start */
+/*--------------------------------------------------------- 
+    共通部分
+--------------------------------------------------------- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+html {
+  line-height: 1.5;
+}
+
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+caption, th, td {
+    text-align: left;
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+q, blockquote {
+    quotes: none;
+}
+
+q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none;
+}
+
+a img {
+    border: none;
+}
+
+/*article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}*/
+
+.list-search-01, .str-btn-utility, .str-btn-utility ul, .str-pager-01 .pager-01, #header, #header .inner, .str-form-01, .str-form-01.result, .str-form-01.result .inner, .str-search-01 .inner-01, .str-search-01 .inner-02, .str-search-01 .inner-02 form, .str-result-01 .str-result-hdg-01, .str-result-01 .str-result-item-01, .str-result-01 .str-result-ftr-01 {
+    zoom: 1;
+}
+.list-search-01:after, .str-btn-utility:after, .str-btn-utility ul:after, .str-pager-01 .pager-01:after, #header:after, #header .inner:after, .str-form-01:after, .str-form-01.result:after, .str-form-01.result .inner:after, .str-search-01 .inner-01:after, .str-search-01 .inner-02:after, .str-search-01 .inner-02 form:after, .str-result-01 .str-result-hdg-01:after, .str-result-01 .str-result-item-01:after, .str-result-01 .str-result-ftr-01:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+#error-01 {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 8px 8px 8px 40px;
+    color: #cc0000;
+    background: #fde0e0 url("../boImages/icon-error.png") no-repeat 10px center;
+}
+#error-01 a {
+    color: #cc0000;
+}
+
+.hdg-error-01 {
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 8px 8px 8px 40px;
+    color: #cc0000;
+    background: #fde0e0 url("../boImages/icon-error.png") no-repeat 10px center;
+    font-size: 107.69231%;
+}
+.hdg-error-01 a {
+    color: #cc0000;
+}
+
+.list-error-01 li {
+    margin: 0 0 15px 10px;
+    color: #cc0000;
+}
+.list-error-01 li span {
+    font-weight: bold;
+    margin-right: 12px;
+}
+.list-error-01 li:last-child {
+    margin-bottom: 0;
+}
+.modal-ttl {
+	margin-bottom: 10px;
+	padding: 8px 8px 8px 20px;
+	color: #000000;
+	background-color: #eeeeee;
+	font-size: 107.69231%;
+}
+#modal-cont {
+	padding: 0 20px;
+	height: 50px;
+}
+.modal-btn {
+	text-align: center;
+	border-top: 2px solid #eeeeee;
+	margin-top: 20px;
+	padding-top: 20px;
+}
+.list-search-01 li {
+  float: left;
+  margin-right: 20px;
+  padding: 3px 5px;
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+
+.hdg-lv1-01 {
+  font-weight: bold;
+  font-size: 138.46154%;
+}
+
+
+/*--------------------------------------------------------- 
+    ボタン
+--------------------------------------------------------- */
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    border:none;
+    padding-top:0;
+    padding-bottom:0;
+}
+.btn.type-01 {
+    line-height: 30px;
+    width: 80px;
+    height: 33px;
+    text-align: center;
+    background: #ffffff url("../boImages/bg-btn-01.png") no-repeat 0 0;
+}
+.btn.type-01:hover {
+    background: #ffffff url("../boImages/bg-btn-01_o.png") no-repeat 0 0;
+}
+.btn.type-02 {
+    line-height: 40px;
+    width: 70px;
+    height: 43px;
+    box-sizing: content-box;
+    margin: 0px 0 0 30px !important;
+    padding-left: 50px;
+    padding-right:0;
+    text-align: left;
+    background: #ffffff url("../boImages/bg-btn-02.png") no-repeat 0 0;
+}
+.btn.type-02:hover {
+    background: #ffffff url("../boImages/bg-btn-02_o.png") no-repeat 0 0;
+}
+.btn.type-03 {
+  line-height: 43px;
+  width: 94px;
+  height: 43px;
+    text-align: center;
+    background: #ffffff url("../boImages/bg-btn-03.png") no-repeat 0 0;
+}
+.btn.type-03:hover {
+    background: #ffffff url("../boImages/bg-btn-03_o.png") no-repeat 0 0;
+}
+
+.btn.type-04 {
+    line-height: 40px;
+    width: 120px;
+    height: 43px;
+    margin: 0px 0 5px 30px !important;
+    text-align: center;
+    background: #ffffff url("../boImages/bg-btn-04.png") no-repeat 0 0;
+}
+.btn.type-04:hover {
+    background: #ffffff url("../boImages/bg-btn-04_o.png") no-repeat 0 0;
+}
+
+
+
+/*--------------------------------------------------------- 
+    中ヘッダ領域
+--------------------------------------------------------- */
+
+#form-01 label {
+  margin-right: 30px;
+}
+.middle-inner p {
+	float: left;
+	margin-top: 2px;
+	margin-right: 20px;
+}
+.middle-inner input {
+	margin-left: 10px;
+}
+
+
+/*--------------------------------------------------------- 
+    入力項目
+--------------------------------------------------------- */
+
+/*--- テキスト ---*/
+input[type=text] {
+  height: 13px;
+    margin-right: 8px;
+  padding: 6px 7px 6px 8px;
+    border: 1px solid #999999;
+}
+/*--- テキストの×ボタンを消す ---*/
+input::-ms-clear {
+    display: none;
+}
+/*--- パスワードの目ボタンを消す ---*/
+input::-ms-reveal {
+    display: none;
+}
+/*--- ドロップダウンリスト ---*/
+select {
+    height: 30px;
+    border: 1px solid #999999;
+    text-indent: 0.01px;
+    text-overflow: '';
+    background: #fff url("../boImages/icon-select.png") no-repeat right 5px;
+}
+/*--- チェックボックス ---*/
+input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+/*--- ファイルアップロード ---*/
+input[type=file] {
+    height: auto;
+    border: none;
+    padding: none;
+}
+/*ie10*/
+select::-ms-expand {
+    display: none;
+}
+/*--- 虫めがねあり ---*/
+input.inpSerch {
+  padding: 7px 28px 7px 8px;
+}
+/*--- 明細 --*/
+input.inpDetail {
+    margin-top: 4px;
+}
+/*--- 日付 --*/
+.label-fromto {
+    margin-right: 9px;
+}
+
+/*--- 虫眼鏡 ---*/
+.icon-in {
+    position: relative;
+    display: inline-block;
+}
+.icon-in input[type=button] {
+    position: absolute;
+    top: 6px;
+    right: 13px;
+}
+/*--- 虫眼鏡(明細) ---*/
+.icon-in2 {
+    position: relative;
+    display: inline-block;
+}
+.icon-in2 input[type=button] {
+    position: absolute;
+    top: 10px;
+    right: 13px;
+}
+/* 読み取り専用テキストボックスのクラス FSWeb)Ioroi追加*/
+.inpReadonly
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	text-align: center;
+}
+/* 読み取り専用テキストボックスのクラス FSWeb)Ioroi追加*/
+.inpReadonlyRight
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	text-align: right;
+}
+/* 読み取り専用テキストボックスのクラス FSWeb)Ioroi追加*/
+.inpReadonlyLeft
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	text-align: left;
+}
+/* 読み取り専用テキストボックスのクラス FSWeb)Ioroi追加*/
+.inpReadonlyCenter
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	text-align: center;
+}
+
+
+/*--------------------------------------------------------- 
+    アイコン系
+--------------------------------------------------------- */
+.icon-search {
+  /*display: inline-block;*/
+    width: 17px;
+    height: 17px;
+    background: url("../boImages/sprite-01.png") no-repeat -27px 0;
+    border:none;
+}
+
+.icon-calender {
+    display: inline-block;
+    width: 19px;
+    height: 17px;
+    background: url("../boImages/sprite-01.png") no-repeat -56px 0;
+}
+
+.icon-register {
+    display: inline-block;
+    width: 14px;
+    height: 17px;
+    margin: 0 8px -4px 0;
+    background: url("../boImages/sprite-01.png") no-repeat 0 0;
+}
+
+.icon-utility-01 {
+    display: inline-block;
+    width: 11px;
+    height: 21px;
+    margin: 0 8px -4px 0;
+    background: url("../boImages/sprite-02.png") no-repeat 0 0;
+}
+
+.icon-utility-02 {
+    display: inline-block;
+    width: 10px;
+    height: 21px;
+    margin: 0 8px -4px 0;
+    background: url("../boImages/sprite-02.png") no-repeat -17px 0;
+}
+
+.icon-utility-03 {
+    display: inline-block;
+    width: 17px;
+    height: 21px;
+    margin: 0 8px -4px 0;
+    background: url("../boImages/sprite-02.png") no-repeat -33px 0;
+}
+
+.icon-utility-04 {
+    display: inline-block;
+    width: 24px;
+    height: 21px;
+    margin: 0 8px -4px 0;
+    background: url("../boImages/sprite-02.png") no-repeat -54px 0;
+}
+
+.icon-utility-05 {
+    display: inline-block;
+    width: 19px;
+    height: 21px;
+    margin: 0 8px -4px 0;
+    background: url("../boImages/sprite-02.png") no-repeat -81px 0;
+}
+
+.icon-utility-06 {
+    display: inline-block;
+    width: 20px;
+    height: 21px;
+    margin: 0 8px -4px 0;
+    background: url("../boImages/sprite-02.png") no-repeat -104px 0;
+}
+
+.icon-utility-07 {
+    display: inline-block;
+    width: 19px;
+    height: 21px;
+    margin: 0 8px -4px 0;
+    background: url("../boImages/sprite-02.png") no-repeat -127px 0;
+}
+
+/*--------------------------------------------------------- 
+    必須項目
+--------------------------------------------------------- */
+.required {
+  color: #d50303;
+  font-size: 86%;
+}
+.required2 {
+  color: #0303d5;
+  font-size: 86%;
+}
+
+/*--------------------------------------------------------- 
+    ボタン領域
+--------------------------------------------------------- */
+.str-btn-utility {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 107.69231%;
+}
+.str-btn-utility ul:first-child {
+    float: left;
+}
+.str-btn-utility ul:last-child {
+    float: right;
+}
+.str-btn-utility ul li {
+    float: left;
+    height: 2px;
+    /*margin-left: 20px;*/
+    margin-right:-20px;
+    margin-bottom: 20px;
+}
+.str-btn-utility ul li:first-child {
+    margin-left: 0;
+}
+.str-btn-utility a {
+    display: block;
+    text-decoration: none;
+    color: #0099cc;
+}
+.str-btn-utility input {
+    position:relative;
+    left:-30px;
+    padding-left:30px;
+    height:auto;
+    border:none;
+    color: #0099cc;
+    font:inherit;
+    background-color: rgba(255,255,255,0);
+    cursor:pointer;
+}
+
+/*--------------------------------------------------------- 
+    ページャ
+--------------------------------------------------------- */
+.str-pager-01 {
+    position: relative;
+    padding: 10px 0;
+    text-align: center;
+}
+.str-pager-01 > p:first-child {
+    line-height: 35px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    color: #61b6d8;
+}
+.str-pager-01 > p:last-child {
+    margin-top: 3px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: #61b6d8;
+}
+.str-pager-01 .pager-01 {
+    position: relative;
+    display: inline-block;
+    padding: 0 90px;
+}
+.str-pager-01 .pager-01 li {
+    float: left;
+    margin-left: 10px;
+}
+.str-pager-01 .pager-01 li:first-child {
+    margin-left: 0;
+}
+.str-pager-01 .pager-01 li a {
+    line-height: 20px;
+    display: block;
+    width: 20px;
+    height: 23px;
+    text-align: center;
+    text-decoration: none;
+    color: #61b6d8;
+}
+.str-pager-01 .pager-01 li a.active, .str-pager-01 .pager-01 li a:hover {
+    color: #ffffff;
+    background-color: #61b6d8;
+}
+.str-pager-01 .pager-01 .pager-controler-01 {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0 -90px;
+}
+.str-pager-01 .pager-01 .pager-controler-01 li {
+    position: absolute;
+}
+.str-pager-01 .pager-01 .pager-controler-01 li:first-child {
+    top: 0;
+    left: 0;
+}
+.str-pager-01 .pager-01 .pager-controler-01 li:last-child {
+    top: 0;
+    right: 0;
+}
+
+/*--------------------------------------------------------- 
+    共通
+--------------------------------------------------------- */
+body {
+	font-family: 'Meiryo UI';
+	color: #000000;
+	background-color: #ffffff;
+	/*font-size: 81.25%;*/
+	height: 100%;
+}
+#wrap {
+	height: 100%;
+	width: 1264px;
+	background-color: #ffffff;
+	margin: 0 auto;
+	position: relative;
+}
+
+/*--------------------------------------------------------- 
+    ヘッダ領域
+--------------------------------------------------------- */
+#header {
+	width: 1264px;
+	height: 49px;
+	border-bottom: 1px solid #1ca7e0;
+	font-size: 88%;
+	position: absolute;
+	top: 0;
+}
+.logo {
+  float: left;
+  width: 98px;
+  height: 49px;
+}
+#menu-btn {
+	float: left;
+}
+#menu-btn2 {
+	float: left;
+	background-color: #1ca7e0;
+	width: 50px;
+	height: 41px;
+	text-align: center;
+	padding-top: 9px;
+}
+#menu-btn-back {
+	display: none;
+}
+
+#header .inner {
+  float: right;
+  width: 1126px;
+  height: 49px;
+    padding: 0 20px;
+    background-color: #1ca7e0;
+}
+.inner h1, .inner p {
+  line-height: 49px;
+    float: left;
+    color: #ffffff;
+}
+.inner .header-utility-01 {
+    float: left;
+}
+.inner .header-utility-01 p {
+	margin-left: 20px;
+}
+.inner .header-utility-02 {
+    float: right;
+}
+.inner .admin-number {
+    margin-left: 20px;
+    font-size: 107.69231%;
+}
+.inner .admin-name {
+  font-size: 107.69231%;
+}
+.inner .admin-name span {
+    font-weight: bold;
+    margin-right: 20px;
+}
+.inner .time {
+  margin-left: 20px;
+  font-size: 92.30769%;
+}
+.inner .btn-logout {
+  margin: 6px 0 0 25px;
+}
+.str-form-01 {
+    height: 30px;
+    padding: 5px 20px 8px;
+    border-bottom: 1px solid #1ca7e0;
+	font-size: 82%;
+}
+.str-form-01 .register {
+    line-height: 33px;
+    float: left;
+}
+.str-form-01 .register a {
+    color: #10329e;
+}
+.str-form-01 > div {
+    float: right;
+}
+.str-form-01.result {
+    text-align: right;
+}
+.str-form-01.result .inner {
+    display: inline-block;
+}
+.str-form-01.result .inner > p {
+    float: left;
+    margin-bottom: -3px;
+    vertical-align: middle;
+}
+.str-form-01.result .inner > p > span {
+    line-height: 33px;
+    margin: 0 10px 0 20px;
+    padding-left:4px;
+}
+
+/*--------------------------------------------------------- 
+    検索条件領域(入力時)
+--------------------------------------------------------- */
+.str-form-02 {
+  width: 1024px;
+  border-right: 1px solid #ffffff;
+}
+/*.str-form-02 > .inner {
+    border-right: 1px solid #cccccc;
+}*/
+
+/*--------------------------------------------------------- 
+    検索条件領域(入力時)            明細画面
+--------------------------------------------------------- */
+.str-form-03 {
+    padding: 10px 25px;
+    border-bottom: 3px solid #1ca7e0;
+    background-color: #eeeeee;
+}
+
+/*--------------------------------------------------------- 
+    検索条件領域
+--------------------------------------------------------- */
+.str-search-01 {
+    padding: 16px 20px;
+    background-color: #eeeeee;
+}
+
+/*--- 検索条件(閉) テーブル枠 ---*/
+.str-search-01 .inner-01 .search-table {
+    width: 100%;
+}
+.str-search-01 .inner-01 .search-table-tdleft {
+    vertical-align: top;
+}
+.str-search-01 .inner-01 .search-table-tdright {
+    vertical-align: bottom;
+    text-align: right;
+    padding-bottom: 2px;
+}
+
+/*--- 検索条件(閉) 検索条件 ---*/
+.str-search-01 .inner-01 .list-search-condition {
+    border-right: 1px solid #cccccc;
+    width: 1050px;
+    float: left;
+}
+.str-search-01 .inner-01 .list-search-01 {
+    width: 960px;
+    float: left;
+}
+.str-search-01 .inner-01 .txt-01 {
+    font-weight: bold;
+    line-height: 19px;
+    float: left;
+    margin-right: 8px;
+    color: #666666;
+    font-size: 107.69231%;
+}
+
+.str-search-01 .inner-01 .list-search-01 {
+  float: left;
+}
+.list-search-01 li {
+    float: left;
+    margin-right: 16px;
+    margin-bottom: 2px;
+    padding: 3px 5px;
+    border-radius: 3px;
+    background-color: #ffffff;
+}
+/*--- 検索条件(閉) 検索件数 ---*/
+.str-search-01 .inner-01 .list-search-result {
+    float: right;
+    width: 140px;
+    text-align: right;
+    
+    vertical-align: middle;
+}
+
+/*--- 検索条件(閉) 検索件数タイトル ---*/
+.str-search-01 .inner-01 .txt-02 {
+    font-weight: bold;
+  float: right;
+    color: #666666;
+    font-size: 107.69231%;
+}
+/*--- 検索条件(閉) 検索件数 ---*/
+.str-search-01 .inner-01 .txt-02 .hit-number {
+    margin-left: 20px;
+    font-size: 128.57143%;
+}
+/*--- 検索条件(開) テーブル枠 ---*/
+.str-search-01 .inner-02 .search-table {
+    width: 100%;
+}
+.str-search-01 .inner-02 .search-table-tdleft {
+    vertical-align: top;
+}
+.str-search-01 .inner-02 .search-table-tdright {
+    vertical-align: middle;
+    text-align: right;
+    padding-bottom: 5px;
+}
+.str-search-01 .inner-02 .str-form-02 {
+    float: left;
+}
+.str-search-01 .inner-02 .str-btn-search {
+    float: right;
+    width: 180px;
+    text-align: left;
+}
+.str-search-01 .inner-02 p.required {
+    margin-bottom: 10px;
+}
+
+.str-search-01 .inner-02 th, .str-search-01 .inner-02 td{
+	font-weight: normal;
+    padding-bottom: 10px;
+}
+.str-search-01 .inner-02  th .tbl-hdg {
+    padding-left: 15px;
+    background: url("../boImages/border-form-02.gif") no-repeat 0 0;
+}
+
+/*--- 明細画面 ---*/
+.str-search-02 th {
+    font-weight: bold;
+    height: 30px;
+    font-size: 107.69231%;
+}
+.str-search-02 th .tbl-hdg {
+    padding-left: 15px;
+    background: url("../boImages/border-form-02.gif") no-repeat 0 0;
+}
+
+/*--------------------------------------------------------- 
+    アコーディオンボタン
+--------------------------------------------------------- */
+.trigger-search-01 {
+  background-color: #eeeeee;
+  text-align: center;
+}
+.trigger-search-01 a {
+    display: block;
+    height: 16px;
+    background: url("../boImages/trigger-search-up.png") no-repeat center 0;
+    width: 100%;
+    border-bottom: 6px solid #cccccc;
+}
+.trigger-search-01.js-on a {
+    background: url("../boImages/trigger-search-down.png") no-repeat center 0;
+}
+
+/*--------------------------------------------------------- 
+    一覧領域
+--------------------------------------------------------- */
+.str-wrap-result {
+    padding: 18px 20px;
+  font-size: 88%;
+}
+.str-wrap-result > .inner {
+    border-top: 5px solid #b4e3f6;
+    border-bottom: 5px solid #b4e3f6;
+}
+
+#str-result-item-wrap {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-right: -17px;
+}
+
+/*--- 行タイトル ---*/
+.str-result-01 .str-result-hdg-01 > div {
+    line-height: 34px;
+    float: left;
+    /*padding-left: 10px;*/
+    text-align: center;
+    padding-right: 2px;
+    padding-left: 2px;
+    color: #ffffff;
+    border-left: 1px solid #ffffff;
+    background-color: #1ca7e0;
+}
+.str-result-01 .str-result-hdg-01 > th {
+    line-height: 34px;
+    /*padding-left: 10px;*/
+    text-align: center;
+    padding-right: 2px;
+    padding-left: 2px;
+    color: #ffffff;
+    border-left: 1px solid #ffffff;
+    background-color: #1ca7e0;
+}
+.str-result-01 .headcell {
+    display: block;
+    float: left;
+    text-align: center;
+    padding-right: 2px;
+    padding-left: 2px;
+}
+.str-result-01 .str-result-item-01 {
+  width: 100%;
+    border-bottom: 1px solid #cccccc;
+    font-size: 92.30769%;
+}
+.str-result-01 .str-result-item-01.js-hover {
+    background-color: #e3f6fc;
+}
+.str-result-01 .str-result-item-01.js-active {
+    background: #e3f6fc url("../boImages/border-result-item-01.png") repeat-y 1px 0;
+}
+.str-result-01 .str-result-item-01 > div {
+  line-height: 40px;
+  float: left;
+  padding-right: 2px;
+  padding-left: 2px;
+}
+
+/* 明細(確定操作あり)の背景色変更 FSWeb)Ioroi追加*/
+.str-result-01 .str-result-item-01.js-commited {
+    background-color: #fafad2;
+}
+/* 明細(送信済み)の背景色変更 FSWeb)Ioroi追加*/
+.str-result-01 .str-result-item-01.js-sent {
+    background-color: #e8e8e8;
+}
+/* 明細(自社品番/スキャンコード検索)の背景色変更 FSWeb)Ioroi追加*/
+.str-result-01 .str-result-item-01.js-search {
+    background-color: #c8fbc8;
+}
+
+
+.str-result-01 .str-result-item-01 > div {
+    line-height: 34px;
+    float: left;
+    /*padding-left: 1px;*/
+}
+
+.str-result-01 .str-result-item-01 > div:first-child {
+    /*padding-left: 10px;*/
+}
+
+/*--- 2段組みの場合の中央の線 ---*/
+.str-result-01 .str-result-hdg-01 > div > div:first-child {
+  padding: 0;
+    text-align: center;
+    border-bottom: 1px solid #ffffff;
+}
+.str-result-01 .str-result-item-01 > div > div:first-child {
+  padding: 0;
+    /*text-align: center;*/
+    border-bottom: 1px solid #cccccc;
+}
+/*--- 2段組みの下段 ---*/
+.str-result-01 .str-result-item-01 > div > div {
+    height: 34px;
+    border-color: #cccccc !important;
+}
+
+/*--- 2段組みの2段ぶち抜き ---*/
+.str-result-01 .str-result-hdg-01 > div.col_2dan {
+    /*line-height: 65px;*/
+    line-height: 69px;
+}
+
+.str-result-01 .str-result-item-01 > div.col_2dan {
+    /*line-height: 65px;*/
+    line-height: 69px;
+}
+
+/*--- 明細合計部 ---*/
+.str-result-01 .str-result-ftr-01 {
+    padding: 1px 0;
+    background-color: #1ca7e0;
+}
+.str-result-01 .str-result-ftr-01 > div {
+    line-height: 34px;
+    float: left;
+    empty-cells: show;
+    border-color: #1ca7e0 !important;
+    border-left: 1px solid #cccccc;
+}
+.str-result-01 .str-result-ftr-01 > div.col1 {
+    border-left: none;
+}
+
+
+/*--- セル ---*/
+.detail_right {
+    text-align: right;
+	padding-right: 5px;
+}
+.detail_left {
+    text-align: left;
+	padding-left: 5px;
+}
+.detail_center {
+    text-align: center;
+    padding-right: 2px;
+    padding-left: 2px;
+}
+.detail_ftr {
+    text-align: right;
+    padding-right: 4px;
+    background-color: #ecf9fe;
+}
+.detail_ftr_title {
+    text-align: right;
+    padding-right: 5px;
+}
+.detail_right_ftr {
+    text-align: right;
+    padding-right: 4px;
+    background-color: #ecf9fe;
+}
+
+/*--------------------------------------------------------- 
+	clearfix
+--------------------------------------------------------- */
+.clearfix:after {  
+	content: "";   
+	display: block;   
+	height: 0;   
+	clear: both;   
+	visibility: hidden;  
+}  
+.clearfix {
+	display: inline-table;
+} 
+/*--------------------------------------------------------- 
+	テキスト設定
+--------------------------------------------------------- */
+.txt-bold {
+	font-weight: bold;
+}
+.txt-red {
+	color: #d50303;
+}
+
+/*--------------------------------------------------------- 
+	マージン設定
+--------------------------------------------------------- */
+.r-mrgn0 {
+	margin-right: 0!important;
+}
+
+/*--------------------------------------------------------- 
+	カレンダー設定
+--------------------------------------------------------- */
+.ui-datepicker-trigger {
+	margin-left: -32px;
+	vertical-align: -4px;
+	cursor: pointer;
+	padding-right: 12px;
+}
+
+/*--------------------------------------------------------- 
+	確定ボタン
+--------------------------------------------------------- */
+/*.str-btn-submit {
+  margin-top: 20px;
+  text-align: center;
+}*/
+
+/*--------------------------------------------------------- 
+	モーダル画面
+--------------------------------------------------------- */
+#str-modal {
+    width: 706px;
+    height: 417px;
+}
+
+#error-01 {
+    display: none;
+}
+
+#wrap-modal {
+    width: 660px;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.error-input {
+    background-color: #fde0e0;
+}
+
+/* Ajax名称取得でエラーになった場合のクラス FSWeb)Ioroi追加*/
+.error-input-code {
+    background-color: #fde0e0;
+}
+
+/*--------------------------------------------------------- 
+    検索条件のタブ
+--------------------------------------------------------- */
+.tab-list li{
+  float: left;
+}
+
+.tab-list li.selected{
+  background-color: #EEE;
+}
+
+.tab-list li a{
+  color: #09C;
+  display: block;
+  padding: 0 5px;
+  /*margin: 10px 0;*/
+  font-weight: bold;
+  font-size: 107.692%;
+  width: 120px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.tab-list li a{
+  border-left: 2px solid #EEE;
+}
+
+.tab-list li:first-child a{
+  border: none;
+}
+
+.tab-list li.selected a{
+  color: #000;
+  padding: 0 5px;
+}
+
+/*--------------------------------------------------------- 
+    文字強調
+--------------------------------------------------------- */
+.font-red {
+    color: #ff0000;
+}
+
+/*--------------------------------------------------------- 
+    ツールチップ表示用
+--------------------------------------------------------- */
+.tooltip {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@charset "UTF-8";
+
+.str-tab-cont {
+	font-size: 88%;
+}
+.str-tab-menu {
+	margin-bottom: 0;
+	font-size: 88%;
+}
+.str-tab-menu ul li {
+	float: left;
+}
+.str-tab-menu ul li a {
+	display: block;
+	width: 133px;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 15px;
+	font-weight: bold;
+	color: #1492c7;
+}
+.search-tab-active {
+	background-color: #eeeeee!important;
+	color: #000000!important;
+}
+.search-tab-active:hover {
+	background-color: #eeeeee!important;
+	color: #000000!important;
+}
+
+.form-02 th, .form-02 td {
+  padding-bottom: 10px;
+}
+.form-02 th.last, .form-02 td.last {
+  padding-bottom: 0;
+}
+.form-02 th {
+  font-weight: bold;
+  height: 30px;
+  font-size: 107.69231%;
+}
+.form-02 th .tbl-hdg {
+  padding-left: 15px;
+  background: url("../boImages/border-form-02.gif") no-repeat 0 0;
+}
+
+/* 開閉メニュー */
+#menu-frame {
+	position: absolute;	/*表示メニュー位置設定*/
+	top: 50px;
+	left: 0;
+	z-index: 1000;
+	display: none;
+}
+.open-close-menu {
+}
+.open-close-menu-cont {
+	position: relative;
+    /*background-color: #1ca7e0;*/
+}
+.open-close-menu-cont p {
+	position: relative;
+	background-color: #0296d3;
+    width:207px;
+}
+.open-close-menu-cont p a {
+	display: block;
+	width: 142px;
+	color: #ffffff;
+	padding: 10px 15px 10px 50px;	/* 文字と枠の間隔調整 */
+	font-weight: bold;
+	/*background-color: #0296d3;*/	/* 背景色設定 */
+}
+.open-close-menu-cont p a:hover {
+	background-color: #0d7cb4;	/* 背景色設定 */
+}
+.open-close-menu-cont-active {
+	background-color: #0d7cb4!important;	/* 背景色設定 */
+}
+/* 背景画像（上から順番に） */
+#icon-search-menu1 a {
+	background-image: url(../boImages/icon-search-menu1.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu2 a {
+	background-image: url(../boImages/icon-search-menu2.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu3 a {
+	background-image: url(../boImages/icon-search-menu3.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu4 a {
+	background-image: url(../boImages/icon-search-menu4.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu5 a {
+	background-image: url(../boImages/icon-search-menu5.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu6 a {
+	background-image: url(../boImages/icon-search-menu6.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu7 a {
+	background-image: url(../boImages/icon-search-menu7.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu8 a {
+	background-image: url(../boImages/icon-search-menu8.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu9 a {
+	background-image: url(../boImages/icon-search-menu9.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+#icon-search-menu10 a {
+	background-image: url(../boImages/icon-search-menu10.png);
+	background-repeat: no-repeat;
+	background-position: 15px center; 
+}
+
+/* 第2階層 */
+.open-close-menu-2nd {
+	/*display: none;*/		/* 初期非表示 */
+	position: absolute;	/* 位置設定 */
+	top: 0;
+	left: 207px;
+	font-size: 93%;
+}
+.open-close-menu-2nd ul li a {
+	display: block;
+	background: #097ab4;
+	color: #ffffff;
+	padding: 9px 20px;	/* 文字と枠の間隔調整 */
+	font-weight: bold;
+	width: 236px;
+}
+.open-close-menu-2nd ul li a:hover {
+	background: url(../boImages/icon-triangle-arrow.png) no-repeat right bottom #ffffff;	/*マウスオーバー時の背景設定*/
+	color: #0e75a0;
+}
+#jan-shouhinkodo, #mekashinaban, #sonota {
+	display: none;
+}
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End */

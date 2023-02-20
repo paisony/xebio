@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 返品実績確認一覧 件数チェック **/
+		<sql id="TD040P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							COUNT(*) CNT
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID" /><statement type="final" name="final"><parts>
+					ON		T2.TENPO_CD = T1.TENPO_CD
+					AND		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+					AND		T2.SYORI_YMD = T1.SYORI_YMD
+					LEFT JOIN
+							(
+							SELECT
+								 T2.TENPO_CD			AS TENPO_CD
+								,T2.JAN_CD				AS JAN_CD
+								,COUNT(T2.JAN_CD)		AS KAISU
+							FROM
+				</parts></statement><statement type="replace" name="TABLE_ID" /><statement type="final" name="final"><parts>
+					ON		T2.TENPO_CD = T1.TENPO_CD
+					AND		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+					AND		T2.SYORI_YMD = T1.SYORI_YMD
+				</parts></statement><statement type="replace" name="ADD_WHERE1" /><statement type="final" name="final"><parts>
+							GROUP BY T2.TENPO_CD,T2.JAN_CD
+							) T3
+					ON		T3.TENPO_CD = T2.TENPO_CD
+					AND		T3.JAN_CD = T2.JAN_CD
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="replace" name="ADD_WHERE2" />
+		</sql>
+		/** 返品実績確認一覧 検索(確定テーブル) **/
+		<sql id="TD040P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.BUMON_CD
+							,M2.BUMONKANA_NM
+							,T1.SIIRESAKI_CD
+							,M1.SIIRESAKI_RYAKU_NM
+							,T1.HENPIN_YMD
+							,CASE WHEN T1.KANRI_NO = 0 THEN T1.ADD_YMD ELSE (
+								SELECT
+									ADD_YMD
+								FROM
+									MDRT0010
+								WHERE
+									MDRT0010.KANRI_NO  = T1.KANRI_NO
+								AND	MDRT0010.SYORI_YMD = T1.SYORI_YMD
+								AND	MDRT0010.SYORI_TM  = T1.SYORI_TM
+							) END 						AS ADD_YMD
+							,T1.DENPYO_BANGO
+							,T1.KANRI_NO 
+							,T1.SIJI_BANGO
+							,M6.HINSYU_RYAKU_NM
+							,M3.HANBAIIN_NM
+							,M4.BURANDO_NMK
+							,M7.MEISYO_NM				AS HENPIN_RIYU_NM
+							,T2.JISYA_HBN
+							,T2.MAKER_HBN
+							,T2.SYONMK
+							,M5.IRO_NM
+							,T2.SIZE_NM
+							,T2.JAN_CD
+							,T2.HENPINJISSEKI_SU
+							,T1.UPD_TM
+							,T3.KAISU
+							,T1.SOSINZUMI_FLG
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID" /><statement type="final" name="final"><parts>
+					ON		T2.TENPO_CD = T1.TENPO_CD
+					AND		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+					AND		T2.SYORI_YMD = T1.SYORI_YMD
+					LEFT JOIN
+							(
+							SELECT
+								 T2.TENPO_CD			AS TENPO_CD
+								,T2.JAN_CD				AS JAN_CD
+								,COUNT(T2.JAN_CD)		AS KAISU
+							FROM
+				</parts></statement><statement type="replace" name="TABLE_ID" /><statement type="final" name="final"><parts>
+					ON		T2.TENPO_CD = T1.TENPO_CD
+					AND		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+					AND		T2.SYORI_YMD = T1.SYORI_YMD
+				</parts></statement><statement type="replace" name="ADD_WHERE1" /><statement type="final" name="final"><parts>
+							GROUP BY T2.TENPO_CD,T2.JAN_CD
+							) T3
+					ON		T3.TENPO_CD = T2.TENPO_CD
+					AND		T3.JAN_CD = T2.JAN_CD
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.HHTADDTAN_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		M4.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0080 M5
+					ON		M5.IRO_CD = T2.IRO_CD
+					LEFT JOIN
+							MDMT0070 M6
+					ON		M6.BUMON_CD = T1.BUMON_CD
+					AND		M6.HINSYU_CD = T2.HINSYU_CD
+					LEFT JOIN
+							MDMT0100 M7
+					ON		M7.MEISYO_CD = T1.HENPIN_RIYU
+					AND		M7.SIKIBETSU_CD = 'RTRN'
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.SIIRESAKI_CD
+							,T1.BUMON_CD
+							,T1.BURANDO_CD
+							,T2.JISYA_HBN
+							,T2.SIZE_CD
+							,T1.HENPIN_YMD
+							,T1.UPD_TM
+							,T2.HENPINJISSEKI_SU DESC
+							,T2.DENPYO_BANGO
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

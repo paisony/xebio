@@ -1,0 +1,152 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tk020f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 処理月 ---*/
+.slt-syoriYm {
+	width: 85px;
+	margin-top: 3px;
+	height: 28px;
+}
+
+/*--- 評価損種別 ---*/
+.slt-hyoukasonShubetu {
+	width: 80px;
+	margin-top: 3px;
+	height: 28px;
+}
+/*--- 評価損理由コンボ ---*/
+.slt-hyoukasonRiyu {
+	width: 125px;
+	margin-top: 3px;
+	height: 28px;
+}
+/*--- 評価損理由テキスト ---*/
+.inp-hyoukasonRiyu {
+	width: 114px;
+	margin-top: 3px;
+}
+
+/*--- 却下理由テキスト ---*/
+.inp-kyakka {
+	width: 350px;
+	margin-top: 3px;
+}
+
+/*--- 明細ソート順 ---*/
+.rdo-MeisaiSort {
+	margin-top: 8px;
+}
+
+.str-search-01 .w-type-01 {
+	width: 90px;
+}
+.str-search-01 .w-type-02 {
+	width: 300px;
+}
+.str-search-01 .w-type-03 {
+	width: 150px;
+}
+
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/*--- 行 ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 28px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 部門／品種 ---*/
+.str-result-01 .col2 {
+	width: 30px;
+}
+/*--- ブランド ---*/
+.str-result-01 .col3 {
+  width: 140px;
+}
+/*--- 自社品番 ---*/
+.str-result-01 .col3 .col3-1 {
+  width: 63px;
+}
+/*--- 販完日 ---*/
+.str-result-01 .col3 .col3-2 {
+  width: 68px;
+  border-left: 1px solid #ffffff;
+}
+
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col4 {
+  width: 164px;
+}
+
+/*--- スキャンコード ---*/
+.str-result-01 .col5 {
+  width: 128px;
+}
+/*--- 色 ---*/
+.str-result-01 .col5 .col5-1 {
+  width: 71px;
+}
+/*--- サイズ ---*/
+.str-result-01 .col5 .col5-2 {
+  width: 46px;
+  border-left: 1px solid #ffffff;
+}
+
+/*--- 上代1／数量 ---*/
+.str-result-01 .col6 {
+  width: 78px;
+}
+
+/*--- 原単価／原価金額 ---*/
+.str-result-01 .col7 {
+  width: 78px;
+}
+
+/*--- 入力日／申請日 ---*/
+.str-result-01 .col8 {
+  width: 52px;
+}
+
+/*--- 入力者／申請者 ---*/
+.str-result-01 .col9 {
+  width: 56px;
+}
+
+/*--- 種別 ---*/
+.str-result-01 .col10 .col10-1 {
+	width: 82px;
+}
+/*--- 評価損理由 ---*/
+.str-result-01 .col10 .col10-2 {
+	width: 265px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- 却下理由 ---*/
+.str-result-01 .col10 {
+	width: 356px;
+}
+
+/*--- 調達 ---*/
+.str-result-01 .col11 {
+	width: 26px;
+}
+
+/*--- 承認 ---*/
+.str-result-01 .col12 {
+	width: 26px;
+}
+
+.str-result-01 .cell {
+	display: block;
+	float: left;
+	/*text-align: center;*/
+}
+

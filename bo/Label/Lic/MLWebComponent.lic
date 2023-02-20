@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LicenseInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FileVersion>1</FileVersion>
+  <SerialNumber>ML5WE027</SerialNumber>
+  <UserID>WZDBmODIwNzQtODJmYi00NzhiLTg2NjgtNDZlZWMyY2MwMDI4</UserID>
+  <Application>MLWebComponent</Application>
+  <AllowColorLayout>false</AllowColorLayout>
+  <IsTrial>false</IsTrial>
+  <PublicationDate>2014-09-16T00:00:00+09:00</PublicationDate>
+  <ExpirationDate>2014-12-16T00:00:00+09:00</ExpirationDate>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>e9klySD9YFassMZ3CJ8tFvX6BJI=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>pUBNtkN3HGQD4DV/Q4KJZGDpBbq8X+lydDDTvlrLyvQEuA2x/bkiod9lBdOjoS5rqC2IXxoPwPehmW3j+VgHD39YXX+JwsqV3TrAGvWQ2C3yiyL1xr6DYPT5iYP0HwOnAXyw1yhDnO1QGKRKQ7yHJl6bRQffJZSS0qYoRKGaIho=</SignatureValue>
+  </Signature>
+</LicenseInformation>

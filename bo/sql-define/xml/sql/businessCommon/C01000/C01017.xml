@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<!-- 棚卸業務共通 棚卸実施日TBL取得 -->
+		<sql id="C01017-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							MAX(TENCD)					TENCD
+							,MAX(TANAOROSIKIJUN_YMD)	TANAOROSIKIJUN_YMD
+							,MAX(TANAOROSIKIKAN_FROM)	TANAOROSIKIKAN_FROM
+							,MAX(TANAOROSIKIKAN_TO)		TANAOROSIKIKAN_TO
+							,MAX(TYOBOZAIKO_SU)			TYOBOZAIKO_SU
+							,MAX(TANAOROSIJISSI_YMD)	TANAOROSIJISSI_YMD
+							,COUNT(1)					CNT
+					FROM	MDIT0030
+					WHERE	TENCD =	</parts><bind id="BIND_TENCD" /><parts>
+					AND		TANAOROSIKIKAN_FROM	&lt;= </parts><bind id="BIND_DAY_FROM" /><parts>
+					AND		TANAOROSIKIKAN_TO	&gt;= </parts><bind id="BIND_DAY_TO" />
+			</statement>
+		</sql>
+		<!-- 棚卸業務共通 棚卸終了チェック -->
+		<sql id="C01017-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					TANAOROSISYURYO_FLG
+					FROM	MDIT0030
+					WHERE	TENCD	=	</parts><bind id="BIND_TENCD" /><parts>
+					AND		TANAOROSIKIJUN_YMD	=</parts><bind id="BIND_TANAOROSIKIJUN_YMD" />
+			</statement>
+		</sql>
+		<!-- 直近の棚卸実施日TBL取得(ロケーション検索用) -->
+		<sql id="C01017-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 TENCD
+							,TANAOROSIKIJUN_YMD
+							,TANAOROSIKIKAN_FROM
+							,TANAOROSIKIKAN_TO
+							,TYOBOZAIKO_SU
+							,TANAOROSIJISSI_YMD
+							,1 CNT
+					FROM
+							MDIT0030
+					WHERE
+							(TENCD, TANAOROSIKIJUN_YMD) IN (
+								SELECT
+										 MAX(TENCD)					TENCD
+										,MAX(TANAOROSIKIJUN_YMD)	TANAOROSIKIJUN_YMD
+								FROM	MDIT0030
+								WHERE	TENCD =	 </parts><bind id="BIND_TENCD" /><parts>
+								AND		TANAOROSIKIKAN_FROM	&lt;= </parts><bind id="BIND_DAY" /><parts>
+							)
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

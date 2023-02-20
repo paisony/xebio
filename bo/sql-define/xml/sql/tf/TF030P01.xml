@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 経費未払登録一覧 件数チェック **/
+		<sql id="TF030P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					COUNT(*) CNT
+					FROM
+					MDAT0010 T1
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+		</sql>
+		/** 経費未払登録一覧 検索 **/
+		<sql id="TF030P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T1.SYORI_YMD
+					,T1.SYORI_TM
+					,T1.TENPO_CD
+					,M1.TENPO_NM
+					,T1.SIIRESAKI_CD
+					,M2.SIIRESAKI_RYAKU_NM
+					,T1.DENPYO_BANGO
+					,T1.MOTODENPYO_BANGO
+					,T1.NOHINSYO_YMD
+					,M3.HANBAIIN_CD KENPINSYA_CD
+					,M3.HANBAIIN_NM KENPINSYA_NM
+					,M4.HANBAIIN_CD NYURYOKUTAN_CD
+					,M4.HANBAIIN_NM NYURYOKUTAN_NM
+					,T1.SOSINZUMI_FLG
+					,(SELECT
+					    NVL(SUM(T2.SURYO),0)
+					  FROM
+					    MDAT0011 T2
+					  WHERE T2.DENPYO_BANGO = T1.DENPYO_BANGO
+					  AND T2.SYORI_YMD = T1.SYORI_YMD
+					  AND T2.TENPO_CD = T1.TENPO_CD
+					 ) AS SURYO
+					,(SELECT
+					    NVL(SUM(T2.KINGAKU),0)
+					  FROM
+					    MDAT0011 T2
+					  WHERE T2.DENPYO_BANGO = T1.DENPYO_BANGO
+					  AND T2.SYORI_YMD = T1.SYORI_YMD
+					  AND T2.TENPO_CD = T1.TENPO_CD
+					 ) AS KINGAKU
+					,T1.UPD_YMD
+					,T1.UPD_TM
+					FROM
+					MDAT0010 T1
+					LEFT JOIN
+					BOMT0010 M1
+					ON		M1.TENPO_CD = T1.TENPO_CD
+					LEFT JOIN
+					MDMT0020 M2
+					ON		M2.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+					BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.NYURYOKUSHA_CD
+					LEFT JOIN
+					BOMT0030 M4
+					ON		M4.HANBAIIN_CD = T1.UPD_TANCD
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+					T1.DENPYO_BANGO
+					,T1.SYORI_YMD
+				</parts>
+			</statement>
+		</sql>
+		/** 経費未払登録明細 検索 **/
+		<sql id="TF030P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					 T1.TEKIYO_CD
+					,M1.TEKIYO_NM
+					,T1.SURYO
+					,T1.TNK
+					,T1.KINGAKU
+					FROM
+					MDAT0011 T1
+					LEFT JOIN
+					MDMT0050 M1
+					ON		M1.TEKIYO_CD = T1.TEKIYO_CD
+					WHERE
+					T1.DENPYO_BANGO =
+				</parts>
+				<bind id="BIND_DENPYO_BANGO" />
+				<parts>
+					AND T1.SYORI_YMD =
+				</parts>
+				<bind id="BIND_SYORI_YMD" />
+				<parts>
+					AND T1.TENPO_CD =
+				</parts>
+				<bind id="BIND_TENPO_CD" />
+				<parts>
+					ORDER BY
+					T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** [経費未払TBL(H)]を削除 **/
+		<sql id="TF030P01-04">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDAT0010
+					WHERE
+							DENPYO_BANGO = </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYORI_YMD    = </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		TENPO_CD     = </parts><bind id="BIND_TENPO_CD" />
+			</statement>
+		</sql>
+		/** [経費未払TBL(B)]を削除 **/
+		<sql id="TF030P01-05">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDAT0011
+					WHERE
+							DENPYO_BANGO = </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYORI_YMD    = </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		TENPO_CD     = </parts><bind id="BIND_TENPO_CD" />
+			</statement>
+		</sql>
+		/** [経費未払TBL(H)]を登録 **/
+		<sql id="TF030P01-06">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDAT0010(
+						 DENPYO_BANGO			/* 伝票番号 */
+						,SYORI_YMD				/* 処理日付 */
+						,SYORI_TM				/* 処理時間 */
+						,TENPO_CD				/* 店舗コード */
+						,NYURYOKUSHA_CD			/* 入力者コード */
+						,SIIRESAKI_CD			/* 仕入先コード */
+						,MOTODENPYO_BANGO		/* 元伝票番号 */
+						,NOHINSYO_YMD			/* 納品書日付 */
+						,ADD_YMD				/* 登録日 */
+						,ADD_TM					/* 登録時間 */
+						,ADDTAN_CD				/* 登録担当者コード */
+						,UPD_YMD				/* 更新日 */
+						,UPD_TM					/* 更新時間 */
+						,UPD_TANCD				/* 更新担当者コード */
+						,SAKUJYO_YMD			/* 削除日 */
+						,SAKUJYO_FLG			/* 削除フラグ */
+						,SOSINIRAI_FLG			/* 送信依頼フラグ */
+						,SOSINZUMI_FLG			/* 送信済フラグ */
+						,SOSIN_YMD				/* 送信日 */
+						,SOSIN_TM				/* 送信時間 */
+					) VALUES (
+						 </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+						,</parts><bind id="BIND_SYORI_YMD" /><parts>
+						,</parts><bind id="BIND_SYORI_TM" /><parts>
+						,</parts><bind id="BIND_TENPO_CD" /><parts>
+						,</parts><bind id="BIND_NYURYOKUSHA_CD" /><parts>
+						,</parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+						,</parts><bind id="BIND_MOTODENPYO_BANGO" /><parts>
+						,</parts><bind id="BIND_NOHINSYO_YMD" /><parts>
+						,</parts><bind id="BIND_ADD_YMD" /><parts>
+						,</parts><bind id="BIND_ADD_TM" /><parts>
+						,</parts><bind id="BIND_ADDTAN_CD" /><parts>
+						,</parts><bind id="BIND_UPD_YMD" /><parts>
+						,</parts><bind id="BIND_UPD_TM" /><parts>
+						,</parts><bind id="BIND_UPD_TANCD" /><parts>
+						,</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+						,</parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+						,</parts><bind id="BIND_SOSINIRAI_FLG" /><parts>
+						,</parts><bind id="BIND_SOSINZUMI_FLG" /><parts>
+						,</parts><bind id="BIND_SOSIN_YMD" /><parts>
+						,</parts><bind id="BIND_SOSIN_TM" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** [経費未払TBL(B)]を登録 **/
+		<sql id="TF030P01-07">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDAT0011(
+						 DENPYO_BANGO			/* 伝票番号 */
+						,SYORI_YMD				/* 処理日付 */
+						,SYORI_TM				/* 処理時間 */
+						,TENPO_CD				/* 店舗コード */
+						,DENPYOGYO_NO			/* 伝票行№ */
+						,TEKIYO_CD				/* 摘要コード */
+						,SURYO					/* 数量 */
+						,TNK					/* 単価 */
+						,KINGAKU				/* 金額 */
+					) VALUES (
+						 </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+						,</parts><bind id="BIND_SYORI_YMD" /><parts>
+						,</parts><bind id="BIND_SYORI_TM" /><parts>
+						,</parts><bind id="BIND_TENPO_CD" /><parts>
+						,</parts><bind id="BIND_DENPYOGYO_NO" /><parts>
+						,</parts><bind id="BIND_TEKIYO_CD" /><parts>
+						,</parts><bind id="BIND_SURYO" /><parts>
+						,</parts><bind id="BIND_TNK" /><parts>
+						,</parts><bind id="BIND_KINGAKU" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** [経費未払TBL(H)]を更新 **/
+		<sql id="TF030P01-08">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDAT0010 SET
+							 TENPO_CD			= </parts><bind id="BIND_TENPO_CD" /><parts>
+							,NYURYOKUSHA_CD		= </parts><bind id="BIND_NYURYOKUSHA_CD" /><parts>
+							,SIIRESAKI_CD		= </parts><bind id="BIND_SIIRESAKI_CD" /><parts>
+							,MOTODENPYO_BANGO	= </parts><bind id="BIND_MOTODENPYO_BANGO" /><parts>
+							,NOHINSYO_YMD		= </parts><bind id="BIND_NOHINSYO_YMD" /><parts>
+							,UPD_YMD			= </parts><bind id="BIND_UPD_YMD" /><parts>
+							,UPD_TM				= </parts><bind id="BIND_UPD_TM" /><parts>
+							,UPD_TANCD			= </parts><bind id="BIND_UPD_TANCD" /><parts>
+					WHERE
+							DENPYO_BANGO = </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYORI_YMD    = </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		TENPO_CD     = </parts><bind id="BIND_TENPO_CD2" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

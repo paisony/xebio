@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="TE090P01-01">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-01（一覧検索件数（入荷確定）） */
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDNT0010 T1		--移動入荷予定TBL(H)
+					WHERE
+							T1.JYURYOTEN_CD		=	</parts><bind id="BIND_JYURYOTEN_CD" /><parts>
+					AND		T1.KAKUTEI_FLG		=	0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		<sql id="TE090P01-02">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-02（一覧検索（入荷確定）） */
+					SELECT
+							T1.SYUKKAKAISYA_CD								--出荷会社コード
+						,	M4.MEISYOKANA_NM		SYUKKAKAISYA_KANA_NM	--出荷会社カナ名
+						,	T1.SYUKKATEN_CD									--出荷店コード
+						,	M1.TENPO_NM										--出荷店名
+						,	T1.SCM_CD										--SCMコード
+						,	T1.DENPYO_BANGO									--伝票番号
+						,	T1.SYUKKA_YMD									--出荷日
+						,	T1.NYUKAYOTEIGOKEI_SU	NYUKAYOTEIGOUKEI_SU		--入荷予定合計数量
+						,	CASE T1.IDORIYU_KB WHEN 1 THEN '○' ELSE NULL END	KYAKUCHU	--客注
+						,	CASE T1.IDORIYU_KB WHEN 2 THEN '○' ELSE NULL END	NEGAKI		--値書き
+						,	M5.MEISYO_NM			IDST_NM					--移動入荷伝票状態名
+
+						,	T1.TENPOLC_KBN									--店舗ＬＣ区分
+						,	M4.MEISYO_NM			SYUKKAKAISYA_NM			--出荷会社名
+						,	T1.SYUKKATAN_CD									--出荷担当者コード
+						,	M3.HANBAIIN_NM			SYUKKATAN_NM			--出荷担当者名
+						,	T1.UPD_YMD				UPD_YMD_YOTEI			--更新日
+						,	T1.UPD_TM				UPD_TM_YOTEI			--更新時間
+					FROM
+							MDNT0010 T1			--移動入荷予定TBL(H)
+					LEFT JOIN
+							BOMT0010_ALL M1		--店舗MST(全企業)
+					ON		M1.KAISYA_CD	=	TO_CHAR(T1.SYUKKAKAISYA_CD)
+					AND		M1.TENPO_CD		=	T1.SYUKKATEN_CD
+					LEFT JOIN
+							BOMT0010 M2			--店舗MST
+					ON		M2.TENPO_CD		=	T1.JYURYOTEN_CD
+					LEFT JOIN
+							BOMT0030_ALL M3		--担当者MST(全企業)
+					ON		M3.KAISYA_CD	=	T1.SYUKKAKAISYA_CD
+					AND		M3.HANBAIIN_CD	=	T1.SYUKKATAN_CD
+					LEFT JOIN
+							MDMT0100 M4			--名称MST（会社コード）
+					ON		M4.SIKIBETSU_CD	=	'KASY'
+					AND		M4.MEISYO_CD	=	TO_CHAR(T1.SYUKKAKAISYA_CD)
+					LEFT JOIN
+							MDMT0100 M5			--名称MST（移動入荷伝票状態）
+					ON		M5.SIKIBETSU_CD	=	'IDST'
+					AND		M5.MEISYO_CD	=	'2'
+					WHERE
+							T1.JYURYOTEN_CD		=	</parts><bind id="BIND_JYURYOTEN_CD" /><parts>
+					AND		T1.KAKUTEI_FLG		=	0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							DECODE(T1.SYUKKAKAISYA_CD, (SELECT TO_NUMBER(SM1.MEISYOKANA_NM) FROM MDMT0100 SM1 WHERE SM1.SIKIBETSU_CD = 'CONM' AND SM1.MEISYO_CD = '1'),
+									0, T1.SYUKKAKAISYA_CD)
+						,	T1.SYUKKATEN_CD
+						,	T1.SYUKKA_YMD
+						,	T1.DENPYO_BANGO
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TE090P01-03">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-03（一覧検索件数（入荷確定以外）） */
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDNT0020 T1		--移動入荷確定TBL(H)
+					WHERE
+							T1.JYURYOTEN_CD		=	</parts><bind id="BIND_JYURYOTEN_CD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		<sql id="TE090P01-04">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-04（一覧検索（入荷確定以外）） */
+					SELECT
+							T1.SYUKKAKAISYA_CD							--出荷会社コード
+						,	M5.MEISYOKANA_NM	SYUKKAKAISYA_KANA_NM	--出荷会社カナ名
+						,	T1.SYUKKATEN_CD								--出荷店コード
+						,	M1.TENPO_NM									--出荷店名
+						,	T1.SCM_CD									--SCMコード
+						,	T1.DENPYO_BANGO								--伝票番号
+						,	T1.SYUKKA_YMD								--出荷日
+						,	T1.JYURYO_YMD								--入荷日
+						,	T1.NYUKAYOTEIGOUKEI_SU						--入荷予定合計数量
+						,	T1.NYUKAJISSEKIGOUKEI_SU					--入荷実績合計数量
+						,	CASE T1.IDORIYU_KB WHEN 1 THEN '○' ELSE NULL END	KYAKUCHU	--客注
+						,	CASE T1.IDORIYU_KB WHEN 2 THEN '○' ELSE NULL END	NEGAKI		--値書き
+						,	M6.MEISYO_NM		IDST_NM					--移動入荷伝票状態名
+						,	T1.SOSINZUMI_FLG							--送信済フラグ
+
+						,	T1.TENPOLC_KBN								--店舗ＬＣ区分
+						,	M5.MEISYO_NM		SYUKKAKAISYA_NM			--出荷会社名
+						,	T1.SYUKKATAN_CD								--出荷担当者コード
+						,	M3.HANBAIIN_NM		SYUKKATAN_NM			--出荷担当者名
+						,	T1.ADDTAN_CD		NYUKATAN_CD				--入荷担当者コード
+						,	M4.HANBAIIN_NM		NYUKATAN_NM				--入荷担当者名
+						,	T2.UPD_YMD			UPD_YMD_YOTEI			--更新日（予定）
+						,	T2.UPD_TM			UPD_TM_YOTEI			--更新時間（予定）
+						,	T1.UPD_YMD			UPD_YMD_KAKUTEI			--更新日（確定）
+						,	T1.UPD_TM			UPD_TM_KAKUTEI			--更新時間（確定）
+					FROM
+							MDNT0020 T1			--移動入荷確定TBL(H)
+					LEFT JOIN
+							MDNT0010 T2			--移動入荷予定TBL(H)
+					ON		T2.TENPOLC_KBN		=	T1.TENPOLC_KBN
+					AND		T2.SYUKKAKAISYA_CD	=	T1.SYUKKAKAISYA_CD
+					AND		T2.SYUKKATEN_CD		=	T1.SYUKKATEN_CD
+					AND		T2.DENPYO_BANGO		=	T1.DENPYO_BANGO
+					AND		T2.SYUKKA_YMD		=	T1.SYUKKA_YMD
+					LEFT JOIN
+							BOMT0010_ALL M1		--店舗MST(全企業)
+					ON		M1.KAISYA_CD	=	TO_CHAR(T1.SYUKKAKAISYA_CD)
+					AND		M1.TENPO_CD		=	T1.SYUKKATEN_CD
+					LEFT JOIN
+							BOMT0010 M2			--店舗MST
+					ON		M2.TENPO_CD		=	T1.JYURYOTEN_CD
+					LEFT JOIN
+							BOMT0030_ALL M3		--担当者MST(全企業)
+					ON		M3.KAISYA_CD	=	T1.SYUKKAKAISYA_CD
+					AND		M3.HANBAIIN_CD	=	T1.SYUKKATAN_CD
+					LEFT JOIN
+							BOMT0030 M4			--担当者MST
+					ON		M4.HANBAIIN_CD	=	T1.ADDTAN_CD
+					LEFT JOIN
+							MDMT0100 M5			--名称MST（会社コード）
+					ON		M5.SIKIBETSU_CD	=	'KASY'
+					AND		M5.MEISYO_CD	=	TO_CHAR(T1.SYUKKAKAISYA_CD)
+					LEFT JOIN
+							MDMT0100 M6			--名称MST（移動入荷伝票状態）
+					ON		M6.SIKIBETSU_CD	=	'IDST'
+					AND		M6.MEISYO_CD	=	'1'
+					WHERE
+							T1.JYURYOTEN_CD		=	</parts><bind id="BIND_JYURYOTEN_CD" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							DECODE(T1.SYUKKAKAISYA_CD, (SELECT TO_NUMBER(SM1.MEISYOKANA_NM) FROM MDMT0100 SM1 WHERE SM1.SIKIBETSU_CD = 'CONM' AND SM1.MEISYO_CD = '1'),
+									0, T1.SYUKKAKAISYA_CD)
+						,	T1.SYUKKATEN_CD
+						,	T1.SYUKKA_YMD
+						,	T1.DENPYO_BANGO
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TE090P01-05">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-05（明細検索（入荷確定）） */
+					SELECT
+							T1.DENPYOGYO_NO					--伝票行No
+						,	T1.BUMON_CD						--部門コード
+						,	M1.BUMONKANA_NM					--部門名カナ名
+						,	M2.HINSYU_RYAKU_NM				--品種略名称
+						,	M3.BURANDO_NMK					--ブランド名カナ
+						,	T1.JISYA_HBN	  				--自社品番
+						,	T1.MAKER_HBN					--メーカー品番
+						,	T1.SYONMK						--商品名(カナ)
+						,	M4.IRO_NM						--色略式名称カナ
+						,	T1.SIZE_NM						--サイズ
+						,	T1.JAN_CD	  					--ＪＡＮコード
+						,	T1.NYUKAYOTEI_SU				--入荷予定数
+						,	(
+								SELECT	ST1.NYUKAJISSEKI_SU
+								FROM	MDNT0021 ST1		--移動入荷確定TBL(B)
+								WHERE	ST1.TENPOLC_KBN		=	T1.TENPOLC_KBN
+								AND		ST1.SYUKKAKAISYA_CD	=	T1.SYUKKAKAISYA_CD
+								AND		ST1.SYUKKATEN_CD	=	T1.SYUKKATEN_CD
+								AND		ST1.DENPYO_BANGO	=	T1.DENPYO_BANGO
+								AND		ST1.SYUKKA_YMD		=	T1.SYUKKA_YMD
+								AND		ST1.DENPYOGYO_NO	=	T1.DENPYOGYO_NO
+							)	NYUKAJISSEKI_SU				--入荷実績数
+						,	T1.GEN_TNK	  					--原単価
+					FROM
+							MDNT0011 T1		--移動入荷予定TBL(B)
+					LEFT JOIN
+							BOMT0060 M1		--部門MST
+					ON		M1.BUMON_CD		=	T1.BUMON_CD
+					LEFT JOIN
+							MDMT0070 M2		--品種MST
+					ON		M2.BUMON_CD		=	T1.BUMON_CD
+					AND		M2.HINSYU_CD	=	T1.HINSYU_CD
+					LEFT JOIN
+							STMT0500 M3		--ブランドMST
+					ON		M3.BURANDO_CD	=	T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0080 M4		--色MST
+					ON		M4.IRO_CD		=	T1.IRO_CD
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="BIND_TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="BIND_SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="BIND_SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="BIND_SYUKKA_YMD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TE090P01-06">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-06（明細検索（入荷確定以外）） */
+					SELECT
+							T1.DENPYOGYO_NO					--伝票行No
+						,	T1.BUMON_CD						--部門コード
+						,	M1.BUMONKANA_NM					--部門名カナ名
+						,	M2.HINSYU_RYAKU_NM				--品種略名称
+						,	M3.BURANDO_NMK					--ブランド名カナ
+						,	T1.JISYA_HBN	  				--自社品番
+						,	T1.MAKER_HBN					--メーカー品番
+						,	T1.SYONMK						--商品名(カナ)
+						,	M4.IRO_NM						--色略式名称カナ
+						,	T1.SIZE_NM						--サイズ
+						,	T1.JAN_CD	  					--ＪＡＮコード
+						,	T1.NYUKAYOTEI_SU				--入荷予定数
+						,	T1.NYUKAJISSEKI_SU				--入荷実績数
+						,	T1.GEN_TNK	  					--原単価
+						,	T1.GEN_TNK * T1.NYUKAJISSEKI_SU	GENKA_KIN	--原価金額
+					FROM
+							MDNT0021 T1		--移動入荷確定TBL(B)
+					LEFT JOIN
+							BOMT0060 M1		--部門MST
+					ON		M1.BUMON_CD		=	T1.BUMON_CD
+					LEFT JOIN
+							MDMT0070 M2		--品種MST
+					ON		M2.BUMON_CD		=	T1.BUMON_CD
+					AND		M2.HINSYU_CD	=	T1.HINSYU_CD
+					LEFT JOIN
+							STMT0500 M3		--ブランドMST
+					ON		M3.BURANDO_CD	=	T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0080 M4		--色MST
+					ON		M4.IRO_CD		=	T1.IRO_CD
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="BIND_TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="BIND_SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="BIND_SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="BIND_SYUKKA_YMD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TE090P01-08">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-08（移動入荷未存在リスト更新(論理削除)） */
+					UPDATE
+							MDNT0050			--移動入荷未存在リスト
+					SET
+							 UPD_YMD		= </parts><bind id="BIND_UPD_YMD" /><parts>			--更新日
+							,UPD_TM			= </parts><bind id="BIND_UPD_TM" /><parts>			--更新時間
+							,UPD_TANCD		= </parts><bind id="BIND_UPD_TANCD" /><parts>		--更新担当者コード
+							,SAKUJYO_YMD	= </parts><bind id="BIND_SAKUJYO_YMD" /><parts>		--削除日付
+							,SAKUJYO_FLG	= 1													--削除フラグ
+					WHERE
+							JYURYOKAISYA_CD	= </parts><bind id="BIND_JYURYOKAISYA_CD" /><parts>
+					AND		JYURYOTEN_CD 	= </parts><bind id="BIND_JYURYOTEN_CD" /><parts>
+					AND		SCM_CD 			= </parts><bind id="BIND_SCM_CD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-09">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-09（移動入荷確定TBL(H)登録） */
+					INSERT INTO
+							MDNT0020		--移動入荷確定TBL(H)
+					(
+							TENPOLC_KBN					--店舗ＬＣ区分
+						,	SYUKKAKAISYA_CD				--出荷会社コード
+						,	SYUKKATEN_CD				--出荷店コード
+						,	DENPYO_BANGO				--伝票番号
+						,	SYUKKA_YMD					--出荷日
+						,	JYURYOKAISYA_CD				--入荷会社コード
+						,	JYURYOTEN_CD				--入荷店コード
+						,	SCM_CD						--SCMコード
+						,	JYURYO_YMD					--入荷日
+						,	NYUKAYOTEIGOUKEI_SU			--入荷予定合計数量
+						,	NYUKAYOTEIGOUKEI_KIN		--入荷予定合計金額
+						,	NYUKAJISSEKIGOUKEI_SU		--入荷実績合計数量
+						,	NYUKAJISSEKIGOUKEI_KIN		--入荷実績合計金額
+						,	SAI_FLG						--差異フラグ
+						,	SYUKKA_SIJI_NO				--出荷指示NO
+						,	SYUKKATAN_CD				--出荷担当者コード
+						,	IDORIYU_KB					--移動指示理由
+						,	ADD_YMD						--登録日
+						,	ADD_TM						--登録時間
+						,	ADDTAN_CD					--登録担当者コード
+						,	UPD_YMD						--更新日
+						,	UPD_TM						--更新時間
+						,	UPD_TANCD					--更新担当者コード
+						,	SAKUJYO_YMD					--削除日
+						,	SAKUJYO_FLG					--削除フラグ
+						,	SOSINIRAI_FLG				--送信依頼フラグ
+						,	SOSINZUMI_FLG				--送信済フラグ
+						,	SOSIN_YMD					--送信日
+						,	SOSIN_TM					--送信時間
+						,	SYORIZUMI_FLG				--処理済フラグ
+						,	KEIHI_DENPYO_BANGO			--経費伝票番号
+						,	HHTSERIAL_NO				--HHTシリアル番号
+						,	HHTSEQUENCE_NO				--HHTシーケンスNO.
+					)
+					SELECT
+							T1.TENPOLC_KBN				--店舗ＬＣ区分
+						,	T1.SYUKKAKAISYA_CD			--出荷会社コード
+						,	T1.SYUKKATEN_CD				--出荷店コード
+						,	T1.DENPYO_BANGO				--伝票番号
+						,	T1.SYUKKA_YMD				--出荷日
+						,	T1.JYURYOKAISYA_CD			--入荷会社コード
+						,	T1.JYURYOTEN_CD				--入荷店コード
+						,	T1.SCM_CD					--SCMコード
+						,	</parts><bind id="JYURYO_YMD" /><parts>		--入荷日
+						,	T1.NYUKAYOTEIGOKEI_SU		--入荷予定合計数量
+						,	T1.NYUKAYOTEIGOKEI_KIN		--入荷予定合計金額
+						,	CASE
+								WHEN </parts><bind id="SAI_FLG1" /><parts> = 0 THEN NYUKAYOTEIGOKEI_SU
+								ELSE </parts><bind id="NYUKAJISSEKIGOUKEI_SU" /><parts>
+							END							--入荷実績合計数量
+						,	CASE
+								WHEN </parts><bind id="SAI_FLG2" /><parts> = 0 THEN NYUKAYOTEIGOKEI_KIN
+								ELSE </parts><bind id="NYUKAJISSEKIGOUKEI_KIN" /><parts>
+							END							--入荷実績合計金額
+						,	</parts><bind id="SAI_FLG3" /><parts>		--差異フラグ
+						,	T1.SYUKKA_SIJI_NO			--出荷指示NO
+						,	T1.SYUKKATAN_CD				--出荷担当者コード
+						,	T1.IDORIYU_KB				--移動指示理由
+						,	</parts><bind id="ADD_YMD" /><parts>		--登録日
+						,	</parts><bind id="ADD_TM" /><parts>			--登録時間
+						,	</parts><bind id="ADDTAN_CD" /><parts>		--登録担当者コード
+						,	</parts><bind id="UPD_YMD" /><parts>		--更新日
+						,	</parts><bind id="UPD_TM" /><parts>			--更新時間
+						,	</parts><bind id="UPD_TANCD" /><parts>		--更新担当者コード
+						,	</parts><bind id="SAKUJYO_YMD" /><parts>	--削除日
+						,	0							--削除フラグ
+						,	1							--送信依頼フラグ
+						,	0							--送信済フラグ
+						,	0							--送信日
+						,	0							--送信時間
+						,	0							--処理済フラグ
+						,	0							--経費伝票番号
+						,	T1.HHTSERIAL_NO				--HHTシリアル番号
+						,	T1.HHTSEQUENCE_NO			--HHTシーケンスNO.
+					FROM
+							MDNT0010 T1		--移動入荷予定TBL(H)
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-10">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-10（移動入荷確定TBL(B)登録） */
+					INSERT INTO
+							MDNT0021			--移動入荷確定TBL(B)
+					(
+							TENPOLC_KBN			--店舗ＬＣ区分
+						,	SYUKKAKAISYA_CD		--出荷会社コード
+						,	SYUKKATEN_CD		--出荷店コード
+						,	DENPYO_BANGO		--伝票番号
+						,	SYUKKA_YMD			--出荷日
+						,	DENPYOGYO_NO		--伝票行№
+						,	BUMON_CD			--部門コード
+						,	HINSYU_CD			--品種コード
+						,	BURANDO_CD			--ブランドコード
+						,	MAKER_HBN			--メーカー品番
+						,	SYONMK				--商品名(カナ)
+						,	JISYA_HBN			--自社品番
+						,	IRO_CD				--色コード
+						,	SIZE_CD				--サイズコード
+						,	SIZE_NM				--サイズ
+						,	JAN_CD				--ＪＡＮコード
+						,	SYOHIN_CD			--商品コード
+						,	NYUKAYOTEI_SU		--入荷予定数
+						,	NYUKAJISSEKI_SU		--入荷実績数
+						,	SYUKKASAI_SU		--出荷差異数
+						,	GEN_TNK				--原単価
+						,	HYOKA_TNK			--評価単価
+					)
+					SELECT
+							T1.TENPOLC_KBN		--店舗ＬＣ区分
+						,	T1.SYUKKAKAISYA_CD	--出荷会社コード
+						,	T1.SYUKKATEN_CD		--出荷店コード
+						,	T1.DENPYO_BANGO		--伝票番号
+						,	T1.SYUKKA_YMD		--出荷日
+						,	T1.DENPYOGYO_NO		--伝票行№
+						,	T1.BUMON_CD			--部門コード
+						,	T1.HINSYU_CD		--品種コード
+						,	T1.BURANDO_CD		--ブランドコード
+						,	T1.MAKER_HBN		--メーカー品番
+						,	T1.SYONMK			--商品名(カナ)
+						,	T1.JISYA_HBN		--自社品番
+						,	T1.IRO_CD			--色コード
+						,	T1.SIZE_CD			--サイズコード
+						,	T1.SIZE_NM			--サイズ
+						,	T1.JAN_CD			--ＪＡＮコード
+						,	T1.SYOHIN_CD		--商品コード
+						,	T1.NYUKAYOTEI_SU	--入荷予定数
+						,	T1.NYUKAYOTEI_SU	--入荷実績数
+						,	0					--出荷差異数
+						,	T1.GEN_TNK			--原単価
+						,	T1.HYOKA_TNK		--評価単価
+					FROM
+							MDNT0011 T1			--移動入荷予定TBL(B)
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-11">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-11（[移動入荷確定TBL(H)]更新） */
+					UPDATE MDNT0020 SET
+							 NYUKAJISSEKIGOUKEI_SU 	= </parts><bind id="BIND_NYUKAJISSEKIGOUKEI_SU" /><parts>	/* 入荷実績合計数量 */
+							,NYUKAJISSEKIGOUKEI_KIN	= CASE
+														WHEN </parts><bind id="NYUKAJISSEKIGOUKEI_KIN1" /><parts> &gt; 999999999 THEN 0
+														ELSE </parts><bind id="NYUKAJISSEKIGOUKEI_KIN2" /><parts>
+													  END														/* 入荷実績合計金額 */
+							,SAI_FLG				= </parts><bind id="BIND_SAI_FLG" /><parts>					/* 差異フラグ */
+							,UPD_YMD				= </parts><bind id="BIND_UPD_YMD" /><parts>					/* 更新日付 */
+							,UPD_TM					= </parts><bind id="BIND_UPD_TM" /><parts>					/* 更新時間 */
+							,UPD_TANCD				= </parts><bind id="BIND_UPD_TANCD" /><parts>				/* 更新担当者コード */
+							,SAKUJYO_YMD			= </parts><bind id="BIND_SAKUJYO_YMD" /><parts>				/* 削除日 */
+					WHERE
+							TENPOLC_KBN				= </parts><bind id="BIND_TENPOLC_KBN" /><parts>
+					AND		SYUKKAKAISYA_CD			= </parts><bind id="BIND_SYUKKAKAISYA_CD" /><parts>
+					AND		SYUKKATEN_CD			= </parts><bind id="BIND_SYUKKATEN_CD" /><parts>
+					AND		DENPYO_BANGO			= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYUKKA_YMD				= </parts><bind id="BIND_SYUKKA_YMD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-12">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-12（移動入荷確定TBL(B)登録(明細用)） */
+					INSERT INTO
+							MDNT0021			--移動入荷確定TBL(B)
+					(
+							TENPOLC_KBN			--店舗ＬＣ区分
+						,	SYUKKAKAISYA_CD		--出荷会社コード
+						,	SYUKKATEN_CD		--出荷店コード
+						,	DENPYO_BANGO		--伝票番号
+						,	SYUKKA_YMD			--出荷日
+						,	DENPYOGYO_NO		--伝票行№
+						,	BUMON_CD			--部門コード
+						,	HINSYU_CD			--品種コード
+						,	BURANDO_CD			--ブランドコード
+						,	MAKER_HBN			--メーカー品番
+						,	SYONMK				--商品名(カナ)
+						,	JISYA_HBN			--自社品番
+						,	IRO_CD				--色コード
+						,	SIZE_CD				--サイズコード
+						,	SIZE_NM				--サイズ
+						,	JAN_CD				--ＪＡＮコード
+						,	SYOHIN_CD			--商品コード
+						,	NYUKAYOTEI_SU		--入荷予定数
+						,	NYUKAJISSEKI_SU		--入荷実績数
+						,	SYUKKASAI_SU		--出荷差異数
+						,	GEN_TNK				--原単価
+						,	HYOKA_TNK			--評価単価
+					)
+					SELECT
+							T1.TENPOLC_KBN		--店舗ＬＣ区分
+						,	T1.SYUKKAKAISYA_CD	--出荷会社コード
+						,	T1.SYUKKATEN_CD		--出荷店コード
+						,	T1.DENPYO_BANGO		--伝票番号
+						,	T1.SYUKKA_YMD		--出荷日
+						,	T1.DENPYOGYO_NO		--伝票行№
+						,	T1.BUMON_CD			--部門コード
+						,	T1.HINSYU_CD		--品種コード
+						,	T1.BURANDO_CD		--ブランドコード
+						,	T1.MAKER_HBN		--メーカー品番
+						,	T1.SYONMK			--商品名(カナ)
+						,	T1.JISYA_HBN		--自社品番
+						,	T1.IRO_CD			--色コード
+						,	T1.SIZE_CD			--サイズコード
+						,	T1.SIZE_NM			--サイズ
+						,	T1.JAN_CD			--ＪＡＮコード
+						,	T1.SYOHIN_CD		--商品コード
+						,	T1.NYUKAYOTEI_SU	--入荷予定数
+						,	</parts><bind id="NYUKAJISSEKI_SU1" /><parts>						--入荷実績数
+						,	T1.NYUKAYOTEI_SU - </parts><bind id="NYUKAJISSEKI_SU2" /><parts>	--出荷差異数
+						,	T1.GEN_TNK			--原単価
+						,	T1.HYOKA_TNK		--評価単価
+					FROM
+							MDNT0011 T1			--移動入荷予定TBL(B)
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.DENPYOGYO_NO		=	</parts><bind id="DENPYOGYO_NO" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-15">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-15（移動入荷予定TBL(H)更新） */
+					UPDATE
+							MDNT0010 T1			--移動入荷予定TBL(H)
+					SET
+							T1.SAI_FLG			=	</parts><bind id="BIND_SAI_FLG" /><parts>		--差異フラグ
+						,	T1.DENPYO_JYOTAI	=	</parts><bind id="BIND_DENPYO_JYOTAI" /><parts>	--伝票状態
+						,	T1.KAKUTEI_FLG		=	</parts><bind id="BIND_KAKUTEI_FLG" /><parts>	--確定フラグ
+						,	T1.UPD_YMD			=	</parts><bind id="BIND_UPD_YMD" /><parts>		--更新日
+						,	T1.UPD_TM			=	</parts><bind id="BIND_UPD_TM" /><parts>		--更新時間
+						,	T1.UPD_TANCD		=	</parts><bind id="BIND_UPD_TANCD" /><parts>		--更新担当者コード
+						,	T1.SAKUJYO_YMD		=	</parts><bind id="BIND_SAKUJYO_YMD" /><parts>	--削除日
+						,	T1.SAKUJYO_FLG		=	</parts><bind id="BIND_SAKUJYO_FLG" /><parts>	--削除フラグ
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="BIND_TENPOLC_KBN" /><parts>		--店舗ＬＣ区分
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="BIND_SYUKKAKAISYA_CD" /><parts>	--出荷会社コード
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="BIND_SYUKKATEN_CD" /><parts>		--出荷店コード
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>		--伝票番号
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TE090P01-16">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-16（移動入荷履歴TBL(H)登録） */
+					INSERT INTO
+							MDNT0040		--移動入荷履歴TBL(H)
+					(
+							TENPOLC_KBN				--店舗ＬＣ区分
+						,	SYUKKAKAISYA_CD			--出荷会社コード
+						,	SYUKKATEN_CD			--出荷店コード
+						,	DENPYO_BANGO			--伝票番号
+						,	SYUKKA_YMD				--出荷日
+						,	RIREKI_NO				--履歴NO
+						,	AKAKURO_KBN				--赤黒区分
+						,	RIREKI_SYORI_YMD		--履歴処理日付
+						,	RIREKI_SYORI_TM			--履歴処理時間
+						,	JYURYOKAISYA_CD			--入荷会社コード
+						,	JYURYOTEN_CD			--入荷店コード
+						,	SCM_CD					--SCMコード
+						,	JYURYO_YMD				--入荷日
+						,	NYUKAYOTEIGOUKEI_SU		--入荷予定合計数量
+						,	NYUKAYOTEIGOUKEI_KIN	--入荷予定合計金額
+						,	NYUKAJISSEKIGOUKEI_SU	--入荷実績合計数量
+						,	NYUKAJISSEKIGOUKEI_KIN	--入荷実績合計金額
+						,	SAI_FLG					--差異フラグ
+						,	SYUKKA_SIJI_NO			--出荷指示NO
+						,	SYUKKATAN_CD			--出荷担当者コード
+						,	IDORIYU_KB				--移動指示理由
+						,	SYORI_SB				--処理種別
+						,	RIREKI_DISP_KB			--履歴画面表示区分
+						,	ADD_YMD					--登録日
+						,	ADD_TM					--登録時間
+						,	ADDTAN_CD				--登録担当者コード
+						,	UPD_YMD					--更新日
+						,	UPD_TM					--更新時間
+						,	UPD_TANCD				--更新担当者コード
+						,	SAKUJYO_YMD				--削除日
+						,	SAKUJYO_FLG				--削除フラグ
+						,	SYORIZUMI_FLG			--処理済フラグ
+						,	HHTSERIAL_NO			--HHTシリアル番号
+						,	HHTSEQUENCE_NO			--HHTシーケンスNO.
+					)
+					SELECT
+							T1.TENPOLC_KBN						--店舗ＬＣ区分
+						,	T1.SYUKKAKAISYA_CD					--出荷会社コード
+						,	T1.SYUKKATEN_CD						--出荷店コード
+						,	T1.DENPYO_BANGO						--伝票番号
+						,	T1.SYUKKA_YMD						--出荷日
+						,	CASE
+								-- 処理種別＝修正で黒伝の場合
+								WHEN </parts><bind id="SYORI_SB1" /><parts> = 2 AND </parts><bind id="AKAKURO_KBN1" /><parts> = 0 THEN
+									(
+										SELECT	NVL(MAX(ST1.RIREKI_NO), 0)
+										FROM	MDNT0040 ST1	--移動入荷履歴TBL(H)
+										WHERE	ST1.TENPOLC_KBN		=	T1.TENPOLC_KBN
+										AND		ST1.SYUKKAKAISYA_CD	=	T1.SYUKKAKAISYA_CD
+										AND		ST1.SYUKKATEN_CD	=	T1.SYUKKATEN_CD
+										AND		ST1.DENPYO_BANGO	=	T1.DENPYO_BANGO
+										AND		ST1.SYUKKA_YMD		=	T1.SYUKKA_YMD
+									)									--履歴NO
+								ELSE
+									(
+										SELECT	NVL(MAX(ST1.RIREKI_NO), 0) + 1
+										FROM	MDNT0040 ST1	--移動入荷履歴TBL(H)
+										WHERE	ST1.TENPOLC_KBN		=	T1.TENPOLC_KBN
+										AND		ST1.SYUKKAKAISYA_CD	=	T1.SYUKKAKAISYA_CD
+										AND		ST1.SYUKKATEN_CD	=	T1.SYUKKATEN_CD
+										AND		ST1.DENPYO_BANGO	=	T1.DENPYO_BANGO
+										AND		ST1.SYUKKA_YMD		=	T1.SYUKKA_YMD
+									)									--履歴NO
+							END
+						,	</parts><bind id="AKAKURO_KBN2" /><parts>						--赤黒区分
+						,	</parts><bind id="RIREKI_SYORI_YMD" /><parts>					--履歴処理日付
+						,	</parts><bind id="RIREKI_SYORI_TM" /><parts>					--履歴処理時間
+						,	T1.JYURYOKAISYA_CD							--入荷会社コード
+						,	T1.JYURYOTEN_CD								--入荷店コード
+						,	T1.SCM_CD									--SCMコード
+						,	T1.JYURYO_YMD								--入荷日
+						,	T1.NYUKAYOTEIGOUKEI_SU						--入荷予定合計数量
+						,	T1.NYUKAYOTEIGOUKEI_KIN						--入荷予定合計金額
+						,	T1.NYUKAJISSEKIGOUKEI_SU * (CASE WHEN </parts><bind id="AKAKURO_KBN3" /><parts> = 1 THEN (-1) ELSE 1 END)	--入荷実績合計数量
+						,	T1.NYUKAJISSEKIGOUKEI_KIN * (CASE WHEN </parts><bind id="AKAKURO_KBN4" /><parts> = 1 THEN (-1) ELSE 1 END)	--入荷実績合計金額
+						,	T1.SAI_FLG									--差異フラグ
+						,	T1.SYUKKA_SIJI_NO							--出荷指示NO
+						,	T1.SYUKKATAN_CD								--出荷担当者コード
+						,	T1.IDORIYU_KB								--移動指示理由
+						,	</parts><bind id="SYORI_SB2" /><parts>		--処理種別
+						,	CASE
+								-- 処理種別＝修正で赤伝の場合
+								WHEN </parts><bind id="SYORI_SB3" /><parts> = 2 AND </parts><bind id="AKAKURO_KBN5" /><parts> = 1 THEN 0
+								ELSE 1
+							END											--履歴画面表示区分
+						,	T1.ADD_YMD									--登録日
+						,	T1.ADD_TM									--登録時間
+						,	T1.ADDTAN_CD								--登録担当者コード
+						,	</parts><bind id="UPD_YMD" /><parts>		--更新日
+						,	</parts><bind id="UPD_TM" /><parts>			--更新時間
+						,	</parts><bind id="UPD_TANCD" /><parts>		--更新担当者コード
+						,	</parts><bind id="SAKUJYO_YMD" /><parts>	--削除日
+						,	1											--削除フラグ
+						,	0											--処理済フラグ
+						,	T1.HHTSERIAL_NO								--HHTシリアル番号
+						,	T1.HHTSEQUENCE_NO							--HHTシーケンスNO.
+					FROM
+							MDNT0020 T1		--移動入荷確定TBL(H)
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="SYUKKA_YMD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-17">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-17（移動入荷履歴TBL(B)登録） */
+					INSERT INTO
+							MDNT0041		--移動入荷履歴TBL(B)
+					(
+							TENPOLC_KBN				--店舗ＬＣ区分
+						,	SYUKKAKAISYA_CD			--出荷会社コード
+						,	SYUKKATEN_CD			--出荷店コード
+						,	DENPYO_BANGO			--伝票番号
+						,	SYUKKA_YMD				--出荷日
+						,	RIREKI_NO				--履歴NO
+						,	AKAKURO_KBN				--赤黒区分
+						,	DENPYOGYO_NO			--伝票行№
+						,	BUMON_CD				--部門コード
+						,	HINSYU_CD				--品種コード
+						,	BURANDO_CD				--ブランドコード
+						,	MAKER_HBN				--メーカー品番
+						,	SYONMK					--商品名(カナ)
+						,	JISYA_HBN				--自社品番
+						,	IRO_CD					--色コード
+						,	SIZE_CD					--サイズコード
+						,	SIZE_NM					--サイズ
+						,	JAN_CD					--ＪＡＮコード
+						,	SYOHIN_CD				--商品コード
+						,	NYUKAYOTEI_SU			--入荷予定数
+						,	NYUKAJISSEKI_SU			--入荷実績数
+						,	SYUKKASAI_SU			--出荷差異数
+						,	GEN_TNK					--原単価
+						,	HYOKA_TNK				--評価単価
+					)
+					SELECT
+							T1.TENPOLC_KBN								--店舗ＬＣ区分
+						,	T1.SYUKKAKAISYA_CD							--出荷会社コード
+						,	T1.SYUKKATEN_CD								--出荷店コード
+						,	T1.DENPYO_BANGO								--伝票番号
+						,	T1.SYUKKA_YMD								--出荷日
+						,	(
+								SELECT	NVL(MAX(ST1.RIREKI_NO), 1)
+								FROM	MDNT0040 ST1					--移動入荷履歴TBL(H)
+								WHERE	ST1.TENPOLC_KBN		=	T1.TENPOLC_KBN
+								AND		ST1.SYUKKAKAISYA_CD	=	T1.SYUKKAKAISYA_CD
+								AND		ST1.SYUKKATEN_CD	=	T1.SYUKKATEN_CD
+								AND		ST1.DENPYO_BANGO	=	T1.DENPYO_BANGO
+								AND		ST1.SYUKKA_YMD		=	T1.SYUKKA_YMD
+							)											--履歴NO
+						,	</parts><bind id="AKAKURO_KBN1" /><parts>	--赤黒区分
+						,	T1.DENPYOGYO_NO								--伝票行№
+						,	T1.BUMON_CD									--部門コード
+						,	T1.HINSYU_CD								--品種コード
+						,	T1.BURANDO_CD								--ブランドコード
+						,	T1.MAKER_HBN								--メーカー品番
+						,	T1.SYONMK									--商品名(カナ)
+						,	T1.JISYA_HBN								--自社品番
+						,	T1.IRO_CD									--色コード
+						,	T1.SIZE_CD									--サイズコード
+						,	T1.SIZE_NM									--サイズ
+						,	T1.JAN_CD									--ＪＡＮコード
+						,	T1.SYOHIN_CD								--商品コード
+						,	T1.NYUKAYOTEI_SU							--入荷予定数
+						,	T1.NYUKAJISSEKI_SU * (CASE WHEN </parts><bind id="AKAKURO_KBN2" /><parts> = 1 THEN (-1) ELSE 1 END)	--入荷実績数
+						,	T1.SYUKKASAI_SU								--出荷差異数
+						,	T1.GEN_TNK									--原単価
+						,	T1.HYOKA_TNK								--評価単価
+					FROM
+							MDNT0021 T1			--移動入荷確定TBL(B)
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="SYUKKA_YMD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-18">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-18（移動入荷確定TBL(B)削除） */
+					DELETE
+					FROM
+							MDNT0021 T1		--移動入荷確定TBL(B)
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="SYUKKA_YMD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-19">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-19（移動入荷確定TBL(H)削除） */
+					DELETE
+					FROM
+							MDNT0020 T1		--移動入荷確定TBL(H)
+					WHERE
+							T1.TENPOLC_KBN		=	</parts><bind id="TENPOLC_KBN" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="SYUKKA_YMD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-20">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-20（移動出荷差異リスト削除） */
+					DELETE
+					FROM
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					WHERE
+							T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="SYUKKA_YMD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-21">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-21（移動出荷確定TBL(H)更新） */
+					UPDATE
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					SET
+							T1.NYUKAJISSEKIGOUKEI_SU	=	0			--入荷実績合計数量
+						,	T1.NYUKAJISSEKIGOUKEI_KIN	=	0			--入荷実績合計金額
+						,	T1.SAI_FLG					=	0			--差異フラグ
+						,	T1.NYUKATAN_CD				=	NULL		--入荷担当者コード
+						,	T1.JYURYO_YMD				=	0			--入荷日
+						,	T1.UPD_YMD					=	</parts><bind id="UPD_YMD" /><parts>		--更新日
+						,	T1.UPD_TM					=	</parts><bind id="UPD_TM" /><parts>			--更新時間
+						,	T1.UPD_TANCD				=	</parts><bind id="UPD_TANCD" /><parts>		--更新担当者コード
+						,	T1.SAKUJYO_YMD				=	</parts><bind id="SAKUJYO_YMD" /><parts>	--削除日
+					WHERE
+							T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="SYUKKA_YMD" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-22">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-22（移動出荷確定TBL(B)更新） */
+					UPDATE
+							</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					SET
+							T1.NYUKAJISSEKI_SU	=	0	--入荷実績数
+						,	T1.SYUKKASAI_SU		=	0	--出荷差異数
+					WHERE
+							T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="SYUKKA_YMD" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" />
+			</statement>
+		</sql>
+		<sql id="TE090P01-23">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-23（移動出荷確定TBL(H)更新） */
+					UPDATE
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					SET
+							T1.NYUKAJISSEKIGOUKEI_SU	=	(	SELECT		NYUKAJISSEKIGOUKEI_SU
+																FROM		MDNT0020 T2
+																WHERE
+																			T2.TENPOLC_KBN     = 0
+																AND			T2.SYUKKAKAISYA_CD = T1.SYUKKAKAISYA_CD
+																AND			T2.SYUKKATEN_CD    = T1.SYUKKATEN_CD
+																AND			T2.DENPYO_BANGO    = T1.DENPYO_BANGO
+																AND			T2.SYUKKA_YMD      = T1.SYUKKA_YMD
+															)			--入荷実績合計数量
+						,	T1.NYUKAJISSEKIGOUKEI_KIN	=	(	SELECT		NYUKAJISSEKIGOUKEI_KIN
+																FROM		MDNT0020 T2
+																WHERE
+																			T2.TENPOLC_KBN     = 0
+																AND			T2.SYUKKAKAISYA_CD = T1.SYUKKAKAISYA_CD
+																AND			T2.SYUKKATEN_CD    = T1.SYUKKATEN_CD
+																AND			T2.DENPYO_BANGO    = T1.DENPYO_BANGO
+																AND			T2.SYUKKA_YMD      = T1.SYUKKA_YMD
+															)			--入荷実績合計金額
+						,	T1.SAI_FLG					=	(	SELECT		SAI_FLG
+																FROM		MDNT0020 T2
+																WHERE
+																			T2.TENPOLC_KBN     = 0
+																AND			T2.SYUKKAKAISYA_CD = T1.SYUKKAKAISYA_CD
+																AND			T2.SYUKKATEN_CD    = T1.SYUKKATEN_CD
+																AND			T2.DENPYO_BANGO    = T1.DENPYO_BANGO
+																AND			T2.SYUKKA_YMD      = T1.SYUKKA_YMD
+															)					--差異フラグ
+						,	T1.NYUKATAN_CD				=	</parts><bind id="NYUKATAN_CD" /><parts>	--入荷担当者コード
+						,	T1.JYURYO_YMD				=	</parts><bind id="JYURYO_YMD" /><parts>		--入荷日
+						,	T1.UPD_YMD					=	</parts><bind id="UPD_YMD" /><parts>		--更新日
+						,	T1.UPD_TM					=	</parts><bind id="UPD_TM" /><parts>			--更新時間
+						,	T1.UPD_TANCD				=	</parts><bind id="UPD_TANCD" /><parts>		--更新担当者コード
+						,	T1.SAKUJYO_YMD				=	</parts><bind id="SAKUJYO_YMD" /><parts>	--削除日
+					WHERE
+							T1.DENPYO_BANGO				=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD				=	</parts><bind id="SYUKKA_YMD" /><parts>
+					AND		T1.SYUKKAKAISYA_CD			=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD				=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		EXISTS(
+							SELECT		1
+							FROM		MDNT0020 T2
+							WHERE
+										T2.TENPOLC_KBN     = 0
+							AND			T2.SYUKKAKAISYA_CD = T1.SYUKKAKAISYA_CD
+							AND			T2.SYUKKATEN_CD    = T1.SYUKKATEN_CD
+							AND			T2.DENPYO_BANGO    = T1.DENPYO_BANGO
+							AND			T2.SYUKKA_YMD      = T1.SYUKKA_YMD
+					)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TE090P01-24">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-24（移動出荷確定TBL(B)更新） */
+					UPDATE
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					SET
+							T1.NYUKAJISSEKI_SU	=	(	SELECT		NYUKAJISSEKI_SU
+														FROM		MDNT0021 T2
+														WHERE
+																	T2.TENPOLC_KBN     = 0
+														AND			T2.SYUKKAKAISYA_CD = T1.SYUKKAKAISYA_CD
+														AND			T2.SYUKKATEN_CD    = T1.SYUKKATEN_CD
+														AND			T2.DENPYO_BANGO    = T1.DENPYO_BANGO
+														AND			T2.SYUKKA_YMD      = T1.SYUKKA_YMD
+														AND			T2.DENPYOGYO_NO    = T1.DENPYOGYO_NO
+													)			--入荷実績数
+						,	T1.SYUKKASAI_SU		=	(	SELECT		SYUKKASAI_SU
+														FROM		MDNT0021 T2
+														WHERE
+																	T2.TENPOLC_KBN     = 0
+														AND			T2.SYUKKAKAISYA_CD = T1.SYUKKAKAISYA_CD
+														AND			T2.SYUKKATEN_CD    = T1.SYUKKATEN_CD
+														AND			T2.DENPYO_BANGO    = T1.DENPYO_BANGO
+														AND			T2.SYUKKA_YMD      = T1.SYUKKA_YMD
+														AND			T2.DENPYOGYO_NO    = T1.DENPYOGYO_NO
+													)			--出荷差異数
+					WHERE
+							T1.DENPYO_BANGO		=	</parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYUKKA_YMD		=	</parts><bind id="SYUKKA_YMD" /><parts>
+					AND		T1.SYUKKAKAISYA_CD	=	</parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD		=	</parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		EXISTS(
+							SELECT		1
+							FROM		MDNT0021 T2
+							WHERE
+										T2.TENPOLC_KBN     = 0
+							AND			T2.SYUKKAKAISYA_CD = T1.SYUKKAKAISYA_CD
+							AND			T2.SYUKKATEN_CD    = T1.SYUKKATEN_CD
+							AND			T2.DENPYO_BANGO    = T1.DENPYO_BANGO
+							AND			T2.SYUKKA_YMD      = T1.SYUKKA_YMD
+							AND			T2.DENPYOGYO_NO    = T1.DENPYOGYO_NO
+					)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TE090P01-25">
+			<statement type="final" name="final">
+				<parts>
+					/* TE090P01-25（移動出荷差異TBL登録） */
+					INSERT INTO 
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					(
+							 SYUKKAKAISYA_CD							/* 出荷会社コード */
+							,SYUKKATEN_CD								/* 出荷店コード */
+							,DENPYO_BANGO								/* 伝票番号 */
+							,SYUKKA_YMD									/* 出荷日 */
+							,DENPYOGYO_NO								/* 伝票行№ */
+							,JYURYO_YMD									/* 入荷日 */
+							,JYURYOKAISYA_CD							/* 入荷会社コード */
+							,JYURYOTEN_CD								/* 入荷店コード */
+							,BURANDO_CD									/* ブランドコード */
+							,MAKER_HBN									/* メーカー品番 */
+							,SYONMK										/* 商品名(カナ) */
+							,JISYA_HBN									/* 自社品番 */
+							,IRO_CD										/* 色コード */
+							,SIZE_CD									/* サイズコード */
+							,SIZE_NM									/* サイズ */
+							,JAN_CD										/* ＪＡＮコード */
+							,SYOHIN_CD									/* 商品コード */
+							,NYUKAYOTEI_SU								/* 入荷予定数 */
+							,NYUKAJISSEKI_SU							/* 入荷実績数 */
+							,SYUKKASAI_SU								/* 出荷差異数 */
+							,GEN_TNK									/* 原単価 */
+							,SYUKKATAN_CD								/* 出荷担当者コード */
+							,NYUKATAN_CD								/* 入荷担当者コード */
+							,INSATSUZUMI_FLG							/* 印刷済フラグ */
+							,SYUKKA_SIJI_NO								/* 出荷指示No */
+							,ADD_YMD									/* 登録日 */
+							,ADD_TM										/* 登録時間 */
+							,ADDTAN_CD									/* 登録担当者コード */
+							,UPD_YMD									/* 更新日 */
+							,UPD_TM										/* 更新時間 */
+							,UPD_TANCD									/* 更新担当者コード */
+							,SAKUJYO_YMD								/* 削除日 */
+							,SAKUJYO_FLG								/* 削除フラグ */
+					) SELECT
+							 T1.SYUKKAKAISYA_CD							/* 出荷会社コード */
+							,T1.SYUKKATEN_CD								/* 出荷店コード */
+							,T1.DENPYO_BANGO								/* 伝票番号 */
+							,T1.SYUKKA_YMD								/* 出荷日 */
+							,T2.DENPYOGYO_NO							/* 伝票行№ */
+							,T1.JYURYO_YMD								/* 入荷日 */
+							,T1.JYURYOKAISYA_CD							/* 入荷会社コード */
+							,T1.JYURYOTEN_CD								/* 入荷店コード */
+							,T2.BURANDO_CD								/* ブランドコード */
+							,T2.MAKER_HBN								/* メーカー品番 */
+							,T2.SYONMK									/* 商品名(カナ) */
+							,T2.JISYA_HBN								/* 自社品番 */
+							,T2.IRO_CD									/* 色コード */
+							,T2.SIZE_CD									/* サイズコード */
+							,T2.SIZE_NM									/* サイズ */
+							,T2.JAN_CD									/* ＪＡＮコード */
+							,T2.SYOHIN_CD								/* 商品コード */
+							,T2.NYUKAYOTEI_SU							/* 入荷予定数 */
+							,T2.NYUKAJISSEKI_SU							/* 入荷実績数 */
+							,T2.SYUKKASAI_SU							/* 出荷差異数 */
+							,T2.GEN_TNK									/* 原単価 */
+							,T1.SYUKKATAN_CD							/* 出荷担当者コード */
+							,T1.UPD_TANCD								/* 入荷担当者コード */
+							,0											/* 印刷済フラグ */
+							,T1.SYUKKA_SIJI_NO							/* 出荷指示No */
+							,</parts><bind id="ADD_YMD" /><parts>		/* 登録日 */
+							,</parts><bind id="ADD_TM" /><parts>		/* 登録時間 */
+							,</parts><bind id="ADDTAN_CD" /><parts>		/* 登録担当者コード */
+							,</parts><bind id="UPD_YMD" /><parts>		/* 更新日 */
+							,</parts><bind id="UPD_TM" /><parts>		/* 更新時間 */
+							,</parts><bind id="UPD_TANCD" /><parts>		/* 更新担当者コード */
+							,</parts><bind id="SAKUJYO_YMD" /><parts>	/* 削除日 */
+							,1											/* 削除フラグ */
+					FROM
+							MDNT0020 T1
+					INNER JOIN
+							MDNT0021 T2
+					ON		T1.TENPOLC_KBN		= T2.TENPOLC_KBN
+					AND		T1.SYUKKAKAISYA_CD	= T2.SYUKKAKAISYA_CD
+					AND		T1.SYUKKATEN_CD		= T2.SYUKKATEN_CD
+					AND		T1.DENPYO_BANGO		= T2.DENPYO_BANGO
+					AND		T1.SYUKKA_YMD		= T2.SYUKKA_YMD
+					AND		T2.TENPOLC_KBN		= </parts><bind id="TENPOLC_KBN" /><parts>
+					AND		T2.SYUKKAKAISYA_CD	= </parts><bind id="SYUKKAKAISYA_CD" /><parts>
+					AND		T2.SYUKKATEN_CD		= </parts><bind id="SYUKKATEN_CD" /><parts>
+					AND		T2.DENPYO_BANGO		= </parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T2.SYUKKA_YMD		= </parts><bind id="SYUKKA_YMD" /><parts>
+					AND		T2.SYUKKASAI_SU		&lt;&gt; 0
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

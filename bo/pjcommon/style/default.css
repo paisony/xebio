@@ -1,0 +1,295 @@
+﻿BODY
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	background: #FFFFFF;
+	font-family: "MS UI Gothic";
+	font-size: x-small;
+	color: #000000;
+}
+
+.TABLE_M_REC_VIEW
+{
+}
+.TABLE_M
+{
+}
+
+.TD_COLOR
+{
+	background-color: Yellow;
+}
+
+INPUT
+{
+	font-family: "ＭＳ ゴシック";
+	letter-spacing: -1px;
+}
+SELECT
+{
+	font-family: "ＭＳ ゴシック";
+	letter-spacing: -1px;
+}
+.TEXT_R
+{
+	text-align: right;
+}
+
+.TEXT_L
+{
+	text-align: left;
+}
+
+.TEXT_C
+{
+	text-align: center;
+}
+
+.TXR_R
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	text-align: right;
+}
+.TXR_L
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	text-align: left;
+}
+
+.TXR_C
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	text-align: center;
+}
+
+.RDO
+{
+	font-size: x-small;
+}
+
+.ITEM_BUTTON
+{
+}
+
+.BTN_COG
+{
+}
+
+/*スマートソリューション*/
+.DIV_SCROLL
+{
+	width: 100%;
+	position: relative;
+	height: 100%;
+}
+/*プログラム名用*/
+.TABLE_PGTITLE
+{
+	height: 28px;
+	width: 100%;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12pt;
+	text-align: left;
+	padding: 0px;
+	border-collapse: collapse;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+/*フォーム名用*/
+.TABLE_FRMTITLE
+{	
+	font-weight: bold;
+	font-size: 11pt;
+	color: #000000;
+	text-align: left;
+	padding: 0px;
+	border-collapse: collapse;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+/*メッセージ領域(リストボックス表示用)*/
+.ERR_MSG {
+	position:absolute;
+	top:5px;
+	left:300px;
+	width:540px;
+	color: red;
+	font-weight: bold;
+	/*font-size: x-small;*/
+}
+/*メッセージ領域(メッセージテーブル表示用)*/
+.MSG_TBL_1
+{
+	position:absolute;
+	top:5px;
+	left:300px;
+	color:red;
+	background-color:#FFFFFF;
+	padding:0px;
+	padding:0px;
+}
+.MSG_TBL_2
+{
+	font-family: "ＭＳ ゴシック";
+	font-size: 14px;
+	letter-spacing: -1px;
+	width:97%;
+	padding:0px;
+	padding:0px;
+}
+.MSG_DIV
+{
+	overflow:auto;
+	width:540px;
+	height:48px;
+}
+/*画面作成部分用*/
+.TD_FRM
+{
+	width: 100%;
+	font-size: x-small;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+/*カード部用*/
+.TABLE_ARTICLE
+{
+	width: 100%;
+	font-size: x-small;
+	border: 1px solid #ffffff;
+	border-width: 1px;
+	border-collapse: separate;
+}
+.TR_ARTICLE
+{
+	height: 25px;
+}
+.TR_ARTICLE_BTN
+{
+}
+.TD_ARTICLE_1
+{
+	width: 1px;
+	border: 1px solid #999999;
+	background-color: #4a66f1;
+}
+.TD_ARTICLE_2
+{
+	border: 1px solid #999999;
+	background-color: #cccccc;
+	text-align: center;
+}
+.TD_ARTICLE_3
+{
+	border: 1px solid #999999;
+	background-color: #ffffff;
+	text-align: left;
+	vertical-align: middle;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+/*表示項目テーブル内にあってボーダーで囲いたくない時指定。*/
+.TD_ARTICLE_BTN
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	background-color: #ffffff;
+}
+
+/*明細部用　*/
+.TABLE_DG
+{
+	border: 1px solid #999999;
+}
+.TR_ITEM_HEADER_DG
+{
+	font-weight: bold;
+	text-align: center;
+	background-color: #cccccc;
+	color: Black;
+	height: 20px;
+}
+.TR_ITEM_DG
+{
+	background-color: #ffffff;
+	color: Black;
+	height: 20px;
+}
+.TR_ALITEM_DG
+{
+	background-color: #f3f3f3;
+	color: Black;
+	height: 20px;
+}
+.TD_ITEM_HEADER_DG
+{
+	border: 1px solid #999999;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+.TD_ITEM_DG
+{
+	border: 1px solid #999999;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+/*リンク*/
+A
+{
+	font-size: x-small;
+}
+A:link
+{
+	color: #0033ff;
+	background-color: transparent;
+	text-decoration: none;
+}
+A:visited
+{
+	color: #0033ff;
+	background-color: transparent;
+	text-decoration: none;
+}
+A:active
+{
+	color: #0033ff;
+	background-color: transparent;
+	text-decoration: none;
+}
+A:hover
+{
+	color: #f0f;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+.MUST_MARK
+{
+	color: Red;
+}

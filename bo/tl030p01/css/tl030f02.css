@@ -1,0 +1,101 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tl030f02.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+/*--- 区分 ---*/
+.str-search-02 .slt-kbn {
+	width: 120px;
+}
+/*--- 理由 ---*/
+.str-search-02 .slt-riyu {
+	width: 140px;
+}
+.str-search-02 .w-type-01 {
+	width: 100px;
+}
+.str-search-02 .w-type-02 {
+	width: 220px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 28px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 品種／ブランド ---*/
+.str-result-01 .col2 {
+	width: 150px;
+}
+/*--- 自社品番 ---*/
+.str-result-01 .col3 {
+	width: 68px;
+}
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col4 {
+	width: 360px;
+}
+
+/*--- 色／シーズン ---*/
+.str-result-01 .col5 {
+	width: 80px;
+}
+
+/*--- 販売完了日 ---*/
+.str-result-01 .col6 {
+	width: 78px;
+	border-left: 1px solid #ffffff;
+}
+
+/*--- 元売価／原単価 ---*/
+.str-result-01 .col7 {
+	width: 80px;
+}
+/*--- 新売価 ---*/
+.str-result-01 .col8 {
+	width: 80px;
+}
+/*--- 値入率現行／値入率売変後 ---*/
+.str-result-01 .col9 {
+	width: 84px;
+}
+/*--- 在庫点数／売上点数 ---*/
+.str-result-01 .col10 {
+	width: 80px;
+}
+
+/*--- 承認 ---*/
+.str-result-01 .col11 {
+	width: 37px;
+}
+
+/*--- 却下 ---*/
+.str-result-01 .col12 {
+	width: 37px;
+}
+
+.str-result-01 .cell {
+	display: block;
+	float: left;
+	/*text-align: center;*/
+}
+
+/*--- フッター部の注意書き ---*/
+.str-pager-01 .ftr-note {
+	line-height: 35px !important;
+	position: absolute !important;
+	top: 0 !important;
+	left: 40px !important;
+	color: #000000 !important;
+}
+
+/*--- 明細入力項目共通---*/
+.str-result-input {
+	margin-right: 0px;
+}

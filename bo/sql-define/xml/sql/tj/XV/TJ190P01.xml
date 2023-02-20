@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 臨時棚卸検索一覧(検索ボタン) (カウント)**/
+		<sql id="TJ190P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT	COUNT(1) CNT
+					FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME"/>
+			<statement type="final" name="final">
+			  <parts>
+				A WHERE 0=0
+			  </parts>
+			</statement>
+			<!-- 検索条件-->
+			<statement type="replace" name="REP_ADD_WHERE"/>
+		</sql>
+
+		/** 臨時棚卸検索一覧(検索ボタン) (検索)**/
+		<sql id="TJ190P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						A.TENPO_CD										/* 店舗コード */
+						,(	SELECT	BOMT0010.TENPO_NM FROM BOMT0010
+						WHERE	BOMT0010.TENPO_CD = A.TENPO_CD
+						)	TENPO_NM									/* 店舗名 */
+				</parts>
+				</statement>
+				<!-- 臨棚管理№ RINTANA_KANRI_NO-->
+				<statement type="replace" name="REP_SELECT_KANRI_NO"/>
+				<statement type="final" name="final">
+					<parts>
+						,A.LOSS_KANRI_NO								/* ロス管理№ */
+						,A.BUMON_CD										/* 部門コード */
+						,(	SELECT	BOMT0060.BUMONKANA_NM FROM BOMT0060
+						WHERE	BOMT0060.BUMON_CD = A.BUMON_CD
+						)	BUMONKANA_NM								/* 部門名カナ */
+						,A.HINSYU_SITEI_FLG								/* 品種指定フラグ */
+						,A.HINSYU_CD									/* 品種コード */
+						,CASE
+						WHEN A.HINSYU_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT MDMT0070.HINSYU_RYAKU_NM FROM MDMT0070
+						WHERE MDMT0070.BUMON_CD = A.BUMON_CD
+						AND MDMT0070.HINSYU_CD = A.HINSYU_CD)
+						END	HINSYU_RYAKU_NM								/* 品種名 */
+						,A.BURANDO_SITEI_FLG							/* ブランド指定フラグ */
+						,A.BURANDO_CD1									/* ブランドコード1 */
+						,CASE
+						WHEN A.BURANDO_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD1)
+						END 	BURANDO_NMK1							/* ブランド名1 */
+						,A.BURANDO_CD2									/* ブランドコード2 */
+						,CASE
+						WHEN A.BURANDO_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD2)
+						END	BURANDO_NMK2								/* ブランド名2 */
+						,A.BURANDO_CD3									/* ブランドコード3 */
+						,CASE
+						WHEN A.BURANDO_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD3)
+						END	BURANDO_NMK3								/* ブランド名3 */
+						,A.BURANDO_CD4									/* ブランドコード4 */
+						,CASE
+						WHEN A.BURANDO_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD4)
+						END	BURANDO_NMK4								/* ブランド名4 */
+						,A.BURANDO_CD5									/* ブランドコード5 */
+						,CASE
+						WHEN A.BURANDO_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD5)
+						END	BURANDO_NMK5								/* ブランド名5 */
+						,A.BURANDO_CD6									/* ブランドコード6 */
+						,CASE
+						WHEN A.BURANDO_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD6)
+						END	BURANDO_NMK6								/* ブランド名6 */
+						,A.BURANDO_CD7									/* ブランドコード7 */
+						,CASE
+						WHEN A.BURANDO_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD7)
+						END	BURANDO_NMK7								/* ブランド名7 */
+						,A.BURANDO_CD8									/* ブランドコード8 */
+						,CASE
+						WHEN A.BURANDO_SITEI_FLG = 0 THEN NULL
+						ELSE (	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD8)
+						END	BURANDO_NMK8								/* ブランド名8 */
+						,A.GOKEITANAJITYOBO_SU							/* 合計棚時帳簿数 */
+						,A.GOKEITANAJISEKISO_SU							/* 合計棚時積送数 */
+						,A.GOKEIJITANA_SU								/* 合計実棚数 */
+						,A.GOKEILOSS_SU									/* 合計ロス数 */
+						,A.GOKEILOSS_KIN								/* 合計ロス金額 */
+						,A.LOSSKEISAN_YMD								/* ロス計算日 */
+						,A.LOSSKEISAN_TM								/* ロス計算時間 */
+						,A.LOSSKEISAN_FLG								/* ロス計算フラグ */
+						,A.SYORI_YMD									/* 処理日付 */
+						,A.SYORI_TM										/* 処理時間 */
+						,(	SELECT	BOMT0060.BUMON_NM FROM BOMT0060
+						WHERE	BOMT0060.BUMON_CD = A.BUMON_CD
+						)	BUMON_NM									/* 部門名 */
+						,A.ADD_YMD										/* 登録日 */
+						,A.ADD_TM										/* 登録時間 */
+						,A.ADDTAN_CD									/* 登録担当者コード */
+						,(	SELECT	BOMT0030.HANBAIIN_NM FROM BOMT0030
+						WHERE	BOMT0030.HANBAIIN_CD = A.ADDTAN_CD
+						)	HANBAIIN_NM									/* 入力担当者名 */
+						,A.UPD_YMD										/* 更新日 */
+						,A.UPD_TM										/* 更新時間 */
+						,A.UPD_TANCD									/* 更新担当者コード */
+					FROM
+				</parts>
+			</statement>
+			<!-- 対象テーブル-->
+			<statement type="replace" name="REP_ID_TABLE_NAME"/>
+			<statement type="final" name="final">
+				<parts>
+					A WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="REP_ADD_WHERE"/>
+
+			<!-- ORDER BY -->
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+				</parts>
+			</statement>
+
+			<!-- ソート条件-->
+			<statement type="replace" name="REP_ID_SORT"/>
+		</sql>
+
+		/** 臨時棚卸検索一覧(Ｍ１部門リンク) 臨時棚卸TBL(B)**/
+		<sql id="TJ190P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						A.TENPO_CD								/* 店舗コード */
+						,A.RINTANA_KANRI_NO						/* 臨棚管理№ */
+						,A.SYORI_YMD							/* 処理日付 */
+						,A.SYORI_TM								/* 処理時間 */
+						,A.GYO_NO								/* 行№ */
+						,A.BUMON_CD								/* 部門コード */
+						,A.HINSYU_CD							/* 品種コード */
+						,(	SELECT	MDMT0070.HINSYU_RYAKU_NM FROM MDMT0070
+						WHERE	MDMT0070.BUMON_CD  = A.BUMON_CD
+						AND		MDMT0070.HINSYU_CD = A.HINSYU_CD
+						)	HINSYU_RYAKU_NM						/* 品種名 */
+						,A.BURANDO_CD							/* ブランドコード */
+						,(	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+						WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD
+						)	BURANDO_NMK							/* ブランド名 */
+						,A.JISYA_HBN							/* 自社品番 */
+						,A.OLD_JISYA_HBN						/* 旧自社品番 */
+						,A.MAKER_HBN							/* メーカー品番 */
+						,A.SYONMK								/* 商品名(カナ) */
+						,A.IRO_CD								/* 色コード */
+						,(	SELECT	MDMT0080.IRO_NM FROM MDMT0080
+						WHERE	MDMT0080.IRO_CD = A.IRO_CD
+						)	IRO_NM								/* 色名 */
+						,A.SIZE_CD								/* サイズコード */
+						,A.SIZE_NM								/* サイズ */
+						,A.JAN_CD								/* ＪＡＮコード */
+						,A.SYOHIN_CD							/* 商品コード */
+						,A.SLPR									/* 上代１ */
+						,A.JODAI2_TNK							/* 上代２ */
+						,A.HYOKA_TNK							/* 評価単価 */
+						,A.TANAJITYOBO_SU						/* 棚時帳簿数 */
+						,A.TANAJISEKISO_SU						/* 棚時積送数 */
+						,A.JITANA_SU							/* 実棚数 */
+						,A.LOSS_SU								/* ロス数 */
+						,A.LOSS_KIN								/* ロス金額 */
+						FROM
+						MDIT0121 A
+					WHERE
+					A.TENPO_CD			=
+				</parts>
+				<bind id="BIND_TENPO_CD" />
+				<parts>
+					AND		A.RINTANA_KANRI_NO	=
+				</parts>
+				<bind id="BIND_KANRI_NO" />
+				<parts>
+					AND		A.SYORI_YMD			=
+				</parts>
+				<bind id="BIND_SYORI_YMD" />
+				<parts>
+					ORDER BY
+					A.TENPO_CD				/* 店舗コード */
+					,A.RINTANA_KANRI_NO		/* 臨棚管理№ */
+					,A.SYORI_YMD			/* 処理日付 */
+					,A.GYO_NO				/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+		
+		/** 臨時棚卸検索一覧(Ｍ１部門リンク) 臨時棚卸ロスTBL(B)**/
+		<sql id="TJ190P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					A.TENPO_CD								/* 店舗コード */
+					,A.LOSS_KANRI_NO						/* ロス管理№ */
+					,A.SYORI_YMD							/* 処理日付 */
+					,A.SYORI_TM								/* 処理時間 */
+					,A.GYO_NO								/* 行№ */
+					,A.BUMON_CD								/* 部門コード */
+					,A.HINSYU_CD							/* 品種コード */
+					,(	SELECT	MDMT0070.HINSYU_RYAKU_NM FROM MDMT0070
+					WHERE	MDMT0070.BUMON_CD  = A.BUMON_CD
+					AND		MDMT0070.HINSYU_CD = A.HINSYU_CD
+					)	HINSYU_RYAKU_NM						/* 品種名 */
+					,A.BURANDO_CD							/* ブランドコード */
+					,(	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+					WHERE	STMT0500.BURANDO_CD = A.BURANDO_CD
+					)	BURANDO_NMK							/* ブランド名 */
+					,A.JISYA_HBN							/* 自社品番 */
+					,A.OLD_JISYA_HBN						/* 旧自社品番 */
+					,A.MAKER_HBN							/* メーカー品番 */
+					,A.SYONMK								/* 商品名(カナ) */
+					,A.IRO_CD								/* 色コード */
+					,(	SELECT	MDMT0080.IRO_NM FROM MDMT0080
+					WHERE	MDMT0080.IRO_CD = A.IRO_CD
+					)	IRO_NM								/* 色名 */
+					,A.SIZE_CD								/* サイズコード */
+					,A.SIZE_NM								/* サイズ */
+					,A.JAN_CD								/* ＪＡＮコード */
+					,A.SYOHIN_CD							/* 商品コード */
+					,A.SLPR									/* 上代１ */
+					,A.JODAI2_TNK							/* 上代２ */
+					,A.HYOKA_TNK							/* 評価単価 */
+					,A.TANAJITYOBO_SU						/* 棚時帳簿数 */
+					,A.TANAJISEKISO_SU						/* 棚時積送数 */
+					,A.JITANA_SU							/* 実棚数 */
+					,A.LOSS_SU								/* ロス数 */
+					,A.LOSS_KIN								/* ロス金額 */
+					FROM
+					MDIT0131 A
+					WHERE
+					A.TENPO_CD					=
+				</parts>
+				<bind id="BIND_TENPO_CD" />
+				<parts>
+					AND		A.LOSS_KANRI_NO			=
+				</parts>
+				<bind id="BIND_KANRI_NO" />
+				<parts>
+					AND		A.SYORI_YMD				=
+				</parts>
+				<bind id="BIND_SYORI_YMD" />
+				<parts>
+					ORDER BY
+					A.TENPO_CD				/* 店舗コード */
+					,A.LOSS_KANRI_NO		/* ロス管理№ */
+					,A.SYORI_YMD			/* 処理日付 */
+					,A.GYO_NO				/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+
+		/** 重複データ存在チェック */
+		<sql id="TJ190P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						AA.TENPO_CD
+						,AA.RINTANA_KANRI_NO
+						,AA.SYORI_YMD
+						FROM
+						(
+						SELECT
+							A.TENPO_CD
+							,A.RINTANA_KANRI_NO
+							,A.SYORI_YMD
+							,A.BUMON_CD || A.HINSYU_SITEI_FLG || NVL(TO_CHAR(A.HINSYU_CD), '') || A.BURANDO_SITEI_FLG
+							|| NVL(A.BURANDO_CD1, '999999') || NVL(A.BURANDO_CD2, '999999') || NVL(A.BURANDO_CD3, '999999') || NVL(A.BURANDO_CD4, '999999')
+							|| NVL(A.BURANDO_CD5, '999999') || NVL(A.BURANDO_CD6, '999999') || NVL(A.BURANDO_CD7, '999999') || NVL(A.BURANDO_CD8, '999999') JOKEN
+							,B.JAN_CD
+						FROM
+						MDIT0120 A
+						,MDIT0121 B
+						WHERE
+							A.TENPO_CD			= B.TENPO_CD
+						AND	A.RINTANA_KANRI_NO	= B.RINTANA_KANRI_NO
+						AND	A.SYORI_YMD			= B.SYORI_YMD
+				</parts>
+			</statement>
+
+			<!--抽出条件:明細選択-->
+			<statement type="replace" name="REP_ID_SUBCONDITION1" />
+
+			<statement type="final" name="final">
+				<parts>
+					) AA
+					,(
+						SELECT
+							A.TENPO_CD
+							,A.RINTANA_KANRI_NO
+							,A.SYORI_YMD
+							,A.BUMON_CD || A.HINSYU_SITEI_FLG || NVL(TO_CHAR(A.HINSYU_CD), '') || A.BURANDO_SITEI_FLG
+							|| NVL(A.BURANDO_CD1, '999999') || NVL(A.BURANDO_CD2, '999999') || NVL(A.BURANDO_CD3, '999999') || NVL(A.BURANDO_CD4, '999999')
+							|| NVL(A.BURANDO_CD5, '999999') || NVL(A.BURANDO_CD6, '999999') || NVL(A.BURANDO_CD7, '999999') || NVL(A.BURANDO_CD8, '999999') JOKEN
+							,B.JAN_CD
+						FROM
+						MDIT0120 A
+						,MDIT0121 B
+						WHERE
+						A.TENPO_CD			= B.TENPO_CD
+						AND		A.RINTANA_KANRI_NO	= B.RINTANA_KANRI_NO
+						AND		A.SYORI_YMD			= B.SYORI_YMD
+				</parts>
+			</statement>
+
+			<!--抽出条件:明細選択-->
+			<statement type="replace" name="REP_ID_SUBCONDITION2" />
+
+			<statement type="final" name="final">
+				<parts>
+					) BB
+					WHERE
+						AA.TENPO_CD			= BB.TENPO_CD
+						AND		AA.JOKEN			&lt;&gt; BB.JOKEN
+						AND		AA.RINTANA_KANRI_NO	&lt;&gt; BB.RINTANA_KANRI_NO
+						AND		AA.JAN_CD			= BB.JAN_CD
+					GROUP BY
+						AA.TENPO_CD
+						,AA.RINTANA_KANRI_NO
+						,AA.SYORI_YMD
+					ORDER BY
+						AA.TENPO_CD
+						,AA.RINTANA_KANRI_NO
+						,AA.SYORI_YMD
+				</parts>
+			</statement>
+		</sql>
+
+		/** 臨時棚卸TBL(H)(削除)**/
+		<sql id="TJ190P01-06">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDIT0120
+					WHERE
+					TENPO_CD					=	</parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		RINTANA_KANRI_NO	=	</parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD			=	</parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+
+		/** 臨時棚卸TBL(B)(削除)**/
+		<sql id="TJ190P01-07">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDIT0121
+					WHERE
+					TENPO_CD					=	</parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		RINTANA_KANRI_NO	=	</parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD			=	</parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+
+		/** 臨時棚卸ロスTBL(H)(削除)**/
+		<sql id="TJ190P01-08">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDIT0130
+					WHERE
+							TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		LOSS_KANRI_NO	= </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+		/** 臨時棚卸ロスTBL(B)(削除)**/
+		<sql id="TJ190P01-09">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDIT0131
+					WHERE
+							TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		LOSS_KANRI_NO	= </parts><bind id="BIND_KANRI_NO" /><parts>
+					AND		SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD" />
+			</statement>
+		</sql>
+
+		/** 臨時棚卸検索一覧(CSV)**/
+		<sql id="TJ190P01-10">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 B.TENPO_CD								/*  1 店舗コード */
+							,(	SELECT	BOMT0010.TENPO_NM FROM BOMT0010
+								WHERE	BOMT0010.TENPO_CD = B.TENPO_CD
+							 )	TENPO_NM							/*  2 店舗名 */
+							,B.BUMON_CD	 							/*  3 部門コード */
+							,(	SELECT	BOMT0060.BUMONKANA_NM FROM BOMT0060
+								WHERE	BOMT0060.BUMON_CD = B.BUMON_CD
+							 )	BUMONKANA_NM						/*  4 部門カナ名 */
+							,B.HINSYU_CD							/*  5 品種コード */
+							,(	SELECT	MDMT0070.HINSYU_RYAKU_NM FROM MDMT0070
+								WHERE	MDMT0070.BUMON_CD  = B.BUMON_CD
+								AND		MDMT0070.HINSYU_CD = B.HINSYU_CD
+							 )	HINSYU_RYAKU_NM						/*  6 品種カナ名 */
+							,B.BURANDO_CD							/*  7 ブランドコード */
+							,(	SELECT	STMT0500.BURANDO_NMK FROM STMT0500
+								WHERE	STMT0500.BURANDO_CD = B.BURANDO_CD
+							 )	BURANDO_NMK							/*  8 ブランド名 */
+							,B.JISYA_HBN							/*  9 自社品番 */
+							,B.MAKER_HBN							/* 10 メーカー品番 */
+							,B.SYONMK								/* 11 商品名(カナ) */
+							,(	SELECT	MDMT0080.IRO_NM FROM MDMT0080
+								WHERE	MDMT0080.IRO_CD = B.IRO_CD
+							 )	IRO_NM								/* 12 色名 */
+							,B.SIZE_NM								/* 13 サイズ */
+							,B.JAN_CD								/* 14 ＪＡＮコード */
+							,B.SYOHIN_CD							/* 15 商品コード */
+							,B.HYOKA_TNK							/* 16 評価単価 */
+							,B.TANAJITYOBO_SU						/* 17 棚時帳簿数 */
+							,B.TANAJISEKISO_SU						/* 18 棚時積送数 */
+							,B.JITANA_SU							/* 19 実棚数 */
+							,B.LOSS_SU								/* 20 ロス数 */
+							,B.LOSS_KIN								/* 21 ロス金額 */
+							,A.LOSSKEISAN_YMD						/* 22 ロス計算日 */
+							,A.LOSS_KANRI_NO						/* 23 ロス管理No */
+					FROM
+							 MDIT0130 A
+							,MDIT0131 B
+					WHERE
+							A.TENPO_CD			= B.TENPO_CD
+					AND		A.LOSS_KANRI_NO		= B.LOSS_KANRI_NO
+					AND		A.SYORI_YMD			= B.SYORI_YMD
+				</parts>
+			</statement>
+			<!--抽出条件-->
+			<statement type="replace" name="REP_ID_WHERE"/>
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 B.TENPO_CD				/* 店舗コード */
+						,B.SYORI_YMD			/* 処理日付 */
+						,B.LOSS_KANRI_NO		/* ロス管理No */
+						,B.GYO_NO				/* 行№ */
+				</parts>
+			</statement>
+		</sql>
+		/** 臨時棚卸TBL(H)(更新) **/
+		<sql id="TJ190P01-11">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0120 SET
+						 HINSYU_SITEI_FLG		= </parts><bind id="BIND_HINSYU_SITEI_FLG" /><parts>		/* 品種指定フラグ */
+						,HINSYU_CD = CASE
+						WHEN </parts><bind id="BIND_HINSYU_SITEI_FLG_2" /><parts> = 0 THEN NULL
+						ELSE </parts><bind id="BIND_HINSYU_CD" /><parts>
+						END
+						,BURANDO_SITEI_FLG		= </parts><bind id="BIND_BURANDO_SITEI_FLG" /><parts>		/* ブランド指定フラグ */
+						,BURANDO_CD1			= </parts><bind id="BIND_BURANDO_CD1" /><parts>				/* ブランドコード1 */
+						,BURANDO_CD2			= </parts><bind id="BIND_BURANDO_CD2" /><parts>				/* ブランドコード2 */
+						,BURANDO_CD3			= </parts><bind id="BIND_BURANDO_CD3" /><parts>				/* ブランドコード3 */
+						,BURANDO_CD4			= </parts><bind id="BIND_BURANDO_CD4" /><parts>				/* ブランドコード4 */
+						,BURANDO_CD5			= </parts><bind id="BIND_BURANDO_CD5" /><parts>				/* ブランドコード5 */
+						,BURANDO_CD6			= </parts><bind id="BIND_BURANDO_CD6" /><parts>				/* ブランドコード6 */
+						,BURANDO_CD7			= </parts><bind id="BIND_BURANDO_CD7" /><parts>				/* ブランドコード7 */
+						,BURANDO_CD8			= </parts><bind id="BIND_BURANDO_CD8" /><parts>				/* ブランドコード8 */
+						,GOKEITANAJITYOBO_SU	= (SELECT	SUM(NVL(MDIT0121.TANAJITYOBO_SU,0)) FROM MDIT0121 WHERE 0=0 AND MDIT0121.TENPO_CD = MDIT0120.TENPO_CD AND MDIT0121.RINTANA_KANRI_NO = MDIT0120.RINTANA_KANRI_NO AND MDIT0121.SYORI_YMD = MDIT0120.SYORI_YMD)
+																											/* 合計棚時帳簿数 */
+						,GOKEITANAJISEKISO_SU	= (SELECT	SUM(NVL(MDIT0121.TANAJISEKISO_SU,0)) FROM MDIT0121 WHERE 0=0 AND MDIT0121.TENPO_CD = MDIT0120.TENPO_CD AND MDIT0121.RINTANA_KANRI_NO = MDIT0120.RINTANA_KANRI_NO AND MDIT0121.SYORI_YMD = MDIT0120.SYORI_YMD)
+																											/* 合計棚時積送数 */
+						,GOKEIJITANA_SU			= (SELECT	SUM(NVL(MDIT0121.JITANA_SU,0)) FROM MDIT0121 WHERE 0=0 AND MDIT0121.TENPO_CD = MDIT0120.TENPO_CD AND MDIT0121.RINTANA_KANRI_NO = MDIT0120.RINTANA_KANRI_NO AND MDIT0121.SYORI_YMD = MDIT0120.SYORI_YMD)
+																											/* 合計実棚数 */
+						,GOKEILOSS_SU			= (SELECT	SUM(NVL(MDIT0121.LOSS_SU,0)) FROM	MDIT0121 WHERE 0=0  AND MDIT0121.TENPO_CD = MDIT0120.TENPO_CD AND MDIT0121.RINTANA_KANRI_NO = MDIT0120.RINTANA_KANRI_NO AND MDIT0121.SYORI_YMD = MDIT0120.SYORI_YMD)
+																											/* 合計ロス数 */
+						,GOKEILOSS_KIN			= (SELECT	SUM(NVL(MDIT0121.LOSS_KIN,0)) FROM	MDIT0121 WHERE 0=0 AND MDIT0121.TENPO_CD = MDIT0120.TENPO_CD AND MDIT0121.RINTANA_KANRI_NO = MDIT0120.RINTANA_KANRI_NO AND MDIT0121.SYORI_YMD = MDIT0120.SYORI_YMD)
+																											/* 合計ロス金額 */
+						,UPD_YMD				= </parts><bind id="BIND_UPD_YMD" /><parts>					/* 更新日 */
+						,UPD_TM					= </parts><bind id="BIND_UPD_TM" /><parts>					/* 更新時間 */
+						,UPD_TANCD				= </parts><bind id="BIND_UPD_TANCD" /><parts>				/* 更新担当者コード */
+						,SAKUJYO_YMD			= </parts><bind id="BIND_SAKUJYO_YMD" /><parts>  			/* 削除日 */
+						,SAKUJYO_FLG			= 1															/* 削除フラグ */
+					WHERE
+						TENPO_CD				= </parts><bind id="BIND_TENPO_CD" /><parts>				/* 店舗コード */
+					AND	RINTANA_KANRI_NO		= </parts><bind id="BIND_RINTANA_KANRI_NO" /><parts>		/* 管理No */
+					AND	SYORI_YMD				= </parts><bind id="BIND_SYORI_YMD" /><parts>				/* 処理日付 */
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

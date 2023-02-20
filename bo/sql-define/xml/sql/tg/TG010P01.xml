@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 発注マスタカウント **/
+		<sql id="TG010P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT COUNT(1) CNT 
+					FROM MDMT0130 SYOHIN
+					WHERE 
+						SYOHIN.ITEMKBN != 0		/* 商品対象外 以外 */ 
+					AND SYOHIN.SAKUJYO_FLG = 0	/* 未削除 */
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

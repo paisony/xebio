@@ -1,0 +1,105 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tj190f02.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+.str-search-02 .w-type-01 {
+	width: 95px;
+}
+.str-search-02 .w-type-02 {
+	width: 160px;
+}
+.str-search-02 .w-type-03 {
+	width: 225px;
+}
+.str-search-02 .w-type-04 {
+	width: 40px;
+}
+.str-search-02 .w-type-05 {
+	width: 63px;
+}
+/* ラジオボタン間隔 */
+.str-radio-table {
+	margin-left : -10px ;
+	margin-right : auto ;
+	border-spacing : 15px 0px;
+	border-collapse : separate;
+}
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 35px;
+	border-left: 1px solid #cccccc;
+}
+
+/*--- 品種／ブランド ---*/
+.str-result-01 .col2 {
+	width: 143px;
+}
+/*--- 自社品番 ---*/
+.str-result-01 .col3 {
+	width: 71px;
+}
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col4 {
+	width: 354px;
+}
+/*--- 色／サイズ ---*/
+.str-result-01 .col5 {
+	width: 73px;
+}
+
+/*--- スキャンコード ---*/
+.str-result-01 .col6 {
+	width: 150px;
+}
+
+/*--- 評価単価 ---*/
+.str-result-01 .col7 {
+	width: 62px;
+}
+
+/*--- 棚時帳簿数／棚時積送数 ---*/
+.str-result-01 .col8 {
+	width: 70px;
+}
+
+/*--- 実棚数 ---*/
+.str-result-01 .col9 {
+	width: 61px;
+}
+
+/*--- ロス数 ---*/
+.str-result-01 .col10 {
+	width: 69px;
+}
+
+/*--- ロス金額 ---*/
+.str-result-01 .col11 {
+	width: 78px;
+}
+
+/*--- 明細合計部 ---*/
+.str-result-01 .str-result-ftr-01 > div {
+	line-height: 30px;
+	float: left;
+	empty-cells: show;
+	text-align: center;
+	border-color: #1ca7e0 !important;
+	border-left: 1px solid #cccccc;
+}
+.str-result-01 .str-result-ftr-01 > div.col1 {
+	border-left: none;
+}
+
+.str-result-01 .str-result-ftr-01 > div.col7 {
+	font-weight: bold;
+	text-align: right;
+	color: #ffffff;
+}
+

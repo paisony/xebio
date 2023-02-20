@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 棚卸状況確認(X) 照会(件数チェック) **/
+		<sql id="TJ080P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(1) CNT
+					FROM (
+					SELECT
+					 MDIT0020.TENCD							TENCD
+					,MAX(BOMT0010.TENPO_NM)					TENPO_NM
+					,MAX(MDIT0020.SOSIN_YMD)				SOSIN_YMD
+					,MAX(MDIT0020.SOSINIRAI_FLG)			SOSINIRAI_FLG
+					,MAX(MDMT0100_1.MEISYO_NM)				SOSINIRAI_NM
+					,MAX(TO_CHAR(MDIT0020.SOSINZUMI_FLG))	SOSINZUMI_FLG
+					,MAX(MDMT0100_2.MEISYO_NM)				SOSINZUMI_NM
+					,MAX(MDIT0020.TANAOROSIKIJUN_YMD)		TANAOROSIKIJUN_YMD
+					,1										SORTFLG
+					FROM
+					MDIT0020
+					LEFT JOIN
+					MDMT0100 MDMT0100_1						/* 名称マスタ 店舗確定状況 */
+					ON	MDMT0100_1.SIKIBETSU_CD = 'TNKK'
+					AND	MDIT0020.SOSINIRAI_FLG	= MDMT0100_1.MEISYO_CD
+					LEFT JOIN
+					MDMT0100 MDMT0100_2						/* 名称マスタ 送信状況 */
+					ON	MDMT0100_2.SIKIBETSU_CD = 'TNSS'
+					AND	DECODE(MDIT0020.SOSINZUMI_FLG,0,1,2) = MDMT0100_2.MEISYO_CD
+					LEFT JOIN
+					BOMT0010
+					ON	MDIT0020.TENCD = BOMT0010.TENPO_CD
+					LEFT JOIN
+					MDIT0010
+					ON	MDIT0020.TENCD				= MDIT0010.TENPO_CD
+					AND	MDIT0020.TANAOROSIKIJUN_YMD	= MDIT0010.TANAOROSI_YMD
+					AND	MDIT0020.SOSINKAI_SU		= MDIT0010.SOSINKAI_SU
+					WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗コード FROM-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_FROM"/>
+			<!--抽出条件：店舗コード TO-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_TO"/>
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO"/>
+			<!--抽出条件：送信状態-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_JYOTAI"/>
+			<!--抽出条件：送信日 FROM-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_FROM"/>
+			<!--抽出条件：送信日 TO-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_TO"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG"/>
+			
+			<statement type="final" name="final">
+				<parts>
+					GROUP  BY
+					 MDIT0020.TENCD
+					,MDIT0010.ADD_YMD
+					,MDIT0020.SOSINKAI_SU
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					 MDIT0030.TENCD																TENCD
+					,BOMT0010.TENPO_NM															TENPO_NM
+					,DECODE(MDIT0030.TANAOROSISYURYO_FLG, 1, MDIT0030.UPD_YMD, 0)				SOSIN_YMD
+					,DECODE(MDIT0030.TANAOROSISYURYO_FLG, 1, 5, MDIT0030.TANAOROSISYURYO_FLG)	SOSINIRAI_FLG	/* 棚卸終了フラグ */
+					,MDMT0100_3.MEISYO_NM														SOSINIRAI_NM
+					,' '																		SOSINZUMI_FLG
+					,' '																		SOSINZUMI_NM
+					,MDIT0030.TANAOROSIKIJUN_YMD												TANAOROSIKIJUN_YMD
+					,2																			SORTFLG
+					FROM
+					MDIT0030 MDIT0030
+					LEFT JOIN
+					BOMT0010
+					ON	MDIT0030.TENCD = BOMT0010.TENPO_CD
+					LEFT JOIN
+					MDMT0100 MDMT0100_3									/* 名称マスタ 終了状況 */
+					ON	MDMT0100_3.SIKIBETSU_CD			= 'TNSJ'
+					AND	MDIT0030.TANAOROSISYURYO_FLG	= MDMT0100_3.MEISYO_CD
+					WHERE EXISTS (
+					SELECT 1 FROM MDIT0020 WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗コード FROM-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_FROM2"/>
+			<!--抽出条件：店舗コード TO-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_TO2"/>
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO2"/>
+			<!--抽出条件：送信状態-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_JYOTAI2"/>
+			<!--抽出条件：送信日 FROM-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_FROM2"/>
+			<!--抽出条件：送信日 TO-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_TO2"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG2"/>			
+
+			<statement type="final" name="final">
+				<parts>
+					AND		MDIT0020.TENCD              = MDIT0030.TENCD
+					AND		MDIT0020.TANAOROSIKIJUN_YMD = MDIT0030.TANAOROSIKIJUN_YMD
+					)
+					AND	MDIT0030.TENCD &lt;&gt; '9999'
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO3"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG3"/>
+			
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+
+		/** 棚卸状況確認(X) 終了確認照会(件数チェック) **/
+		<sql id="TJ080P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(1) CNT
+					FROM (
+					SELECT
+					 MDIT0030.TENCD																TENCD
+					,BOMT0010.TENPO_NM															TENPO_NM
+					,DECODE(MDIT0030.TANAOROSISYURYO_FLG, 1, MDIT0030.UPD_YMD, 0)				SOSIN_YMD
+					,DECODE(MDIT0030.TANAOROSISYURYO_FLG, 1, 5, MDIT0030.TANAOROSISYURYO_FLG)	SOSINIRAI_FLG	/* 棚卸終了フラグ */
+					,MDMT0100_3.MEISYO_NM														SOSINIRAI_NM
+					,' '																		SOSINZUMI_FLG
+					,' '																		SOSINZUMI_NM
+					,MDIT0030.TANAOROSIKIJUN_YMD												TANAOROSIKIJUN_YMD
+					,2																			SORTFLG
+					,MDIT0030.TANAOROSIKAKUTEI_YMD												TANAOROSIKAKUTEI_YMD
+					FROM
+					MDIT0030 MDIT0030
+					LEFT JOIN
+					BOMT0010
+					ON	MDIT0030.TENCD = BOMT0010.TENPO_CD
+					LEFT JOIN
+					MDMT0100 MDMT0100_3						/* 名称マスタ 終了状況 */
+					ON	MDMT0100_3.SIKIBETSU_CD			= 'TNSJ'
+					AND	MDIT0030.TANAOROSISYURYO_FLG	= MDMT0100_3.MEISYO_CD
+					WHERE EXISTS (
+					SELECT 1 FROM MDIT0020 WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗コード FROM-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_FROM"/>
+			<!--抽出条件：店舗コード TO-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_TO"/>
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO"/>
+			<!--抽出条件：送信状態-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_JYOTAI"/>
+			<!--抽出条件：送信日 FROM-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_FROM"/>
+			<!--抽出条件：送信日 TO-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_TO"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG"/>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		MDIT0020.TENCD              = MDIT0030.TENCD
+					AND		MDIT0020.TANAOROSIKIJUN_YMD = MDIT0030.TANAOROSIKIJUN_YMD
+					)
+					AND	MDIT0030.TENCD &lt;&gt; '9999'
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO2"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG2"/>
+
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+
+		/** 棚卸状況確認(X) 照会(検索ボタン) **/
+		<sql id="TJ080P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					 TENCD									/* 店舗コード */
+					,TENPO_NM								/* 店舗名称 */
+					,SOSIN_YMD								/* 送信時間 */
+					,SOSINIRAI_FLG							/* 送信依頼フラグ */
+					,SOSINIRAI_NM							/* 店舗確定状況 */
+					,SOSINZUMI_FLG							/* 送信済みフラグ */
+					,SOSINZUMI_NM							/* 送信状況 */
+					,0				TANAOROSIKAKUTEI_YMD	/* 棚卸確定日(終了確認照会のみで使用するため固定0にする) */
+					FROM (
+					SELECT
+					 MDIT0020.TENCD						TENCD
+					,BOMT0010.TENPO_NM					TENPO_NM
+					,MDIT0020.SOSIN_YMD					SOSIN_YMD
+					,MDIT0020.SOSINIRAI_FLG				SOSINIRAI_FLG
+					,MDMT0100_1.MEISYO_NM				SOSINIRAI_NM
+					,TO_CHAR(MDIT0020.SOSINZUMI_FLG)	SOSINZUMI_FLG
+					,MDMT0100_2.MEISYO_NM				SOSINZUMI_NM
+					,MDIT0020.TANAOROSIKIJUN_YMD		TANAOROSIKIJUN_YMD
+					,1									SORTFLG
+					FROM
+					MDIT0020
+					LEFT JOIN
+					MDMT0100 MDMT0100_1					/* 名称マスタ 店舗確定状況 */
+					ON	MDMT0100_1.SIKIBETSU_CD = 'TNKK'
+					AND	MDIT0020.SOSINIRAI_FLG  = MDMT0100_1.MEISYO_CD
+					LEFT JOIN
+					MDMT0100 MDMT0100_2					/* 名称マスタ 送信状況 */
+					ON	MDMT0100_2.SIKIBETSU_CD				 = 'TNSS'
+					AND	DECODE(MDIT0020.SOSINZUMI_FLG,0,1,2) = MDMT0100_2.MEISYO_CD
+					LEFT JOIN
+					BOMT0010
+					ON	MDIT0020.TENCD = BOMT0010.TENPO_CD
+					WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗コード FROM-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_FROM"/>
+			<!--抽出条件：店舗コード TO-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_TO"/>
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO"/>
+			<!--抽出条件：送信状態-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_JYOTAI"/>
+			<!--抽出条件：送信日 FROM-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_FROM"/>
+			<!--抽出条件：送信日 TO-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_TO"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG"/>
+
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					 MDIT0030.TENCD
+					,BOMT0010.TENPO_NM
+					,DECODE(MDIT0030.TANAOROSISYURYO_FLG, 1, MDIT0030.UPD_YMD, 0)
+					,DECODE(MDIT0030.TANAOROSISYURYO_FLG, 1, 5, MDIT0030.TANAOROSISYURYO_FLG)	/* 棚卸終了フラグ */
+					,MDMT0100_3.MEISYO_NM
+					,''
+					,''
+					,MDIT0030.TANAOROSIKIJUN_YMD	TANAOROSIKIJUN_YMD
+					,2
+					FROM
+					MDIT0030 MDIT0030
+					LEFT JOIN
+					BOMT0010
+					ON	MDIT0030.TENCD = BOMT0010.TENPO_CD
+					LEFT JOIN
+					MDMT0100 MDMT0100_3						/* 名称マスタ 終了状況 */
+					ON	MDMT0100_3.SIKIBETSU_CD		 = 'TNSJ'
+					AND	MDIT0030.TANAOROSISYURYO_FLG = MDMT0100_3.MEISYO_CD
+					WHERE EXISTS (
+					SELECT 1 FROM MDIT0020 WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗コード FROM-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_FROM2"/>
+			<!--抽出条件：店舗コード TO-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_TO2"/>
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO2"/>
+			<!--抽出条件：送信状態-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_JYOTAI2"/>
+			<!--抽出条件：送信日 FROM-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_FROM2"/>
+			<!--抽出条件：送信日 TO-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_TO2"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG2"/>
+
+			<statement type="final" name="final">
+				<parts>
+					AND		MDIT0020.TENCD              = MDIT0030.TENCD
+					AND		MDIT0020.TANAOROSIKIJUN_YMD = MDIT0030.TANAOROSIKIJUN_YMD
+					)
+					AND	MDIT0030.TENCD &lt;&gt; '9999'
+					)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+					 TENCD
+					,TANAOROSIKIJUN_YMD
+					,SORTFLG
+					,DECODE(SOSIN_YMD, 0, 99999999, SOSIN_YMD)
+				</parts>
+			</statement>
+		</sql>
+
+		/** 棚卸状況確認(X) 終了確認照会(検索ボタン) **/
+		<sql id="TJ080P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					TENCD																	/* 店舗コード */
+					,TENPO_NM																/* 店舗名称 */
+					,SOSIN_YMD																/* 送信時間 */
+					,SOSINIRAI_FLG															/* 送信依頼フラグ */
+					,NVL(SOSINIRAI_NM, ' ')		SOSINIRAI_NM								/* 店舗確定状況 */
+					,SOSINZUMI_FLG															/* 送信済みフラグ */
+					,NVL(SOSINZUMI_NM, ' ')		SOSINZUMI_NM								/* 送信状況 */
+					,MAX(TANAOROSIKAKUTEI_YMD) OVER(PARTITION BY 1)	TANAOROSIKAKUTEI_YMD	/* 棚卸確定日 */
+					FROM (
+					SELECT
+					MDIT0030.TENCD																TENCD
+					,BOMT0010.TENPO_NM															TENPO_NM
+					,DECODE(MDIT0030.TANAOROSISYURYO_FLG, 1, MDIT0030.UPD_YMD, 0)				SOSIN_YMD
+					,DECODE(MDIT0030.TANAOROSISYURYO_FLG, 1, 5, MDIT0030.TANAOROSISYURYO_FLG)	SOSINIRAI_FLG	/* 棚卸終了フラグ */
+					,MDMT0100_3.MEISYO_NM														SOSINIRAI_NM
+					,' '																		SOSINZUMI_FLG
+					,' '																		SOSINZUMI_NM
+					,MDIT0030.TANAOROSIKIJUN_YMD												TANAOROSIKIJUN_YMD
+					,2																			SORTFLG
+					,MDIT0030.TANAOROSIKAKUTEI_YMD												TANAOROSIKAKUTEI_YMD
+					FROM
+					MDIT0030 MDIT0030
+					LEFT JOIN
+					BOMT0010
+					ON	MDIT0030.TENCD = BOMT0010.TENPO_CD
+					LEFT JOIN
+					MDMT0100 MDMT0100_3							/* 名称マスタ 終了状況 */
+					ON	MDMT0100_3.SIKIBETSU_CD		 = 'TNSJ'
+					AND	MDIT0030.TANAOROSISYURYO_FLG = MDMT0100_3.MEISYO_CD
+					WHERE EXISTS (
+					SELECT 1 FROM MDIT0020 WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗コード FROM-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_FROM"/>
+			<!--抽出条件：店舗コード TO-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD_TO"/>
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO"/>
+			<!--抽出条件：送信状態-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_JYOTAI"/>
+			<!--抽出条件：送信日 FROM-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_FROM"/>
+			<!--抽出条件：送信日 TO-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_TO"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG"/>			
+			
+			<statement type="final" name="final">
+				<parts>
+					AND		MDIT0020.TENCD              = MDIT0030.TENCD
+					AND		MDIT0020.TANAOROSIKIJUN_YMD = MDIT0030.TANAOROSIKIJUN_YMD
+					)
+					AND	MDIT0030.TENCD &lt;&gt; '9999'
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗確定状況-->
+			<statement type="replace" name="REPLACE_ID_TENPO_KAKUTEI_JYOKYO2"/>
+			<!--抽出条件：今回分のみ-->
+			<statement type="replace" name="REPLACE_ID_KONKAI_FLG2"/>
+
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+					 TENCD
+					,TANAOROSIKIJUN_YMD
+					,SORTFLG
+					,DECODE(SOSIN_YMD, 0, 99999999, SOSIN_YMD)
+				</parts>
+			</statement>			
+		</sql>
+	</sql-list>
+</sql-included>

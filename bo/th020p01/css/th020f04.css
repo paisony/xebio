@@ -1,0 +1,89 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:th020f04.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+.str-search-02 .w-type-01 {
+  width: 90px;
+}
+.str-search-02 .w-type-02 {
+  width: 320px;
+}
+.str-search-02 .w-type-03 {
+  width: 190px;
+}
+.str-search-02 .w-type-04 {
+  width: 190px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+
+.str-result-01 .str-result-hdg-01 > .col7 div.col7-2 {
+	border-left: 1px solid #cccccc;
+}
+.str-result-01 .str-result-hdg-01 > .col7 div.col7-3 {
+	border-left: 1px solid #cccccc;
+}
+.str-result-01 .str-result-hdg-01 > .col7 div.col7-4 {
+	border-left: 1px solid #cccccc;
+}
+
+/* 行 */
+.str-result-01 .col1 {
+  position: relative;
+  width: 45px;
+}
+/* 店舗 */
+.str-result-01 .col2 {
+  width: 212px;
+}
+/* 売上数 */
+.str-result-01 .col3 {
+  width: 114px;
+}
+/* 販売可能在庫 */
+.str-result-01 .col4 {
+  width: 114px;
+}
+/* 消化率 */
+.str-result-01 .col5 {
+  width: 114px;
+}
+/* 帳簿在庫数 */
+.str-result-01 .col6 {
+  width: 114px;
+}
+/* 引当済み在庫 */
+.str-result-01 .col7 {
+  width: 476px;
+}
+/* 預り予約数 */
+.str-result-01 .col7 .col7-1 {
+  width: 113px;
+}
+/* 積送中 */
+.str-result-01 .col7 .col7-2 {
+  width: 113px;
+}
+/* 盗難品 */
+.str-result-01 .col7 .col7-3 {
+  width: 113px;
+}
+/* 評価損申請 */
+.str-result-01 .col7 .col7-4 {
+  width: 114px;
+}
+/* 引当済み在庫(預り予約数～評価損申請) */
+.str-result-01 .col7a {
+  width: 114px;
+}
+
+
+/*--- セル(在庫の販売可能数) ---*/
+.detail_color1 {
+	background: #ffffe0;
+}

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SHUTURYOKU_TANI" name="出力単位">
+		<listItems>
+			<item id="10" value="1" label="商品群1" itemId="Shuturyoku_tani1" />
+			<item id="20" value="2" label="商品群2" itemId="Shuturyoku_tani2" />
+			<item id="30" value="3" label="部門" itemId="Shuturyoku_tani3" />
+		</listItems>
+	</condition>
+</condition-define>
+

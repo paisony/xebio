@@ -1,0 +1,2158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 補充依頼申請 検索（SQL_HEAD①） **/
+		<sql id="TA030P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+								 T1.KBN_CD 					AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,T1.SHINSEI_FLG				AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼金額
+					FROM		 MDOT0011 T2								-- 補充依頼申請(B)
+					LEFT JOIN	 MDOT0010 T1								-- 補充依頼申請(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+							AND	 T1.KBN_CD = T2.KBN_CD						-- 区分コード
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = T1.KBN_CD					-- 区分コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = T1.SHINSEI_FLG				-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_01_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_01" />		
+			<bind id="BIND_KBN_CD_01" />
+			<bind id="BIND_SHINSEI_FLG_01" />
+			<bind id="BIND_SIIRESAKI_CD_01" />
+			<bind id="BIND_BUMON_CD_01" />
+			<bind id="BIND_BURANDO_CD_01" />			
+			<bind id="BIND_UPD_YMD_FROM_01" />
+			<bind id="BIND_UPD_YMD_TO_01" />
+			<bind id="BIND_JISYA_HBN_01" />
+			<bind id="BIND_JAN_CD_01" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 T1.KBN_CD						-- 区分コード
+					,T1.SHINSEI_FLG					-- 状態フラグ
+					,T2.BUMON_CD					-- 部門コード
+					ORDER BY
+					 T1.KBN_CD ASC
+					,T1.SHINSEI_FLG ASC
+					,T2.BUMON_CD ASC
+				</parts>
+			</statement>
+		</sql>
+			/** 補充依頼確定 検索（SQL_HEAD②） **/
+		<sql id="TA030P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+								 T1.KBN_CD 					AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)	　　	AS KBN_NM		-- 区分名称
+								,1							AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)	　　	AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0021 T2								-- 補充依頼確定(B)
+					LEFT JOIN	 MDOT0020 T1								-- 補充依頼確定(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+							AND	 T1.KBN_CD = T2.KBN_CD						-- 区分コード
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = T1.KBN_CD					-- 区分コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = '1'							-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_02_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_02" />	
+			<bind id="BIND_KBN_CD_02" />	
+			<bind id="BIND_SIIRESAKI_CD_02" />
+			<bind id="BIND_BUMON_CD_02" />
+			<bind id="BIND_BURANDO_CD_02" />			
+			<bind id="BIND_UPD_YMD_FROM_02" />
+			<bind id="BIND_UPD_YMD_TO_02" />
+			<bind id="BIND_JISYA_HBN_02" />
+			<bind id="BIND_JAN_CD_02" />			
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+						 T1.KBN_CD				-- 区分コード
+						,T2.BUMON_CD			-- 部門コード
+					ORDER BY
+					 T1.KBN_CD ASC	
+					,SHINSEI_FLG
+					,T2.BUMON_CD ASC
+				</parts>
+			</statement>		
+		</sql>	
+		/** 補充依頼申請と 補充依頼確定　検索（SQL_HEAD① UNION SQL_HEAD②） **/
+		<sql id="TA030P01-01_02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+								 T1.KBN_CD 					AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,T1.SHINSEI_FLG				AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼金額
+					FROM		 MDOT0011 T2								-- 補充依頼申請(B)
+					LEFT JOIN	 MDOT0010 T1								-- 補充依頼申請(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+							AND	 T1.KBN_CD = T2.KBN_CD						-- 区分コード
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = T1.KBN_CD					-- 区分コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = T1.SHINSEI_FLG				-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_01_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_01" />		
+			<bind id="BIND_KBN_CD_01" />
+			<bind id="BIND_SHINSEI_FLG_01" />
+			<bind id="BIND_SIIRESAKI_CD_01" />
+			<bind id="BIND_BUMON_CD_01" />
+			<bind id="BIND_BURANDO_CD_01" />			
+			<bind id="BIND_UPD_YMD_FROM_01" />
+			<bind id="BIND_UPD_YMD_TO_01" />
+			<bind id="BIND_JISYA_HBN_01" />
+			<bind id="BIND_JAN_CD_01" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					 T1.KBN_CD						-- 区分コード
+					,T1.SHINSEI_FLG					-- 状態フラグ
+					,T2.BUMON_CD					-- 部門コード
+				</parts>
+			</statement>		
+			<statement type="final" name="final">
+				<parts>					
+					UNION ALL					
+					SELECT
+								 T1.KBN_CD 					AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,1							AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0021 T2								-- 補充依頼確定(B)
+					LEFT JOIN	 MDOT0020 T1								-- 補充依頼確定(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+							AND	 T1.KBN_CD = T2.KBN_CD						-- 区分コード
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = T1.KBN_CD					-- 区分コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = '1'							-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_02_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_02" />	
+			<bind id="BIND_KBN_CD_02" />	
+			<bind id="BIND_SIIRESAKI_CD_02" />
+			<bind id="BIND_BUMON_CD_02" />
+			<bind id="BIND_BURANDO_CD_02" />			
+			<bind id="BIND_UPD_YMD_FROM_02" />
+			<bind id="BIND_UPD_YMD_TO_02" />
+			<bind id="BIND_JISYA_HBN_02" />
+			<bind id="BIND_JAN_CD_02" />				
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+						 T1.KBN_CD			-- 区分コード
+						,T2.BUMON_CD		-- 部門コード
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>				
+					ORDER BY
+					 KBN_CD ASC
+					,SHINSEI_FLG ASC
+					,BUMON_CD ASC
+				</parts>
+			</statement>					
+		</sql>
+		/** 出荷要望申請 検索（SQL_HEAD③） **/
+		<sql id="TA030P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+								 3 							AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,T1.SHINSEI_FLG				AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0031 T2								-- 出荷要望申請(B)
+					LEFT JOIN	 MDOT0030 T1								-- 出荷要望申請(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = '3'							-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = T1.SHINSEI_FLG				-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_03_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_03" />		
+			<bind id="BIND_KBN_CD_03" />
+			<bind id="BIND_SHINSEI_FLG_03" />
+			<bind id="BIND_SIIRESAKI_CD_03" />
+			<bind id="BIND_BUMON_CD_03" />
+			<bind id="BIND_BURANDO_CD_03" />			
+			<bind id="BIND_UPD_YMD_FROM_03" />
+			<bind id="BIND_UPD_YMD_TO_03" />
+			<bind id="BIND_JISYA_HBN_03" />
+			<bind id="BIND_JAN_CD_03" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+							 T1.SHINSEI_FLG		-- 状態フラグ
+							,T2.BUMON_CD		-- 部門コード
+					ORDER BY
+							 KBN_CD
+							,T1.SHINSEI_FLG		
+							,T2.BUMON_CD		
+				</parts>
+			</statement>
+		</sql>
+		/** 出荷要望確定 検索（SQL_HEAD④） **/
+		<sql id="TA030P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+								 3			 				AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,1							AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0041 T2								-- 出荷要望確定(B)
+					LEFT JOIN	 MDOT0040 T1								-- 出荷要望確定(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = '3'							-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = '1'							-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_04_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_04" />	
+			<bind id="BIND_KBN_CD_04" />	
+			<bind id="BIND_SIIRESAKI_CD_04" />
+			<bind id="BIND_BUMON_CD_04" />
+			<bind id="BIND_BURANDO_CD_04" />			
+			<bind id="BIND_UPD_YMD_FROM_04" />
+			<bind id="BIND_UPD_YMD_TO_04" />
+			<bind id="BIND_JISYA_HBN_04" />
+			<bind id="BIND_JAN_CD_04" />			
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+							 T2.BUMON_CD		-- 部門コード
+					ORDER BY
+							 KBN_CD
+							,SHINSEI_FLG
+							,T2.BUMON_CD		
+				</parts>
+			</statement>		
+		</sql>	
+		/** 出荷要望申請と 出荷要望確定　検索（SQL_HEAD③ UNION SQL_HEAD④） **/
+		<sql id="TA030P01-03_04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+								 3 							AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,T1.SHINSEI_FLG				AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0031 T2								-- 出荷要望申請(B)
+					LEFT JOIN	 MDOT0030 T1								-- 出荷要望申請(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = '3'							-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = T1.SHINSEI_FLG				-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_03_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_03" />		
+			<bind id="BIND_KBN_CD_03" />
+			<bind id="BIND_SHINSEI_FLG_03" />
+			<bind id="BIND_SIIRESAKI_CD_03" />
+			<bind id="BIND_BUMON_CD_03" />
+			<bind id="BIND_BURANDO_CD_03" />			
+			<bind id="BIND_UPD_YMD_FROM_03" />
+			<bind id="BIND_UPD_YMD_TO_03" />
+			<bind id="BIND_JISYA_HBN_03" />
+			<bind id="BIND_JAN_CD_03" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+							 T1.SHINSEI_FLG		-- 状態フラグ
+							,T2.BUMON_CD		-- 部門コード
+				</parts>
+			</statement>		
+			<statement type="final" name="final">
+				<parts>					
+					UNION ALL					
+					SELECT
+								 3			 				AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,1							AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0041 T2								-- 出荷要望確定(B)
+					LEFT JOIN	 MDOT0040 T1								-- 出荷要望確定(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = '3'							-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = '1'							-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_04_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_04" />	
+			<bind id="BIND_KBN_CD_04" />	
+			<bind id="BIND_SIIRESAKI_CD_04" />
+			<bind id="BIND_BUMON_CD_04" />
+			<bind id="BIND_BURANDO_CD_04" />			
+			<bind id="BIND_UPD_YMD_FROM_04" />
+			<bind id="BIND_UPD_YMD_TO_04" />
+			<bind id="BIND_JISYA_HBN_04" />
+			<bind id="BIND_JAN_CD_04" />			
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+							 T2.BUMON_CD		-- 部門コード
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>				
+					ORDER BY
+							 KBN_CD
+							,SHINSEI_FLG
+							,BUMON_CD		
+				</parts>
+			</statement>					
+		</sql>
+		/** 補充依頼申請と 出荷要望申請 検索（SQL_HEAD① UNION SQL_HEAD③） **/
+		<sql id="TA030P01-01_03">
+		<statement type="final" name="final">
+			<parts>
+				SELECT
+				T1.KBN_CD 									AS KBN_CD		-- 区分
+				,MAX(M1.MEISYO_NM)							AS KBN_NM		-- 区分名称
+				,T1.SHINSEI_FLG								AS SHINSEI_FLG	-- 申請状態
+				,MAX(M2.MEISYO_NM)							AS SHINSEI_NM	-- 申請状態名称
+				,T2.BUMON_CD								AS BUMON_CD		-- 部門コード
+				,MAX(M3.BUMONKANA_NM)						AS BUMON_NM		-- 部門カナ名
+				,SUM(T2.IRAI_SU)							AS SUM_SURYO	-- 依頼数量
+				,SUM(T2.IRAI_KIN)							AS SUM_KINGAKU	-- 依頼金額
+				FROM		 MDOT0011 T2									-- 補充依頼申請(B)
+				LEFT JOIN	 MDOT0010 T1									-- 補充依頼申請(H)
+				ON	 T1.TENPO_CD  = T2.TENPO_CD								-- 店舗コード
+				AND	 T1.KANRI_NO  = T2.KANRI_NO								-- 管理№
+				AND	 T1.SYORI_YMD = T2.SYORI_YMD							-- 処理日時
+				AND	 T1.KBN_CD = T2.KBN_CD									-- 区分コード
+				LEFT JOIN	 MDMT0100 M1									-- 名称マスタ
+				ON	 M1.SIKIBETSU_CD  = 'KBN2'								-- 識別コード
+				AND	 M1.MEISYO_CD = T1.KBN_CD								-- 区分コード
+				LEFT JOIN	 MDMT0100 M2									-- 名称マスタ
+				ON	 M2.SIKIBETSU_CD  = 'HTST'								-- 識別コード
+				AND	 M2.MEISYO_CD = T1.SHINSEI_FLG							-- 区分コード
+				LEFT JOIN	 BOMT0060 M3									-- 部門マスタ
+				ON	 M3.BUMON_CD = T2.BUMON_CD								-- 部門コード
+				WHERE
+				0=0
+			</parts>
+		</statement>
+		<statement type="replace" name="SQL_HEAD_ID_01_ADD_WHERE" >
+		<parts>
+		<bind id="BIND_TENPO_CD_01" />
+		<bind id="BIND_KBN_CD_01" />
+		<bind id="BIND_SHINSEI_FLG_01" />
+		<bind id="BIND_SIIRESAKI_CD_01" />
+		<bind id="BIND_BUMON_CD_01" />
+		<bind id="BIND_BURANDO_CD_01" />
+		<bind id="BIND_UPD_YMD_FROM_01" />
+		<bind id="BIND_UPD_YMD_TO_01" />
+		<bind id="BIND_JISYA_HBN_01" />
+		<bind id="BIND_JAN_CD_01" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+				GROUP BY
+				T1.KBN_CD						-- 区分コード
+				,T1.SHINSEI_FLG					-- 状態フラグ
+				,T2.BUMON_CD					-- 部門コード
+			</parts>
+		</statement>
+		<statement type="final" name="final">
+			<parts>
+				UNION ALL
+				SELECT
+				3 											AS KBN_CD		-- 区分
+				,MAX(M1.MEISYO_NM)							AS KBN_NM		-- 区分名称
+				,T1.SHINSEI_FLG								AS SHINSEI_FLG	-- 申請状態
+				,MAX(M2.MEISYO_NM)							AS SHINSEI_NM	-- 申請状態名称
+				,T2.BUMON_CD								AS BUMON_CD		-- 部門コード
+				,MAX(M3.BUMONKANA_NM)						AS BUMON_NM		-- 部門カナ名
+				,SUM(T2.IRAI_SU)							AS SUM_SURYO	-- 依頼数量
+				,SUM(T2.IRAI_KIN)							AS SUM_KINGAKU	-- 依頼数量
+				FROM		 MDOT0031 T2									-- 出荷要望申請(B)
+				LEFT JOIN	 MDOT0030 T1									-- 出荷要望申請(H)
+				ON	 T1.TENPO_CD  = T2.TENPO_CD								-- 店舗コード
+				AND	 T1.KANRI_NO  = T2.KANRI_NO								-- 管理№
+				AND	 T1.SYORI_YMD = T2.SYORI_YMD							-- 処理日時
+				LEFT JOIN	 MDMT0100 M1									-- 名称マスタ
+				ON	 M1.SIKIBETSU_CD  = 'KBN2'								-- 識別コード
+				AND	 M1.MEISYO_CD = '3'										-- 区分コード = 名称コード
+				LEFT JOIN	 MDMT0100 M2									-- 名称マスタ
+				ON	 M2.SIKIBETSU_CD  = 'HTST'								-- 識別コード
+				AND	 M2.MEISYO_CD = T1.SHINSEI_FLG							-- 区分コード
+				LEFT JOIN	 BOMT0060 M3									-- 部門マスタ
+				ON	 M3.BUMON_CD = T2.BUMON_CD								-- 部門コード
+				WHERE
+				0=0
+			</parts>
+		</statement>
+		<statement type="replace" name="SQL_HEAD_ID_03_ADD_WHERE" >
+		<parts>
+		<bind id="BIND_TENPO_CD_03" />
+		<bind id="BIND_KBN_CD_03" />
+		<bind id="BIND_SHINSEI_FLG_03" />
+		<bind id="BIND_SIIRESAKI_CD_03" />
+		<bind id="BIND_BUMON_CD_03" />
+		<bind id="BIND_BURANDO_CD_03" />
+		<bind id="BIND_UPD_YMD_FROM_03" />
+		<bind id="BIND_UPD_YMD_TO_03" />
+		<bind id="BIND_JISYA_HBN_03" />
+		<bind id="BIND_JAN_CD_03" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+				GROUP BY
+				T1.SHINSEI_FLG		-- 状態フラグ
+				,T2.BUMON_CD		-- 部門コード
+			</parts>
+		</statement>
+		<statement type="final" name="final">
+			<parts>
+				ORDER BY
+				KBN_CD ASC
+				,SHINSEI_FLG ASC
+				,BUMON_CD ASC
+			</parts>
+		</statement>
+		</sql>
+		/** 補充依頼申請と 出荷要望確定　検索（SQL_HEAD② UNION SQL_HEAD④） **/
+		<sql id="TA030P01-02_04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+								 T1.KBN_CD 					AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,1							AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0021 T2								-- 補充依頼確定(B)
+					LEFT JOIN	 MDOT0020 T1						-- 補充依頼確定(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD			-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO			-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD		-- 処理日時
+							AND	 T1.KBN_CD = T2.KBN_CD				-- 区分コード
+					LEFT JOIN	 MDMT0100 M1						-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'			-- 識別コード
+							AND	 M1.MEISYO_CD = T1.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100 M2						-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'			-- 識別コード
+							AND	 M2.MEISYO_CD = '1'					-- 区分コード
+					LEFT JOIN	 BOMT0060 M3						-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD			-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_02_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_02" />	
+			<bind id="BIND_KBN_CD_02" />	
+			<bind id="BIND_SIIRESAKI_CD_02" />
+			<bind id="BIND_BUMON_CD_02" />
+			<bind id="BIND_BURANDO_CD_02" />			
+			<bind id="BIND_UPD_YMD_FROM_02" />
+			<bind id="BIND_UPD_YMD_TO_02" />
+			<bind id="BIND_JISYA_HBN_02" />
+			<bind id="BIND_JAN_CD_02" />			
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+						 T1.KBN_CD			-- 区分コード
+						,T2.BUMON_CD		-- 部門コード
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+								 3			 				AS KBN_CD		-- 区分
+								,MAX(M1.MEISYO_NM)			AS KBN_NM		-- 区分名称
+								,1							AS SHINSEI_FLG	-- 申請状態
+								,MAX(M2.MEISYO_NM)			AS SHINSEI_NM	-- 申請状態名称
+								,T2.BUMON_CD				AS BUMON_CD		-- 部門コード
+								,MAX(M3.BUMONKANA_NM)		AS BUMON_NM		-- 部門カナ名
+								,SUM(T2.IRAI_SU)			AS SUM_SURYO	-- 依頼数量
+								,SUM(T2.IRAI_KIN)			AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0041 T2								-- 出荷要望確定(B)
+					LEFT JOIN	 MDOT0040 T1								-- 出荷要望確定(H)
+							 ON	 T1.TENPO_CD  = T2.TENPO_CD					-- 店舗コード
+							AND	 T1.KANRI_NO  = T2.KANRI_NO					-- 管理№
+							AND	 T1.SYORI_YMD = T2.SYORI_YMD				-- 処理日時
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+							 ON	 M1.SIKIBETSU_CD  = 'KBN2'					-- 識別コード
+							AND	 M1.MEISYO_CD = '3'							-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+							ON	 M2.SIKIBETSU_CD  = 'HTST'					-- 識別コード
+							AND	 M2.MEISYO_CD = '1'							-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+							 ON	 M3.BUMON_CD = T2.BUMON_CD					-- 部門コード
+					WHERE
+							0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_04_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_04" />	
+			<bind id="BIND_KBN_CD_04" />	
+			<bind id="BIND_SIIRESAKI_CD_04" />
+			<bind id="BIND_BUMON_CD_04" />
+			<bind id="BIND_BURANDO_CD_04" />			
+			<bind id="BIND_UPD_YMD_FROM_04" />
+			<bind id="BIND_UPD_YMD_TO_04" />
+			<bind id="BIND_JISYA_HBN_04" />
+			<bind id="BIND_JAN_CD_04" />			
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+							 T2.BUMON_CD		-- 部門コード
+				</parts>
+		</statement>
+		<statement type="final" name="final">
+			<parts>
+				ORDER BY
+				 KBN_CD
+				,SHINSEI_FLG		-- 状態フラグ
+				,BUMON_CD		-- 部門コード
+			</parts>
+		</statement>
+	</sql>	
+		/** 補充依頼申請と補充依頼確定と出荷要望申請と出荷要望確定 検索（SQL_HEAD① UNION SQL_HEAD② UNION SQL_HEAD③ UNION SQL_HEAD④） **/
+		<sql id="TA030P01-01_02_03_04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T1.KBN_CD 								AS KBN_CD		-- 区分
+					,MAX(M1.MEISYO_NM)						AS KBN_NM		-- 区分名称
+					,T1.SHINSEI_FLG							AS SHINSEI_FLG	-- 申請状態
+					,MAX(M2.MEISYO_NM)						AS SHINSEI_NM	-- 申請状態名称
+					,T2.BUMON_CD							AS BUMON_CD		-- 部門コード
+					,MAX(M3.BUMONKANA_NM)					AS BUMON_NM		-- 部門カナ名
+					,SUM(T2.IRAI_SU)						AS SUM_SURYO	-- 依頼数量
+					,SUM(T2.IRAI_KIN)						AS SUM_KINGAKU	-- 依頼金額
+					FROM		 MDOT0011 T2								-- 補充依頼申請(B)
+					LEFT JOIN	 MDOT0010 T1								-- 補充依頼申請(H)
+					ON	 T1.TENPO_CD  = T2.TENPO_CD							-- 店舗コード
+					AND	 T1.KANRI_NO  = T2.KANRI_NO							-- 管理№
+					AND	 T1.SYORI_YMD = T2.SYORI_YMD						-- 処理日時
+					AND	 T1.KBN_CD = T2.KBN_CD								-- 区分コード
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+					ON	 M1.SIKIBETSU_CD  = 'KBN2'							-- 識別コード
+					AND	 M1.MEISYO_CD = T1.KBN_CD							-- 区分コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+					ON	 M2.SIKIBETSU_CD  = 'HTST'							-- 識別コード
+					AND	 M2.MEISYO_CD = T1.SHINSEI_FLG						-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+					ON	 M3.BUMON_CD = T2.BUMON_CD							-- 部門コード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_01_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_01" />
+			<bind id="BIND_KBN_CD_01" />
+			<bind id="BIND_SHINSEI_FLG_01" />
+			<bind id="BIND_SIIRESAKI_CD_01" />
+			<bind id="BIND_BUMON_CD_01" />
+			<bind id="BIND_BURANDO_CD_01" />
+			<bind id="BIND_UPD_YMD_FROM_01" />
+			<bind id="BIND_UPD_YMD_TO_01" />
+			<bind id="BIND_JISYA_HBN_01" />
+			<bind id="BIND_JAN_CD_01" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					T1.KBN_CD						-- 区分コード
+					,T1.SHINSEI_FLG					-- 状態フラグ
+					,T2.BUMON_CD					-- 部門コード
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					T1.KBN_CD 								AS KBN_CD		-- 区分
+					,MAX(M1.MEISYO_NM)						AS KBN_NM		-- 区分名称
+					,1										AS SHINSEI_FLG	-- 申請状態
+					,MAX(M2.MEISYO_NM)						AS SHINSEI_NM	-- 申請状態名称
+					,T2.BUMON_CD							AS BUMON_CD		-- 部門コード
+					,MAX(M3.BUMONKANA_NM)					AS BUMON_NM		-- 部門カナ名
+					,SUM(T2.IRAI_SU)						AS SUM_SURYO	-- 依頼数量
+					,SUM(T2.IRAI_KIN)						AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0021 T2								-- 補充依頼確定(B)
+					LEFT JOIN	 MDOT0020 T1								-- 補充依頼確定(H)
+					ON	 T1.TENPO_CD  = T2.TENPO_CD							-- 店舗コード
+					AND	 T1.KANRI_NO  = T2.KANRI_NO							-- 管理№
+					AND	 T1.SYORI_YMD = T2.SYORI_YMD						-- 処理日時
+					AND	 T1.KBN_CD = T2.KBN_CD								-- 区分コード
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+					ON	 M1.SIKIBETSU_CD  = 'KBN2'							-- 識別コード
+					AND	 M1.MEISYO_CD = T1.KBN_CD							-- 区分コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+					ON	 M2.SIKIBETSU_CD  = 'HTST'							-- 識別コード
+					AND	 M2.MEISYO_CD = '1'									-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+					ON	 M3.BUMON_CD = T2.BUMON_CD							-- 部門コード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_02_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_02" />
+			<bind id="BIND_KBN_CD_02" />
+			<bind id="BIND_SIIRESAKI_CD_02" />
+			<bind id="BIND_BUMON_CD_02" />
+			<bind id="BIND_BURANDO_CD_02" />
+			<bind id="BIND_UPD_YMD_FROM_02" />
+			<bind id="BIND_UPD_YMD_TO_02" />
+			<bind id="BIND_JISYA_HBN_02" />
+			<bind id="BIND_JAN_CD_02" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					T1.KBN_CD			-- 区分コード
+					,T2.BUMON_CD		-- 部門コード
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					3 										AS KBN_CD		-- 区分
+					,MAX(M1.MEISYO_NM)						AS KBN_NM		-- 区分名称
+					,T1.SHINSEI_FLG							AS SHINSEI_FLG	-- 申請状態
+					,MAX(M2.MEISYO_NM)						AS SHINSEI_NM	-- 申請状態名称
+					,T2.BUMON_CD							AS BUMON_CD		-- 部門コード
+					,MAX(M3.BUMONKANA_NM)					AS BUMON_NM		-- 部門カナ名
+					,SUM(T2.IRAI_SU)						AS SUM_SURYO	-- 依頼数量
+					,SUM(T2.IRAI_KIN)						AS SUM_KINGAKU	-- 依頼数量
+					FROM		 MDOT0031 T2								-- 出荷要望申請(B)
+					LEFT JOIN	 MDOT0030 T1								-- 出荷要望申請(H)
+					ON	 T1.TENPO_CD  = T2.TENPO_CD							-- 店舗コード
+					AND	 T1.KANRI_NO  = T2.KANRI_NO							-- 管理№
+					AND	 T1.SYORI_YMD = T2.SYORI_YMD						-- 処理日時
+					LEFT JOIN	 MDMT0100 M1								-- 名称マスタ
+					ON	 M1.SIKIBETSU_CD  = 'KBN2'							-- 識別コード
+					AND	 M1.MEISYO_CD = '3'									-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2								-- 名称マスタ
+					ON	 M2.SIKIBETSU_CD  = 'HTST'							-- 識別コード
+					AND	 M2.MEISYO_CD = T1.SHINSEI_FLG						-- 区分コード
+					LEFT JOIN	 BOMT0060 M3								-- 部門マスタ
+					ON	 M3.BUMON_CD = T2.BUMON_CD							-- 部門コード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_HEAD_ID_03_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_03" />
+			<bind id="BIND_KBN_CD_03" />
+			<bind id="BIND_SHINSEI_FLG_03" />
+			<bind id="BIND_SIIRESAKI_CD_03" />
+			<bind id="BIND_BUMON_CD_03" />
+			<bind id="BIND_BURANDO_CD_03" />
+			<bind id="BIND_UPD_YMD_FROM_03" />
+			<bind id="BIND_UPD_YMD_TO_03" />
+			<bind id="BIND_JISYA_HBN_03" />
+			<bind id="BIND_JAN_CD_03" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					T1.SHINSEI_FLG		-- 状態フラグ
+					,T2.BUMON_CD		-- 部門コード
+				</parts>
+			</statement>
+				<statement type="final" name="final">
+					<parts>
+						UNION ALL
+						SELECT
+						3			 						AS KBN_CD		-- 区分
+						,MAX(M1.MEISYO_NM)					AS KBN_NM		-- 区分名称
+						,1									AS SHINSEI_FLG	-- 申請状態
+						,MAX(M2.MEISYO_NM)					AS SHINSEI_NM	-- 申請状態名称
+						,T2.BUMON_CD						AS BUMON_CD		-- 部門コード
+						,MAX(M3.BUMONKANA_NM)				AS BUMON_NM		-- 部門カナ名
+						,SUM(T2.IRAI_SU)					AS SUM_SURYO	-- 依頼数量
+						,SUM(T2.IRAI_KIN)					AS SUM_KINGAKU	-- 依頼数量
+						FROM		 MDOT0041 T2							-- 出荷要望確定(B)
+						LEFT JOIN	 MDOT0040 T1							-- 出荷要望確定(H)
+						ON	 T1.TENPO_CD  = T2.TENPO_CD						-- 店舗コード
+						AND	 T1.KANRI_NO  = T2.KANRI_NO						-- 管理№
+						AND	 T1.SYORI_YMD = T2.SYORI_YMD					-- 処理日時
+						LEFT JOIN	 MDMT0100 M1							-- 名称マスタ
+						ON	 M1.SIKIBETSU_CD  = 'KBN2'						-- 識別コード
+						AND	 M1.MEISYO_CD = '3'								-- 区分コード = 名称コード
+						LEFT JOIN	 MDMT0100 M2							-- 名称マスタ
+						ON	 M2.SIKIBETSU_CD  = 'HTST'						-- 識別コード
+						AND	 M2.MEISYO_CD = '1'								-- 区分コード
+						LEFT JOIN	 BOMT0060 M3							-- 部門マスタ
+						ON	 M3.BUMON_CD = T2.BUMON_CD						-- 部門コード
+						WHERE
+						0=0
+					</parts>
+				</statement>
+				<statement type="replace" name="SQL_HEAD_ID_04_ADD_WHERE" >
+				<parts>
+				<bind id="BIND_TENPO_CD_04" />
+				<bind id="BIND_KBN_CD_04" />
+				<bind id="BIND_SIIRESAKI_CD_04" />
+				<bind id="BIND_BUMON_CD_04" />
+				<bind id="BIND_BURANDO_CD_04" />
+				<bind id="BIND_UPD_YMD_FROM_04" />
+				<bind id="BIND_UPD_YMD_TO_04" />
+				<bind id="BIND_JISYA_HBN_04" />
+				<bind id="BIND_JAN_CD_04" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+						GROUP BY
+						T2.BUMON_CD		-- 部門コード
+					</parts>
+				</statement>
+				<statement type="final" name="final">
+					<parts>
+						ORDER BY
+						KBN_CD ASC
+						,SHINSEI_FLG ASC
+						,BUMON_CD ASC
+					</parts>
+				</statement>
+			</sql>
+		/** 補充依頼申請 検索（SQL_DETAIL①） **/
+		<sql id="TA030P02-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T2.KBN_CD 			AS	KBN_CD			-- 補充発注申請(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,T1.SHINSEI_FLG		AS	SHINSEI_FLG		-- 補充発注申請(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 補充発注申請(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 補充発注申請(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 補充発注申請(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 補充発注申請(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 補充発注申請(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 補充発注申請(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 補充発注申請(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 補充発注申請(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 補充発注申請(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 補充発注申請(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 補充発注申請(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 補充発注申請(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 補充発注申請(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 補充発注申請(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 補充発注申請(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 補充発注申請(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 補充発注申請(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0011 T2				-- 補充発注申請(B)
+					LEFT JOIN	 MDOT0010 T1				-- 補充発注申請(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					AND 	 T1.KBN_CD = T2.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100	M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = T2.KBN_CD		-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND	 	 M2.MEISYO_CD = T1.SHINSEI_FLG  -- 申請状態
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 M3.BUMON_CD = T2.BUMON_CD		-- 部門コード
+					AND  	 M3.HINSYU_CD = T2.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 M4.IRO_CD = T2.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 担当者マスタ
+					ON  	 M5.HANBAIIN_CD = T1.UPD_TANCD 	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 M6.BUMON_CD = T2.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN　　MDMT0130 M8				-- 発注マスタ
+					　　ON       M8.JAN_CD = T2.JAN_CD		--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_01_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_01" />
+			<bind id="BIND_KBN_CD_01" />
+			<bind id="BIND_SHINSEI_FLG_01" />
+			<bind id="BIND_SIIRESAKI_CD_01" />
+			<bind id="BIND_BUMON_CD_01" />
+			<bind id="BIND_BURANDO_CD_01" />
+			<bind id="BIND_UPD_YMD_FROM_01" />
+			<bind id="BIND_UPD_YMD_TO_01" />
+			<bind id="BIND_JISYA_HBN_01" />
+			<bind id="BIND_JAN_CD_01" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+				order by T1.KBN_CD
+				,T1.SHINSEI_FLG
+				,T2.BUMON_CD
+				,T2.BURANDO_CD
+				,T2.JISYA_HBN
+				,T2.SIZE_CD
+				,T1.UPD_YMD
+				,T1.UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+		/** 補充依頼確定 検索（SQL_DETAIL②） **/
+		<sql id="TA030P02-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T2.KBN_CD 			AS	KBN_CD			-- 補充発注確定(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,1					AS	SHINSEI_FLG		-- 補充発注確定(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 補充発注確定(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 補充発注確定(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 補充発注確定(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 補充発注確定(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 補充発注確定(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 補充発注確定(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 補充発注確定(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 補充発注確定(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 補充発注確定(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 補充発注確定(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 補充発注確定(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 担当者マスタ.担当者名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 補充発注確定(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 補充発注確定(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 補充発注確定(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 補充発注確定(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 補充発注確定(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 補充発注確定(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0021 T2				-- 補充発注確定(B)
+					LEFT JOIN	 MDOT0020 T1				-- 補充発注確定(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					AND 	 T1.KBN_CD = T2.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100	M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = T2.KBN_CD		-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = '1'				-- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 担当者マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 担当者コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN    MDMT0130 M8				-- 発注マスタ
+					ON       M8.JAN_CD = T2.JAN_CD			--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_02_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_02" />
+			<bind id="BIND_KBN_CD_02" />
+			<bind id="BIND_SIIRESAKI_CD_02" />
+			<bind id="BIND_BUMON_CD_02" />
+			<bind id="BIND_BURANDO_CD_02" />
+			<bind id="BIND_UPD_YMD_FROM_02" />
+			<bind id="BIND_UPD_YMD_TO_02" />
+			<bind id="BIND_JISYA_HBN_02" />
+			<bind id="BIND_JAN_CD_02" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					order by T1.KBN_CD
+					,SHINSEI_FLG
+					,T2.BUMON_CD
+					,T2.BURANDO_CD
+					,T2.JISYA_HBN
+					,T2.SIZE_CD
+					,T1.UPD_YMD
+					,T1.UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+		/** 出荷要望申請 検索（SQL_DETAIL③） **/
+		<sql id="TA030P02-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					3 					AS	KBN_CD			-- 出荷要望申請(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,T1.SHINSEI_FLG		AS	SHINSEI_FLG		-- 出荷要望申請(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 出荷要望申請(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 出荷要望申請(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 出荷要望申請(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 出荷要望申請(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 出荷要望申請(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 出荷要望申請(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 出荷要望申請(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 出荷要望申請(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 出荷要望申請(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 出荷要望申請(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 出荷要望申請(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 出荷要望申請(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 出荷要望申請(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 出荷要望申請(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 出荷要望申請(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 出荷要望申請(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 出荷要望申請(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0031 T2				-- 出荷要望申請(B)
+					LEFT JOIN	 MDOT0030 T1				-- 出荷要望申請(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					LEFT JOIN	 MDMT0100 M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = '3'				-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = T1.SHINSEI_FLG  -- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 販売員マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN　　MDMT0130 M8				-- 発注マスタ
+					　　ON       M8.JAN_CD = T2.JAN_CD		--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_03_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_03" />
+			<bind id="BIND_KBN_CD_03" />
+			<bind id="BIND_SHINSEI_FLG_03" />
+			<bind id="BIND_SIIRESAKI_CD_03" />
+			<bind id="BIND_BUMON_CD_03" />
+			<bind id="BIND_BURANDO_CD_03" />
+			<bind id="BIND_UPD_YMD_FROM_03" />
+			<bind id="BIND_UPD_YMD_TO_03" />
+			<bind id="BIND_JISYA_HBN_03" />
+			<bind id="BIND_JAN_CD_03" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					order by KBN_CD
+					,SHINSEI_FLG
+					,T2.BUMON_CD
+					,T2.BURANDO_CD
+					,T2.JISYA_HBN
+					,T2.SIZE_CD
+					,T1.UPD_YMD
+					,T1.UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+		/** 出荷要望申請 検索（SQL_DETAIL④） **/
+		<sql id="TA030P02-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					3 					AS	KBN_CD			-- 出荷要望確定(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,1					AS	SHINSEI_FLG		-- 出荷要望確定(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 出荷要望確定(B).品種コー
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 出荷要望確定(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 出荷要望確定(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 出荷要望確定(B).メーカー
+					,T2.IRO_CD			AS	IRO_CD			-- 出荷要望確定(B).色コード(
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 出荷要望確定(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 出荷要望確定(B).商品コー
+					,T2.IRAI_SU			AS	IRAI_SU			-- 出荷要望確定(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 出荷要望確定(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 出荷要望確定(H).発注日(更
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 出荷要望確定(H).担当者コ
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 出荷要望確定(B).部門コー
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 出荷要望確定(B).ブランド
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名
+					,T2.SYONMK			AS	SYONMK			-- 出荷要望確定(B).商品名(カ
+					,T2.SIZE_NM			AS	SIZE_NM			-- 出荷要望確定(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 出荷要望確定(B).サイズコ
+					,T2.GEN_TNK			AS	GEN_TNK			-- 出荷要望確定(B).原単価(隠
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0041 T2				-- 出荷要望確定(B)
+					LEFT JOIN	 MDOT0040 T1				-- 出荷要望確定(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時/
+					LEFT JOIN	 MDMT0100 M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コ-ド
+					AND  	 M1.MEISYO_CD = 3				-- 区分コード = 名称
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = 1				-- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5 				-- 販売員マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN    MDMT0130 M8				-- 発注マスタ
+					ON       M8.JAN_CD = T2.JAN_CD			--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_04_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_04" />
+			<bind id="BIND_KBN_CD_04" />
+			<bind id="BIND_SIIRESAKI_CD_04" />
+			<bind id="BIND_BUMON_CD_04" />
+			<bind id="BIND_BURANDO_CD_04" />
+			<bind id="BIND_UPD_YMD_FROM_04" />
+			<bind id="BIND_UPD_YMD_TO_04" />
+			<bind id="BIND_JISYA_HBN_04" />
+			<bind id="BIND_JAN_CD_04" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					order by KBN_CD
+					,SHINSEI_FLG
+					,T2.BUMON_CD
+					,T2.BURANDO_CD
+					,T2.JISYA_HBN
+					,T2.SIZE_CD
+					,T1.UPD_YMD
+					,T1.UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+		/** 補充依頼申請と 補充依頼確定　検索（SQL_DETAIL① UNION SQL_DETAIL②） **/
+		<sql id="TA030P02-01_02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T2.KBN_CD 			AS	KBN_CD			-- 補充発注申請(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,T1.SHINSEI_FLG		AS	SHINSEI_FLG		-- 補充発注申請(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 補充発注申請(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 補充発注申請(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 補充発注申請(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 補充発注申請(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 補充発注申請(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 補充発注申請(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 補充発注申請(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 補充発注申請(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 補充発注申請(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 補充発注申請(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 補充発注申請(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 補充発注申請(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 補充発注申請(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 補充発注申請(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 補充発注申請(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 補充発注申請(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 補充発注申請(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0011 T2				-- 補充発注申請(B)
+					LEFT JOIN	 MDOT0010 T1				-- 補充発注申請(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					AND 	 T1.KBN_CD = T2.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100	M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = T2.KBN_CD		-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND	 	 M2.MEISYO_CD = T1.SHINSEI_FLG  -- 申請状態
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 M3.BUMON_CD = T2.BUMON_CD		-- 部門コード
+					AND  	 M3.HINSYU_CD = T2.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 M4.IRO_CD = T2.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 担当者マスタ
+					ON  	 M5.HANBAIIN_CD = T1.UPD_TANCD 	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 M6.BUMON_CD = T2.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN　　MDMT0130 M8				-- 発注マスタ
+					　　ON       M8.JAN_CD = T2.JAN_CD		--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_01_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_01" />
+			<bind id="BIND_KBN_CD_01" />
+			<bind id="BIND_SHINSEI_FLG_01" />
+			<bind id="BIND_SIIRESAKI_CD_01" />
+			<bind id="BIND_BUMON_CD_01" />
+			<bind id="BIND_BURANDO_CD_01" />
+			<bind id="BIND_UPD_YMD_FROM_01" />
+			<bind id="BIND_UPD_YMD_TO_01" />
+			<bind id="BIND_JISYA_HBN_01" />
+			<bind id="BIND_JAN_CD_01" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					T2.KBN_CD 			AS	KBN_CD			-- 補充発注確定(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,1					AS	SHINSEI_FLG		-- 補充発注確定(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 補充発注確定(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 補充発注確定(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 補充発注確定(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 補充発注確定(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 補充発注確定(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 補充発注確定(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 補充発注確定(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 補充発注確定(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 補充発注確定(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 補充発注確定(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 補充発注確定(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 担当者マスタ.担当者名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 補充発注確定(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 補充発注確定(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 補充発注確定(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 補充発注確定(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 補充発注確定(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 補充発注確定(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0021 T2				-- 補充発注確定(B)
+					LEFT JOIN	 MDOT0020 T1				-- 補充発注確定(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					AND 	 T1.KBN_CD = T2.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100	M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = T2.KBN_CD		-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = '1'				-- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 担当者マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 担当者コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN    MDMT0130 M8				-- 発注マスタ
+					ON       M8.JAN_CD = T2.JAN_CD			--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_02_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_02" />
+			<bind id="BIND_KBN_CD_02" />
+			<bind id="BIND_SIIRESAKI_CD_02" />
+			<bind id="BIND_BUMON_CD_02" />
+			<bind id="BIND_BURANDO_CD_02" />
+			<bind id="BIND_UPD_YMD_FROM_02" />
+			<bind id="BIND_UPD_YMD_TO_02" />
+			<bind id="BIND_JISYA_HBN_02" />
+			<bind id="BIND_JAN_CD_02" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					order by KBN_CD
+					,SHINSEI_FLG
+					,BUMON_CD
+					,BURANDO_CD
+					,JISYA_HBN
+					,SIZE_CD
+					,UPD_YMD
+					,UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+		/** 出荷要望申請と 出荷要望確定　検索（SQL_DETAIL③ UNION SQL_DETAIL④） **/
+		<sql id="TA030P02-03_04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					3 					AS	KBN_CD			-- 出荷要望申請(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,T1.SHINSEI_FLG		AS	SHINSEI_FLG		-- 出荷要望申請(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 出荷要望申請(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 出荷要望申請(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 出荷要望申請(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 出荷要望申請(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 出荷要望申請(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 出荷要望申請(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 出荷要望申請(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 出荷要望申請(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 出荷要望申請(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 出荷要望申請(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 出荷要望申請(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 出荷要望申請(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 出荷要望申請(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 出荷要望申請(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 出荷要望申請(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 出荷要望申請(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 出荷要望申請(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0031 T2				-- 出荷要望申請(B)
+					LEFT JOIN	 MDOT0030 T1				-- 出荷要望申請(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					LEFT JOIN	 MDMT0100 M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = '3'				-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = T1.SHINSEI_FLG  -- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 販売員マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN　　MDMT0130 M8				-- 発注マスタ
+					　　ON       M8.JAN_CD = T2.JAN_CD		--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_03_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_03" />
+			<bind id="BIND_KBN_CD_03" />
+			<bind id="BIND_SHINSEI_FLG_03" />
+			<bind id="BIND_SIIRESAKI_CD_03" />
+			<bind id="BIND_BUMON_CD_03" />
+			<bind id="BIND_BURANDO_CD_03" />
+			<bind id="BIND_UPD_YMD_FROM_03" />
+			<bind id="BIND_UPD_YMD_TO_03" />
+			<bind id="BIND_JISYA_HBN_03" />
+			<bind id="BIND_JAN_CD_03" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					3 					AS	KBN_CD			-- 出荷要望確定(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,1					AS	SHINSEI_FLG		-- 出荷要望確定(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 出荷要望確定(B).品種コー
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 出荷要望確定(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 出荷要望確定(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 出荷要望確定(B).メーカー
+					,T2.IRO_CD			AS	IRO_CD			-- 出荷要望確定(B).色コード(
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 出荷要望確定(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 出荷要望確定(B).商品コー
+					,T2.IRAI_SU			AS	IRAI_SU			-- 出荷要望確定(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 出荷要望確定(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 出荷要望確定(H).発注日(更
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 出荷要望確定(H).担当者コ
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 出荷要望確定(B).部門コー
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 出荷要望確定(B).ブランド
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名
+					,T2.SYONMK			AS	SYONMK			-- 出荷要望確定(B).商品名(カ
+					,T2.SIZE_NM			AS	SIZE_NM			-- 出荷要望確定(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 出荷要望確定(B).サイズコ
+					,T2.GEN_TNK			AS	GEN_TNK			-- 出荷要望確定(B).原単価(隠
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0041 T2				-- 出荷要望確定(B)
+					LEFT JOIN	 MDOT0040 T1				-- 出荷要望確定(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時/
+					LEFT JOIN	 MDMT0100 M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コ-ド
+					AND  	 M1.MEISYO_CD = 3				-- 区分コード = 名称
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = 1				-- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5 				-- 販売員マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN    MDMT0130 M8				-- 発注マスタ
+					ON       M8.JAN_CD = T2.JAN_CD			--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_04_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_04" />
+			<bind id="BIND_KBN_CD_04" />
+			<bind id="BIND_SIIRESAKI_CD_04" />
+			<bind id="BIND_BUMON_CD_04" />
+			<bind id="BIND_BURANDO_CD_04" />
+			<bind id="BIND_UPD_YMD_FROM_04" />
+			<bind id="BIND_UPD_YMD_TO_04" />
+			<bind id="BIND_JISYA_HBN_04" />
+			<bind id="BIND_JAN_CD_04" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					order by KBN_CD
+					,SHINSEI_FLG
+					,BUMON_CD
+					,BURANDO_CD
+					,JISYA_HBN
+					,SIZE_CD
+					,UPD_YMD
+					,UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+		/** 補充依頼申請と 出荷要望申請 検索（SQL_DETAIL① UNION SQL_DETAIL③） **/
+		<sql id="TA030P02-01_03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T2.KBN_CD 			AS	KBN_CD			-- 補充発注申請(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,T1.SHINSEI_FLG		AS	SHINSEI_FLG		-- 補充発注申請(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 補充発注申請(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 補充発注申請(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 補充発注申請(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 補充発注申請(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 補充発注申請(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 補充発注申請(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 補充発注申請(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 補充発注申請(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 補充発注申請(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 補充発注申請(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 補充発注申請(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 補充発注申請(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 補充発注申請(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 補充発注申請(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 補充発注申請(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 補充発注申請(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 補充発注申請(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0011 T2				-- 補充発注申請(B)
+					LEFT JOIN	 MDOT0010 T1				-- 補充発注申請(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					AND 	 T1.KBN_CD = T2.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100	M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = T2.KBN_CD		-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND	 	 M2.MEISYO_CD = T1.SHINSEI_FLG  -- 申請状態
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 M3.BUMON_CD = T2.BUMON_CD		-- 部門コード
+					AND  	 M3.HINSYU_CD = T2.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 M4.IRO_CD = T2.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 担当者マスタ
+					ON  	 M5.HANBAIIN_CD = T1.UPD_TANCD 	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 M6.BUMON_CD = T2.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN　　MDMT0130 M8				-- 発注マスタ
+					　　ON       M8.JAN_CD = T2.JAN_CD		--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_01_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_01" />
+			<bind id="BIND_KBN_CD_01" />
+			<bind id="BIND_SHINSEI_FLG_01" />
+			<bind id="BIND_SIIRESAKI_CD_01" />
+			<bind id="BIND_BUMON_CD_01" />
+			<bind id="BIND_BURANDO_CD_01" />
+			<bind id="BIND_UPD_YMD_FROM_01" />
+			<bind id="BIND_UPD_YMD_TO_01" />
+			<bind id="BIND_JISYA_HBN_01" />
+			<bind id="BIND_JAN_CD_01" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					3 					AS	KBN_CD			-- 出荷要望申請(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,T1.SHINSEI_FLG		AS	SHINSEI_FLG		-- 出荷要望申請(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 出荷要望申請(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 出荷要望申請(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 出荷要望申請(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 出荷要望申請(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 出荷要望申請(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 出荷要望申請(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 出荷要望申請(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 出荷要望申請(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 出荷要望申請(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 出荷要望申請(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 出荷要望申請(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 出荷要望申請(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 出荷要望申請(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 出荷要望申請(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 出荷要望申請(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 出荷要望申請(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 出荷要望申請(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0031 T2				-- 出荷要望申請(B)
+					LEFT JOIN	 MDOT0030 T1				-- 出荷要望申請(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					LEFT JOIN	 MDMT0100 M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = '3'				-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = T1.SHINSEI_FLG  -- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 販売員マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN　　MDMT0130 M8				-- 発注マスタ
+					　　ON       M8.JAN_CD = T2.JAN_CD		--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_03_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_03" />
+			<bind id="BIND_KBN_CD_03" />
+			<bind id="BIND_SHINSEI_FLG_03" />
+			<bind id="BIND_SIIRESAKI_CD_03" />
+			<bind id="BIND_BUMON_CD_03" />
+			<bind id="BIND_BURANDO_CD_03" />
+			<bind id="BIND_UPD_YMD_FROM_03" />
+			<bind id="BIND_UPD_YMD_TO_03" />
+			<bind id="BIND_JISYA_HBN_03" />
+			<bind id="BIND_JAN_CD_03" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					order by KBN_CD
+					,SHINSEI_FLG
+					,BUMON_CD
+					,BURANDO_CD
+					,JISYA_HBN
+					,SIZE_CD
+					,UPD_YMD
+					,UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+		/** 補充依頼申請と 出荷要望確定　検索（SQL_DETAIL② UNION SQL_DETAIL④） **/
+		<sql id="TA030P02-02_04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T2.KBN_CD 			AS	KBN_CD			-- 補充発注確定(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,1					AS	SHINSEI_FLG		-- 補充発注確定(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 補充発注確定(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 補充発注確定(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 補充発注確定(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 補充発注確定(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 補充発注確定(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 補充発注確定(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 補充発注確定(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 補充発注確定(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 補充発注確定(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 補充発注確定(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 補充発注確定(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 担当者マスタ.担当者名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 補充発注確定(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 補充発注確定(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 補充発注確定(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 補充発注確定(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 補充発注確定(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 補充発注確定(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0021 T2				-- 補充発注確定(B)
+					LEFT JOIN	 MDOT0020 T1				-- 補充発注確定(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					AND 	 T1.KBN_CD = T2.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100	M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = T2.KBN_CD		-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = '1'				-- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 担当者マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 担当者コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN    MDMT0130 M8				-- 発注マスタ
+					ON       M8.JAN_CD = T2.JAN_CD			--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_02_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_02" />
+			<bind id="BIND_KBN_CD_02" />
+			<bind id="BIND_SIIRESAKI_CD_02" />
+			<bind id="BIND_BUMON_CD_02" />
+			<bind id="BIND_BURANDO_CD_02" />
+			<bind id="BIND_UPD_YMD_FROM_02" />
+			<bind id="BIND_UPD_YMD_TO_02" />
+			<bind id="BIND_JISYA_HBN_02" />
+			<bind id="BIND_JAN_CD_02" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					3 					AS	KBN_CD			-- 出荷要望確定(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,1					AS	SHINSEI_FLG		-- 出荷要望確定(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 出荷要望確定(B).品種コー
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 出荷要望確定(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 出荷要望確定(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 出荷要望確定(B).メーカー
+					,T2.IRO_CD			AS	IRO_CD			-- 出荷要望確定(B).色コード(
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 出荷要望確定(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 出荷要望確定(B).商品コー
+					,T2.IRAI_SU			AS	IRAI_SU			-- 出荷要望確定(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 出荷要望確定(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 出荷要望確定(H).発注日(更
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 出荷要望確定(H).担当者コ
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 出荷要望確定(B).部門コー
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 出荷要望確定(B).ブランド
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名
+					,T2.SYONMK			AS	SYONMK			-- 出荷要望確定(B).商品名(カ
+					,T2.SIZE_NM			AS	SIZE_NM			-- 出荷要望確定(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 出荷要望確定(B).サイズコ
+					,T2.GEN_TNK			AS	GEN_TNK			-- 出荷要望確定(B).原単価(隠
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0041 T2				-- 出荷要望確定(B)
+					LEFT JOIN	 MDOT0040 T1				-- 出荷要望確定(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時/
+					LEFT JOIN	 MDMT0100 M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コ-ド
+					AND  	 M1.MEISYO_CD = 3				-- 区分コード = 名称
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = 1				-- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5 				-- 販売員マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN    MDMT0130 M8				-- 発注マスタ
+					ON       M8.JAN_CD = T2.JAN_CD			--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_04_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_04" />
+			<bind id="BIND_KBN_CD_04" />
+			<bind id="BIND_SIIRESAKI_CD_04" />
+			<bind id="BIND_BUMON_CD_04" />
+			<bind id="BIND_BURANDO_CD_04" />
+			<bind id="BIND_UPD_YMD_FROM_04" />
+			<bind id="BIND_UPD_YMD_TO_04" />
+			<bind id="BIND_JISYA_HBN_04" />
+			<bind id="BIND_JAN_CD_04" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					order by KBN_CD
+					,SHINSEI_FLG
+					,BUMON_CD
+					,BURANDO_CD
+					,JISYA_HBN
+					,SIZE_CD
+					,UPD_YMD
+					,UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+		/** 補充依頼申請と補充依頼確定と出荷要望申請と出荷要望確定 検索（SQL_DETAIL① UNION SQL_DETAIL② UNION SQL_DETAIL③ UNION SQL_DETAIL④） **/
+		<sql id="TA030P02-01_02_03_04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T2.KBN_CD 			AS	KBN_CD			-- 補充発注申請(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,T1.SHINSEI_FLG		AS	SHINSEI_FLG		-- 補充発注申請(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 補充発注申請(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 補充発注申請(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 補充発注申請(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 補充発注申請(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 補充発注申請(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 補充発注申請(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 補充発注申請(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 補充発注申請(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 補充発注申請(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 補充発注申請(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 補充発注申請(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 補充発注申請(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 補充発注申請(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 補充発注申請(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 補充発注申請(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 補充発注申請(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 補充発注申請(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0011 T2				-- 補充発注申請(B)
+					LEFT JOIN	 MDOT0010 T1				-- 補充発注申請(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					AND 	 T1.KBN_CD = T2.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100	M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = T2.KBN_CD		-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND	 	 M2.MEISYO_CD = T1.SHINSEI_FLG  -- 申請状態
+					LEFT JOIN	 MDMT0070 M3		-- 品種マスタ
+					ON  	 M3.BUMON_CD = T2.BUMON_CD		-- 部門コード
+					AND  	 M3.HINSYU_CD = T2.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 M4.IRO_CD = T2.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 担当者マスタ
+					ON  	 M5.HANBAIIN_CD = T1.UPD_TANCD 	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 M6.BUMON_CD = T2.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN　　MDMT0130 M8				-- 発注マスタ
+					　　ON       M8.JAN_CD = T2.JAN_CD		--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_01_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_01" />
+			<bind id="BIND_KBN_CD_01" />
+			<bind id="BIND_SHINSEI_FLG_01" />
+			<bind id="BIND_SIIRESAKI_CD_01" />
+			<bind id="BIND_BUMON_CD_01" />
+			<bind id="BIND_BURANDO_CD_01" />
+			<bind id="BIND_UPD_YMD_FROM_01" />
+			<bind id="BIND_UPD_YMD_TO_01" />
+			<bind id="BIND_JISYA_HBN_01" />
+			<bind id="BIND_JAN_CD_01" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					T2.KBN_CD 			AS	KBN_CD			-- 補充発注確定(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,1					AS	SHINSEI_FLG		-- 補充発注確定(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 補充発注確定(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 補充発注確定(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 補充発注確定(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 補充発注確定(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 補充発注確定(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 補充発注確定(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 補充発注確定(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 補充発注確定(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 補充発注確定(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 補充発注確定(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 補充発注確定(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 担当者マスタ.担当者名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 補充発注確定(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 補充発注確定(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 補充発注確定(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 補充発注確定(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 補充発注確定(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 補充発注確定(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0021 T2				-- 補充発注確定(B)
+					LEFT JOIN	 MDOT0020 T1				-- 補充発注確定(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					AND 	 T1.KBN_CD = T2.KBN_CD			-- 区分コード
+					LEFT JOIN	 MDMT0100	M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = T2.KBN_CD		-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = '1'				-- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 担当者マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 担当者コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN    MDMT0130 M8				-- 発注マスタ
+					ON       M8.JAN_CD = T2.JAN_CD			--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_02_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_02" />
+			<bind id="BIND_KBN_CD_02" />
+			<bind id="BIND_SIIRESAKI_CD_02" />
+			<bind id="BIND_BUMON_CD_02" />
+			<bind id="BIND_BURANDO_CD_02" />
+			<bind id="BIND_UPD_YMD_FROM_02" />
+			<bind id="BIND_UPD_YMD_TO_02" />
+			<bind id="BIND_JISYA_HBN_02" />
+			<bind id="BIND_JAN_CD_02" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					3 					AS	KBN_CD			-- 出荷要望申請(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,T1.SHINSEI_FLG		AS	SHINSEI_FLG		-- 出荷要望申請(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 出荷要望申請(B).品種コード(隠し)
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 出荷要望申請(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 出荷要望申請(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 出荷要望申請(B).メーカー品番
+					,T2.IRO_CD			AS	IRO_CD			-- 出荷要望申請(B).色コード(隠し)
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 出荷要望申請(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 出荷要望申請(B).商品コード
+					,T2.IRAI_SU			AS	IRAI_SU			-- 出荷要望申請(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 出荷要望申請(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 出荷要望申請(H).発注日(更新日時)
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 出荷要望申請(H).担当者コード
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 出荷要望申請(B).部門コード
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 出荷要望申請(B).ブランドコード
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名カナ
+					,T2.SYONMK			AS	SYONMK			-- 出荷要望申請(B).商品名(カナ)
+					,T2.SIZE_NM			AS	SIZE_NM			-- 出荷要望申請(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 出荷要望申請(B).サイズコード
+					,T2.GEN_TNK			AS	GEN_TNK			-- 出荷要望申請(B).原単価(隠し)
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	-- 発注マスタ.商品属性
+					FROM		 MDOT0031 T2				-- 出荷要望申請(B)
+					LEFT JOIN	 MDOT0030 T1				-- 出荷要望申請(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時
+					LEFT JOIN	 MDMT0100 M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コード
+					AND  	 M1.MEISYO_CD = '3'				-- 区分コード = 名称コード
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = T1.SHINSEI_FLG  -- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5				-- 販売員マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN　　MDMT0130 M8				-- 発注マスタ
+					　　ON       M8.JAN_CD = T2.JAN_CD		--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_03_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_03" />
+			<bind id="BIND_KBN_CD_03" />
+			<bind id="BIND_SHINSEI_FLG_03" />
+			<bind id="BIND_SIIRESAKI_CD_03" />
+			<bind id="BIND_BUMON_CD_03" />
+			<bind id="BIND_BURANDO_CD_03" />
+			<bind id="BIND_UPD_YMD_FROM_03" />
+			<bind id="BIND_UPD_YMD_TO_03" />
+			<bind id="BIND_JISYA_HBN_03" />
+			<bind id="BIND_JAN_CD_03" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					3 					AS	KBN_CD			-- 出荷要望確定(B).区分
+					,M1.MEISYO_NM		AS	KBN_NM			-- 名称マスタ.区分名称
+					,1					AS	SHINSEI_FLG		-- 出荷要望確定(B).状態
+					,M2.MEISYO_NM		AS	SHINSEI_NM		-- 申請状態名称
+					,T2.HINSYU_CD		AS	HINSYU_CD		-- 出荷要望確定(B).品種コー
+					,M3.HINSYU_RYAKU_NM	AS	HINSYU_RYAKU_NM	-- 出荷要望確定(B).品種名
+					,T2.JISYA_HBN		AS	JISYA_HBN		-- 出荷要望確定(B).自社品番
+					,T2.HIN_NBR			AS	HIN_NBR			-- 出荷要望確定(B).メーカー
+					,T2.IRO_CD			AS	IRO_CD			-- 出荷要望確定(B).色コード(
+					,M4.IRO_NM			AS	IRO_RYAKU_NM	-- 色マスタ.色略式名(カナ)
+					,T2.JAN_CD			AS	JAN_CD			-- 出荷要望確定(B).JANコード
+					,T2.SYOHIN_CD		AS	SYOHIN_CD		-- 出荷要望確定(B).商品コー
+					,T2.IRAI_SU			AS	IRAI_SU			-- 出荷要望確定(B).依頼数量
+					,T2.IRAI_KIN		AS	IRAI_KIN		-- 出荷要望確定(B).依頼金額
+					,T1.UPD_YMD			AS	UPD_YMD			-- 出荷要望確定(H).発注日(更
+					,T1.UPD_TANCD		AS	UPD_TANCD		-- 出荷要望確定(H).担当者コ
+					,M5.HANBAIIN_NM		AS	HANBAIIN_NM		-- 販売員マスタ.販売員名
+					,T2.BUMON_CD		AS	BUMON_CD		-- 出荷要望確定(B).部門コー
+					,M6.BUMONKANA_NM	AS	BUMON_NM		-- 部員マスタ.部門名
+					,T2.BURANDO_CD		AS	BURANDO_CD		-- 出荷要望確定(B).ブランド
+					,M7.BURANDO_NMK		AS	BURANDO_NMK		-- ブランドマスタ.ブランド名
+					,T2.SYONMK			AS	SYONMK			-- 出荷要望確定(B).商品名(カ
+					,T2.SIZE_NM			AS	SIZE_NM			-- 出荷要望確定(B).サイズ
+					,T2.SIZE_CD			AS	SIZE_CD			-- 出荷要望確定(B).サイズコ
+					,T2.GEN_TNK			AS	GEN_TNK			-- 出荷要望確定(B).原単価(隠
+					,M8.SYOHIN_ZOKUSEI  AS  SYOHIN_ZOKUSEI	--発注マスタ.商品属性
+					FROM		 MDOT0041 T2				-- 出荷要望確定(B)
+					LEFT JOIN	 MDOT0040 T1				-- 出荷要望確定(H)
+					ON  	 T1.TENPO_CD  = T2.TENPO_CD		-- 店舗コード
+					AND 	 T1.KANRI_NO  = T2.KANRI_NO		-- 管理№
+					AND 	 T1.SYORI_YMD = T2.SYORI_YMD	-- 処理日時/
+					LEFT JOIN	 MDMT0100 M1				-- 名称マスタ
+					ON  	 M1.SIKIBETSU_CD  = 'KBN2'		-- 識別コ-ド
+					AND  	 M1.MEISYO_CD = 3				-- 区分コード = 名称
+					LEFT JOIN	 MDMT0100 M2				-- 名称マスタ
+					ON		 M2.SIKIBETSU_CD  = 'HTST'		-- 識別コード
+					AND		 M2.MEISYO_CD = 1				-- 区分コード
+					LEFT JOIN	 MDMT0070 M3				-- 品種マスタ
+					ON  	 T2.BUMON_CD = M3.BUMON_CD		-- 部門コード
+					AND  	 T2.HINSYU_CD = M3.HINSYU_CD	-- 品種コード
+					LEFT JOIN	 MDMT0080 M4				-- 色マスタ
+					ON  	 T2.IRO_CD = M4.IRO_CD			-- 色コード
+					LEFT JOIN	 BOMT0030 M5 				-- 販売員マスタ
+					ON  	 T1.UPD_TANCD = M5.HANBAIIN_CD	-- 販売員コード
+					LEFT JOIN	 BOMT0060 M6				-- 部門マスタ
+					ON		 T2.BUMON_CD = M6.BUMON_CD		-- 部門コード
+					LEFT JOIN	 STMT0500 M7				-- ブランドマスタ
+					ON		 T2.BURANDO_CD = M7.BURANDO_CD	-- ブランドコード
+					LEFT JOIN    MDMT0130 M8				-- 発注マスタ
+					ON       M8.JAN_CD = T2.JAN_CD			--JANコード
+					WHERE
+					0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="SQL_DETAIL_ID_04_ADD_WHERE" >
+			<parts>
+			<bind id="BIND_TENPO_CD_04" />
+			<bind id="BIND_KBN_CD_04" />
+			<bind id="BIND_SIIRESAKI_CD_04" />
+			<bind id="BIND_BUMON_CD_04" />
+			<bind id="BIND_BURANDO_CD_04" />
+			<bind id="BIND_UPD_YMD_FROM_04" />
+			<bind id="BIND_UPD_YMD_TO_04" />
+			<bind id="BIND_JISYA_HBN_04" />
+			<bind id="BIND_JAN_CD_04" />
+			</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					order by KBN_CD
+					,SHINSEI_FLG
+					,BUMON_CD
+					,BURANDO_CD
+					,JISYA_HBN
+					,SIZE_CD
+					,UPD_YMD
+					,UPD_TANCD
+				</parts>
+			</statement>
+		</sql>
+
+	</sql-list>
+</sql-included>

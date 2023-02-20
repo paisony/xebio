@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Ta080f03_Titlebar" xml:space="preserve">
+    <value>補充・仕入稟議検索</value>
+  </data>
+  <data name="Ta080f03_FormCaption" xml:space="preserve">
+    <value>補充・仕入稟議検索 明細</value>
+  </data>
+  <data name="M1PageInfo" xml:space="preserve">
+    <value>Page: %PAGE_NO% of %PAGE_COUNT%</value>
+  </data>
+  <data name="M1PageInfoNoRec" xml:space="preserve">
+    <value>データがありません。</value>
+  </data>
+  <data name="Btnback" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Stkmodeno" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnmodeyosanjoho" xml:space="preserve">
+    <value>予算情報</value>
+  </data>
+  <data name="Btnmodesiborikomi" xml:space="preserve">
+    <value>絞込み</value>
+  </data>
+  <data name="Meisai_modeno" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Meisai_stkmodeno" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Yosan_ymd" xml:space="preserve">
+    <value>年月度</value>
+  </data>
+  <data name="Yosan_cd" xml:space="preserve">
+    <value>仕入枠ｸﾞﾙｰﾌﾟ</value>
+  </data>
+  <data name="Yosan_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Yosan_kin" xml:space="preserve">
+    <value>予算金額</value>
+  </data>
+  <data name="Misinsei_su" xml:space="preserve">
+    <value>未申請数</value>
+  </data>
+  <data name="Misinsei_kin" xml:space="preserve">
+    <value>未申請金額</value>
+  </data>
+  <data name="Apply_su" xml:space="preserve">
+    <value>申請数</value>
+  </data>
+  <data name="Apply_kin" xml:space="preserve">
+    <value>申請金額</value>
+  </data>
+  <data name="Jisseki_su" xml:space="preserve">
+    <value>実績数</value>
+  </data>
+  <data name="Jisseki_kin" xml:space="preserve">
+    <value>実績金額</value>
+  </data>
+  <data name="Zan_kin" xml:space="preserve">
+    <value>残金額</value>
+  </data>
+  <data name="Yosan_ymd1" xml:space="preserve">
+    <value>年月度</value>
+  </data>
+  <data name="Yosan_cd1" xml:space="preserve">
+    <value>仕入枠ｸﾞﾙｰﾌﾟ</value>
+  </data>
+  <data name="Yosan_nm1" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Bumon_cd_from" xml:space="preserve">
+    <value>部門ＦＲＯＭ</value>
+  </data>
+  <data name="Btnbumon_cd_from" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Bumon_nm_from" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Bumon_cd_to" xml:space="preserve">
+    <value>部門ＴＯ</value>
+  </data>
+  <data name="Btnbumon_cdto" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Bumon_nm_to" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Hinsyu_cd_all" xml:space="preserve">
+    <value>ALL</value>
+  </data>
+  <data name="Hinsyu_cd1" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Hinsyu_cd2" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Hinsyu_cd3" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Hinsyu_cd4" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Hinsyu_cd5" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Hinsyu_cd6" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Hinsyu_cd7" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Hinsyu_cd8" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Hinsyu_cd9" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="Burando_cd" xml:space="preserve">
+    <value>ブランド</value>
+  </data>
+  <data name="Btnburando_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Burando_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Old_jisya_hbn" xml:space="preserve">
+    <value>自社品番</value>
+  </data>
+  <data name="Maker_hbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Scan_cd" xml:space="preserve">
+    <value>ｽｷｬﾝｺｰﾄﾞ</value>
+  </data>
+  <data name="Add_ymd_from" xml:space="preserve">
+    <value>登録日ＦＲＯＭ</value>
+  </data>
+  <data name="Add_ymd_to" xml:space="preserve">
+    <value>登録日ＴＯ</value>
+  </data>
+  <data name="Tantosya_cd" xml:space="preserve">
+    <value>登録担当者</value>
+  </data>
+  <data name="Btntanto_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Hanbaiin_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Irairiyu_cd1" xml:space="preserve">
+    <value>依頼理由</value>
+  </data>
+  <data name="Irairiyu_cd2" xml:space="preserve">
+    <value>依頼理由</value>
+  </data>
+  <data name="Hyoka_kb_mise" xml:space="preserve">
+    <value>評価</value>
+  </data>
+  <data name="Hyoka_kb_all" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Sortkb1" xml:space="preserve">
+    <value>並び順</value>
+  </data>
+  <data name="Sortoptionkb1" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Sortkb2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Sortoptionkb2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Sortkb3" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Sortoptionkb3" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnsearch" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Btnzenstk" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnzenkjo" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnrowins" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnpageins" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnsizstk" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnrowdel" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Pgr" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1bumonkana_nm" xml:space="preserve">
+    <value>部門</value>
+  </data>
+  <data name="M1ten_hyoka_kb" xml:space="preserve">
+    <value>店評価</value>
+  </data>
+  <data name="M1all_hyoka_kb" xml:space="preserve">
+    <value>全評価</value>
+  </data>
+  <data name="M1tosyu_uriage_su" xml:space="preserve">
+    <value>当週売</value>
+  </data>
+  <data name="M1hinsyu_ryaku_nm" xml:space="preserve">
+    <value>品種</value>
+  </data>
+  <data name="M1zensyu_uriage_su" xml:space="preserve">
+    <value>前売</value>
+  </data>
+  <data name="M1zenzensyu_uriage_su" xml:space="preserve">
+    <value>前々売</value>
+  </data>
+  <data name="M1burando_nm" xml:space="preserve">
+    <value>ブランド</value>
+  </data>
+  <data name="M1nyukayotei_su" xml:space="preserve">
+    <value>入荷</value>
+  </data>
+  <data name="M1tenzaiko_su" xml:space="preserve">
+    <value>在庫</value>
+  </data>
+  <data name="M1jido_su" xml:space="preserve">
+    <value>自動定数</value>
+  </data>
+  <data name="M1haibunkano_su" xml:space="preserve">
+    <value>配可数</value>
+  </data>
+  <data name="M1jisya_hbn" xml:space="preserve">
+    <value>自社品番</value>
+  </data>
+  <data name="M1keikaku_ymd" xml:space="preserve">
+    <value>計画期間</value>
+  </data>
+  <data name="M1syohin_zokusei" xml:space="preserve">
+    <value>コア</value>
+  </data>
+  <data name="M1lot_su" xml:space="preserve">
+    <value>ﾛｯﾄ</value>
+  </data>
+  <data name="M1maker_hbn" xml:space="preserve">
+    <value>メーカー品番</value>
+  </data>
+  <data name="M1syonmk" xml:space="preserve">
+    <value>商品名</value>
+  </data>
+  <data name="M1iro_nm" xml:space="preserve">
+    <value>色</value>
+  </data>
+  <data name="M1size_nm" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="M1scan_cd" xml:space="preserve">
+    <value>スキャンコード</value>
+  </data>
+  <data name="M1irai_su" xml:space="preserve">
+    <value>依頼数</value>
+  </data>
+  <data name="M1hatchu_msg" xml:space="preserve">
+    <value>メッセージ</value>
+  </data>
+  <data name="M1genkakin" xml:space="preserve">
+    <value>原価金額</value>
+  </data>
+  <data name="M1hanbaiin_nm" xml:space="preserve">
+    <value>登録担当者</value>
+  </data>
+  <data name="M1irairiyu_cd1" xml:space="preserve">
+    <value>依頼理由</value>
+  </data>
+  <data name="M1irairiyu_cd2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1add_ymd" xml:space="preserve">
+    <value>登録日</value>
+  </data>
+  <data name="M1hanbaikanryo_ymd" xml:space="preserve">
+    <value>販売完了日</value>
+  </data>
+  <data name="M1uriage_su_hdn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1irai_su_hdn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1irairiyu_cd_hdn1" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1irairiyu_cd_hdn2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1gen_tnk" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1genkakin_hdn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1selectorcheckbox" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Gokei_irai_su" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="Gokei_genkakin" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Footer_zan_kin" xml:space="preserve">
+    <value>残</value>
+  </data>
+  <data name="Btnenter" xml:space="preserve">
+    <value>確定</value>
+  </data>
+</root>

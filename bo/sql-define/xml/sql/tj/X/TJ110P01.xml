@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<!-- 検索処理はMdInventoryNew_x.searchInventoryMissingSearch参照-->
+
+		/** 画面初期表示 未送信最大小フェイス№取得 **/
+		<sql id="Tj110P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						MAX(T1.FACE_NO) MAX_FACE
+						,MIN(T1.FACE_NO) MIN_FACE
+					FROM MDIT0010 T1
+					WHERE
+						T1.TENPO_CD			= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND T1.TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" />
+				
+			</statement>
+		</sql>
+		/** 棚卸欠番TBL(削除) **/
+		<sql id="TJ110P01-02">
+			<statement type="final" name="final">
+				<parts>
+					DELETE
+					FROM
+					MDIT0040
+					WHERE	TENCD			=
+				</parts>
+				<bind id="BIND_TENCD" />
+				<parts>
+					AND  TANAOROSIKIJUN_YMD	=
+				</parts>
+				<bind id="BIND_TANAOROSIKIJUN_YMD" />
+				<parts>
+					AND FACE_NO BETWEEN
+				</parts>
+				<bind id="BIND_FACE_NO_FROM" />
+				<parts>  AND </parts>
+				<bind id="BIND_FACE_NO_TO" />
+			</statement>
+		</sql>
+		/** 棚卸確定TBL(H)(存在チェック) **/
+		<sql id="TJ110P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					COUNT(1) CNT
+					FROM
+					MDIT0010
+					WHERE 0 = 0
+				</parts>
+			</statement>
+			<!--条件-->
+			<statement type="replace" name="REP_ADD_WHERE"/>
+		</sql>
+
+	</sql-list>
+</sql-included>

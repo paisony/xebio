@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HENKO_KBN" name="変更区分">
+		<listItems>
+			<item id="10" value="1" label="正常" itemId="Henko_kbn1" />
+			<item id="20" value="2" label="数量修正" itemId="Henko_kbn2" />
+			<item id="30" value="3" label="却下・エラー" itemId="Henko_kbn3" />
+		</listItems>
+	</condition>
+</condition-define>
+

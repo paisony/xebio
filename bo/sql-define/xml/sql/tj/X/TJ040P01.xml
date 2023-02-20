@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 棚卸検索(X)-一覧(件数チェック) **/
+		<sql id="TJ040P01-01">
+      <statement type="final" name="final">
+        <parts>
+          SELECT
+          SUM(CNT) CNT
+          FROM
+          (
+        </parts>
+      </statement>
+      
+      <!--店舗棚卸データ-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDIT0010 T1
+					WHERE
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗／業者区分-->
+			<statement type="replace" name="REPLACE_ID_TENPO_GYOSYA_KB"/>
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD"/>
+			<!--抽出条件：フェイス№ FROM-->
+			<statement type="replace" name="REPLACE_ID_FACE_NO_FROM"/>
+			<!--抽出条件：フェイス№ TO-->
+			<statement type="replace" name="REPLACE_ID_FACE_NO_TO"/>
+			<!--抽出条件：棚段 FROM-->
+			<statement type="replace" name="REPLACE_ID_TANA_DAN_FROM"/>
+			<!--抽出条件：棚段 TO-->
+			<statement type="replace" name="REPLACE_ID_TANA_DAN_TO"/>
+			<!--抽出条件：入力日 FROM-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKU_YMD_FROM"/>
+			<!--抽出条件：入力日 TO-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKU_YMD_TO"/>
+			<!--抽出条件：送信日 FROM-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_FROM"/>
+			<!--抽出条件：送信日 TO-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_TO"/>
+			<!--抽出条件：入力担当者コード-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKUTAN_CD"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN"/>
+			<!--抽出条件：スキャンコード-->
+			<statement type="replace" name="REPLACE_ID_SCAN_CD"/>
+
+			<!--抽出条件：訂正フラグ-->
+			<statement type="replace" name="REPLACE_ID_TEISEI_FLG"/>
+			<!--抽出条件：送信依頼フラグ-->
+			<statement type="replace" name="REPLACE_ID_SOSINIRAI_FLG"/>
+			<!--抽出条件：送信済フラグ-->
+			<statement type="replace" name="REPLACE_ID_SOSINZUMI_FLG"/>
+			<!--抽出条件：棚卸日-->
+			<statement type="replace" name="REPLACE_ID_TANAOROSI_YMD"/>
+      
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<!--業者棚卸データ-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							COUNT(*) CNT
+					FROM
+							MDIT0090 T1
+					WHERE
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗／業者区分-->
+			<statement type="replace" name="REPLACE_ID_TENPO_GYOSYA_KB2"/>
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD2"/>
+			<!--抽出条件：フェイス№ FROM-->
+			<statement type="replace" name="REPLACE_ID_FACE_NO_FROM2"/>
+			<!--抽出条件：フェイス№ TO-->
+			<statement type="replace" name="REPLACE_ID_FACE_NO_TO2"/>
+			<!--抽出条件：棚段 FROM-->
+			<statement type="replace" name="REPLACE_ID_TANA_DAN_FROM2"/>
+			<!--抽出条件：棚段 TO-->
+			<statement type="replace" name="REPLACE_ID_TANA_DAN_TO2"/>
+			<!--抽出条件：入力日 FROM-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKU_YMD_FROM2"/>
+			<!--抽出条件：入力日 TO-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKU_YMD_TO2"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN2"/>
+			<!--抽出条件：スキャンコード-->
+			<statement type="replace" name="REPLACE_ID_SCAN_CD2"/>
+
+      <statement type="final" name="final">
+        <parts>
+          )
+        </parts>
+      </statement>      
+		</sql>
+
+		/** 棚卸検索(X)-一覧(検索ボタン) **/
+		<sql id="TJ040P01-02">
+			<!--店舗棚卸データ-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.TENPO_CD					TENPO_CD
+							,T1.FACE_NO						FACE_NO
+							,T1.TANA_DAN					TANA_DAN
+							,T1.KAI_SU						KAI_SU
+							,T1.TANAOROSI_YMD				TANAOROSI_YMD
+							,T1.SOSINKAI_SU					SOSINKAI_SU
+							,T1.TANADAN_SU					TANADAN_SU
+							,T1.TENSUTANAOROSINYURYOKU_SU	TENSUTANAOROSINYURYOKU_SU
+							,T1.TENSUTANAOROSITEISEI_SU		TENSUTANAOROSITEISEI_SU
+							,T1.TENSUTANAOROSIGOKEI_SU		TENSUTANAOROSIGOKEI_SU
+							,T1.TANAOROSISCAN_SU			TANAOROSISCAN_SU
+							,T1.TANAOROSITEISEI_SU			TANAOROSITEISEI_SU
+							,T1.TANAOROSIGOKEI_SU			TANAOROSIGOKEI_SU
+							,T1.SAI_FLG						SAI_FLG
+							,T1.TEISEI_FLG					TEISEI_FLG
+							,T1.ADD_YMD						ADD_YMD
+							,T1.ADD_TM						ADD_TM
+							,T1.ADDTAN_CD					ADDTAN_CD
+							,T1.UPD_YMD						UPD_YMD
+							,T1.UPD_TM						UPD_TM
+							,T1.UPD_TANCD					UPD_TANCD
+							,T1.SAKUJYO_YMD					SAKUJYO_YMD
+							,T1.SAKUJYO_FLG					SAKUJYO_FLG
+							,T1.SOSINIRAI_FLG				SOSINIRAI_FLG
+							,T1.SOSINZUMI_FLG				SOSINZUMI_FLG
+							,T1.SOSIN_YMD					SOSIN_YMD
+							,T1.SOSIN_TM					SOSIN_TM
+							,T1.HHTSERIAL_NO				HHTSERIAL_NO
+							,T1.HHTSEQUENCE_NO				HHTSEQUENCE_NO
+							,M1.HANBAIIN_NM					ADDTAN_NM
+							,DECODE(T1.TEISEI_FLG,	1,
+													M2.HANBAIIN_NM,
+													NULL)	UPDTAN_NM
+							,1								DATASB
+							,T1.TANAOROSIRIYU_CD			TANAOROSIRIYU_CD
+							,(SELECT M3.RIYUCOMMENT_NM
+							  FROM   MDMT0180 M3
+							  WHERE  M3.GYOMU_KB = '017'
+								AND  M3.RIYU_CD  = T1.TANAOROSIRIYU_CD
+							)								TANAOROSIRIYU_NM
+					FROM
+							MDIT0010 T1
+					LEFT JOIN
+							BOMT0030 M1
+					ON		T1.ADDTAN_CD = M1.HANBAIIN_CD
+					LEFT JOIN
+							BOMT0030 M2
+					ON		T1.UPD_TANCD = M2.HANBAIIN_CD
+					WHERE
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗／業者区分-->
+			<statement type="replace" name="REPLACE_ID_TENPO_GYOSYA_KB"/>
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD"/>
+			<!--抽出条件：フェイス№ FROM-->
+			<statement type="replace" name="REPLACE_ID_FACE_NO_FROM"/>
+			<!--抽出条件：フェイス№ TO-->
+			<statement type="replace" name="REPLACE_ID_FACE_NO_TO"/>
+			<!--抽出条件：棚段 FROM-->
+			<statement type="replace" name="REPLACE_ID_TANA_DAN_FROM"/>
+			<!--抽出条件：棚段 TO-->
+			<statement type="replace" name="REPLACE_ID_TANA_DAN_TO"/>
+			<!--抽出条件：入力日 FROM-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKU_YMD_FROM"/>
+			<!--抽出条件：入力日 TO-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKU_YMD_TO"/>
+			<!--抽出条件：送信日 FROM-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_FROM"/>
+			<!--抽出条件：送信日 TO-->
+			<statement type="replace" name="REPLACE_ID_SOSIN_YMD_TO"/>
+			<!--抽出条件：入力担当者コード-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKUTAN_CD"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN"/>
+			<!--抽出条件：スキャンコード-->
+			<statement type="replace" name="REPLACE_ID_SCAN_CD"/>
+
+			<!--抽出条件：訂正フラグ-->
+			<statement type="replace" name="REPLACE_ID_TEISEI_FLG"/>
+			<!--抽出条件：送信依頼フラグ-->
+			<statement type="replace" name="REPLACE_ID_SOSINIRAI_FLG"/>
+			<!--抽出条件：送信済フラグ-->
+			<statement type="replace" name="REPLACE_ID_SOSINZUMI_FLG"/>
+			<!--抽出条件：棚卸日-->
+			<statement type="replace" name="REPLACE_ID_TANAOROSI_YMD"/>
+
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<!--業者棚卸データ-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.TENPO_CD					TENPO_CD
+							,T1.FACE_NO						FACE_NO
+							,T1.TANA_DAN					TANA_DAN
+							,T1.KAI_SU						KAI_SU
+							,T1.TANAOROSI_YMD				TANAOROSI_YMD
+							,T1.SYORI_YMD					SOSINKAI_SU
+							,T1.TANADAN_SU					TANADAN_SU
+							,0								TENSUTANAOROSINYURYOKU_SU
+							,0								TENSUTANAOROSITEISEI_SU
+							,0								TENSUTANAOROSIGOKEI_SU
+							,T1.TANAOROSIGOKEI_SU			TANAOROSISCAN_SU
+							,0								TANAOROSITEISEI_SU
+							,T1.TANAOROSIGOKEI_SU			TANAOROSIGOKEI_SU
+							,0								SAI_FLG
+							,0								TEISEI_FLG
+							,T1.ADD_YMD						ADD_YMD
+							,T1.ADD_TM						ADD_TM
+							,T1.ADDTAN_CD					ADDTAN_CD
+							,T1.UPD_YMD						UPD_YMD
+							,T1.UPD_TM						UPD_TM
+							,T1.UPD_TANCD					UPD_TANCD
+							,T1.SAKUJYO_YMD					SAKUJYO_YMD
+							,T1.SAKUJYO_FLG					SAKUJYO_FLG
+							,1								SOSINIRAI_FLG
+							,1								SOSINZUMI_FLG
+							,0								SOSIN_YMD
+							,0								SOSIN_TM
+							,NULL							HHTSERIAL_NO
+							,0								HHTSEQUENCE_NO
+							,NULL							ADDTAN_NM
+							,NULL							UPDTAN_NM
+							,2								DATASB
+							,0								TANAOROSIRIYU_CD
+							,NULL							TANAOROSIRIYU_NM
+					FROM
+							MDIT0090 T1
+					WHERE
+				</parts>
+			</statement>
+
+			<!--抽出条件：店舗／業者区分-->
+			<statement type="replace" name="REPLACE_ID_TENPO_GYOSYA_KB2"/>
+			<!--抽出条件：店舗コード-->
+			<statement type="replace" name="REPLACE_ID_TENPO_CD2"/>
+			<!--抽出条件：フェイス№ FROM-->
+			<statement type="replace" name="REPLACE_ID_FACE_NO_FROM2"/>
+			<!--抽出条件：フェイス№ TO-->
+			<statement type="replace" name="REPLACE_ID_FACE_NO_TO2"/>
+			<!--抽出条件：棚段 FROM-->
+			<statement type="replace" name="REPLACE_ID_TANA_DAN_FROM2"/>
+			<!--抽出条件：棚段 TO-->
+			<statement type="replace" name="REPLACE_ID_TANA_DAN_TO2"/>
+			<!--抽出条件：入力日 FROM-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKU_YMD_FROM2"/>
+			<!--抽出条件：入力日 TO-->
+			<statement type="replace" name="REPLACE_ID_NYURYOKU_YMD_TO2"/>
+			<!--抽出条件：自社品番-->
+			<statement type="replace" name="REPLACE_ID_JISYA_HBN2"/>
+			<!--抽出条件：スキャンコード-->
+			<statement type="replace" name="REPLACE_ID_SCAN_CD2"/>
+
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 FACE_NO
+						,TANA_DAN
+						,KAI_SU
+						,SOSIN_YMD
+				</parts>
+			</statement>
+		</sql>
+
+		/** 棚卸検索(X)-一覧(CSVボタン) **/
+		<sql id="TJ040P01-03">
+			<!--店舗棚卸データ-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.TENPO_CD				    TENPO_CD
+							,M3.TENPO_NM				    TENPO_NM
+							,T1.FACE_NO					    FACE_NO
+							,T1.TANA_DAN				    TANA_DAN
+							,T1.KAI_SU					    KAI_SU
+							,T1.SOSINKAI_SU				    SOSINKAI_SU
+							,T2.GYO_NBR						GYO_NBR
+							,T1.TENSUTANAOROSINYURYOKU_SU	TENSUTANAOROSINYURYOKU_SU
+							,T1.TENSUTANAOROSITEISEI_SU		TENSUTANAOROSITEISEI_SU
+							,T1.TENSUTANAOROSIGOKEI_SU		TENSUTANAOROSIGOKEI_SU
+							,(SELECT S1.RIYUCOMMENT_NM
+							  FROM   MDMT0180 S1
+							  WHERE  S1.GYOMU_KB = '017'
+								AND  S1.RIYU_CD    = T1.TANAOROSIRIYU_CD
+							)						            	TANAOROSIRIYU_NM
+							,T1.ADD_YMD								ADD_YMD
+							,T1.SOSIN_YMD							SOSIN_YMD
+							,T1.ADDTAN_CD					        ADDTAN_CD
+							,M2.HANBAIIN_NM							ADDTAN_NM
+							,DECODE(T1.TEISEI_FLG,	1,
+													T1.UPD_TANCD,
+													NULL)			UPDTAN_CD
+							,DECODE(T1.TEISEI_FLG,	1,
+													M7.HANBAIIN_NM,
+													NULL)			UPDTAN_NM
+							,T2.BUMON_CD							BUMON_CD
+							,M5.BUMONKANA_NM						BUMONKANA_NM
+							,T2.HINSYU_CD							HINSYU_CD
+							,M6.HINSYU_RYAKU_NM						HINSYU_RYAKU_NM
+							,T2.BURANDO_CD							BURANDO_CD
+							,M4.BURANDO_NMK							BURANDO_NMK
+							,T2.JISYA_HBN					        JISYA_HBN
+							,T2.MAKER_HBN					        MAKER_HBN
+							,T2.SYONMK						        SYONMK
+							,M1.IRO_NM						        IRO_NM
+							,T2.SIZE_NM								SIZE_NM
+							,T2.JAN_CD								JAN_CD
+							,T2.TANAOROSISCAN_SU					TANAOROSISCAN_SU
+							,T2.TANAOROSITEISEI_SU					TANAOROSITEISEI_SU
+							,T2.TANAOROSIGOKEI_SU					TANAOROSIGOKEI_SU
+							,(SELECT S2.MEISYO_NM
+							  FROM   MDMT0100 S2
+							  WHERE  S2.SIKIBETSU_CD = 'TNSB'
+							    AND  S2.MEISYO_CD    = '1'
+							)										TENPO_GYOSYA_NM
+					FROM
+							MDIT0010 T1
+					INNER JOIN
+							MDIT0011 T2
+					ON		T1.TENPO_CD				= T2.TENPO_CD
+					AND		T1.FACE_NO				= T2.FACE_NO
+					AND		T1.TANA_DAN				= T2.TANA_DAN
+					AND		T1.KAI_SU				= T2.KAI_SU
+					AND		T1.TANAOROSI_YMD		= T2.TANAOROSI_YMD
+					AND		T1.SOSINKAI_SU			= T2.SOSINKAI_SU
+					LEFT JOIN
+							MDMT0080 M1
+					ON		T2.IRO_CD			  = M1.IRO_CD
+					LEFT JOIN
+							BOMT0030 M2
+					ON		T1.ADDTAN_CD		= M2.HANBAIIN_CD
+					LEFT JOIN
+							BOMT0010 M3
+					ON		T1.TENPO_CD			= M3.TENPO_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		T2.BURANDO_CD		= M4.BURANDO_CD
+					LEFT JOIN
+							BOMT0060 M5
+					ON		T2.BUMON_CD			= M5.BUMON_CD
+					LEFT JOIN
+							MDMT0070 M6
+					ON		T2.BUMON_CD			= M6.BUMON_CD
+					AND		T2.HINSYU_CD		= M6.HINSYU_CD
+					LEFT JOIN
+							BOMT0030 M7
+					ON		T1.UPD_TANCD		= M7.HANBAIIN_CD
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：明細選択行-->
+			<statement type="replace" name="REPLACE_ID_MEISAI_SENTAKU1"/>
+
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+				</parts>
+			</statement>
+
+			<!--業者棚卸データ-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.TENPO_CD					        TENPO_CD
+							,M2.TENPO_NM				        	TENPO_NM
+							,T1.FACE_NO					        	FACE_NO
+							,T1.TANA_DAN					        TANA_DAN
+							,T1.KAI_SU					        	KAI_SU
+							,T1.SYORI_YMD					        SOSINKAI_SU
+							,T2.GYO_NBR								GYO_NBR
+							,T1.TENSUTANAOROSIGOKEI_SU				TENSUTANAOROSINYURYOKU_SU
+							,0										TENSUTANAOROSITEISEI_SU
+							,T1.TENSUTANAOROSIGOKEI_SU				TENSUTANAOROSIGOKEI_SU
+							,NULL						           	TANAOROSIRIYU_NM
+							,T1.ADD_YMD				        		ADD_YMD
+							,0							           	SOSIN_YMD
+							,NULL						           	ADDTAN_CD
+							,NULL					            	ADDTAN_NM
+							,NULL						            UPDTAN_CD
+							,NULL						            UPDTAN_NM
+							,T2.BUMON_CD				        	BUMON_CD
+							,M4.BUMONKANA_NM						BUMONKANA_NM
+							,T2.HINSYU_CD					        HINSYU_CD
+							,M5.HINSYU_RYAKU_NM						HINSYU_RYAKU_NM
+							,T2.BURANDO_CD							BURANDO_CD
+							,M3.BURANDO_NMK							BURANDO_NMK
+							,T2.JISYA_HBN				        	JISYA_HBN
+							,T2.MAKER_HBN				         	MAKER_HBN
+							,T2.SYONMK					        	SYONMK
+							,M1.IRO_NM					        	IRO_NM
+							,T2.SIZE_NM					         	SIZE_NM
+							,T2.JAN_CD						        JAN_CD
+							,T2.TANAOROSIGOKEI_SU					TANAOROSISCAN_SU
+							,0										TANAOROSITEISEI_SU
+							,T2.TANAOROSIGOKEI_SU					TANAOROSIGOKEI_SU
+							,(SELECT S2.MEISYO_NM
+							  FROM   MDMT0100 S2
+							  WHERE  S2.SIKIBETSU_CD = 'TNSB'
+							    AND  S2.MEISYO_CD    = '2'
+							)                             TENPO_GYOSYA_NM
+					FROM
+							MDIT0090 T1
+					INNER JOIN
+							MDIT0091 T2
+					ON		T1.TENPO_CD		  	= T2.TENPO_CD
+					AND		T1.FACE_NO		  	= T2.FACE_NO
+					AND		T1.TANA_DAN			= T2.TANA_DAN
+					AND		T1.KAI_SU		    = T2.KAI_SU
+					AND		T1.TANAOROSI_YMD	= T2.TANAOROSI_YMD
+					AND		T1.SYORI_YMD		= T2.SYORI_YMD
+					LEFT JOIN
+							MDMT0080 M1
+					ON		T2.IRO_CD		  	= M1.IRO_CD
+					LEFT JOIN
+							BOMT0010 M2
+					ON		T1.TENPO_CD			= M2.TENPO_CD
+					LEFT JOIN
+							STMT0500 M3
+					ON		T2.BURANDO_CD		= M3.BURANDO_CD
+					LEFT JOIN
+							BOMT0060 M4
+					ON		T2.BUMON_CD			= M4.BUMON_CD
+					LEFT JOIN
+							MDMT0070 M5
+					ON		T2.BUMON_CD			= M5.BUMON_CD
+					AND		T2.HINSYU_CD		= M5.HINSYU_CD
+				</parts>
+			</statement>
+
+			<statement type="final" name="final">
+				<parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+
+			<!--抽出条件：明細選択行-->
+			<statement type="replace" name="REPLACE_ID_MEISAI_SENTAKU2"/>
+
+      <statement type="final" name="final">
+        <parts>
+          ORDER BY
+           FACE_NO
+          ,TANA_DAN
+          ,KAI_SU
+          ,SOSIN_YMD
+          ,GYO_NBR
+        </parts>
+      </statement>      
+		</sql>
+
+		/** 棚卸検索(X)-一覧(M1フェイスNoリンク(店舗)) **/
+		<sql id="TJ040P01-04">
+			<!--店舗棚卸データ-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.TENPO_CD			TENPO_CD
+							,T1.FACE_NO				FACE_NO
+							,T1.TANA_DAN			TANA_DAN
+							,T1.KAI_SU				KAI_SU
+							,T1.TANAOROSI_YMD		TANAOROSI_YMD
+							,T1.SOSINKAI_SU			SOSINKAI_SU
+							,T1.GYO_NBR				GYO_NBR
+							,T1.BUMON_CD			BUMON_CD
+							,M3.BUMONKANA_NM		BUMON_NM
+							,T1.HINSYU_CD			HINSYU_CD
+							,M1.HINSYU_RYAKU_NM		HINSYU_RYAKU_NM
+							,T1.BURANDO_CD			BURANDO_CD
+							,M4.BURANDO_NMK			BURANDO_NMK
+							,T1.MAKER_HBN			MAKER_HBN
+							,T1.JISYA_HBN			JISYA_HBN
+							,T1.SYONMK				SYONMK
+							,T1.JAN_CD				JAN_CD
+							,T1.SYOHIN_CD			SYOHIN_CD
+							,T1.TANAOROSISCAN_SU	TANAOROSISCAN_SU
+							,T1.TANAOROSITEISEI_SU	TANAOROSITEISEI_SU
+							,T1.TANAOROSIGOKEI_SU	TANAOROSIGOKEI_SU
+							,T1.IRO_CD				IRO_CD
+							,T1.SIZE_CD				SIZE_CD
+							,T1.SIZE_NM				SIZE_NM
+							,M2.IRO_NM				IRO_NM
+							,M3.BUMONKANA_NM		BUMONKANA_NM
+					FROM
+							MDIT0011 T1
+					LEFT JOIN
+							MDMT0070 M1
+					ON		T1.BUMON_CD		= M1.BUMON_CD
+					AND		T1.HINSYU_CD	= M1.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 M2
+					ON		T1.IRO_CD		= M2.IRO_CD
+					LEFT JOIN
+							BOMT0060 M3
+					ON		T1.BUMON_CD		= M3.BUMON_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		T1.BURANDO_CD	= M4.BURANDO_CD
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					WHERE 
+              	T1.TENPO_CD			 = </parts><bind id="BIND_TENPO_CD" /><parts>
+          AND   T1.FACE_NO       = </parts><bind id="BIND_FACE_NO" /><parts>
+          AND   T1.TANA_DAN      = </parts><bind id="BIND_TANA_DAN" /><parts>
+          AND   T1.KAI_SU        = </parts><bind id="BIND_KAI_SU" /><parts>
+          AND   T1.TANAOROSI_YMD = </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+          AND   T1.SOSINKAI_SU   = </parts><bind id="BIND_SOSINKAI_SU" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.GYO_NBR
+				</parts>
+			</statement>
+		</sql>
+
+		/** 棚卸検索(X)-一覧(M1フェイスNoリンク(業者)) **/
+		<sql id="TJ040P01-05">
+			<!--業者棚卸データ-->
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.TENPO_CD			TENPO_CD
+							,T1.FACE_NO				FACE_NO
+							,T1.TANA_DAN			TANA_DAN
+							,T1.KAI_SU				KAI_SU
+							,T1.TANAOROSI_YMD		TANAOROSI_YMD
+							,1						SOSINKAI_SU
+							,T1.GYO_NBR				GYO_NBR
+							,T1.BUMON_CD			BUMON_CD
+							,M3.BUMONKANA_NM		BUMON_NM
+							,T1.HINSYU_CD			HINSYU_CD
+							,M1.HINSYU_RYAKU_NM		HINSYU_RYAKU_NM
+							,T1.BURANDO_CD			BURANDO_CD
+							,M4.BURANDO_NMK			BURANDO_NMK
+							,T1.MAKER_HBN			MAKER_HBN
+							,T1.JISYA_HBN			JISYA_HBN
+							,T1.SYONMK				SYONMK
+							,T1.JAN_CD				JAN_CD
+							,T1.SYOHIN_CD			SYOHIN_CD
+							,T1.TANAOROSIGOKEI_SU	TANAOROSISCAN_SU
+							,0						TANAOROSITEISEI_SU
+							,T1.TANAOROSIGOKEI_SU	TANAOROSIGOKEI_SU
+							,T1.IRO_CD				IRO_CD
+							,T1.SIZE_CD				SIZE_CD
+							,T1.SIZE_NM				SIZE_NM
+							,M2.IRO_NM				IRO_NM
+							,M3.BUMONKANA_NM		BUMONKANA_NM
+					FROM
+							MDIT0091 T1
+					LEFT JOIN
+							MDMT0070 M1
+					ON		T1.BUMON_CD		= M1.BUMON_CD
+					AND		T1.HINSYU_CD	= M1.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 M2
+					ON		T1.IRO_CD		= M2.IRO_CD
+					LEFT JOIN
+							BOMT0060 M3
+					ON		T1.BUMON_CD		= M3.BUMON_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		T1.BURANDO_CD	= M4.BURANDO_CD
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					WHERE
+              	T1.TENPO_CD			 = </parts><bind id="BIND_TENPO_CD" /><parts>
+          AND   T1.FACE_NO       = </parts><bind id="BIND_FACE_NO" /><parts>
+          AND   T1.TANA_DAN      = </parts><bind id="BIND_TANA_DAN" /><parts>
+          AND   T1.KAI_SU        = </parts><bind id="BIND_KAI_SU" /><parts>
+          AND   T1.TANAOROSI_YMD = </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+          AND   T1.SYORI_YMD     = </parts><bind id="BIND_SOSINKAI_SU" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.GYO_NBR
+				</parts>
+			</statement>
+		</sql>
+    
+		/** [棚卸確定TBL(H)]を削除 **/
+		<sql id="TJ040P01-06">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDIT0010
+					WHERE
+					  		TENPO_CD      = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		FACE_NO       = </parts><bind id="BIND_FACE_NO" /><parts>
+					AND		TANA_DAN      = </parts><bind id="BIND_TANA_DAN" /><parts>
+					AND		KAI_SU        = </parts><bind id="BIND_KAI_SU" /><parts>
+					AND		TANAOROSI_YMD = </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					AND		SOSINKAI_SU   = </parts><bind id="BIND_SOSINKAI_SU" />
+			</statement>
+		</sql>
+    
+		/** [棚卸確定TBL(B)]を削除 **/
+		<sql id="TJ040P01-07">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDIT0011
+					WHERE
+					  		TENPO_CD      = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		FACE_NO       = </parts><bind id="BIND_FACE_NO" /><parts>
+					AND		TANA_DAN      = </parts><bind id="BIND_TANA_DAN" /><parts>
+					AND		KAI_SU        = </parts><bind id="BIND_KAI_SU" /><parts>
+					AND		TANAOROSI_YMD = </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					AND		SOSINKAI_SU   = </parts><bind id="BIND_SOSINKAI_SU" />
+			</statement>
+		</sql>
+
+	    /** [棚卸欠番TBL]を削除 **/
+	    <sql id="TJ040P01-08">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDIT0040
+					WHERE
+					  		TENCD              = </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		TANAOROSIKIJUN_YMD = </parts><bind id="BIND_TANAOROSIKIJUN_YMD" /><parts>
+					AND		FACE_NO            = </parts><bind id="BIND_FACE_NO" />
+			</statement>
+		</sql>
+
+		/** [棚卸確定TBL(H)]を更新 **/
+		<sql id="TJ040P01-09">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0010 SET
+							 FACE_NO                    =	</parts><bind id="BIND_FACE_NO" /><parts>                 /* フェイス№ */
+							,TANA_DAN	                =	</parts><bind id="BIND_TANA_DAN" /><parts>				  /* 棚段 */
+							,KAI_SU					    =	</parts><bind id="BIND_KAI_SU" /><parts>				  /* 回数 */
+							,TENSUTANAOROSITEISEI_SU    =	</parts><bind id="BIND_TENSUTANATEISEI_SU" /><parts>	  /* 点数棚卸訂正数 */
+							,TENSUTANAOROSIGOKEI_SU     =	</parts><bind id="BIND_TENSUTANAGOKEI_SU" /><parts>		  /* 点数棚卸合計数 */
+							,TANAOROSITEISEI_SU         =	</parts><bind id="BIND_TANATEISEI_SU" /><parts>			  /* 棚卸訂正数量 */
+							,TANAOROSIGOKEI_SU          =	</parts><bind id="BIND_TANAGOKEI_SU" /><parts>            /* 棚卸合計数量 */
+							,SAI_FLG                    =	</parts><bind id="BIND_SAI_FLG" /><parts>                 /* 差異フラグ */
+							,TEISEI_FLG                 =	</parts><bind id="BIND_TEISEI_FLG" /><parts>              /* 訂正フラグ */
+							,UPD_YMD	          	  	=	</parts><bind id="BIND_UPD_YMD" /><parts>				  /* 更新日 */
+							,UPD_TM		          	  	=	</parts><bind id="BIND_UPD_TM" /><parts>				  /* 更新時間 */
+							,UPD_TANCD	            	=	</parts><bind id="BIND_UPD_TANCD" /><parts>               /* 更新担当者コード */
+							,SAKUJYO_YMD        	  	=	</parts><bind id="BIND_SAKUJYO_YMD" /><parts>             /* 削除日 */
+							,MOTO_FACE_NO        	  	=	</parts><bind id="BIND_MOTO_FACE_NO" /><parts>            /* 元フェイス№ */
+							,MOTO_TANA_DAN        	 	=	</parts><bind id="BIND_MOTO_TANA_DAN" /><parts>           /* 元棚段 */
+							,MOTO_KAI_SU          	 	=	</parts><bind id="BIND_MOTO_KAI_SU" /><parts>             /* 元回数 */
+							,TANAOROSIRIYU_CD      	 	=	</parts><bind id="BIND_TANAOROSIRIYU_CD" /><parts>        /* 棚卸理由コード */
+					WHERE
+					  		TENPO_CD      = </parts><bind id="BIND_WHERE_TENPO_CD" /><parts>
+					AND		FACE_NO       = </parts><bind id="BIND_WHERE_FACE_NO" /><parts>
+					AND		TANA_DAN      = </parts><bind id="BIND_WHERE_TANA_DAN" /><parts>
+					AND		KAI_SU        = </parts><bind id="BIND_WHERE_KAI_SU" /><parts>
+					AND		TANAOROSI_YMD = </parts><bind id="BIND_WHERE_TANAOROSI_YMD" /><parts>
+					AND		SOSINKAI_SU   = </parts><bind id="BIND_WHERE_SOSINKAI_SU" />
+			</statement>
+		</sql>
+
+		/** 棚卸検索(X)-明細(回数の取得) **/
+		<sql id="TJ040P01-10">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 MAX(KAI_SU) KAI_SU
+					FROM
+							MDIT0010 T1
+					WHERE 
+					        T1.TENPO_CD		 = </parts><bind id="BIND_TENPO_CD" /><parts>
+					  AND   T1.FACE_NO       = </parts><bind id="BIND_FACE_NO" /><parts>
+					  AND   T1.TANA_DAN      = </parts><bind id="BIND_TANA_DAN" /><parts>
+					  AND   T1.TANAOROSI_YMD = </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					  AND   T1.SOSINKAI_SU   = </parts><bind id="BIND_SOSINKAI_SU" />
+			</statement>
+		</sql>
+
+		/** 棚卸検索(X)-明細(フェイスＮｏ、棚段の存在チェック) **/
+		<sql id="TJ040P01-11">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 COUNT(1) CNT
+					FROM
+							MDIT0010 T1
+					WHERE 
+					        T1.TENPO_CD		 = </parts><bind id="BIND_TENPO_CD" /><parts>
+					  AND   T1.FACE_NO       = </parts><bind id="BIND_FACE_NO" /><parts>
+					  AND   T1.TANA_DAN      = </parts><bind id="BIND_TANA_DAN" /><parts>
+					  AND   T1.TANAOROSI_YMD = </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					  AND   T1.SOSINZUMI_FLG = 0
+					  
+					  AND   (T1.TENPO_CD, T1.FACE_NO, T1.TANA_DAN, T1.KAI_SU, T1.TANAOROSI_YMD, T1.SOSINKAI_SU)
+						    NOT IN((
+									</parts><bind id="BIND_MOTO_TENPO_CD" /><parts>,
+									</parts><bind id="BIND_MOTO_FACE_NO" /><parts>,
+									</parts><bind id="BIND_MOTO_TANA_DAN" /><parts>,
+									</parts><bind id="BIND_MOTO_KAI_SU" /><parts>,
+									</parts><bind id="BIND_MOTO_TANAOROSI_YMD" /><parts>,
+									</parts><bind id="BIND_MOTO_SOSINKAI_SU" /><parts>
+								 ))
+				</parts>
+			</statement>
+		</sql>		
+	</sql-list>
+</sql-included>

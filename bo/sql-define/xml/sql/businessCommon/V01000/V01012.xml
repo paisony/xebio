@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01012-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 M1.BURANDO_CD
+							,M1.BURANDO_NM
+							,M1.BURANDO_NMK
+							,M1.MENTF
+							,M1.DELYMD
+							,M1.UPDYMD
+							,M1.UPDHMS
+					FROM
+							STMT0500 M1
+					WHERE
+							M1.BURANDO_CD = </parts><bind id="BURANDO_CD" /><parts>
+					AND		M1.MENTF IN (</parts><bind id="SAKUJYO_FLG1" /><parts>, </parts><bind id="SAKUJYO_FLG2" /><parts>)
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

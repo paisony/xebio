@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="INJI_COMMENT" name="印字コメント">
+		<listItems>
+			<item id="10" value="1" label="表示価格（税抜き）より" itemId="Inji_comment1" />
+			<item id="20" value="2" label="レジにてさらに" itemId="Inji_comment2" />
+			<item id="30" value="3" label="その他" itemId="Inji_comment3" />
+		</listItems>
+	</condition>
+</condition-define>
+

@@ -1,0 +1,1244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 経費振替確定 件数チェック **/
+		<sql id="TF010P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(*) AS CNT
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+		</sql>
+		/** 経費振替確定（申請、確定） 件数チェック **/
+		<sql id="TF010P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						SUM(CNT) AS CNT
+					FROM
+						(
+							SELECT
+								COUNT(*) AS CNT
+							FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+							WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+						UNION ALL
+							SELECT
+								COUNT(*) AS CNT
+							FROM
+				</parts></statement><statement type="replace" name="TABLE_ID2" /><statement type="final" name="final"><parts>
+							WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="final" name="final">
+				<parts>
+						)
+				</parts>
+			</statement>
+		</sql>
+		/** 経費振替確定一覧 検索(申請テーブル) **/
+		<sql id="TF010P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						  T1.APPLY_YMD								AS APPLY_YMD		/*	申請日 */
+						, 0											AS KAKUTEI_YMD		/*	確定日 */
+						, T1.DENPYO_BANGO							AS DENPYO_BANGO		/*	伝票番号 */
+						, T1.KAMOKU_CD								AS KAMOKU_CD		/*	科目コード */
+						, M2.KAMOKU_NM								AS KAMOKU_NM		/*	科目名 */
+						, ( 
+							SELECT
+								SUM(T1_1.SURYO)
+							FROM
+								MDAT0021 T1_1
+							WHERE
+								T1.DENPYO_BANGO = T1_1.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_1.SYORI_YMD 
+								AND T1.TENPO_CD = T1_1.TENPO_CD
+						)											AS SUURYO 			/*	数量 */
+						, ( 
+							SELECT
+								SUM(T1_2.SURYO * NVL(M1_1.HYOKA_TNK, 0)) 
+							FROM
+								MDAT0021 T1_2
+								INNER JOIN MDMT0130 M1_1
+									ON T1_2.JAN_CD = M1_1.JAN_CD 
+							WHERE
+								T1.DENPYO_BANGO = T1_2.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_2.SYORI_YMD 
+								AND T1.TENPO_CD = T1_2.TENPO_CD
+						)											AS MONEY			/*	原価金額 */
+						, ( 
+							SELECT
+								SUM(T1_3.SURYO * T1_3.BAIKA_TNK) 
+							FROM
+								MDAT0021 T1_3
+							WHERE
+								T1.DENPYO_BANGO = T1_3.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_3.SYORI_YMD 
+								AND T1.TENPO_CD = T1_3.TENPO_CD
+						)											AS BAIKAMONEY		/*	売価金額 */
+						, M1.HANBAIIN_NM							AS HANBAIIN_NM		/*	申請担当者名 */
+						, ( 
+							SELECT
+								M1_2.MEISYO_NM 
+							FROM
+								MDMT0100 M1_2
+							WHERE
+								M1_2.SIKIBETSU_CD = 'KHSN'
+								AND M1_2.MEISYO_CD = 3
+						)											AS SYONINSTATUS		/*	承認種別名 */
+						, T1.SINSEIRIYU								AS SINSEIRIYU		/*	申請理由 */
+						, ''										AS KYAKKARIYU		/*	却下理由 */
+						, T1.SINSEITAN_CD							AS SINSEITAN_CD		/*	申請担当者コード */
+						, T1.SINSEIRIYU_KB							AS SINSEIRIYU_KB	/*	申請理由区分コード */
+						, T1.SYORI_YMD								AS SYORI_YMD		/*	処理日 */
+						, T1.ADD_YMD								AS ADD_YMD			/*	登録日 */
+						, T1.ADD_TM 								AS ADD_TM			/*	登録時間 */
+						, T1.ADDTAN_CD								AS ADDTAN_CD		/*	登録担当者コード */
+						, T1.UPD_YMD								AS UPD_YMD			/*	更新日 */
+						, T1.UPD_TM 								AS UPD_TM			/*	更新時間 */
+						, T1.UPD_TANCD								AS UPD_TANCD		/*	更新担当者コード */
+						, T1.TENPO_CD								AS TENPO_CD			/*	申請店舗コード */
+						, M3.TENPO_NM 								AS TENPO_NM			/*	申請店舗名 */
+						, ''										AS KAKUTEITANTOCD	/*	確定担当者コード */
+						, ''										AS KAKUTEITANTONM	/*	確定担当者名 */
+						, 0											AS SYONINSTATUSKBN	/*	承認状態 */
+						, T1.SYORI_TM								AS SYORI_TM			/*	処理時間 */
+						, 0											AS SOSINZUMI_FLG	/*	送信済みフラグ */
+						, T1.TONANHINKANRI_NO						AS TONANHINKANRI_NO	/*	盗難品管理番号 */
+						, T1.TONANHINSYORI_YMD						AS TONANHINSYORI_YMD/*	盗難品処理日付 */
+						, T1.TONANHINTENPO_CD						AS TONANHINTENPO_CD	/*	盗難品店舗コード */
+						, T1.JYURI_NO								AS JYURI_NO			/*	受理番号 */
+						, T1.GYOMURINGI_NO							AS GYOMURINGI_NO	/*	業務稟議No */
+						, M4.MEISYO_NM								AS MEISYO_NM		/*	申請理由区分名 */
+						, 1											AS TBLFLG 			/*	テーブル区分 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+						LEFT JOIN
+								BOMT0030 M1		/*	担当者マスタ */
+						ON		M1.HANBAIIN_CD = T1.SINSEITAN_CD
+						LEFT JOIN
+								MDMT0040 M2		/*	科目マスタ */
+						ON		M2.KAMOKU_CD = T1.KAMOKU_CD
+						LEFT JOIN
+								BOMT0010 M3		/*	店舗マスタ */
+						ON		M3.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								MDMT0100 M4		/*	名称マスタ */
+						ON		M4.SIKIBETSU_CD = 'KHRY'
+						AND		M4.MEISYO_CD = T1.SINSEIRIYU_KB
+					WHERE 0=0 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="replace" name="ADD_ORDER1" />
+		</sql>
+		/** 経費振替確定一覧 検索(確定テーブル) **/
+		<sql id="TF010P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						  T1.APPLY_YMD								AS APPLY_YMD 			/*	申請日 */
+						, T1.UPD_YMD								AS KAKUTEI_YMD 			/*	確定日 */
+						, T1.DENPYO_BANGO 							AS DENPYO_BANGO 		/*	伝票番号 */
+						, T1.KAMOKU_CD								AS KAMOKU_CD 			/*	科目コード */
+						, M2.KAMOKU_NM								AS KAMOKU_NM 			/*	科目名 */
+						, ( 
+							SELECT
+								  SUM(T1_1.SURYO) 
+							FROM
+								MDAT0031 T1_1
+							WHERE
+								T1.DENPYO_BANGO = T1_1.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_1.SYORI_YMD 
+								AND T1.TENPO_CD = T1_1.TENPO_CD
+						)											AS SUURYO				/*	数量 */
+						, ( 
+							SELECT
+								  SUM(T1_2.SURYO * T1_2.GEN_TNK) 
+							FROM
+								MDAT0031 T1_2
+							WHERE
+								T1.DENPYO_BANGO = T1_2.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_2.SYORI_YMD 
+								AND T1.TENPO_CD = T1_2.TENPO_CD
+						)											AS MONEY				/*	原価金額 */
+						, ( 
+							SELECT
+								  SUM(T1_3.SURYO * T1_3.BAIKA_TNK) 
+							FROM
+								MDAT0031 T1_3
+							WHERE
+								T1.DENPYO_BANGO = T1_3.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_3.SYORI_YMD 
+								AND T1.TENPO_CD = T1_3.TENPO_CD
+						)											AS BAIKAMONEY			/*	売価金額 */
+						, M1.HANBAIIN_NM							AS HANBAIIN_NM			/*	申請担当者名 */
+						, M3.MEISYO_NM								AS SYONINSTATUS			/*	承認種別名 */
+						, T1.SINSEIRIYU								AS SINSEIRIYU			/*	申請理由 */
+						, T1.KYAKKARIYU								AS KYAKKARIYU			/*	却下理由 */
+						, T1.SINSEITAN_CD							AS SINSEITAN_CD			/*	申請担当者コード */
+						, T1.SINSEIRIYU_KB							AS SINSEIRIYU_KB		/*	申請理由区分コード */
+						, T1.SYORI_YMD								AS SYORI_YMD			/*	処理日 */
+						, T1.ADD_YMD								AS ADD_YMD				/*	登録日 */
+						, T1.ADD_TM									AS ADD_TM				/*	登録時間 */
+						, T1.ADDTAN_CD								AS ADDTAN_CD			/*	登録担当者コード */
+						, T1.UPD_YMD								AS UPD_YMD				/*	更新日 */
+						, T1.UPD_TM									AS UPD_TM				/*	更新時間 */
+						, T1.UPD_TANCD								AS UPD_TANCD			/*	更新担当者コード */
+						, T1.TENPO_CD								AS TENPO_CD				/*	申請店舗コード */
+						, M4.TENPO_NM								AS TENPO_NM				/*	申請店舗名 */
+						, T1.UPD_TANCD								AS KAKUTEITANTOCD		/*	確定担当者コード */
+						, M5.HANBAIIN_NM							AS KAKUTEITANTONM		/*	確定担当者名 */
+						, T1.SYONIN_FLG								AS SYONINSTATUSKBN		/*	承認状態 */
+						, T1.SYORI_TM								AS SYORI_TM				/*	処理時間 */
+						, T1.SOSINZUMI_FLG							AS SOSINZUMI_FLG		/*	送信済みフラグ */
+						, T1.TONANHINKANRI_NO						AS TONANHINKANRI_NO		/*	盗難品管理番号 */
+						, T1.TONANHINSYORI_YMD						AS TONANHINSYORI_YMD	/*	盗難品処理日付 */
+						, T1.TONANHINTENPO_CD						AS TONANHINTENPO_CD		/*	盗難品店舗コード */
+						, T1.JYURI_NO								AS JYURI_NO				/*	受理番号 */
+						, T1.GYOMURINGI_NO							AS GYOMURINGI_NO		/*	業務稟議No */
+						, M6.MEISYO_NM								AS MEISYO_NM			/*	申請理由区分名 */
+						, 2											AS TBLFLG 				/*	テーブル区分 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+						LEFT JOIN
+								BOMT0030 M1		/*	担当者マスタ */
+						ON		M1.HANBAIIN_CD = T1.SINSEITAN_CD
+						LEFT JOIN
+								MDMT0040 M2		/*	科目マスタ */
+						ON		M2.KAMOKU_CD = T1.KAMOKU_CD
+						LEFT JOIN
+								MDMT0100 M3		/*	名称マスタ */
+						ON		M3.SIKIBETSU_CD = 'KHSN'
+						AND		M3.MEISYO_CD = T1.SYONIN_FLG
+						LEFT JOIN
+								BOMT0010 M4		/*	店舗マスタ */
+						ON		M4.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0030 M5		/*	担当者マスタ */
+						ON		M5.HANBAIIN_CD = T1.UPD_TANCD
+						LEFT JOIN
+								MDMT0100 M6		/*	名称マスタ */
+						ON		M6.SIKIBETSU_CD = 'KHRY'
+						AND		M6.MEISYO_CD = T1.SINSEIRIYU_KB
+					WHERE 0=0 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="replace" name="ADD_ORDER1" />
+		</sql>
+		/** 経費振替確定一覧 検索(申請、確定テーブル) **/
+		<sql id="TF010P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						  T1.APPLY_YMD								AS APPLY_YMD		/*	申請日 */
+						, 0											AS KAKUTEI_YMD		/*	確定日 */
+						, T1.DENPYO_BANGO							AS DENPYO_BANGO		/*	伝票番号 */
+						, T1.KAMOKU_CD								AS KAMOKU_CD		/*	科目コード */
+						, M2.KAMOKU_NM								AS KAMOKU_NM		/*	科目名 */
+						, ( 
+							SELECT
+								SUM(T1_1.SURYO)
+							FROM
+								MDAT0021 T1_1
+							WHERE
+								T1.DENPYO_BANGO = T1_1.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_1.SYORI_YMD 
+								AND T1.TENPO_CD = T1_1.TENPO_CD
+						)											AS SUURYO 			/*	数量 */
+						, ( 
+							SELECT
+								SUM(T1_2.SURYO * NVL(M1_1.HYOKA_TNK, 0)) 
+							FROM
+								MDAT0021 T1_2
+								INNER JOIN MDMT0130 M1_1
+									ON T1_2.JAN_CD = M1_1.JAN_CD 
+							WHERE
+								T1.DENPYO_BANGO = T1_2.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_2.SYORI_YMD 
+								AND T1.TENPO_CD = T1_2.TENPO_CD
+						)											AS MONEY			/*	原価金額 */
+						, ( 
+							SELECT
+								SUM(T1_3.SURYO * T1_3.BAIKA_TNK) 
+							FROM
+								MDAT0021 T1_3
+							WHERE
+								T1.DENPYO_BANGO = T1_3.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_3.SYORI_YMD 
+								AND T1.TENPO_CD = T1_3.TENPO_CD
+						)											AS BAIKAMONEY		/*	売価金額 */
+						, M1.HANBAIIN_NM							AS HANBAIIN_NM		/*	申請担当者名 */
+						, ( 
+							SELECT
+								M1_2.MEISYO_NM 
+							FROM
+								MDMT0100 M1_2
+							WHERE
+								M1_2.SIKIBETSU_CD = 'KHSN'
+								AND M1_2.MEISYO_CD = 3
+						)											AS SYONINSTATUS		/*	承認種別名 */
+						, T1.SINSEIRIYU								AS SINSEIRIYU		/*	申請理由 */
+						, ''										AS KYAKKARIYU		/*	却下理由 */
+						, T1.SINSEITAN_CD							AS SINSEITAN_CD		/*	申請担当者コード */
+						, T1.SINSEIRIYU_KB							AS SINSEIRIYU_KB	/*	申請理由区分コード */
+						, T1.SYORI_YMD								AS SYORI_YMD		/*	処理日 */
+						, T1.ADD_YMD								AS ADD_YMD			/*	登録日 */
+						, T1.ADD_TM 								AS ADD_TM			/*	登録時間 */
+						, T1.ADDTAN_CD								AS ADDTAN_CD		/*	登録担当者コード */
+						, T1.UPD_YMD								AS UPD_YMD			/*	更新日 */
+						, T1.UPD_TM 								AS UPD_TM			/*	更新時間 */
+						, T1.UPD_TANCD								AS UPD_TANCD		/*	更新担当者コード */
+						, T1.TENPO_CD								AS TENPO_CD			/*	申請店舗コード */
+						, M3.TENPO_NM 								AS TENPO_NM			/*	申請店舗名 */
+						, ''										AS KAKUTEITANTOCD	/*	確定担当者コード */
+						, ''										AS KAKUTEITANTONM	/*	確定担当者名 */
+						, 0											AS SYONINSTATUSKBN	/*	承認状態 */
+						, T1.SYORI_TM								AS SYORI_TM			/*	処理時間 */
+						, 0											AS SOSINZUMI_FLG	/*	送信済みフラグ */
+						, T1.TONANHINKANRI_NO						AS TONANHINKANRI_NO	/*	盗難品管理番号 */
+						, T1.TONANHINSYORI_YMD						AS TONANHINSYORI_YMD/*	盗難品処理日付 */
+						, T1.TONANHINTENPO_CD						AS TONANHINTENPO_CD	/*	盗難品店舗コード */
+						, T1.JYURI_NO								AS JYURI_NO			/*	受理番号 */
+						, T1.GYOMURINGI_NO							AS GYOMURINGI_NO	/*	業務稟議No */
+						, M4.MEISYO_NM								AS MEISYO_NM		/*	申請理由区分名 */
+						, 1											AS TBLFLG 			/*	テーブル区分 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+						LEFT JOIN
+								BOMT0030 M1		/*	担当者マスタ */
+						ON		M1.HANBAIIN_CD = T1.SINSEITAN_CD
+						LEFT JOIN
+								MDMT0040 M2		/*	科目マスタ */
+						ON		M2.KAMOKU_CD = T1.KAMOKU_CD
+						LEFT JOIN
+								BOMT0010 M3		/*	店舗マスタ */
+						ON		M3.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								MDMT0100 M4		/*	名称マスタ */
+						ON		M4.SIKIBETSU_CD = 'KHRY'
+						AND		M4.MEISYO_CD = T1.SINSEIRIYU_KB
+					WHERE 0=0 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+						  T1.APPLY_YMD								AS APPLY_YMD 			/*	申請日 */
+						, T1.UPD_YMD								AS KAKUTEI_YMD 			/*	確定日 */
+						, T1.DENPYO_BANGO 							AS DENPYO_BANGO 		/*	伝票番号 */
+						, T1.KAMOKU_CD								AS KAMOKU_CD 			/*	科目コード */
+						, M2.KAMOKU_NM								AS KAMOKU_NM 			/*	科目名 */
+						, ( 
+							SELECT
+								  SUM(T1_1.SURYO) 
+							FROM
+								MDAT0031 T1_1
+							WHERE
+								T1.DENPYO_BANGO = T1_1.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_1.SYORI_YMD 
+								AND T1.TENPO_CD = T1_1.TENPO_CD
+						)											AS SUURYO				/*	数量 */
+						, ( 
+							SELECT
+								  SUM(T1_2.SURYO * T1_2.GEN_TNK) 
+							FROM
+								MDAT0031 T1_2
+							WHERE
+								T1.DENPYO_BANGO = T1_2.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_2.SYORI_YMD 
+								AND T1.TENPO_CD = T1_2.TENPO_CD
+						)											AS MONEY				/*	原価金額 */
+						, ( 
+							SELECT
+								  SUM(T1_3.SURYO * T1_3.BAIKA_TNK) 
+							FROM
+								MDAT0031 T1_3
+							WHERE
+								T1.DENPYO_BANGO = T1_3.DENPYO_BANGO 
+								AND T1.SYORI_YMD = T1_3.SYORI_YMD 
+								AND T1.TENPO_CD = T1_3.TENPO_CD
+						)											AS BAIKAMONEY			/*	売価金額 */
+						, M1.HANBAIIN_NM							AS HANBAIIN_NM			/*	申請担当者名 */
+						, M3.MEISYO_NM								AS SYONINSTATUS			/*	承認種別名 */
+						, T1.SINSEIRIYU								AS SINSEIRIYU			/*	申請理由 */
+						, T1.KYAKKARIYU								AS KYAKKARIYU			/*	却下理由 */
+						, T1.SINSEITAN_CD							AS SINSEITAN_CD			/*	申請担当者コード */
+						, T1.SINSEIRIYU_KB							AS SINSEIRIYU_KB		/*	申請理由区分コード */
+						, T1.SYORI_YMD								AS SYORI_YMD			/*	処理日 */
+						, T1.ADD_YMD								AS ADD_YMD				/*	登録日 */
+						, T1.ADD_TM									AS ADD_TM				/*	登録時間 */
+						, T1.ADDTAN_CD								AS ADDTAN_CD			/*	登録担当者コード */
+						, T1.UPD_YMD								AS UPD_YMD				/*	更新日 */
+						, T1.UPD_TM									AS UPD_TM				/*	更新時間 */
+						, T1.UPD_TANCD								AS UPD_TANCD			/*	更新担当者コード */
+						, T1.TENPO_CD								AS TENPO_CD				/*	申請店舗コード */
+						, M4.TENPO_NM								AS TENPO_NM				/*	申請店舗名 */
+						, T1.UPD_TANCD								AS KAKUTEITANTOCD		/*	確定担当者コード */
+						, M5.HANBAIIN_NM							AS KAKUTEITANTONM		/*	確定担当者名 */
+						, T1.SYONIN_FLG								AS SYONINSTATUSKBN		/*	承認状態 */
+						, T1.SYORI_TM								AS SYORI_TM				/*	処理時間 */
+						, T1.SOSINZUMI_FLG							AS SOSINZUMI_FLG		/*	送信済みフラグ */
+						, T1.TONANHINKANRI_NO						AS TONANHINKANRI_NO		/*	盗難品管理番号 */
+						, T1.TONANHINSYORI_YMD						AS TONANHINSYORI_YMD	/*	盗難品処理日付 */
+						, T1.TONANHINTENPO_CD						AS TONANHINTENPO_CD		/*	盗難品店舗コード */
+						, T1.JYURI_NO								AS JYURI_NO				/*	受理番号 */
+						, T1.GYOMURINGI_NO							AS GYOMURINGI_NO		/*	業務稟議No */
+						, M6.MEISYO_NM								AS MEISYO_NM			/*	申請理由区分名 */
+						, 2											AS TBLFLG 				/*	テーブル区分 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID2" /><statement type="final" name="final"><parts>
+						LEFT JOIN
+								BOMT0030 M1		/*	担当者マスタ */
+						ON		M1.HANBAIIN_CD = T1.SINSEITAN_CD
+						LEFT JOIN
+								MDMT0040 M2		/*	科目マスタ */
+						ON		M2.KAMOKU_CD = T1.KAMOKU_CD
+						LEFT JOIN
+								MDMT0100 M3		/*	名称マスタ */
+						ON		M3.SIKIBETSU_CD = 'KHSN'
+						AND		M3.MEISYO_CD = T1.SYONIN_FLG
+						LEFT JOIN
+								BOMT0010 M4		/*	店舗マスタ */
+						ON		M4.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0030 M5		/*	担当者マスタ */
+						ON		M5.HANBAIIN_CD = T1.UPD_TANCD
+						LEFT JOIN
+								MDMT0100 M6		/*	名称マスタ */
+						ON		M6.SIKIBETSU_CD = 'KHRY'
+						AND		M6.MEISYO_CD = T1.SINSEIRIYU_KB
+					WHERE 0=0 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="replace" name="ADD_ORDER1" />
+		</sql>
+		/** 経費振替確定 明細 (申請テーブル)**/
+		<sql id="TF010P01-06">
+			<statement type="final" name="final">
+				<parts>
+					SELECT	
+						  T1.DENPYOGYO_NO		AS DENPYOGYO_NO			/*	伝票行№ */
+						, T1.BUMON_CD			AS BUMON_CD				/*	部門コード */
+						, M1.BUMONKANA_NM 		AS BUMONKANA_NM			/*	部門カナ名 */
+						, M1.BUMON_NM	 		AS BUMON_NM				/*	部門名 */
+						, T1.HINSYU_CD			AS HINSYU_CD			/*	品種コード */
+						, M2.HINSYU_RYAKU_NM	AS HINSYU_RYAKU_NM		/*	品種略名称 */
+						, T1.BURANDO_CD			AS BURANDO_CD			/*	ブランドコード */
+						, M3.BURANDO_NMK		AS BURANDO_NMK			/*	ブランド名 */
+						, T1.JISYA_HBN			AS JISYA_HBN			/*	自社品番 */
+						, T1.MAKER_HBN			AS MAKER_HBN			/*	メーカー品番 */
+						, T1.SYONMK				AS SYONMK				/*	商品名(カナ) */
+						, T1.IRO_CD				AS IRO_CD				/*	色コード */
+						, M4.IRO_NM				AS IRO_NM				/*	色名 */
+						, T1.SIZE_CD			AS SIZE_CD				/*	サイズコード */
+						, T1.SIZE_NM			AS SIZE_NM				/*	ｻｲｽﾞ */
+						, T1.JAN_CD				AS JAN_CD				/*	Janコード */
+						, T1.SYOHIN_CD			AS SYOHIN_CD			/*	商品コード */
+						, T1.SURYO				AS SURYO				/*	数量 */
+						, NVL(M5.HYOKA_TNK,0)	AS GEN_TNK				/*	原単価 */
+						, T1.SYORI_TM			AS SYORI_TM				/*	処理時間 */
+						, T1.BAIKA_TNK			AS BAIKA_TNK			/*	売価 */
+					FROM
+						 MDAT0021 T1				/*	経費振替申請TBL(B) */
+						LEFT JOIN
+								BOMT0060 M1			/*	部門マスタ */
+						ON		M1.BUMON_CD = T1.BUMON_CD
+						LEFT JOIN
+							MDMT0070 M2				/*	品種マスタ */
+						ON		M2.BUMON_CD = T1.BUMON_CD
+						AND		M2.HINSYU_CD = T1.HINSYU_CD
+						LEFT JOIN
+							STMT0500 M3				/*	ブランドマスタ */
+						ON		M3.BURANDO_CD = T1.BURANDO_CD
+						LEFT JOIN
+							MDMT0080 M4				/*	色マスタ */
+						ON		M4.IRO_CD = T1.IRO_CD
+						INNER JOIN
+							MDMT0130 M5				/*	発注マスタ */
+						ON		M5.JAN_CD = T1.JAN_CD
+					WHERE
+								T1.TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>
+						AND		T1.SYORI_YMD	= </parts><bind id="BIND_SYORI_YMD" /><parts>
+						AND		T1.DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					ORDER	BY	
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 経費振替確定 明細 (確定テーブル)**/
+		<sql id="TF010P01-07">
+			<statement type="final" name="final">
+				<parts>
+					SELECT	
+						  T1.DENPYOGYO_NO			AS DENPYOGYO_NO		/*	伝票行№ */
+						, T1.BUMON_CD				AS BUMON_CD			/*	部門コード */
+						, M1.BUMONKANA_NM 			AS BUMONKANA_NM		/*	部門カナ名 */
+						, M1.BUMON_NM	 			AS BUMON_NM			/*	部門名 */
+						, T1.HINSYU_CD				AS HINSYU_CD		/*	品種コード */
+						, M2.HINSYU_RYAKU_NM		AS HINSYU_RYAKU_NM	/*	品種略名称 */
+						, T1.BURANDO_CD				AS BURANDO_CD		/*	ブランドコード */
+						, M3.BURANDO_NMK			AS BURANDO_NMK		/*	ブランド名 */
+						, T1.JISYA_HBN				AS JISYA_HBN		/*	自社品番 */
+						, T1.MAKER_HBN				AS MAKER_HBN		/*	メーカー品番 */
+						, T1.SYONMK					AS SYONMK			/*	商品名(カナ) */
+						, T1.IRO_CD					AS IRO_CD			/*	色コード */
+						, M4.IRO_NM					AS IRO_NM			/*	色名 */
+						, T1.SIZE_CD				AS SIZE_CD			/*	サイズコード */
+						, T1.SIZE_NM				AS SIZE_NM			/*	ｻｲｽﾞ */
+						, T1.JAN_CD					AS JAN_CD			/*	Janコード */
+						, T1.SYOHIN_CD				AS SYOHIN_CD		/*	商品コード */
+						, T1.SURYO					AS SURYO			/*	数量 */
+						, T1.GEN_TNK				AS GEN_TNK			/*	原単価 */
+						, T1.SYORI_TM				AS SYORI_TM			/*	処理時間 */
+						, T1.BAIKA_TNK				AS BAIKA_TNK		/*	売価 */
+					FROM
+						 MDAT0031 T1			/*	経費振替確定TBL(B) */
+						LEFT JOIN
+								BOMT0060 M1		/*	部門マスタ */
+						ON		M1.BUMON_CD = T1.BUMON_CD
+						LEFT JOIN
+							MDMT0070 M2			/*	品種マスタ */
+						ON		M2.BUMON_CD = T1.BUMON_CD
+						AND		M2.HINSYU_CD = T1.HINSYU_CD
+						LEFT JOIN
+							STMT0500 M3			/*	ブランドマスタ */
+						ON		M3.BURANDO_CD = T1.BURANDO_CD
+						LEFT JOIN
+							MDMT0080 M4			/*	色マスタ */
+						ON		M4.IRO_CD = T1.IRO_CD
+					WHERE	
+								T1.TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>
+						AND		T1.SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD" /><parts>
+						AND		T1.DENPYO_BANGO	= </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					ORDER	BY	
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 経費振替申請TBL(H) 更新（「確定」「修正」モード）**/
+		<sql id="TF010P01-08">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE	MDAT0020
+					SET
+						 KESSAI_FLG		= </parts><bind id="BIND_KESSAI_FLG" /><parts>			/* 決裁フラグ */
+						,UPD_YMD		= </parts><bind id="BIND_UPD_YMD" /><parts>				/* 更新日 */
+						,UPD_TM			= </parts><bind id="BIND_UPD_TM" /><parts>				/* 更新時間 */
+						,UPD_TANCD		= </parts><bind id="BIND_UPD_TANCD" /><parts>			/* 更新担当者コード */
+						,SAKUJYO_YMD	= </parts><bind id="BIND_SAKUJYO_YMD" /><parts>			/* 削除日 */
+						,SAKUJYO_FLG	= </parts><bind id="BIND_SAKUJYO_FLG" /><parts>			/* 削除フラグ */
+					WHERE
+							DENPYO_BANGO	=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		TENPO_CD		=	</parts><bind id="BIND_TENPO_CD" />
+			</statement>
+		</sql>
+		/** 経費振替確定TBL(H) 登録（「確定」モード）**/
+		<sql id="TF010P01-09">
+			<statement type="final" name="final">
+				<parts>
+					INSERT	INTO MDAT0030
+					(
+						 DENPYO_BANGO
+						,SYORI_YMD
+						,SYORI_TM
+						,TENPO_CD
+						,KAMOKU_CD
+						,SINSEIRIYU_KB
+						,SINSEIRIYU
+						,KYAKKARIYU
+						,SYONIN_FLG
+						,TONANHINKANRI_NO
+						,TONANHINSYORI_YMD
+						,TONANHINTENPO_CD
+						,JYURI_NO
+						,SYUKKAKAISYA_CD
+						,SYUKKATEN_CD
+						,IDODENPYO_BANGO
+						,APPLY_YMD
+						,SINSEITAN_CD
+						,GYOMURINGI_NO
+						,ADD_YMD
+						,ADD_TM
+						,ADDTAN_CD
+						,UPD_YMD
+						,UPD_TM
+						,UPD_TANCD
+						,SAKUJYO_YMD
+						,SAKUJYO_FLG
+						,SOSINIRAI_FLG
+						,SOSINZUMI_FLG
+						,SOSIN_YMD
+						,SOSIN_TM
+						,SHINSEI_DATA_SOSINZUMI_FLG
+						,SHINSEI_DATA_SOSIN_YMD
+						,SHINSEI_DATA_SOSIN_TM
+					)
+					VALUES
+					(
+						 </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+						,</parts><bind id="BIND_SYORI_YMD" /><parts>
+						,</parts><bind id="BIND_SYORI_TM" /><parts>
+						,</parts><bind id="BIND_TENPO_CD" /><parts>
+						,</parts><bind id="BIND_KAMOKU_CD" /><parts>
+						,</parts><bind id="BIND_SINSEIRIYU_KB" /><parts>
+						,</parts><bind id="BIND_SINSEIRIYU" /><parts>
+						,</parts><bind id="BIND_KYAKKARIYU" /><parts>
+						,</parts><bind id="BIND_SYONIN_FLG" /><parts>
+						,</parts><bind id="BIND_TONANHINKANRI_NO" /><parts>
+						,</parts><bind id="BIND_TONANHINSYORI_YMD" /><parts>
+						,</parts><bind id="BIND_TONANHINTENPO_CD" /><parts>
+						,</parts><bind id="BIND_JYURI_NO" /><parts>
+						,</parts><bind id="BIND_SYUKKAKAISYA_CD" /><parts>
+						,</parts><bind id="BIND_SYUKKATEN_CD" /><parts>
+						,</parts><bind id="BIND_IDODENPYO_BANGO" /><parts>
+						,</parts><bind id="BIND_APPLY_YMD" /><parts>
+						,</parts><bind id="BIND_SINSEITAN_CD" /><parts>
+						,</parts><bind id="BIND_GYOMURINGI_NO" /><parts>
+						,</parts><bind id="BIND_ADD_YMD" /><parts>
+						,</parts><bind id="BIND_ADD_TM" /><parts>
+						,</parts><bind id="BIND_ADDTAN_CD" /><parts>
+						,</parts><bind id="BIND_UPD_YMD" /><parts>
+						,</parts><bind id="BIND_UPD_TM" /><parts>
+						,</parts><bind id="BIND_UPD_TANCD" /><parts>
+						,</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+						,</parts><bind id="BIND_SAKUJYO_FLG" /><parts>
+						,</parts><bind id="BIND_SOSINIRAI_FLG" /><parts>
+						,</parts><bind id="BIND_SOSINZUMI_FLG" /><parts>
+						,</parts><bind id="BIND_SOSIN_YMD" /><parts>
+						,</parts><bind id="BIND_SOSIN_TM" /><parts>
+						,</parts><bind id="BIND_SSI_SSNZUMI_FLG" /><parts>
+						,</parts><bind id="BIND_SSI_SSN_YMD" /><parts>
+						,</parts><bind id="BIND_SSI_SSN_TM" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** 経費振替申請TBL(B) 登録（「確定」モード）**/
+		<sql id="TF010P01-10">
+			<statement type="final" name="final">
+				<parts>
+					INSERT INTO MDAT0031( 
+						 DENPYO_BANGO
+						, SYORI_YMD
+						, SYORI_TM
+						, TENPO_CD
+						, DENPYOGYO_NO
+						, BUMON_CD
+						, HINSYU_CD
+						, BURANDO_CD
+						, MAKER_HBN
+						, SYONMK
+						, JISYA_HBN
+						, IRO_CD
+						, SIZE_CD
+						, SIZE_NM
+						, JAN_CD
+						, SYOHIN_CD
+						, SURYO
+						, GEN_TNK
+						, BAIKA_TNK
+					) ( 
+						SELECT
+							 T1.DENPYO_BANGO
+							,T1.SYORI_YMD
+							,T1.SYORI_TM
+							,T1.TENPO_CD
+							,T1.DENPYOGYO_NO
+							,T1.BUMON_CD
+							,T1.HINSYU_CD
+							,T1.BURANDO_CD
+							,T1.MAKER_HBN
+							,T1.SYONMK
+							,T1.JISYA_HBN
+							,T1.IRO_CD
+							,T1.SIZE_CD
+							,T1.SIZE_NM
+							,T1.JAN_CD
+							,T1.SYOHIN_CD
+							,T1.SURYO
+							,NVL( 
+								( 
+									SELECT
+										  T1_1.HYOKA_TNK 
+									FROM
+										MDMT0130 T1_1
+									WHERE
+										T1_1.JAN_CD = T1.JAN_CD
+								) 
+								, 0
+							) AS HYOKA_TNK
+							,T1.BAIKA_TNK 
+						FROM
+							MDAT0021 T1
+						WHERE
+							T1.TENPO_CD			=	</parts><bind id="BIND_TENPO_CD" /><parts>
+						AND T1.SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>
+						AND T1.DENPYO_BANGO		=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					) 
+				</parts>
+			</statement>
+		</sql>
+		/** 経費振替確定TBL(H) 更新（「修正」モード）**/
+		<sql id="TF010P01-11">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDAT0030 
+					SET
+						 KYAKKARIYU		= </parts><bind id="BIND_KYAKKARIYU" /><parts>
+						,SYONIN_FLG		= </parts><bind id="BIND_SYONIN_FLG" /><parts>
+						,UPD_YMD		= </parts><bind id="BIND_UPD_YMD" /><parts>
+						,UPD_TM			= </parts><bind id="BIND_UPD_TM" /><parts>
+						,UPD_TANCD		= </parts><bind id="BIND_UPD_TANCD" /><parts>
+					WHERE
+						DENPYO_BANGO	=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND	SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND	TENPO_CD		=	</parts><bind id="BIND_TENPO_CD" />
+			</statement>
+		</sql>
+		/** 経費振替確定TBL(H) 削除（「削除」モード）**/
+		<sql id="TF010P01-12">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDAT0030 T1
+					WHERE 	T1.TENPO_CD  		= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		T1.SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		T1.DENPYO_BANGO		= </parts><bind id="BIND_DENPYO_BANGO" />
+			</statement>
+		</sql>
+		/** 経費振替確定TBL(B) 削除（「削除」モード）**/
+		<sql id="TF010P01-13">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDAT0031 T1
+					WHERE 	T1.TENPO_CD  		= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND		T1.SYORI_YMD		= </parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		T1.DENPYO_BANGO		= </parts><bind id="BIND_DENPYO_BANGO" />
+			</statement>
+		</sql>
+		/** 経費振替確定TBL(B) 登録（「登録」モード）**/
+		<sql id="TF010P01-14">
+			<statement type="final" name="final">
+				<parts>
+					INSERT	INTO MDAT0031
+					(
+						DENPYO_BANGO
+						,SYORI_YMD
+						,SYORI_TM
+						,TENPO_CD
+						,DENPYOGYO_NO
+						,BUMON_CD
+						,HINSYU_CD
+						,BURANDO_CD
+						,MAKER_HBN
+						,SYONMK
+						,JISYA_HBN
+						,IRO_CD
+						,SIZE_CD
+						,SIZE_NM
+						,JAN_CD
+						,SYOHIN_CD
+						,SURYO
+						,GEN_TNK
+						,BAIKA_TNK
+					)
+					VALUES
+					(
+						 </parts><bind id="BIND_DENPYO_BANGO" /><parts>
+						,</parts><bind id="BIND_SYORI_YMD" /><parts>
+						,</parts><bind id="BIND_SYORI_TM" /><parts>
+						,</parts><bind id="BIND_TENPO_CD" /><parts>
+						,</parts><bind id="BIND_DENPYOGYO_NO" /><parts>
+						,</parts><bind id="BIND_BUMON_CD" /><parts>
+						,</parts><bind id="BIND_HINSYU_CD" /><parts>
+						,</parts><bind id="BIND_BURANDO_CD" /><parts>
+						,</parts><bind id="BIND_MAKER_HBN" /><parts>
+						,</parts><bind id="BIND_SYONMK" /><parts>
+						,</parts><bind id="BIND_JISYA_HBN" /><parts>
+						,</parts><bind id="BIND_IRO_CD" /><parts>
+						,</parts><bind id="BIND_SIZE_CD" /><parts>
+						,</parts><bind id="BIND_SIZE_NM" /><parts>
+						,</parts><bind id="BIND_JAN_CD" /><parts>
+						,</parts><bind id="BIND_SYOHIN_CD" /><parts>
+						,</parts><bind id="BIND_SURYO" /><parts>
+						,</parts><bind id="BIND_GEN_TNK" /><parts>
+						,</parts><bind id="BIND_BAIKA_TNK" /><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** 経費振替確定TBL(H) 更新（「修正」モード）**/
+		<sql id="TF010P01-15">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDAT0030
+					SET
+							 KAMOKU_CD		=	</parts><bind id="BIND_KAMOKU_CD" /><parts>
+							,SINSEIRIYU_KB	=	</parts><bind id="BIND_SINSEIRIYU_KB" /><parts>
+							,SINSEIRIYU		=	</parts><bind id="BIND_SINSEIRIYU" /><parts>
+							,KYAKKARIYU		=	</parts><bind id="BIND_KYAKKARIYU" /><parts>
+							,SYONIN_FLG		=	</parts><bind id="BIND_SYONIN_FLG" /><parts>
+							,UPD_YMD		=	</parts><bind id="BIND_UPD_YMD" /><parts>
+							,UPD_TM			=	</parts><bind id="BIND_UPD_TM" /><parts>
+							,UPD_TANCD		=	</parts><bind id="BIND_UPD_TANCD" /><parts>
+							,GYOMURINGI_NO	=	NVL(</parts><bind id="BIND_GYOMURINGI_NO" /><parts>, 0)
+					WHERE
+							DENPYO_BANGO	=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		TENPO_CD		=	</parts><bind id="BIND_TENPO_CD" />
+			</statement>
+		</sql>
+		/** 経費振替確定TBL(B) 削除（「修正」モード）**/
+		<sql id="TF010P01-16">
+			<statement type="final" name="final">
+				<parts>
+					DELETE MDAT0031
+					WHERE
+							DENPYO_BANGO	=	</parts><bind id="BIND_DENPYO_BANGO" /><parts>
+					AND		SYORI_YMD		=	</parts><bind id="BIND_SYORI_YMD" /><parts>
+					AND		TENPO_CD		=	</parts><bind id="BIND_TENPO_CD" />
+			</statement>
+		</sql>
+		/** 経費振替CSV出力（経費振替申請）**/
+		<sql id="TF010P01-17">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.APPLY_YMD										AS APPLY_YMD		/*	申請日 */
+						,0													AS KAKUTEI_YMD		/*	確定日（申請テーブルからの場合取得しない） */
+						,T1.TENPO_CD										AS TENPO_CD			/*	申請店舗コード */
+						,M1.TENPO_NM  										AS TENPO_NM			/*	申請店舗名 */
+						,T1.DENPYO_BANGO									AS DENPYO_BANGO		/*	伝票番号 */
+						,T1.JYURI_NO										AS JYURI_NO			/*	受理番号 */
+						,T1.KAMOKU_CD										AS KAMOKU_CD		/*	科目コード */
+						,M4.KAMOKU_NM										AS KAMOKU_NM		/*	科目名 */
+						, ( 
+							SELECT
+								  SUM(SURYO) 
+							FROM
+								MDAT0021 T1_1
+							WHERE
+								T1_1.DENPYO_BANGO = T1.DENPYO_BANGO 
+								AND T1_1.SYORI_YMD = T1.SYORI_YMD 
+								AND T1_1.TENPO_CD = T1.TENPO_CD
+						)													AS SURYO_KEI		/*	合計数量 */
+						, ( 
+							SELECT
+								  SUM(SURYO * NVL(M1_1.HYOKA_TNK,0)) 
+							FROM
+								MDAT0021 T1_2
+							INNER JOIN
+									MDMT0130 M1_1
+							ON		M1_1.JAN_CD = T1_2.JAN_CD
+							WHERE
+								T1_2.DENPYO_BANGO = T1.DENPYO_BANGO 
+								AND T1_2.SYORI_YMD = T1.SYORI_YMD 
+								AND T1_2.TENPO_CD = T1.TENPO_CD
+						)													AS GENKA			/*	原価 */
+						,T1.SINSEITAN_CD									AS SINSEITAN_CD		/*	申請担当者コード */
+						,M2.HANBAIIN_NM										AS HANBAIIN_NM		/*	申請担当者名 */
+						,''													AS KAKUTEITAN_CD	/*	確定担当者コード（申請テーブルからの場合取得しない） */
+						,''													AS KAKUTEITAN_NM	/*	確定担当者名（申請テーブルからの場合取得しない） */
+						,M3.MEISYO_NM||T1.SINSEIRIYU						AS SINSEIRIYU		/*	申請理由 */
+						,''													AS KYAKKARIYU		/*	却下理由（申請テーブルからの場合取得しない） */
+						,''													AS SYONIN			/*	承認状態（申請テーブルからの場合取得しない） */
+						,T2.DENPYOGYO_NO									AS DENPYOGYO_NO		/*	行番号 */
+						,T2.BUMON_CD										AS BUMON_CD			/*	部門コード */
+						,M5.BUMON_NM										AS BUMON_NM			/*	部門名 */
+						,T2.HINSYU_CD										AS HINSYU_CD		/*	品種コード */
+						,M6.HINSYU_RYAKU_NM									AS HINSYU_RYAKU_NM	/*	品種名 */
+						,T2.BURANDO_CD										AS BURANDO_CD		/*	ブランドコード */
+						,M7.BURANDO_NMK										AS BURANDO_NMK		/*	ブランド名カナ */
+						,T2.JISYA_HBN										AS JISYA_HBN		/*	自社品番 */
+						,T2.MAKER_HBN										AS MAKER_HBN		/*	メーカー品番 */
+						,T2.SYONMK											AS SYONMK			/*	商品名 */
+						,M8.IRO_NM											AS IRO_NM			/*	色名 */
+						,T2.SIZE_NM											AS SIZE_NM			/*	サイズ名 */
+						,T2.JAN_CD											AS JAN_CD			/*	JANコード */
+						,T2.SYOHIN_CD										AS SYOHIN_CD		/*	商品コード */
+						,T2.SURYO											AS SURYO			/*	数量 */
+						,NVL(M9.HYOKA_TNK,0)								AS HYOKA_TNK		/*	評価単価 */
+						,T2.SURYO * NVL(M9.HYOKA_TNK,0)						AS GENKA_KIN		/*	原価金額 */
+						,T1.GYOMURINGI_NO									AS GYOMURINGI_NO	/*	業務稟議No */
+						,T2.BAIKA_TNK										AS BAIKA_TNK		/*	現売価 */
+						,T2.SURYO * T2.BAIKA_TNK							AS BAIKA_KIN		/*	売価金額 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+						INNER JOIN
+								MDAT0021 T2														/*	経費振替申請TBL(B) */
+						ON		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+						AND		T2.SYORI_YMD = T1.SYORI_YMD
+						AND		T2.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0010 M1														/*	店舗マスタ */
+						ON		M1.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0030 M2														/*	販売員マスタ（申請担当者用） */
+						ON		M2.HANBAIIN_CD = T1.SINSEITAN_CD
+						LEFT JOIN
+								MDMT0100 M3														/*	名称マスタ（申請理由用） */
+						ON		M3.SIKIBETSU_CD = 'KHRY'
+						AND		M3.MEISYO_CD = T1.SINSEIRIYU_KB
+						LEFT JOIN
+								MDMT0040 M4														/*	科目マスタ */
+						ON		M4.KAMOKU_CD = T1.KAMOKU_CD
+						LEFT JOIN
+								BOMT0060 M5														/*	部門マスタ */
+						ON		M5.BUMON_CD = T2.BUMON_CD
+						LEFT JOIN
+								MDMT0070 M6														/*	品種マスタ */
+						ON		M6.BUMON_CD = T2.BUMON_CD
+						AND		M6.HINSYU_CD = T2.HINSYU_CD
+						LEFT JOIN
+								STMT0500 M7														/*	ブランドマスタ */
+						ON		M7.BURANDO_CD = T2.BURANDO_CD
+						LEFT JOIN
+								MDMT0080 M8														/*	色マスタ */
+						ON		M8.IRO_CD = T2.IRO_CD
+						INNER JOIN
+								MDMT0130 M9														/*	発注マスタ */
+						ON		M9.JAN_CD = T2.JAN_CD
+					WHERE
+						0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="replace" name="ADD_ORDER1" />
+		</sql>
+		/** 経費振替CSV出力（経費振替確定）**/
+		<sql id="TF010P01-18">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.APPLY_YMD										AS APPLY_YMD		/*	申請日 */
+						,T1.UPD_YMD											AS KAKUTEI_YMD		/*	確定日 */
+						,T1.TENPO_CD										AS TENPO_CD			/*	申請店舗コード */
+						,M1.TENPO_NM										AS TENPO_NM			/*	申請店舗名 */
+						,T1.DENPYO_BANGO									AS DENPYO_BANGO		/*	伝票番号 */
+						,T1.JYURI_NO										AS JYURI_NO			/*	受理番号 */
+						,T1.KAMOKU_CD										AS KAMOKU_CD		/*	科目コード */
+						,M6.KAMOKU_NM										AS KAMOKU_NM		/*	科目名 */
+						, ( 
+							SELECT
+								  SUM(SURYO) 
+							FROM
+								MDAT0031 T1_1 
+							WHERE
+								T1_1.DENPYO_BANGO = T1.DENPYO_BANGO 
+								AND T1_1.SYORI_YMD = T1.SYORI_YMD 
+								AND T1_1.TENPO_CD = T1.TENPO_CD
+						)													AS SURYO_KEI		/*	合計数量 */
+						, ( 
+							SELECT
+								  SUM(SURYO * GEN_TNK) 
+							FROM
+								MDAT0031 T1_2 
+							WHERE
+								T1_2.DENPYO_BANGO = T1.DENPYO_BANGO 
+								AND T1_2.SYORI_YMD = T1.SYORI_YMD 
+								AND T1_2.TENPO_CD = T1.TENPO_CD
+						)													AS GENKA			/*	原価 */
+						,T1.SINSEITAN_CD									AS SINSEITAN_CD		/*	申請担当者コード */
+						,M2.HANBAIIN_NM										AS HANBAIIN_NM		/*	申請担当者名 */
+						,T1.UPD_TANCD										AS KAKUTEITAN_CD	/*	確定担当者コード */
+						,M3.HANBAIIN_NM										AS KAKUTEITAN_NM	/*	確定担当者名 */
+						,M4.MEISYO_NM||T1.SINSEIRIYU						AS SINSEIRIYU		/*	申請理由 */
+						,T1.KYAKKARIYU										AS KYAKKARIYU		/*	却下理由 */
+						,M5.MEISYO_NM										AS SYONIN			/*	承認状態 */
+						,T2.DENPYOGYO_NO									AS DENPYOGYO_NO		/*	行番号 */
+						,T2.BUMON_CD										AS BUMON_CD			/*	部門コード */
+						,M7.BUMON_NM										AS BUMON_NM			/*	部門名 */
+						,T2.HINSYU_CD										AS HINSYU_CD		/*	品種コード */
+						,M8.HINSYU_RYAKU_NM									AS HINSYU_RYAKU_NM	/*	品種名 */
+						,T2.BURANDO_CD										AS BURANDO_CD		/*	ブランドコード */
+						,M9.BURANDO_NMK										AS BURANDO_NMK		/*	ブランド名カナ */
+						,T2.JISYA_HBN										AS JISYA_HBN		/*	自社品番 */
+						,T2.MAKER_HBN										AS MAKER_HBN		/*	メーカー品番 */
+						,T2.SYONMK											AS SYONMK			/*	商品名 */
+						,M10.IRO_NM											AS IRO_NM			/*	色名 */
+						,T2.SIZE_NM											AS SIZE_NM			/*	サイズ名 */
+						,T2.JAN_CD											AS JAN_CD			/*	JANコード */
+						,T2.SYOHIN_CD										AS SYOHIN_CD		/*	商品コード */
+						,T2.SURYO											AS SURYO			/*	数量 */
+						,T2.GEN_TNK											AS HYOKA_TNK		/*	原単価 */
+						,T2.SURYO * T2.GEN_TNK								AS GENKA_KIN		/*	原価金額 */
+						,T1.GYOMURINGI_NO									AS GYOMURINGI_NO	/*	業務稟議No */
+						,T2.BAIKA_TNK										AS BAIKA_TNK		/*	現売価 */
+						,T2.SURYO * T2.BAIKA_TNK							AS BAIKA_KIN		/*	売価金額 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+						INNER JOIN
+								MDAT0031 T2														/*	経費振替確定TBL(B) */
+						ON		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+						AND		T2.SYORI_YMD = T1.SYORI_YMD
+						AND		T2.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0010 M1														/*	店舗マスタ */
+						ON		M1.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0030 M2														/*	販売員マスタ（申請担当者用） */
+						ON		M2.HANBAIIN_CD = T1.SINSEITAN_CD
+						LEFT JOIN
+								BOMT0030 M3														/*	販売員マスタ（確定担当者用） */
+						ON		M3.HANBAIIN_CD = T1.UPD_TANCD
+						LEFT JOIN
+								MDMT0100 M4														/*	名称マスタ（申請理由用） */
+						ON		M4.SIKIBETSU_CD = 'KHRY'
+						AND		M4.MEISYO_CD = T1.SINSEIRIYU_KB
+						LEFT JOIN
+								MDMT0100 M5														/*	名称マスタ（承認状態） */
+						ON		M5.SIKIBETSU_CD = 'KHSK'
+						AND		M5.MEISYO_CD = T1.SYONIN_FLG
+						LEFT JOIN
+								MDMT0040 M6														/*	科目マスタ */
+						ON		M6.KAMOKU_CD = T1.KAMOKU_CD
+						LEFT JOIN
+								BOMT0060 M7														/*	部門マスタ */
+						ON		M7.BUMON_CD = T2.BUMON_CD
+						LEFT JOIN
+								MDMT0070 M8														/*	品種マスタ */
+						ON		M8.BUMON_CD = T2.BUMON_CD
+						AND		M8.HINSYU_CD = T2.HINSYU_CD
+						LEFT JOIN
+								STMT0500 M9														/*	ブランドマスタ */
+						ON		M9.BURANDO_CD = T2.BURANDO_CD
+						LEFT JOIN
+								MDMT0080 M10													/*	色マスタ */
+						ON		M10.IRO_CD = T2.IRO_CD
+					WHERE
+						0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="replace" name="ADD_ORDER1" />
+		</sql>
+		/** 経費振替CSV出力（経費振替申請、経費振替確定）**/
+		<sql id="TF010P01-19">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 T1.APPLY_YMD										AS APPLY_YMD		/*	申請日 */
+						,0													AS KAKUTEI_YMD		/*	確定日（申請テーブルからの場合取得しない） */
+						,T1.TENPO_CD										AS TENPO_CD			/*	申請店舗コード */
+						,M1.TENPO_NM  										AS TENPO_NM			/*	申請店舗名 */
+						,T1.DENPYO_BANGO									AS DENPYO_BANGO		/*	伝票番号 */
+						,T1.JYURI_NO										AS JYURI_NO			/*	受理番号 */
+						,T1.KAMOKU_CD										AS KAMOKU_CD		/*	科目コード */
+						,M4.KAMOKU_NM										AS KAMOKU_NM		/*	科目名 */
+						, ( 
+							SELECT
+								  SUM(SURYO) 
+							FROM
+								MDAT0021 T1_1
+							WHERE
+								T1_1.DENPYO_BANGO = T1.DENPYO_BANGO 
+								AND T1_1.SYORI_YMD = T1.SYORI_YMD 
+								AND T1_1.TENPO_CD = T1.TENPO_CD
+						)													AS SURYO_KEI		/*	合計数量 */
+						, ( 
+							SELECT
+								  SUM(SURYO * NVL(M1_1.HYOKA_TNK,0)) 
+							FROM
+								MDAT0021 T1_2
+							INNER JOIN
+									MDMT0130 M1_1
+							ON		M1_1.JAN_CD = T1_2.JAN_CD
+							WHERE
+								T1_2.DENPYO_BANGO = T1.DENPYO_BANGO 
+								AND T1_2.SYORI_YMD = T1.SYORI_YMD 
+								AND T1_2.TENPO_CD = T1.TENPO_CD
+						)													AS GENKA			/*	原価 */
+						,T1.SINSEITAN_CD									AS SINSEITAN_CD		/*	申請担当者コード */
+						,M2.HANBAIIN_NM										AS HANBAIIN_NM		/*	申請担当者名 */
+						,''													AS KAKUTEITAN_CD	/*	確定担当者コード（申請テーブルからの場合取得しない） */
+						,''													AS KAKUTEITAN_NM	/*	確定担当者名（申請テーブルからの場合取得しない） */
+						,M3.MEISYO_NM||T1.SINSEIRIYU						AS SINSEIRIYU		/*	申請理由 */
+						,''													AS KYAKKARIYU		/*	却下理由（申請テーブルからの場合取得しない） */
+						,''													AS SYONIN			/*	承認状態（申請テーブルからの場合取得しない） */
+						,T2.DENPYOGYO_NO									AS DENPYOGYO_NO		/*	行番号 */
+						,T2.BUMON_CD										AS BUMON_CD			/*	部門コード */
+						,M5.BUMON_NM										AS BUMON_NM			/*	部門名 */
+						,T2.HINSYU_CD										AS HINSYU_CD		/*	品種コード */
+						,M6.HINSYU_RYAKU_NM									AS HINSYU_RYAKU_NM	/*	品種名 */
+						,T2.BURANDO_CD										AS BURANDO_CD		/*	ブランドコード */
+						,M7.BURANDO_NMK										AS BURANDO_NMK		/*	ブランド名カナ */
+						,T2.JISYA_HBN										AS JISYA_HBN		/*	自社品番 */
+						,T2.MAKER_HBN										AS MAKER_HBN		/*	メーカー品番 */
+						,T2.SYONMK											AS SYONMK			/*	商品名 */
+						,M8.IRO_NM											AS IRO_NM			/*	色名 */
+						,T2.SIZE_NM											AS SIZE_NM			/*	サイズ名 */
+						,T2.JAN_CD											AS JAN_CD			/*	JANコード */
+						,T2.SYOHIN_CD										AS SYOHIN_CD		/*	商品コード */
+						,T2.SURYO											AS SURYO			/*	数量 */
+						,NVL(M9.HYOKA_TNK,0)								AS HYOKA_TNK		/*	評価単価 */
+						,T2.SURYO * NVL(M9.HYOKA_TNK,0)						AS GENKA_KIN		/*	原価金額 */
+						,T1.GYOMURINGI_NO									AS GYOMURINGI_NO	/*	業務稟議No */
+						,T2.BAIKA_TNK										AS BAIKA_TNK		/*	現売価 */
+						,T2.SURYO * T2.BAIKA_TNK							AS BAIKA_KIN		/*	売価金額 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID1" /><statement type="final" name="final"><parts>
+						INNER JOIN
+								MDAT0021 T2														/*	経費振替申請TBL(B) */
+						ON		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+						AND		T2.SYORI_YMD = T1.SYORI_YMD
+						AND		T2.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0010 M1														/*	店舗マスタ */
+						ON		M1.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0030 M2														/*	販売員マスタ（申請担当者用） */
+						ON		M2.HANBAIIN_CD = T1.SINSEITAN_CD
+						LEFT JOIN
+								MDMT0100 M3														/*	名称マスタ（申請理由用） */
+						ON		M3.SIKIBETSU_CD = 'KHRY'
+						AND		M3.MEISYO_CD = T1.SINSEIRIYU_KB
+						LEFT JOIN
+								MDMT0040 M4														/*	科目マスタ */
+						ON		M4.KAMOKU_CD = T1.KAMOKU_CD
+						LEFT JOIN
+								BOMT0060 M5														/*	部門マスタ */
+						ON		M5.BUMON_CD = T2.BUMON_CD
+						LEFT JOIN
+								MDMT0070 M6														/*	品種マスタ */
+						ON		M6.BUMON_CD = T2.BUMON_CD
+						AND		M6.HINSYU_CD = T2.HINSYU_CD
+						LEFT JOIN
+								STMT0500 M7														/*	ブランドマスタ */
+						ON		M7.BURANDO_CD = T2.BURANDO_CD
+						LEFT JOIN
+								MDMT0080 M8														/*	色マスタ */
+						ON		M8.IRO_CD = T2.IRO_CD
+						INNER JOIN
+								MDMT0130 M9														/*	発注マスタ */
+						ON		M9.JAN_CD = T2.JAN_CD
+					WHERE
+						0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+				UNION ALL
+					SELECT
+						 T1.APPLY_YMD										AS APPLY_YMD		/*	申請日 */
+						,T1.UPD_YMD											AS KAKUTEI_YMD		/*	確定日 */
+						,T1.TENPO_CD										AS TENPO_CD			/*	申請店舗コード */
+						,M1.TENPO_NM										AS TENPO_NM			/*	申請店舗名 */
+						,T1.DENPYO_BANGO									AS DENPYO_BANGO		/*	伝票番号 */
+						,T1.JYURI_NO										AS JYURI_NO			/*	受理番号 */
+						,T1.KAMOKU_CD										AS KAMOKU_CD		/*	科目コード */
+						,M6.KAMOKU_NM										AS KAMOKU_NM		/*	科目名 */
+						, ( 
+							SELECT
+								  SUM(SURYO) 
+							FROM
+								MDAT0031 T1_1 
+							WHERE
+								T1_1.DENPYO_BANGO = T1.DENPYO_BANGO 
+								AND T1_1.SYORI_YMD = T1.SYORI_YMD 
+								AND T1_1.TENPO_CD = T1.TENPO_CD
+						)													AS SURYO_KEI		/*	合計数量 */
+						, ( 
+							SELECT
+								  SUM(SURYO * GEN_TNK) 
+							FROM
+								MDAT0031 T1_2 
+							WHERE
+								T1_2.DENPYO_BANGO = T1.DENPYO_BANGO 
+								AND T1_2.SYORI_YMD = T1.SYORI_YMD 
+								AND T1_2.TENPO_CD = T1.TENPO_CD
+						)													AS GENKA			/*	原価 */
+						,T1.SINSEITAN_CD									AS SINSEITAN_CD		/*	申請担当者コード */
+						,M2.HANBAIIN_NM										AS HANBAIIN_NM		/*	申請担当者名 */
+						,T1.UPD_TANCD										AS KAKUTEITAN_CD	/*	確定担当者コード */
+						,M3.HANBAIIN_NM										AS KAKUTEITAN_NM	/*	確定担当者名 */
+						,M4.MEISYO_NM||T1.SINSEIRIYU						AS SINSEIRIYU		/*	申請理由 */
+						,T1.KYAKKARIYU										AS KYAKKARIYU		/*	却下理由 */
+						,M5.MEISYO_NM										AS SYONIN			/*	承認状態 */
+						,T2.DENPYOGYO_NO									AS DENPYOGYO_NO		/*	行番号 */
+						,T2.BUMON_CD										AS BUMON_CD			/*	部門コード */
+						,M7.BUMON_NM										AS BUMON_NM			/*	部門名 */
+						,T2.HINSYU_CD										AS HINSYU_CD		/*	品種コード */
+						,M8.HINSYU_RYAKU_NM									AS HINSYU_RYAKU_NM	/*	品種名 */
+						,T2.BURANDO_CD										AS BURANDO_CD		/*	ブランドコード */
+						,M9.BURANDO_NMK										AS BURANDO_NMK		/*	ブランド名カナ */
+						,T2.JISYA_HBN										AS JISYA_HBN		/*	自社品番 */
+						,T2.MAKER_HBN										AS MAKER_HBN		/*	メーカー品番 */
+						,T2.SYONMK											AS SYONMK			/*	商品名 */
+						,M10.IRO_NM											AS IRO_NM			/*	色名 */
+						,T2.SIZE_NM											AS SIZE_NM			/*	サイズ名 */
+						,T2.JAN_CD											AS JAN_CD			/*	JANコード */
+						,T2.SYOHIN_CD										AS SYOHIN_CD		/*	商品コード */
+						,T2.SURYO											AS SURYO			/*	数量 */
+						,T2.GEN_TNK											AS HYOKA_TNK		/*	原単価 */
+						,T2.SURYO * T2.GEN_TNK								AS GENKA_KIN		/*	原価金額 */
+						,T1.GYOMURINGI_NO									AS GYOMURINGI_NO	/*	業務稟議No */
+						,T2.BAIKA_TNK										AS BAIKA_TNK		/*	現売価 */
+						,T2.SURYO * T2.BAIKA_TNK							AS BAIKA_KIN		/*	売価金額 */
+					FROM
+				</parts></statement><statement type="replace" name="TABLE_ID2" /><statement type="final" name="final"><parts>
+						INNER JOIN
+								MDAT0031 T2														/*	経費振替確定TBL(B) */
+						ON		T2.DENPYO_BANGO = T1.DENPYO_BANGO
+						AND		T2.SYORI_YMD = T1.SYORI_YMD
+						AND		T2.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0010 M1														/*	店舗マスタ */
+						ON		M1.TENPO_CD = T1.TENPO_CD
+						LEFT JOIN
+								BOMT0030 M2														/*	販売員マスタ（申請担当者用） */
+						ON		M2.HANBAIIN_CD = T1.SINSEITAN_CD
+						LEFT JOIN
+								BOMT0030 M3														/*	販売員マスタ（確定担当者用） */
+						ON		M3.HANBAIIN_CD = T1.UPD_TANCD
+						LEFT JOIN
+								MDMT0100 M4														/*	名称マスタ（申請理由用） */
+						ON		M4.SIKIBETSU_CD = 'KHRY'
+						AND		M4.MEISYO_CD = T1.SINSEIRIYU_KB
+						LEFT JOIN
+								MDMT0100 M5														/*	名称マスタ（承認状態） */
+						ON		M5.SIKIBETSU_CD = 'KHSK'
+						AND		M5.MEISYO_CD = T1.SYONIN_FLG
+						LEFT JOIN
+								MDMT0040 M6														/*	科目マスタ */
+						ON		M6.KAMOKU_CD = T1.KAMOKU_CD
+						LEFT JOIN
+								BOMT0060 M7														/*	部門マスタ */
+						ON		M7.BUMON_CD = T2.BUMON_CD
+						LEFT JOIN
+								MDMT0070 M8														/*	品種マスタ */
+						ON		M8.BUMON_CD = T2.BUMON_CD
+						AND		M8.HINSYU_CD = T2.HINSYU_CD
+						LEFT JOIN
+								STMT0500 M9														/*	ブランドマスタ */
+						ON		M9.BURANDO_CD = T2.BURANDO_CD
+						LEFT JOIN
+								MDMT0080 M10													/*	色マスタ */
+						ON		M10.IRO_CD = T2.IRO_CD
+					WHERE
+						0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="replace" name="ADD_ORDER1" />
+		</sql>
+	</sql-list>
+</sql-included>

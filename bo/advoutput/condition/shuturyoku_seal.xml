@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SHUTURYOKU_SEAL" name="出力シール">
+		<listItems>
+			<item id="10" value="1" label="８％" itemId="Shuturyoku_seal1" />
+			<item id="20" value="2" label="＋税" itemId="Shuturyoku_seal2" />
+		</listItems>
+	</condition>
+</condition-define>
+

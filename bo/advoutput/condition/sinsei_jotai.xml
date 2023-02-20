@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SINSEI_JOTAI" name="申請状態">
+		<listItems>
+			<item id="10" value="0" label="未申請" itemId="Sinsei_jotai1" />
+			<item id="20" value="1" label="申請済" itemId="Sinsei_jotai2" />
+		</listItems>
+	</condition>
+</condition-define>
+

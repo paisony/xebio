@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+  		/** 出荷要望結果TBL(H) 件数チェック **/ 
+  		<sql id="TA060P01-01">
+			<statement type="final" name="final">
+				<parts>
+          			SELECT
+							COUNT(*) CNT
+					FROM
+							MDOT0080 T1
+					LEFT JOIN
+							BOMT0060 M1
+					ON		M1.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							MDMT0100 M2
+					ON		M2.SIKIBETSU_CD = 'CNGS'
+					AND		M2.MEISYO_CD = T1.HENKO_KBN
+         			WHERE 0=0
+				</parts>
+			</statement>
+    		<statement type="replace" name="ADD_WHERE" />
+	  </sql>
+		/**  出荷要望結果TBL(H) 検索 **/
+		<sql id="TA060P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.HENKO_KBN
+							,M2.MEISYO_NM
+							,T1.IRAI_SU
+							,T1.IRAI_KIN
+							,T1.KESSAI_YMD
+							,T1.BUMON_CD
+							,M1.BUMON_NM
+							,M1.BUMONKANA_NM
+					FROM
+							MDOT0080 T1
+					LEFT JOIN
+							BOMT0060 M1
+					ON		M1.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							MDMT0100 M2
+					ON		M2.SIKIBETSU_CD = 'CNGS'
+					AND		M2.MEISYO_CD = T1.HENKO_KBN
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.BUMON_CD
+							,T1.HENKO_KBN
+							,T1.KESSAI_YMD
+	 			</parts>
+	 		</statement>
+	 	</sql>
+		/** 出荷要望結果TBL(B) 検索 **/
+	 	<sql id="TA060P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 M1.HINSYU_RYAKU_NM
+							,M2.BURANDO_NMK
+							,T1.JISYA_HBN
+							,M4.SYOHIN_ZOKUSEI
+							,T1.HIN_NBR
+							,T1.SYONMK
+							,M3.IRO_NM
+							,T1.SIZE_NM
+							,T1.JAN_CD
+							,T1.IRAI_SU
+							,T1.GEN_TNK
+							,T1.COMMENT_NM
+					FROM 	
+							MDOT0081 T1
+					LEFT JOIN
+							MDMT0070 M1
+					ON		M1.BUMON_CD = T1.BUMON_CD
+					AND		M1.HINSYU_CD = T1.HINSYU_CD
+					LEFT JOIN
+							STMT0500 M2
+					ON		M2.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0080 M3
+					ON		M3.IRO_CD = T1.IRO_CD
+					LEFT JOIN
+							MDMT0130 M4
+					ON		M4.JAN_CD =T1.JAN_CD
+					WHERE
+					 		T1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					AND		T1.KESSAI_YMD = </parts><bind id="KESSAI_YMD" /><parts>
+					AND		T1.HENKO_KBN = </parts><bind id="HENKO_KBN" /><parts>
+					AND		T1.BUMON_CD = </parts><bind id="BUMON_CD" /><parts>
+					ORDER BY
+							 T1.HINSYU_CD
+							,T1.BURANDO_CD
+							,T1.JISYA_HBN
+							,T1.IRO_CD
+							,T1.SIZE_CD
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

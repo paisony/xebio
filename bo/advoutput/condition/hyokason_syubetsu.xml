@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="HYOKASON_SYUBETSU" name="評価損種別">
+		<listItems>
+			<item id="10" value="1" label="販売不可" itemId="Hyokason_syubetsu1" />
+			<item id="20" value="2" label="経年品" itemId="Hyokason_syubetsu2" />
+		</listItems>
+	</condition>
+</condition-define>
+

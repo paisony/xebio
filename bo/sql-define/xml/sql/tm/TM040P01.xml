@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="TM040P01-01">
+			<statement type="final" name="final">
+				<parts>
+					/* TM040P01-01（色選択画面検索） */
+					SELECT
+							MAX(M3.BUMON_NM)		BUMON_NM			--部門MST.部門名
+						,	MAX(M2.HINSYU_RYAKU_NM)	HINSYU_RYAKU_NM		--品種MST.品種略名称
+						,	MAX(M5.BURANDO_NMK)		BURANDO_NMK			--ブランドMST.ブランド名カナ
+						,	MAX(M1.HIN_NBR)			HIN_NBR				--発注MST.メーカー品番
+						,	MAX(M1.SYONMK)			SYONMK				--発注MST.商品略式名称カナ
+						,	MAX(M4.IRO_NM)			IRO_NM				--色MST.色略式名称カナ
+						,	M1.MAKERCOLOR_CD							--発注MST.色コード
+						,	MAX(M1.TENKAI_KB)		TENKAI_KB			--発注MST.展開区分
+					FROM
+							MDMT0130 M1		--発注MST
+					LEFT JOIN
+							MDMT0070 M2		--品種MST
+					ON		M2.BUMON_CD		=	M1.BUMON_CD
+					AND		M2.HINSYU_CD	=	M1.HINSYU_CD
+					LEFT JOIN
+							BOMT0060 M3		--部門MST
+					ON		M3.BUMON_CD		=	M1.BUMON_CD
+					INNER JOIN
+							MDMT0080 M4		--色MST
+					ON		M4.IRO_CD		=	M1.MAKERCOLOR_CD
+					LEFT JOIN
+							STMT0500 M5		--ブランドMST
+					ON		M5.BURANDO_CD	=	M1.BURANDO_CD
+					WHERE
+							M1.SAKUJYO_FLG	=	0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+							M1.XEBIO_CD
+						,	M1.MAKERCOLOR_CD
+					ORDER BY
+							M1.XEBIO_CD
+						,	M1.MAKERCOLOR_CD
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

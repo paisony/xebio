@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 企業間仕入一覧(H) 件数チェック1 (伝票状態が空白と確定と差異あり)**/
+		<sql id="Te130p01-011">
+			<statement type="final" name="final">
+				<parts>
+
+					SELECT	COUNT(*) CNT
+					FROM	MDNT0060 
+					WHERE	0=0 
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		
+		/** 企業間仕入一覧(H) 件数チェック2 (伝票状態が登録履歴と取消履歴)**/
+		<sql id="TE130P01-012">
+			<statement type="final" name="final">
+				<parts>
+					 SELECT	COUNT(1)
+					 FROM	MDNT0060 
+					 WHERE	MDNT0060.RIREKI_DISP_KB = 1
+				 </parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+
+		/** 企業間仕入一覧(H) 検索 **/
+		<sql id="Te130p01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 MDNT0060.SYUKKAKAISYA_CD
+							,S_KAI.MEISYO_NM			AS SYUKKAKAI_NM
+							,S_KAI.MEISYOKANA_NM		AS SYUKKAKANA_NM
+							,MDNT0060.SYUKKATEN_CD
+							,S_TEN.TENPO_NM				AS SYUKKATEN_NM
+							,MDNT0060.JYURYOKAISYA_CD
+							,N_KAI.MEISYO_NM			AS NYUKAKAI_NM
+							,N_KAI.MEISYOKANA_NM		AS NYUKAKANA_NM
+							,MDNT0060.JYURYOTEN_CD
+							,N_TEN.TENPO_NM				AS NYUKATEN_NM
+							,MDNT0060.DENPYO_BANGO
+							,MDNT0060.IDODENPYO_BANGO
+							,MDNT0060.SYUKKA_SIJI_NO
+							,MDNT0060.SYUKKA_YMD
+							,MDNT0060.JYURYO_YMD
+							,MDNT0060.NYUKAYOTEIGOUKEI_SU
+							,MDNT0060.NYUKAJISSEKIGOUKEI_SU
+							,DECODE(
+								DECODE(
+										MDNT0060.SYUKKAKAISYA_CD, 1
+										,(SELECT	IDO_RIYU
+										  FROM		MDUT0010_1
+										  WHERE		DENPYO_BANGO = MDNT0060.IDODENPYO_BANGO
+										  AND		SYUKKA_YMD   = MDNT0060.SYUKKA_YMD
+										  AND		SYUKKATEN_CD = MDNT0060.SYUKKATEN_CD) , 2
+										,(SELECT	IDO_RIYU
+										  FROM		MDUT0010_2
+										  WHERE		DENPYO_BANGO = MDNT0060.IDODENPYO_BANGO
+										  AND		SYUKKA_YMD   = MDNT0060.SYUKKA_YMD
+										  AND		SYUKKATEN_CD = MDNT0060.SYUKKATEN_CD)
+										 ),3, '○', ''
+							 ) AS KYAKUTYU
+							,SYORI.MEISYO_NM AS SYORI_SB
+							,MDNT0060.RIREKI_SYORI_YMD
+							,MDNT0060.RIREKI_SYORI_TM
+							,MDNT0060.SCM_CD
+							,MDNT0060.ADDTAN_CD
+							,N_TAN.HANBAIIN_NM AS NYUKAHANBAI_NM
+							,MDNT0060.SYUKKATAN_CD
+							,S_TAN.HANBAIIN_NM AS SYUKKAHANBAI_NM
+							,MDNT0060.RIREKI_NO
+							,MDNT0060.AKAKURO_KBN
+							,MDNT0060.SOSINZUMI_FLG
+					FROM
+							MDNT0060
+					LEFT JOIN
+							MDMT0100 S_KAI
+					ON		S_KAI.SIKIBETSU_CD = 'KASY'
+					AND		S_KAI.MEISYO_CD = MDNT0060.SYUKKAKAISYA_CD
+					LEFT JOIN
+							MDMT0100 N_KAI
+					ON		N_KAI.SIKIBETSU_CD = 'KASY'
+					AND		N_KAI.MEISYO_CD = MDNT0060.JYURYOKAISYA_CD
+					LEFT JOIN
+							BOMT0010_ALL S_TEN
+					ON		S_TEN.KAISYA_CD = MDNT0060.SYUKKAKAISYA_CD
+					AND		S_TEN.TENPO_CD = MDNT0060.SYUKKATEN_CD
+					LEFT JOIN
+							BOMT0010_ALL N_TEN
+					ON
+							N_TEN.KAISYA_CD = MDNT0060.JYURYOKAISYA_CD
+					AND
+							N_TEN.TENPO_CD = MDNT0060.JYURYOTEN_CD
+					LEFT JOIN
+							MDMT0100 SYORI
+					ON
+							SYORI.SIKIBETSU_CD = 'IDSY'
+					AND		SYORI.MEISYO_CD = MDNT0060.SYORI_SB
+					LEFT JOIN
+							BOMT0030 N_TAN
+					ON		N_TAN.HANBAIIN_CD = MDNT0060.ADDTAN_CD
+					LEFT JOIN
+							BOMT0030_ALL S_TAN
+					ON		CAST(S_TAN.KAISYA_CD AS NUMBER(2)) = MDNT0060.SYUKKAKAISYA_CD
+					AND		S_TAN.HANBAIIN_CD = MDNT0060.SYUKKATAN_CD
+					WHERE 0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					
+					ORDER BY DECODE(MDNT0060.SYUKKAKAISYA_CD, </parts><bind id="BIND_JISYAKAIASYA1" /><parts>, 0, 9) 
+							, DECODE(MDNT0060.JYURYOKAISYA_CD, </parts><bind id="BIND_JISYAKAIASYA2" /><parts>, 0, 9) 
+							, MDNT0060.SYUKKATEN_CD
+							, MDNT0060.DENPYO_BANGO
+							, MDNT0060.RIREKI_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 企業間仕入明細(B) 検索 **/
+		<sql id="Te130p02-01">
+			<statement type="final" name="MEISAI">
+				<parts>
+					SELECT
+							 MDNT0061.DENPYOGYO_NO 		/*  1 伝票行№ */
+							,MDNT0061.BUMON_CD 	  		/*  2 部門コード */
+							,BOMT0060.BUMONKANA_NM  	/*  3 部門名カナ */
+							,MDMT0070.HINSYU_RYAKU_NM 	/*  4 品種名 */
+							,STMT0500.BURANDO_NMK 		/*  5 ブランド */
+							,MDNT0061.JISYA_HBN 		/*  6 自社品番 */
+							,MDNT0061.MAKER_HBN 		/*  7 メーカー品番 */
+							,MDNT0061.SYONMK 			/*  8 商品名 */
+							,MDMT0080.IRO_NM 			/*  9 色 */
+							,MDNT0061.SIZE_NM 			/* 10 ｻｲｽﾞ */
+							,MDNT0061.JAN_CD 			/* 11 JANコード */
+							,MDNT0061.SYOHIN_CD 		/* 12 商品コード */
+							,MDNT0061.NYUKAYOTEI_SU	   	/* 13 予定数量 */
+							,MDNT0061.NYUKAJISSEKI_SU 	/* 14 確定数量 */
+							,MDNT0061.GEN_TNK 			/* 15 原単価 */
+							,(SELECT OLD_XEBIO_CD FROM MDMT0130 WHERE JAN_CD = MDNT0061.JAN_CD) OLD_XEBIO_CD	/*10桁*/
+					FROM
+							MDNT0061
+					LEFT JOIN
+							MDMT0070 			/* 品種マスタ */
+					ON		MDNT0061.BUMON_CD   = MDMT0070.BUMON_CD
+					AND		MDNT0061.HINSYU_CD  = MDMT0070.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 			/* 色 */
+					ON		MDNT0061.IRO_CD     = MDMT0080.IRO_CD
+					LEFT JOIN
+							BOMT0060 			/* 部門マスタ */
+					ON		MDNT0061.BUMON_CD   = BOMT0060.BUMON_CD
+					LEFT JOIN
+							STMT0500	 		/* ブランドマスタ */
+					ON		MDNT0061.BURANDO_CD = STMT0500.BURANDO_CD
+					WHERE
+							MDNT0061.JYURYOKAISYA_CD = </parts><bind id="JYURYOKAISYA_CD" /><parts>
+					AND		MDNT0061.JYURYOTEN_CD    = </parts><bind id="JYURYOTEN_CD" /><parts>
+					AND		MDNT0061.DENPYO_BANGO    = </parts><bind id="DENPYO_BANGO" /><parts>
+					AND		MDNT0061.JYURYO_YMD      = </parts><bind id="JYURYO_YMD" /><parts>
+					AND		MDNT0061.RIREKI_NO       = </parts><bind id="RIREKI_NO" /><parts>
+					AND		MDNT0061.AKAKURO_KBN     = </parts><bind id="AKAKURO_KBN" /><parts>
+					ORDER BY
+							MDNT0061.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 企業間仕入一覧CSV **/
+		<sql id="TE130P01-11">
+			<statement type="final" name="final">
+				<parts>
+				SELECT 
+						 S_KAI.MEISYOKANA_NM AS SYUKKAKAISYA_NM			/*  1 出荷会社略名 */
+						,MDNT0060.SYUKKATEN_CD  						/*  2 出荷会社店舗コード */
+						,S_TEN.TENPO_NM 	 AS SYUKKATEN_NM			/*  3 出荷会社店舗名 */
+						,N_KAI.MEISYOKANA_NM AS NYUKAKAISYA_NM			/*  4 入荷会社略名 */
+						,MDNT0060.JYURYOTEN_CD 							/*  5 入荷会社店舗コード */
+						,N_TEN.TENPO_NM		 AS NYUKATEN_NM				/*  6 入荷会社店舗名 */
+						,MDNT0060.DENPYO_BANGO 							/*  7 伝票番号 */
+						,MDNT0060.IDODENPYO_BANGO 						/*  8 移動伝票 */
+						,MDNT0060.SYUKKA_SIJI_NO 						/*  9 指示番号 */
+						,MDNT0060.SYUKKA_YMD 							/* 10 出荷日 */
+						,MDNT0060.JYURYO_YMD 							/* 11 入荷日 */
+						,MDNT0060.NYUKAYOTEIGOUKEI_SU 					/* 12 合計予定数 */
+						,MDNT0060.NYUKAJISSEKIGOUKEI_SU 				/* 13 合計確定数 */
+						,SYORI.MEISYO_NM	 AS SYORI					/* 14 処理 */
+						,MDNT0060.RIREKI_SYORI_YMD 						/* 15 処理日 */
+						,MDNT0060.RIREKI_SYORI_TM 						/* 16 処理時間 */
+						,MDNT0061.BUMON_CD 								/* 17 部門コード */
+						,BOMT0060.BUMON_NM 								/* 18 部門名 */
+						,MDNT0061.HINSYU_CD 							/* 19 品種コード */
+						,MDMT0070.HINSYU_RYAKU_NM 						/* 20 品種名 */
+						,MDNT0061.BURANDO_CD 	  						/* 21 ブランドコード */
+						,STMT0500.BURANDO_NMK 							/* 22 ブランド名 */
+						,MDNT0061.JISYA_HBN 							/* 23 自社品番 */
+						,MDNT0061.MAKER_HBN 							/* 24 メーカー品番 */
+						,MDNT0061.SYONMK 								/* 25 商品名 */
+						,MDMT0080.IRO_NM 								/* 26 色 */
+						,MDNT0061.SIZE_NM 								/* 27 サイズ */
+						,MDNT0061.JAN_CD 								/* 28 JANコード */
+						,MDNT0061.SYOHIN_CD 							/* 29 商品コード(Xのみ) */
+						,MDNT0061.NYUKAYOTEI_SU 						/* 30 予定数量 */
+						,MDNT0061.NYUKAJISSEKI_SU 						/* 31 確定数量 */
+						,MDNT0061.GEN_TNK 								/* 32 原単価 */
+						,MDNT0061.NYUKAJISSEKI_SU*MDNT0061.GEN_TNK AS GEN_KIN		/* 33 原価金額 */
+				FROM 
+						MDNT0060 									/* 企業間仕入参照TBL(H) */
+				INNER JOIN
+						MDNT0061 							/* 企業間仕入参照TBL(B) */
+				ON		MDNT0060.JYURYOKAISYA_CD	=	MDNT0061.JYURYOKAISYA_CD 
+				AND		MDNT0060.JYURYOTEN_CD		=   MDNT0061.JYURYOTEN_CD 
+				AND		MDNT0060.DENPYO_BANGO		=   MDNT0061.DENPYO_BANGO 
+				AND		MDNT0060.JYURYO_YMD			=   MDNT0061.JYURYO_YMD 
+				AND		MDNT0060.RIREKI_NO			=   MDNT0061.RIREKI_NO 
+				AND		MDNT0060.AKAKURO_KBN		=   MDNT0061.AKAKURO_KBN 
+				LEFT JOIN
+						MDMT0100		S_KAI 	/* 名称マスタ（出荷会社名用） */
+				ON		S_KAI.SIKIBETSU_CD			=	'KASY' 
+				AND		S_KAI.MEISYO_CD				=	MDNT0060.SYUKKAKAISYA_CD 
+				LEFT JOIN
+						MDMT0100		N_KAI 	/* 名称マスタ（入荷会社名用） */
+				ON		N_KAI.SIKIBETSU_CD			=	'KASY' 
+				AND		N_KAI.MEISYO_CD				=	MDNT0060.JYURYOKAISYA_CD 
+				LEFT JOIN
+						BOMT0010_ALL	S_TEN 	/* 店舗マスタ（出荷店名用） */
+				ON		S_TEN.KAISYA_CD				=	MDNT0060.SYUKKAKAISYA_CD 
+				AND		S_TEN.TENPO_CD				=	MDNT0060.SYUKKATEN_CD 
+				LEFT JOIN
+						BOMT0010_ALL	N_TEN 	/* 店舗マスタ（入荷店名用） */
+				ON		N_TEN.KAISYA_CD				=	MDNT0060.JYURYOKAISYA_CD 
+				AND		N_TEN.TENPO_CD				=	MDNT0060.JYURYOTEN_CD 
+				LEFT JOIN
+						MDMT0100		SYORI 	/* 名称マスタ（処理名用） */
+				ON		SYORI.SIKIBETSU_CD			=	'IDSY' 
+				AND		SYORI.MEISYO_CD				=	MDNT0060.SYORI_SB 
+				LEFT JOIN
+						MDMT0070 				/* 品種マスタ */
+				ON		MDNT0061.BUMON_CD			=	MDMT0070.BUMON_CD 
+				AND		MDNT0061.HINSYU_CD			=	MDMT0070.HINSYU_CD 
+				LEFT JOIN
+						MDMT0080 				/* 色 */
+				ON		MDNT0061.IRO_CD				=	MDMT0080.IRO_CD 
+				LEFT JOIN
+						BOMT0060 				/* 部門マスタ */
+				ON		MDNT0061.BUMON_CD			=	BOMT0060.BUMON_CD 
+				LEFT JOIN
+						STMT0500 				/* ブランドマスタ */
+				ON		MDNT0061.BURANDO_CD			=	STMT0500.BURANDO_CD 
+				WHERE	0=0
+					AND( MDNT0061.JYURYOKAISYA_CD ,MDNT0061.JYURYOTEN_CD ,MDNT0061.DENPYO_BANGO ,
+					MDNT0061.JYURYO_YMD , MDNT0061.RIREKI_NO , MDNT0061.AKAKURO_KBN )IN(
+			</parts>
+		</statement>
+	<statement type="replace" name="ADD_WHERE1" />
+		<statement type="final" name="final">
+			<parts> 
+						
+			ORDER BY 
+					 S_KAI.MEISYOKANA_NM 				/*  1 出荷会社略名 */
+					,MDNT0060.SYUKKATEN_CD  			/*  2 出荷会社店舗コード */
+					,S_TEN.TENPO_NM 					/*  3 出荷会社店舗名 */
+					,N_KAI.MEISYOKANA_NM 				/*  4 入荷会社略名 */
+					,MDNT0060.JYURYOTEN_CD 				/*  5 入荷会社店舗コード */
+					,N_TEN.TENPO_NM 					/*  6 入荷会社店舗名 */
+					,MDNT0060.DENPYO_BANGO 				/*  7 伝票番号 */
+					,SYORI.MEISYO_NM 					/* 14 処理 */
+					,MDNT0060.RIREKI_SYORI_YMD 			/* 15 処理日 */
+					,MDNT0060.RIREKI_SYORI_TM 			/* 16 処理時間 */
+					,MDNT0061.DENPYOGYO_NO 				/*    行番号 */
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

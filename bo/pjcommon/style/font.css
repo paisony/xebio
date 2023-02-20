@@ -1,0 +1,59 @@
+@charset "utf-8";
+/* =================================
+   ■ font.css
+================================== */
+body { 
+	font-family:"ＭＳ ゴシック",sans-serif;
+	font-size: 13px;
+	letter-spacing:-1px;
+	color:#000000;
+}
+
+table,input{
+	letter-spacing:-1px;
+	font-family:"ＭＳ ゴシック",sans-serif;
+}
+
+/* =================================
+   ■ disabled指定用のスタイル
+================================== */
+input[type="text"][disabled]
+{
+	font-size:12px;
+	font-weight:900;
+}
+
+/* =================================
+   ■ 汎用的なフォントスタイル
+================================== */
+.txtBold{
+	font-weight:bold;
+}
+
+/*		■ A：リンク
+--------------------------------------------------------- */
+a{
+	color:#355097;
+	text-decoration:underline;
+}
+a:link{
+	color:#355097;
+}
+a:visited{
+	color:#1a2e61;
+}
+a:hover{
+	color:#930;
+}
+
+/* =================================
+   ■ 必須マーク　
+================================== */
+.MUST_MARK, must_mark
+{
+	color: #961d2f;
+}
+.MUST_COLOR, must_color
+{
+	color: red;
+}

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Tj110f01_Titlebar" xml:space="preserve">
+    <value>棚卸取漏れ欠番検索(X)</value>
+  </data>
+  <data name="Tj110f01_FormCaption" xml:space="preserve">
+    <value>棚卸取漏れ欠番検索(X)</value>
+  </data>
+  <data name="M1PageInfo" xml:space="preserve">
+    <value>Page: %PAGE_NO% of %PAGE_COUNT%</value>
+  </data>
+  <data name="M1PageInfoNoRec" xml:space="preserve">
+    <value>データがありません。</value>
+  </data>
+  <data name="Head_tenpo_cd" xml:space="preserve">
+    <value>店舗</value>
+  </data>
+  <data name="Btnheadtenpocd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Torimore_ketsuban" xml:space="preserve">
+    <value>取漏れ／欠番</value>
+  </data>
+  <data name="Face_no_from" xml:space="preserve">
+    <value>フェイスNoＦＲＯＭ</value>
+  </data>
+  <data name="Face_no_to" xml:space="preserve">
+    <value>フェイスNoＴＯ</value>
+  </data>
+  <data name="Searchcnt" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnsearch" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Btnzenstk" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnzenkjo" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnprint" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Pgr" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1face_no" xml:space="preserve">
+    <value>フェイスNo</value>
+  </data>
+  <data name="M1tana_dan" xml:space="preserve">
+    <value>棚段</value>
+  </data>
+  <data name="M1selectorcheckbox" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno2" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1face_no2" xml:space="preserve">
+    <value>フェイスNo</value>
+  </data>
+  <data name="M1tana_dan2" xml:space="preserve">
+    <value>棚段</value>
+  </data>
+  <data name="M1selectorcheckbox2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno3" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1face_no3" xml:space="preserve">
+    <value>フェイスNo</value>
+  </data>
+  <data name="M1tana_dan3" xml:space="preserve">
+    <value>棚段</value>
+  </data>
+  <data name="M1selectorcheckbox3" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg3" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn3" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno4" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1face_no4" xml:space="preserve">
+    <value>フェイスNo</value>
+  </data>
+  <data name="M1tana_dan4" xml:space="preserve">
+    <value>棚段</value>
+  </data>
+  <data name="M1selectorcheckbox4" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg4" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn4" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno5" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1face_no5" xml:space="preserve">
+    <value>フェイスNo</value>
+  </data>
+  <data name="M1tana_dan5" xml:space="preserve">
+    <value>棚段</value>
+  </data>
+  <data name="M1selectorcheckbox5" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg5" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn5" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno6" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1face_no6" xml:space="preserve">
+    <value>フェイスNo</value>
+  </data>
+  <data name="M1tana_dan6" xml:space="preserve">
+    <value>棚段</value>
+  </data>
+  <data name="M1selectorcheckbox6" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg6" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn6" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno7" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1face_no7" xml:space="preserve">
+    <value>フェイスNo</value>
+  </data>
+  <data name="M1tana_dan7" xml:space="preserve">
+    <value>棚段</value>
+  </data>
+  <data name="M1selectorcheckbox7" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg7" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn7" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnenter" xml:space="preserve">
+    <value>確定</value>
+  </data>
+</root>

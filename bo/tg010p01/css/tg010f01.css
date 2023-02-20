@@ -1,0 +1,88 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tg010f01.css
+--------------------------------------------------------------------------------*/
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+
+.str-search-01 .w-type-01 {
+  width: 90px;
+}
+.str-search-01 .w-type-02 {
+  width: 210px;
+}
+.str-syuturyokuseal span {
+    color: #666666;
+    position: relative;
+    top: 5px;
+	margin-left: 14px;
+}
+
+.radio-syuturyokuseal table > tbody > tr > td{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* 行 */
+.str-result-01 .col1 {
+	position: relative;
+	width: 30px;
+}
+/* 部門／品種 */
+.str-result-01 .col2 {
+	width: 146px;
+}
+/* ブランド／自社品番 */
+.str-result-01 .col3 {
+	width: 144px;
+}
+/* メーカー品番／商品名 */
+.str-result-01 .col4 {
+	width: 354px;
+}
+/* 販売完了日 */
+.str-result-01 .col5 {
+	width: 128px;
+}
+/*--- 色 ---*/
+.str-result-01 .col5 .col5-1 {
+	width: 72px;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- サイズ ---*/
+.str-result-01 .col5 .col5-2 {
+	width: 50px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/* スキャンコード */
+.str-result-01 .col6 {
+	width: 118px;
+}
+/* 売変開始日 */
+.str-result-01 .col7 {
+	width: 70px;
+}
+/* 指示売価 */
+.str-result-01 .col8 {
+	width: 64px;
+}
+/* 最新売価 */
+.str-result-01 .col9 {
+	width: 64px;
+}
+/* 枚数 */
+.str-result-01 .str-result-hdg-01 .col10 {
+	width: 55px;
+}
+/* 枚数 */
+.str-result-01 .str-result-item-01 .col10 {
+	width: 50px;
+}
+.str-result-01 .cell {
+	display: block;
+	float: left;
+}

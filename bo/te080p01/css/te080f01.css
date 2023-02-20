@@ -1,0 +1,44 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:te080f01.css
+--------------------------------------------------------------------------------*/
+/* No */
+.str-result-01 .col1 {
+	width: 30px;
+}
+/* 会社 */
+.str-result-01 .col2 {
+	width: 190px;
+}
+/* 出荷店 */
+.str-result-01 .col3 {
+	width: 204px;
+}
+/* SCMコード/伝票番号 */
+.str-result-01 .col4 {
+	width: 190px;
+}
+/* SCMコード */
+.str-result-01 .col5 {
+	width: 160px;
+}
+/* 伝票番号 */
+.str-result-01 .col6 {
+	width: 85px;
+}
+/* 出荷日 */
+.str-result-01 .col7 {
+	width: 90px;
+}
+
+/* 予定数量 */
+.str-result-01 .col8 {
+	width: 83px;
+}
+/* 客注 */
+.str-result-01 .col9 {
+	width: 70px;
+}
+/* 値書き */
+.str-result-01 .col10 {
+	width: 70px;
+}

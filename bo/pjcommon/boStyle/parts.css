@@ -1,0 +1,783 @@
+﻿/*--------------------------------------------------------- 
+	ヘッダー店舗コード
+--------------------------------------------------------- */
+.headerTenpo {
+	position: absolute;
+	/*z-index: 10;*/
+	top:0px;
+	left:617px;
+}
+/*--- 店舗コード --*/
+input.inpHeaderTenpo {
+	width: 35px;
+}
+input.inpHeaderTenpoDisabled {
+	width: 35px;
+	color: #FFFFFF;
+	font-size: 110%;
+}
+input.inpHeaderTenpoNm {
+	width: 140px;
+	color: #FFFFFF;
+	font-size: 110%;
+}
+/*--------------------------------------------------------- 
+	ヘッダー戻るボタン
+--------------------------------------------------------- */
+.headerBackBtn {
+	position: absolute;
+	/*z-index: 10;*/
+	top:5px;
+	left:150px;
+}
+
+.btn.type-back {
+	/*line-height: 40px;*/
+	width: 27px;
+	height: 27px;
+	text-align: center;
+	background: #1ca7e0 url("../boImages/btn_back_on.png") no-repeat 0 0;
+	background-size:contain;
+}
+.btn.type-back:hover {
+	background: #1ca7e0 url("../boImages/btn_back_off.png") no-repeat 0 0;
+}
+
+
+/*--------------------------------------------------------- 
+	各入力項目
+--------------------------------------------------------- */
+
+
+/*--- 明細 --*/
+input.inpDetail {
+	margin-top: 4px;
+}
+/*--- 店舗コード --*/
+input.inpTenpo {
+	width: 33px;
+}
+/*--- 担当者コード --*/
+input.inpTanto {
+	width: 56px;
+}
+/*--- 商品群１コード --*/
+input.inpSyohingun1 {
+	width: 33px;
+}
+/*--- 商品群２コード --*/
+input.inpSyohingun2 {
+	width: 41px;
+}
+/*--- 部門コード --*/
+input.inpBumon {
+	width: 25px;
+}
+/*--- 部門名 --*/
+input.inpBumonNm9 {
+	width: 150px;
+}
+/*--- 品種コード --*/
+input.inpHinshu {
+	width: 18px;
+}
+/*--- ブランドコード --*/
+input.inpBrand {
+	width: 48px;
+}
+/*--- 科目コード --*/
+input.inpKamoku {
+	width: 59px;
+}
+/*--- 仕入先コード --*/
+input.inpShiire {
+	width: 32px;
+}
+
+/*--- 色コード --*/
+input.inpColor {
+  width: 25px;
+}
+
+/*--- 自社品番(10桁) --*/
+input.inpJishahin10 {
+	width: 80px;
+}
+
+/*--- 摘要コード --*/
+input.inpTekiyo {
+  width: 25px;
+}
+
+/*--- 日付 --*/
+input.inpDt {
+  width: 74px;
+}
+/*--- 日付(明細) --*/
+input.inpDt2 {
+  margin-top: 4px;
+  width: 69px;
+}
+
+/*--- 年月 --*/
+input.inpYm {
+  width: 58px;
+}
+
+/*--- 年月(カレンダーなし) --*/
+input.inpYmNotCalendar {
+  width: 54px;
+}
+/*--- スキャンコード ---*/
+input.inpScan {
+	width: 96px;
+	text-align: left;
+	margin-top: 4px;
+}
+/*--- スキャンコード(ヘッダ) ---*/
+input.inpScanHdg {
+	width: 106px;
+	text-align: left;
+}
+
+/*--- メーカー品番 ---*/
+input.inpMkhin {
+  width: 390px;
+}
+/*--- 会社 ---*/
+input.inpComp {
+  width: 20px;
+}
+
+/*--- 数量(1桁) ---*/
+input.inpSu-01 {
+	width: 15px;
+	text-align: right;
+}
+/*--- 数量(2桁) ---*/
+input.inpSu-02 {
+	width: 22px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	text-align: right;
+}
+/*--- 数量(3桁) ---*/
+input.inpSu-03 {
+	width: 29px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	text-align: right;
+}	
+/*--- 数量(4桁) ---*/
+input.inpSu-04 {
+	width: 40px;
+	margin-top: 4px;
+	text-align: right;
+}
+/*--- 数量(5桁) ---*/
+input.inpSu-05 {
+	width: 47px;
+	margin-top: 4px;
+	text-align: right;
+}
+/*--- 数量(6桁) ---*/
+input.inpSu-06 {
+  width: 54px;
+	margin-top: 4px;
+	text-align: right;
+}
+/*--- 数量(7桁) ---*/
+input.inpSu-07 {
+	width: 65px;
+	margin-top: 4px;
+	text-align: right;
+}
+/*--- 数量(8桁) ---*/
+input.inpSu-08 {
+	width: 72px;
+	margin-top: 4px;
+	text-align: right;
+}
+/*--- 数量(9桁) ---*/
+input.inpSu-09 {
+	width: 79px;
+	margin-top: 4px;
+	text-align: right;
+}
+/*--- 数量(10桁) ---*/
+input.inpSu-10 {
+	width: 90px;
+	margin-top: 4px;
+	text-align: right;
+}
+
+/*--- コード(3桁) ---*/
+input.inpCd-03 {
+	width: 45px;
+	text-align: left;
+}
+/*--- コード(4桁) ---*/
+input.inpCd-04 {
+	width: 53px;
+	text-align: left;
+}
+/*--- コード(5桁) ---*/
+input.inpCd-05 {
+	width: 59px;
+	text-align: left;
+}
+/*--- コード(8桁) ---*/
+input.inpCd-08 {
+	width: 65px;
+	text-align: left;
+}
+/*--- コード(10桁) ---*/
+input.inpCd-10 {
+	width: 80px;
+	text-align: left;
+}
+
+/*--- 伝票番号 ---*/
+input.inpDenpyo {
+	width: 46px;
+	margin-top: 4px;
+	text-align: right;
+}
+
+/*--- SCMコード ---*/
+input.inpSCM {
+	width: 162px;
+	text-align: left;
+}
+
+/*--- 業務稟議No ---*/
+input.inpRingiNo {
+	width: 35px;
+	text-align: left;
+}
+
+/*--- 売変指示No ---*/
+input.inpBaihenSijiNo {
+	width: 190px;
+	text-align: left;
+}
+
+/*--- 返品指示No ---*/
+input.inpHenpinSijiNo {
+	width: 190px;
+	text-align: left;
+}
+
+/*--- 移動指示No ---*/
+input.inpIdoSijiNo {
+	width: 190px;
+	text-align: left;
+}
+
+/*--- 受理番号 ---*/
+input.inpJuriNo {
+	width: 130px;
+	text-align: left;
+}
+
+/*--- ｵﾌﾗｲﾝ伝票No ---*/
+input.inpOffDenNo {
+	width: 170px;
+	text-align: left;
+}
+
+/*--- 管理No ---*/
+input.inpKanriNo {
+	width: 50px;
+	text-align: left;
+}
+
+/*--- フェイスNo ---*/
+input.inpFaceNo {
+	width: 40px;
+	text-align: left;
+}
+/*--- 棚段 ---*/
+input.inpTanadan {
+	width: 20px;
+	text-align: right;
+}
+
+/*--- 摘要コード ---*/
+input.inpTekiyoCd {
+	width: 25px;
+	text-align: left;
+}
+/*--- 備考 ---*/
+input.inpBikou {
+	width: 400px;
+	margin-top: 4px;
+	text-align: left;
+}
+
+/*--- 伝票ﾊﾞｰｺｰﾄﾞ ---*/
+input.inpDenBarcode {
+	width: 75px;
+	margin-top: 4px;
+	text-align: right;
+}
+
+/*--- 日付 --*/
+.label-fromto {
+	margin-right: 9px;
+}
+
+/*--- ハイフン --*/
+.label-hihun {
+	margin-right: 2px;
+}
+
+/*--- ラベルID ---*/
+input.inpLabelID {
+	width: 60px;
+	text-align: left;
+}
+input.inpLabelID1 {
+	text-align: left;
+	width: 33px;
+}
+input.inpLabelID2 {
+	text-align: left;
+	width: 25px;
+}
+/*--- ラベル名 ---*/
+input.inpLabelNM {
+	width: 135px;
+}
+
+/*--- マシン名 ---*/
+input.inpPCID {
+	text-align: left;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	width: 140px;
+}
+
+/*--- プリンタID ---*/
+input.inpPrinterID {
+	text-align: left;
+	width: 26px;
+}
+
+/*--- PC備考 ---*/
+input.inpPcBiko {
+	text-align: left;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	width: 520px;
+}
+
+/*--- 件数表示 --*/
+input.inpSearchCnt {
+	padding-right: 4px;
+	width: 50px;
+}
+
+/*--- 虫めがねあり(明細用) ---*/
+input.inpSerchDtl {
+	padding: 5px 28px 9px 8px;
+}
+
+/*--- 備考(テキストボックス②) ---*/
+.inpBikou2 {
+	width: 200px;
+}
+
+/*-- ReadOnlyText用 --*/
+/* コードと名称の間 */
+.inpRORightNm {
+	margin-left:3px;
+}
+/* ReadOnly 日付 */
+.inpRODate {
+	width: 68px;
+}
+/* ReadOnly 日付 */
+.inpRODateYM {
+	width: 50px;
+}
+/* ReadOnly 時間 */
+.inpROTime {
+	width: 60px;
+}
+/* ReadOnly 数字(カンマ付き) */
+.inpRONumCma4 {
+	width: 33px;
+}
+.inpRONumCma5 {
+	width: 40px;
+}
+.inpRONumCma6 {
+	width: 50px;
+}
+.inpRONumCma7 {
+	width: 60px;
+}
+.inpRONumCma8 {
+	width: 66px;
+}
+.inpRONumCma9 {
+	width: 74px;
+}
+.inpRONumCma11 {
+	width: 90px;
+}
+.inpRONumCma12 {
+	width: 98px;
+}
+.inpRONumCma13 {
+	width: 110px;
+}
+.inpRONumCma15 {
+	width: 125px;
+}
+	
+	
+.inpRONumCmaMinus4  {
+	width: 38px;
+}
+.inpRONumCmaMinus5 {
+	width: 45px;
+}
+.inpRONumCmaMinus6 {
+	width: 53px;
+}
+.inpRONumCmaMinus7 {
+	width: 65px;
+}
+.inpRONumCmaMinus8 {
+	width: 71px;
+}
+.inpRONumCmaMinus9 {
+	width: 79px;
+}
+.inpRONumCmaMinus11 {
+	width: 95px;
+}
+.inpRONumCmaMinus12 {
+	width: 104px;
+}
+.inpRONumCmaMinus13 {
+	width: 115px;
+}
+.inpRONumCmaMinus15 {
+	width: 130px;
+}
+/* ReadOnly 数字 */
+.inpRONum1 {
+	width: 7px;
+}
+.inpRONum2 {
+	width: 14px;
+}
+.inpRONum3 {
+	width: 22px;
+}
+.inpRONum4 {
+	width: 30px;
+}
+.inpRONum5 {
+	width: 38px;
+}
+.inpRONum6 {
+	width: 46px;
+}
+.inpRONum7 {
+	width: 54px;
+}
+.inpRONum8 {
+	width: 62px;
+}
+.inpRONum10 {
+	width: 76px;
+}
+.inpRONum13 {
+	width: 98px;
+}
+.inpRONum18 {
+	width: 138px;
+}
+.inpRONum20 {
+	width: 154px;
+}
+.inpRONumMinus1 {
+	width: 12px;
+}
+.inpRONumMinus2 {
+	width: 19px;
+}
+.inpRONumMinus3 {
+	width: 27px;
+}
+/* ReadOnly 半角文字 */
+.inpROHankaku2 {
+	width: 24px;
+}
+.inpROHankaku3 {
+	width: 37px;
+}
+.inpROHankaku4 {
+	width: 48px;
+}
+.inpROHankaku5 {
+	width: 59px;
+}
+.inpROHankaku6 {
+	width: 70px;
+}
+.inpROHankaku8 {
+	width: 92px;
+}
+.inpROHankaku9 {
+	width: 104px;
+}
+.inpROHankaku10 {
+	width: 116px;
+}
+.inpROHankaku12 {
+	width: 139px;
+}
+.inpROHankaku14 {
+	width: 164px;
+}
+.inpROHankaku15 {
+	width: 174px;
+}
+.inpROHankaku16 {
+	width: 190px;
+}
+.inpROHankaku17 {
+	width: 201px;
+}
+.inpROHankaku20 {
+	width: 234px;
+}
+.inpROHankaku22 {
+	width: 256px;
+}
+.inpROHankaku30 {
+	width: 350px;
+}
+.inpROHankaku60 {
+	width: 694px;
+}
+/* ReadOnly 全角文字 */
+.inpROZenkaku1 {
+	width: 12px;
+}
+.inpROZenkaku2 {
+	width: 24px;
+}
+.inpROZenkaku3 {
+	width: 36px;
+}
+.inpROZenkaku4 {
+	width: 48px;
+}
+.inpROZenkaku5 {
+	width: 60px;
+}
+.inpROZenkaku6_2 {
+	width: 70px;
+}
+.inpROZenkaku6 {
+	width: 72px;
+}
+.inpROZenkaku7 {
+	width: 84px;
+}
+.inpROZenkaku8 {
+	width: 96px;
+}
+.inpROZenkaku9 {
+	width: 107px;
+}
+.inpROZenkaku10 {
+	width: 120px;
+}
+.inpROZenkaku11 {
+	width: 132px;
+}
+.inpROZenkaku12 {
+	width: 144px;
+}
+.inpROZenkaku15 {
+	width: 180px;
+}
+.inpROZenkaku16 {
+	width: 216px;
+}
+.inpROZenkaku20 {
+	width: 240px;
+}
+.inpROZenkaku50 {
+	width: 580px;
+}
+/*-- 明細リンク用 --*/
+.meisaiLink {
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	background-color: Transparent;
+	padding: 0px 1px 0px 1px;
+	margin: 0;
+	height: 34px;
+	color: blue;
+	text-decoration: underline;
+}
+/*-- 明細リンク用(使用不可) --*/
+.meisaiLinkDisable {
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	background-color: Transparent;
+	padding: 0;
+	margin: 0;
+	height: 34px;
+	/*color: Transparent;*/
+	text-decoration: none;
+}
+
+
+/**/
+.pad0 {
+	padding:0px;
+}
+
+/* リードオンリーテキスト */
+.txtReadonly
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	padding: 4px 12px 8px 0px;
+	margin: 1px 8px 1px 1px;
+	/*margin-top: 3px;*/
+	/*height: 27px;*/
+}
+/* ドロップダウン用使用不可時のスタイル */
+.dropDownListDisable
+{
+	background-color: #F7F7F7;
+}
+
+/* 警告ダイアログ用 */
+#modal-warnlist {
+	padding: 0 20px;
+	height: 100px;
+}
+/* 情報ダイアログ用 */
+#modal-info {
+	padding: 0 20px;
+	height: 100px;
+}
+
+/* 読み取り専用テキストボックスのクラス */
+.inpReadonlyNoAlign
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	padding: 0;
+	margin: 0;
+	margin-top: 3px;
+	height: 27px;
+}
+/* 読み取り専用テキストボックスのクラス(虫眼鏡付きテキスト用) */
+.inpReadonlyNoAlign_Seach
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	background-color: Transparent;
+	border-bottom-style: none;
+	/*
+	padding: 0;
+	margin: 0;
+	margin-top: 3px;
+	height: 27px;*/
+}
+
+/*--------------------------------------------------------- 
+	ページャ2（前のサイズ／次のサイズ）
+--------------------------------------------------------- */
+.str-pager-02 {
+	position: relative;
+	padding: 10px 0;
+	text-align: right;
+}
+.str-pager-02 .pager-02 {
+	display: inline-block;
+	padding: 0 53px;
+}
+.str-pager-02 .pager-02 li {
+	float: left;
+}
+.str-pager-02 .pager-02 li:first-child {
+	line-height: 35px;
+	position: absolute;
+	left: 0px;
+	color: #61b6d8;
+}
+.str-pager-02 .pager-02 li.prev {
+	margin: 0 -917px;
+	width: 20px;
+}
+.str-pager-02 .pager-02 li:last-child {
+	margin: 0 0px;
+	width: 20px;
+}
+.str-pager-02 .pager-02 li input {
+	line-height: 20px;
+	display: block;
+	width: 70px;
+	height: 23px;
+	text-align: center;
+	text-decoration: none;
+	color: #61b6d8;
+}
+.str-pager-02 .pager-02 li a.active, .str-pager-02 .pager-02 li input:hover {
+	color: #ffffff;
+	background-color: #61b6d8;
+}
+/*
+ 棚卸取漏欠番用の明細行のスタイル	
+ */
+.str-result-01 .str-result-item-01_ketsuban {
+    border-right: 0px;
+}
+/*
+ 明細画面用商品コード
+ */
+.inpROSyohinCd {
+	width:146px
+}
+
+/* 高さ0 */
+.heightZero {
+	height:0px;
+}
+
+#str-pager-bottom {
+    padding-bottom: 10px !important;
+}
+
+/* フォントカラー 赤 */
+.fontColorRed {
+	color: #FF0000;
+}
+/* フォントカラー 青 */
+.fontColorBlue {
+	color: #0000FF;
+}

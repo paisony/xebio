@@ -1,0 +1,90 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:te070f01.css
+--------------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 伝票状態 ---*/
+.slt-denpyo {
+	width: 100px;
+}
+
+.str-search-01 .w-type-01 {
+  width: 100px;
+}
+.str-search-01 .w-type-02 {
+  width: 195px;
+}
+.str-search-01 .w-type-03 {
+  width: 265px;
+}
+
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  position: relative;
+  width: 28px;
+}
+/* 会社 */
+.str-result-01 .col2 {
+  width: 30px;
+}
+/* 出荷店 */
+.str-result-01 .col3 {
+  width: 159px;
+}
+/* SCMコード */
+.str-result-01 .col4 {
+  width: 157px;
+}
+/* 伝票番号 */
+.str-result-01 .col5 {
+  width: 70px;
+}
+/* 出荷日 */
+.str-result-01 .col6 {
+  width: 80px;
+}
+/* 入荷日 */
+.str-result-01 .col7 {
+  width: 80px;
+}
+/* 予定数量 */
+.str-result-01 .col8 {
+  width: 70px;
+}
+/* 確定数量 */
+.str-result-01 .col9 {
+  width: 70px;
+}
+/* 客注 */
+.str-result-01 .col10 {
+  width: 55px;
+}
+/* 値書 */
+.str-result-01 .col11 {
+  width: 55px;
+}
+/* 伝票状態 */
+.str-result-01 .col12 {
+  width: 68px;
+}
+/* 処理 */
+.str-result-01 .col13 {
+  width: 70px;
+}
+/* 処理日 */
+.str-result-01 .col14 {
+  width: 80px;
+}
+/* 処理時間 */
+.str-result-01 .col15 {
+  width: 75px;
+}
+

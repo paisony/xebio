@@ -1,0 +1,103 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:ta080f01.css
+--------------------------------------------------------------------------------*/
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 年月度 ---*/
+.nengetsudo {
+	width: 56px;
+}
+
+/*--- 仕入枠ｸﾞﾙｰﾌﾟコード ---*/
+.shiirewaku {
+	width: 78px;
+}
+
+/*--- 区分 ---*/
+.slt-kbn {
+	width: 140px;
+}
+/*--- 理由 ---*/
+.slt-riyu {
+	width: 140px;
+}
+/*--- 種別 ---*/
+.slt-shinseisb {
+	width: 100px;
+}
+/*--- 状態 ---*/
+.slt-jotai {
+	width: 180px;
+}
+/*--- 送信状態 ---*/
+.slt-sosinjotai {
+	width: 80px;
+}
+
+.str-search-01 .w-type-01 {
+	width: 100px;
+}
+.str-search-01 .w-type-02 {
+	width: 280px;
+}
+.str-search-01 .w-type-03 {
+	width: 220px;
+}
+.str-search-01 .w-type-03 {
+	width: 200px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No */
+.str-result-01 .col1 {
+	position: relative;
+	width: 48px;
+}
+/* 年月度 */
+.str-result-01 .col2 {
+	width: 66px;
+}
+/* 商品群2 */
+.str-result-01 .col3 {
+	width: 205px;
+}
+/* 予算金額 */
+.str-result-01 .col4 {
+	width: 106px;
+}
+/* 未申請数 */
+.str-result-01 .col5 {
+	width: 106px;
+}
+/* 未申請金額 */
+.str-result-01 .col6 {
+	width: 106px;
+}
+/* 申請数 */
+.str-result-01 .col7 {
+	width: 106px;
+}
+/* 申請金額 */
+.str-result-01 .col8 {
+	width: 106px;
+}
+/* 実績数 */
+.str-result-01 .col9 {
+	width: 106px;
+}
+/* 実績金額 */
+.str-result-01 .col10 {
+	width: 106px;
+}
+/* 残金額 */
+.str-result-01 .col11 {
+	width: 106px;
+}
+/* 実績金額 */
+.str-result-01 .col12 {
+	width: 104px;
+}
+

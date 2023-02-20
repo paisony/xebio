@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01009-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 STMT0060.SOSIKI
+							,STMT0060.TENCD
+							,STMT0060.GRPCD
+							,STMT0060.GRPNM
+							,STMT0060.GRPNMK
+							,STMT0060.MENTF
+							,STMT0060.DELYMD
+							,STMT0060.ADDYMD
+							,STMT0060.ADDHMS
+							,STMT0060.UPDYMD
+							,STMT0060.UPDHMS
+					FROM
+							STMT0060
+					WHERE
+							STMT0060.SOSIKI = '0001'
+					AND		STMT0060.TENCD  = '0000'
+					AND		STMT0060.GRPCD  = </parts><bind id="GRPCD" /><parts>
+					AND		STMT0060.MENTF IN (</parts><bind id="SAKUJYO_FLG1" /><parts>, </parts><bind id="SAKUJYO_FLG2" /><parts>)
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

@@ -1,0 +1,182 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tk010f02.css
+--------------------------------------------------------------------------------*/
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+/*--- 評価損種別 ---*/
+.slt-hyoukasonShubetu {
+	width: 83px;
+	margin-top: 3px;
+	height: 28px;
+}
+/*--- 評価損理由コンボ ---*/
+.slt-hyoukasonRiyu {
+	width: 114px;
+	margin-top: 3px;
+	height: 28px;
+}
+/*--- 評価損理由テキスト ---*/
+.inp-hyoukasonRiyu {
+	width: 114px;
+	margin-top: 3px;
+}
+/*--- 却下理由コンボ ---*/
+.slt-kyakkaRiyu {
+	width: 125px;
+	margin-top: 3px;
+	height: 28px;
+}
+/*--- 却下理由テキスト ---*/
+.inp-kyakkaRiyu {
+	width: 118px;
+	margin-top: 3px;
+}
+/*--- 一括却下理由コンボ ---*/
+.slt-ikkatsuKyakkaRiyu {
+	width: 135px;
+	height: 28px;
+}
+/*--- 一括却下理由テキスト ---*/
+.inp-ikkatsuKyakkaRiyu {
+	width: 135px;
+}
+
+.str-search-02 .w-type-01 {
+  width: 100px;
+}
+.str-search-02 .w-type-02 {
+  width: 120px;
+}
+.str-search-02 .w-type-03 {
+  width: 210px;
+}
+.str-search-02 .w-type-04 {
+  width: 90px;
+}
+.str-search-02 .w-type-05 {
+  width: 100px;
+}
+
+.str-kyakkariyu span {
+    color: #666666;
+    position: relative;
+    top: 5px;
+	margin-left: 14px;
+}
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- 行 ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 28px;
+	border-left: 1px solid #cccccc;
+}
+
+/*--- 部門／品種 ---*/
+.str-result-01 .col2 {
+	width: 30px;
+}
+
+/*--- ブランド ---*/
+.str-result-01 .col3 {
+  width: 120px;
+}
+/*--- 自社品番 ---*/
+.str-result-01 .col3 .col3-1 {
+  width: 63px;
+}
+/*--- 販完日 ---*/
+.str-result-01 .col3 .col3-2 {
+  width: 48px;
+  border-left: 1px solid #ffffff;
+}
+
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col4 {
+  width: 152px;
+}
+
+/*--- スキャンコード ---*/
+.str-result-01 .col5 {
+  width: 128px;
+}
+/*--- 色 ---*/
+.str-result-01 .col5 .col5-1 {
+  width: 72px;
+}
+/*--- サイズ ---*/
+.str-result-01 .col5 .col5-2 {
+  width: 47px;
+  border-left: 1px solid #ffffff;
+}
+
+/*--- 上代1／数量 ---*/
+.str-result-01 .col6 {
+  width: 76px;
+}
+
+/*--- 原単価／原価金額 ---*/
+.str-result-01 .col7 {
+  width: 77px;
+}
+
+/*--- 入力日／申請日 ---*/
+.str-result-01 .col8 {
+  width: 52px;
+}
+
+/*--- 入力者／申請者 ---*/
+.str-result-01 .col9 {
+  width: 56px;
+}
+
+/*--- 種別 ---*/
+.str-result-01 .col10 .col10-1 {
+	width: 85px;
+}
+/*--- 評価損理由 ---*/
+.str-result-01 .col10 .col10-2 {
+	width: 254px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- 却下理由 ---*/
+.str-result-01 .col10 {
+  width: 348px;
+}
+
+/*--- 調達 ---*/
+.str-result-01 .col11 {
+  width: 26px;
+}
+
+/*--- 承認 ---*/
+.str-result-01 .col12 {
+  width: 32px;
+}
+
+/*--- 却下 ---*/
+.str-result-01 .col13 {
+  width: 32px;
+}
+
+.str-result-01 .cell {
+  display: block;
+  float: left;
+  /*text-align: center;*/
+}
+
+/*--- 明細合計部 ---*/
+.str-result-01 .str-result-ftr-01 {
+	width: 1222px;
+	padding: 1px 0px;
+	/*background-color: #1ca7e0;*/
+	background-color: #1ca7e0;
+}
+
+/*--- 却下理由調整用---*/
+.kyakkariyu-pad1 {
+  padding-left: 1px;
+}

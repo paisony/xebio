@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<!-- 担当者マスタ・店舗マスタ取得 -->
+		<sql id="C01029-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 M1.HANBAIIN_CD
+						,M1.HANBAIIN_NM
+						,M1.HANBAIINTENPO_CD
+						,M2.TENPO_NM
+						,M1.UPD_YMD
+						,M1.UPD_TM
+					FROM
+						BOMT0030 M1
+					LEFT JOIN 
+						BOMT0010 M2
+					ON	M2.TENPO_CD = M1.HANBAIINTENPO_CD
+					AND M2.SAKUJYO_FLG = 0
+					WHERE
+						M1.SAKUJYO_FLG = 0
+					AND M1.HANBAIIN_CD =
+				</parts>
+				<bind id="BIND_HANBAIIN_CD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

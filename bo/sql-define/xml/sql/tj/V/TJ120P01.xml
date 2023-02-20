@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/**  **/
+		<sql id="TJ120P01-01">
+			/** 棚卸重複検索一覧(検索ボタン) (カウント) **/
+
+			/** 本文前半 **/
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					COUNT(1) CNT
+					FROM
+					MDIT0010 S1
+					,(
+					SELECT TENPO_CD,
+					FACE_NO,
+					TANA_DAN,
+					TANAOROSI_YMD,
+					SOSINKAI_SU
+					FROM MDIT0010 S2
+					WHERE
+					0 = 0
+				</parts>
+			</statement>
+			
+			/** 抽出条件 **/
+			<statement type="replace" name="REP_ADD_WHERE"/>
+
+			/** 本文後半 **/
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					TENPO_CD,
+					FACE_NO,
+					TANA_DAN,
+					TANAOROSI_YMD,
+					SOSINKAI_SU
+					HAVING	   COUNT(1)	&gt; 1
+					) MDIT0010_MAX
+					WHERE
+					S1.TENPO_CD      = MDIT0010_MAX.TENPO_CD
+					AND	S1.FACE_NO       = MDIT0010_MAX.FACE_NO
+					AND	S1.TANA_DAN      = MDIT0010_MAX.TANA_DAN
+					AND	S1.TANAOROSI_YMD = MDIT0010_MAX.TANAOROSI_YMD
+					AND	S1.SOSINKAI_SU   = MDIT0010_MAX.SOSINKAI_SU
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-02">
+			/** 棚卸重複検索一覧(検索ボタン) (検索) **/
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T1.TENPO_CD
+					,T1.FACE_NO
+					,T1.TANA_DAN
+					,T1.KAI_SU
+					,T1.TANAOROSI_YMD
+					,T1.SOSINKAI_SU
+					,T1.TANADAN_SU
+					,T1.TANAOROSIGOKEI_SU
+					,T1.ADD_YMD
+					,T1.ADD_TM
+					,T1.ADDTAN_CD
+					,T1.UPD_YMD
+					,T1.UPD_TM
+					,T1.UPD_TANCD
+					,T1.SAKUJYO_YMD
+					,T1.SAKUJYO_FLG
+					,T1.SOSINIRAI_FLG
+					,T1.SOSINZUMI_FLG
+					,T1.SOSIN_YMD
+					,T1.SOSIN_TM
+					,BOMT0030.HANBAIIN_NM
+					FROM
+					MDIT0010 T1
+					,(
+					SELECT
+					TENPO_CD,
+					FACE_NO,
+					TANA_DAN,
+					TANAOROSI_YMD,
+					SOSINKAI_SU
+					FROM MDIT0010 S2
+					WHERE
+					0 = 0
+				</parts>
+			</statement>
+
+			/** 抽出条件 **/
+			<statement type="replace" name="REP_ADD_WHERE"/>
+
+			/** 本文後半 **/
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY
+					TENPO_CD,
+					FACE_NO,
+					TANA_DAN ,
+					TANAOROSI_YMD,
+					SOSINKAI_SU
+					HAVING	   COUNT(1)	&gt; 1
+					) S1
+					,BOMT0030
+					WHERE
+						T1.TENPO_CD			= S1.TENPO_CD
+					AND	T1.FACE_NO			= S1.FACE_NO
+					AND	T1.TANA_DAN			= S1.TANA_DAN
+					AND	T1.TANAOROSI_YMD	= S1.TANAOROSI_YMD
+					AND	T1.SOSINKAI_SU		= S1.SOSINKAI_SU
+					AND	T1.ADDTAN_CD		= BOMT0030.HANBAIIN_CD(+)
+					ORDER BY
+					T1.FACE_NO,
+					T1.TANA_DAN,
+					T1.KAI_SU
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-03">
+			/** 棚卸重複検索一覧(Ｍ１Noリンク) **/
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					MDIT0011.TENPO_CD
+					,MDIT0011.FACE_NO
+					,MDIT0011.TANA_DAN
+					,MDIT0011.KAI_SU
+					,MDIT0011.TANAOROSI_YMD
+					,MDIT0011.SOSINKAI_SU
+					,MDIT0011.GYO_NBR
+					,MDIT0011.BUMON_CD
+					,BOMT0060.BUMONKANA_NM
+					,MDMT0070.HINSYU_RYAKU_NM
+					,STMT0500.BURANDO_NMK
+					,MDIT0011.JISYA_HBN
+					,MDIT0011.MAKER_HBN
+					,MDIT0011.SYONMK
+					,MDMT0080.IRO_NM
+					,MDIT0011.SIZE_NM
+					,MDIT0011.JAN_CD
+					,MDIT0011.TANAOROSIGOKEI_SU
+					,MDIT0011.HINSYU_CD
+					,MDIT0011.BURANDO_CD
+					,MDIT0011.SYOHIN_CD
+					,MDIT0011.IRO_CD
+					,MDIT0011.SIZE_CD
+					FROM
+					MDIT0011
+					LEFT JOIN
+					MDMT0080					/* 色 */
+					ON	MDIT0011.IRO_CD = MDMT0080.IRO_CD
+					LEFT 	JOIN
+					STMT0500 					/* ブランドマスタ */
+					ON	MDIT0011.BURANDO_CD      = STMT0500.BURANDO_CD
+					LEFT 	JOIN
+					BOMT0060 					/* 部門マスタ */
+					ON	MDIT0011.BUMON_CD = BOMT0060.BUMON_CD
+					LEFT	JOIN
+					MDMT0070					/* 品種マスタ */
+					ON	MDIT0011.BUMON_CD = MDMT0070.BUMON_CD
+					AND MDIT0011.HINSYU_CD = MDMT0070.HINSYU_CD
+					WHERE
+					MDIT0011.TENPO_CD			= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND MDIT0011.FACE_NO		= </parts><bind id="BIND_FACE_NO" /><parts>
+					AND MDIT0011.TANA_DAN		= </parts><bind id="BIND_TANA_DAN" /><parts>
+					AND MDIT0011.KAI_SU			= </parts><bind id="BIND_KAI_SU" /><parts>
+					AND MDIT0011.TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					AND MDIT0011.SOSINKAI_SU	= </parts><bind id="BIND_SOSINKAI_SU" /><parts>				
+					ORDER BY
+						MDIT0011.GYO_NBR
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-04">
+			/** 重複チェック用**/
+			<statement type="final" name="final">
+				<parts>
+					SELECT FACE_NO,TANA_DAN,MAX(KAI_SU) KAI_SU
+					FROM MDIT0010
+					WHERE
+						TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>
+					AND TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					AND	FACE_NO			= </parts><bind id="BIND_FACE_NO" /><parts>		/* 新フェイス */
+					AND	TANA_DAN		= </parts><bind id="BIND_TANA_DAN" /><parts>	/* 新棚段 */
+
+					AND SOSINZUMI_FLG	= 0
+					GROUP BY FACE_NO,TANA_DAN
+					ORDER BY FACE_NO,TANA_DAN
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-05">
+			/** 棚卸重複検索_修正_確定 **/
+			/** 新フェイスNo,棚段で存在チェックし、回数を求める。		**/
+			/**		データが存在した場合、回数を+1する					**/
+			/**		フェイスNo,棚段が変更ない場合、元の回数を使用する	**/
+			/**		存在しなければ1→C#で設定							**/
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						CASE
+							WHEN 
+									FACE_NO		= </parts><bind id="BIND_FACE_NO_OLD"/><parts>  /* 元フェイス */
+								AND TANA_DAN	= </parts><bind id="BIND_TANA_DAN_OLD"/><parts>	/* 元棚段 */
+							THEN  </parts><bind id="BIND_KAI_SU_OLD" /><parts>					/* 元回数 */
+							ELSE MAX(KAI_SU) + 1 
+						END AS KAI_SU_NEW
+					FROM
+					MDIT0010
+					WHERE
+						TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>		/* 店舗 */
+					AND	FACE_NO			= </parts><bind id="BIND_FACE_NO_NEW" /><parts>		/* 新フェイス */
+					AND	TANA_DAN		= </parts><bind id="BIND_TANA_DAN_NEW" /><parts>	/* 新棚段 */
+					AND	TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>	/* 棚卸日 */
+					AND	SOSINZUMI_FLG	= 0													/* 送信済みフラグ */
+					GROUP BY FACE_NO, TANA_DAN
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-06">
+			/** 修正モード確定ボタン **/
+			/** フェイスNo,棚段を変更することによって欠番テーブルに存在するデータを削除する **/
+			<statement type="final" name="final">
+				<parts>
+					DELETE  MDIT0040
+					WHERE	
+						TENCD				= </parts><bind id="BIND_TENPO_CD" /><parts>		/* 店舗 */
+					AND	TANAOROSIKIJUN_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>	/* 棚卸日 */
+					AND	FACE_NO				= </parts><bind id="BIND_FACE_NO_NEW" /><parts>		/* 新フェイス */
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-07">
+			/** 棚卸重複検索_修正_確定 **/
+			/** 棚卸確定テーブルHの更新 **/
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0010 SET
+						FACE_NO			= </parts><bind id="BIND_FACE_NO_NEW" /><parts>		/* 新フェイス */
+						,TANA_DAN		= </parts><bind id="BIND_TANA_DAN_NEW" /><parts>	/* 新棚段 */
+						,KAI_SU 		= </parts><bind id="BIND_KAI_SU_NEW" /><parts>		/* 新回数 */
+						,UPD_YMD 		= </parts><bind id="BIND_UPD_YMD" /><parts>			/* 更新日 */
+						,UPD_TM 		= </parts><bind id="BIND_UPD_TM" /><parts>			/* 更新時間 */
+						,UPD_TANCD 		= </parts><bind id="BIND_UPD_TANCD" /><parts>		/* 更新担当者 */
+						,SAKUJYO_YMD	= </parts><bind id="BIND_SAKUJYO_YMD" /><parts>		/* 削除日 */
+						,MOTO_FACE_NO	= </parts><bind id="BIND_FACE_NO_OLD"/><parts>		/* 元フェイス */
+						,MOTO_TANA_DAN	= </parts><bind id="BIND_TANA_DAN_OLD"/><parts>		/* 元棚段 */
+						,MOTO_KAI_SU	= </parts><bind id="BIND_KAI_SU_OLD" /><parts>		/* 元回数 */
+					WHERE
+						TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>		/* 店舗 */
+					AND	FACE_NO			= </parts><bind id="BIND_FACE_NO_OLD2"/><parts>		/* 元フェイス */
+					AND	TANA_DAN		= </parts><bind id="BIND_TANA_DAN_OLD2"/><parts>	/* 元棚段 */
+					AND	KAI_SU			= </parts><bind id="BIND_KAI_SU_OLD2" /><parts>		/* 元回数 */
+					AND	TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>	/* 棚卸日 */
+					AND	SOSINKAI_SU		= </parts><bind id="BIND_SOSINKAI_SU" /><parts>		/* 送信回数 */
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-08">
+			/** 棚卸重複検索_修正_確定 **/
+			/** 棚卸確定テーブルHの更新_棚段数 **/
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0010 A SET
+						A.TANADAN_SU = 
+						(
+							SELECT MAX(B.TANA_DAN)
+								FROM
+									MDIT0010 B
+								WHERE
+									B.TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>		/* 店舗 */
+								AND	B.FACE_NO		= </parts><bind id="BIND_FACE_NO_NEW" /><parts>		/* 新フェイス */
+								AND	B.KAI_SU		= </parts><bind id="BIND_KAI_SU_NEW" /><parts>		/* 新回数 */
+								AND	B.TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>	/* 棚卸日 */
+								AND	B.SOSINKAI_SU	= </parts><bind id="BIND_SOSINKAI_SU" /><parts>		/* 送信回数 */
+						)
+					WHERE
+						A.TENPO_CD		= </parts><bind id="BIND_TENPO_CD2" /><parts>		/* 店舗 */
+					AND	A.FACE_NO		= </parts><bind id="BIND_FACE_NO_NEW2" /><parts>	/* 新フェイス */
+					AND	A.KAI_SU		= </parts><bind id="BIND_KAI_SU_NEW2" /><parts>		/* 新回数 */
+					AND	A.TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD2" /><parts>	/* 棚卸日 */
+					AND	A.SOSINKAI_SU	= </parts><bind id="BIND_SOSINKAI_SU2" /><parts>	/* 送信回数 */
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-09">
+			/** 棚卸重複検索_修正_確定 **/
+			/** 棚卸確定テーブル(B)の更新 **/
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0011 SET
+						FACE_NO		= </parts><bind id="BIND_FACE_NO_NEW" /><parts>			/* 新フェイス */
+						,TANA_DAN	= </parts><bind id="BIND_TANA_DAN_NEW" /><parts>		/* 新棚段 */
+						,KAI_SU 	= </parts><bind id="BIND_KAI_SU_NEW" /><parts>			/* 新回数 */
+					WHERE
+						TENPO_CD		= </parts><bind id="BIND_TENPO_CD" /><parts>		/* 店舗 */
+					AND	FACE_NO			= </parts><bind id="BIND_FACE_NO_OLD"/><parts>		/* 元フェイス */
+					AND	TANA_DAN		= </parts><bind id="BIND_TANA_DAN_OLD"/><parts>		/* 元棚段 */
+					AND	KAI_SU			= </parts><bind id="BIND_KAI_SU_OLD" /><parts>		/* 元回数 */
+					AND	TANAOROSI_YMD	= </parts><bind id="BIND_TANAOROSI_YMD" /><parts>	/* 棚卸日 */
+					AND	SOSINKAI_SU		= </parts><bind id="BIND_SOSINKAI_SU" /><parts>		/* 送信回数 */
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ120P01-10">
+			/** 削除モード確定ボタン **/
+			/** 棚卸確定TBL(H)の削除 **/
+			<statement type="final" name="final">
+				<parts>
+					DELETE
+					FROM
+						MDIT0010	-- 棚卸確定TBL(H)
+					WHERE	0 = 0
+					AND		TENPO_CD		=	</parts><bind id="BIND_TENCD" /><parts>
+					AND		FACE_NO			=	</parts><bind id="BIND_FACE_NO" /><parts>
+					AND		TANA_DAN		=	</parts><bind id="BIND_TANA_DAN" /><parts>
+					AND		KAI_SU			=	</parts><bind id="BIND_KAI_SU" /><parts>
+					AND		TANAOROSI_YMD	=	</parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					AND		SOSINKAI_SU		=	</parts><bind id="BIND_SOSINKAI_SU" />
+			</statement>
+		</sql>
+		<sql id="TJ120P01-11">
+			/** 削除モード確定ボタン **/
+			/** 棚卸確定TBL(B)の削除 **/
+			<statement type="final" name="final">
+				<parts>
+					DELETE
+					FROM
+						MDIT0011	-- 棚卸確定TBL(B)
+					WHERE	0 = 0
+					AND		TENPO_CD		=	</parts><bind id="BIND_TENCD" /><parts>
+					AND		FACE_NO			=	</parts><bind id="BIND_FACE_NO" /><parts>
+					AND		TANA_DAN		=	</parts><bind id="BIND_TANA_DAN" /><parts>
+					AND		KAI_SU			=	</parts><bind id="BIND_KAI_SU" /><parts>
+					AND		TANAOROSI_YMD	=	</parts><bind id="BIND_TANAOROSI_YMD" /><parts>
+					AND		SOSINKAI_SU		=	</parts><bind id="BIND_SOSINKAI_SU" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

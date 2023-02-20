@@ -1,0 +1,93 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:te010f01.css
+--------------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 伝票状態 ---*/
+.slt-denpyo {
+	width: 115px;
+}
+/*--- 出荷理由 ---*/
+.slt-shukkaRiyu {
+	width: 100px;
+}
+
+.str-search-01 .w-type-01 {
+  width: 100px;
+}
+.str-search-01 .w-type-02 {
+  width: 270px;
+}
+.str-search-01 .w-type-03 {
+  width: 200px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  position: relative;
+  width: 28px;
+}
+/* 会社 */
+.str-result-01 .col2 {
+  width: 30px;
+}
+/* 入荷店 */
+.str-result-01 .col3 {
+  width: 155px;
+}
+/* SCMコード */
+.str-result-01 .col4 {
+  width: 159px;
+}
+/* 伝票番号 */
+.str-result-01 .col5 {
+  width: 60px;
+}
+/* 指示番号 */
+.str-result-01 .col6 {
+  width: 80px;
+}
+/* 出荷日 */
+.str-result-01 .col7 {
+  width: 70px;
+}
+/* 入荷日 */
+.str-result-01 .col8 {
+  width: 70px;
+}
+/* 出荷数量 */
+.str-result-01 .col9 {
+  width: 60px;
+}
+/* 確定数量 */
+.str-result-01 .col10 {
+  width: 60px;
+}
+/* 入力担当者 */
+.str-result-01 .col11 {
+  width: 100px;
+}
+/* 出荷理由 */
+.str-result-01 .col12 {
+  width: 70px;
+}
+/* 処理 */
+.str-result-01 .col13 {
+  width: 65px;
+}
+/* 処理日 */
+.str-result-01 .col14 {
+  width: 70px;
+}
+/* 処理時間 */
+.str-result-01 .col15 {
+  width: 70px;
+}
+

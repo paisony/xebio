@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="MEISAI_SORT_TJ190F01" name="明細ソート＿臨時棚卸検索一覧">
+		<listItems>
+			<item id="10" value="1" label="部門／品種／ブランド順" itemId="Meisai_sort_tj190f011" />
+			<item id="20" value="2" label="登録順" itemId="Meisai_sort_tj190f012" />
+			<item id="30" value="3" label="店舗／部門／品種／ブランド順" itemId="Meisai_sort_tj190f013" />
+		</listItems>
+	</condition>
+</condition-define>
+

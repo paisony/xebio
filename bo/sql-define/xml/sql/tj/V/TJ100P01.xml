@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<!-- 検索処理はMdInventoryNew_v.searchInventoryMissingSearch参照-->
+
+		/** 棚卸欠番TBL(削除) **/
+		<sql id="TJ100P01-01">
+			<statement type="final" name="final">
+				<parts>
+					DELETE
+					FROM
+						MDIT0040
+					WHERE	TENCD			=	</parts><bind id="BIND_TENCD" /><parts>
+					AND  TANAOROSIKIJUN_YMD	=	</parts><bind id="BIND_TANAOROSIKIJUN_YMD" /><parts>
+					AND (
+						FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM1" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO1" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM2" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO2" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM3" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO3" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM4" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO4" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM5" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO5" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM6" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO6" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM7" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO7" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM8" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO8" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM9" /><parts>  AND </parts><bind id="BIND_FACE_NO_TO9" /><parts>
+					OR	FACE_NO BETWEEN  </parts><bind id="BIND_FACE_NO_FROM10" /><parts> AND </parts><bind id="BIND_FACE_NO_TO10"/><parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** 棚卸確定TBL(H)(存在チェック) **/
+		<sql id="TJ100P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(1) CNT
+					FROM
+						MDIT0010
+					WHERE 0 = 0
+				</parts>
+			</statement>
+			<!--条件-->
+			<statement type="replace" name="REP_ADD_WHERE"/>
+		</sql>
+	</sql-list>
+</sql-included>

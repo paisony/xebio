@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="C02002-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 TENPO_CD
+							,SYOHIZEI_RTU1
+							,SYOHIZEI_RTU2
+							,SYOHIZEIKAISI_YMD1
+							,SYOHIZEIKAISI_YMD2
+							,ZEISYORI_KB1
+							,ZEISYORI_KB2
+							,ADD_YMD
+							,ADD_TM
+							,ADDTAN_CD
+							,UPD_YMD
+							,UPD_TM
+							,UPD_TANCD
+							,SAKUJYO_YMD
+							,SAKUJYO_FLG
+					FROM
+							BOMT0090
+					WHERE
+							TENPO_CD = '0000'
+				</parts>
+			</statement>
+		</sql>
+		<sql id="C02002-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 TAX
+							,TAX_KB
+							,ZEISYORI_KB
+					FROM
+							MDMT0270
+					WHERE
+							TAX_CD = </parts><bind id="BIND_TAX_CD" />
+			</statement>
+		</sql>
+		<sql id="C02002-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 TAX_HYOJIGROUP_CD
+							,TAX_HYOJIGROUP_NM
+							,HYOJI_KB
+							,TAX_CD
+							,TAX_HYOJIMONGON
+					FROM
+							MDMT0271
+					WHERE
+							TAX_HYOJIGROUP_CD = 1
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

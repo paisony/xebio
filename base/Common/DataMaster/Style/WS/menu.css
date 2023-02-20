@@ -1,0 +1,87 @@
+/* All Rights Reserved, Copyright (c) 2008-2009 FUJITSU SYSTEM SOLUTIONS */
+/* FUJITSU SYSTEM SOLUTIONS LIMITED CONFIDENTIAL */
+/*メニューリンク*/
+A { font-size:x-small }
+A:link { COLOR: #000066; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none; }
+A:visited { COLOR: #000066; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none }
+A:active { COLOR: #000066; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none }
+A:hover { COLOR: #FF0022; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none  }
+
+A.menu { font-size:11pt}
+A:link.menu { COLOR: Gray; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none }
+A:visited.menu { COLOR: Gray; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none }
+A:active.menu { COLOR: Blue; font-weight:bold; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none }
+A:hover.menu { COLOR: Gray; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none}
+
+.title { font-size: 13pt; font-weight:bold; color: #000000;}
+A.title { font-size: 13pt; font-weight:bold}
+A:link.title { COLOR: #FFFFFF; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none; }
+A:visited.title { COLOR: #FFFFFF; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none }
+A:active.title { COLOR: #FFFFFF; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none }
+A:hover.title { COLOR: #FFFFFF; BACKGROUND-COLOR: transparent; TEXT-DECORATION: none  }
+
+/*BODY*/
+BODY {
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	WORD-BREAK: break-all;
+}
+
+/*アイコン*/
+img.click
+{
+	 cursor:url('Images/Menu/yubi.ani')
+}
+
+/*メニュー*/
+div.menudiv
+{
+	z-index: 1;
+}
+table.menutable
+{
+	width: 100%;
+	border-width: 0;
+	height: 35px;
+}
+
+td.splittd
+{
+	width:10;
+	font-weight:bold;
+	color:White;
+	font-size:13px;
+}
+
+div.topbg
+{
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	z-index: 0;
+}
+
+div.bg
+{
+	z-index: 0;
+	top: 35px;
+	left: 0px;
+	position: absolute;
+}
+
+/*ボタン*/
+div.btndiv
+{
+	top: 0px;
+	right: 0px;
+	position: absolute;
+	z-index: 2;
+}
+table.btntable
+{
+	width: 130;
+	height: 35px;
+	border-width: 0px;
+}

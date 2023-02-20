@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SAKUJO_KBN" name="削除区分">
+		<listItems>
+			<item id="10" value="0" label="有効" itemId="Sakujo_kbn1" />
+			<item id="20" value="1" label="無効" itemId="Sakujo_kbn2" />
+		</listItems>
+	</condition>
+</condition-define>
+

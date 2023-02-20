@@ -1,0 +1,57 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tl010f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 開始状態 ---*/
+.slt-kaisijyotai {
+	width: 90px;
+}
+
+.str-search-01 .w-type-01 {
+  width: 100px;
+}
+.str-search-01 .w-type-02 {
+  width: 280px;
+}
+.str-search-01 .w-type-03 {
+  width: 500px;
+}
+
+.str-syuturyokuseal span {
+    color: #666666;
+    position: relative;
+    top: 5px;
+	margin-left: 14px;
+}
+
+.radio-syuturyokuseal table > tbody > tr > td{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  width: 30px;
+}
+/* 部門 */
+.str-result-01 .col2 {
+  width: 456px;
+}
+/* 開始日 */
+.str-result-01 .col3 {
+  width: 237px;
+}
+/* 品番数 */
+.str-result-01 .col4 {
+  width: 237px;
+}
+/* 在庫点数 */
+.str-result-01 .col5 {
+  width: 237px;
+}

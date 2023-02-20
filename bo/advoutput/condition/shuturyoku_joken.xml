@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SHUTURYOKU_JOKEN" name="出力条件">
+		<listItems>
+			<item id="10" value="1" label="未印刷分" itemId="Shuturyoku_joken1" />
+			<item id="20" value="2" label="日付指定" itemId="Shuturyoku_joken2" />
+		</listItems>
+	</condition>
+</condition-define>
+

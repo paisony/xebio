@@ -1,0 +1,130 @@
+/* All Rights Reserved, Copyright (c) 2008-2009 FUJITSU SYSTEM SOLUTIONS */
+/* FUJITSU SYSTEM SOLUTIONS LIMITED CONFIDENTIAL */
+
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start */
+/*body
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	background: #FFFFFF;
+	font-family: "MS UI Gothic";
+	font-size: x-small;
+	color: #000000;
+	width: 100%;
+	height: 100
+}*/
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End */
+
+.hiddenbtn
+{
+	width: 1px;
+	height: 1px;
+    visibility:hidden;
+}
+
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start */
+/*.loginCapLbl
+{
+	font-size: 14px;
+	font-weight: bold;
+	color:Blue;
+}
+
+.loginLbl
+{
+	font-size: 10px;
+}
+
+.topInfometion
+{
+	overflow: auto;
+	border-width: 0px;
+	width: 100%;
+	height: 87%;
+}
+
+.logowindow
+{
+	overflow: auto;
+	border-width: 0px;
+	width: 260px;
+	height: 250px;
+}*/
+
+.loginerror
+{
+	font-size:16px;
+	font-weight: bold;
+	color: Red;
+}
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End */
+
+/*お知らせ用*/
+.dateunderline{
+	white-space: nowrap;
+	border-bottom:solid 1px #cccccc;
+}
+.underline{
+	border-bottom:solid 1px #cccccc;
+}
+
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start */
+/****************/
+/*   ログイン   */
+/****************/
+#login-main {
+	height: 100%;
+	box-sizing: border-box;
+	padding-top: 50px;
+}
+#side {
+	width: 318px;
+	background-color: #cee5fb;
+	color: #000000;
+	float: left;
+	height: 100%;
+}
+#side-cont {
+	width: 280px;
+	margin: 0 auto;
+}
+#side-cont p {
+	margin-top: 20px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	color: #0385bb;
+}
+#side-cont input[type=text],input[type=password] {
+	width: 260px;
+	border-radius: 3px;
+	font-size: 100%;
+	padding: 10px;
+	height: auto;
+}
+#login-cont {
+    height:100%;
+    overflow-y:auto;
+}
+.h2-box {
+	padding-bottom: 10px;
+	border-bottom: 2px solid #1ca7e0;
+}
+.login-h2 {
+	font-size: 125%;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-bottom:4px;
+	border-left: 5px solid #1ca7e0;
+}
+#login-cont table td {
+	vertical-align: top;
+	padding-top: 15px;
+	padding-right: 15px;
+    padding-left: 15px;
+}
+#login-btn {
+	padding-top: 15px;
+}
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End */

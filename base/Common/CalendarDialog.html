@@ -1,0 +1,152 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>カレンダー</title>
+<link rel="stylesheet" type="text/css" href="style/calendar.css" />
+<script type="text/javascript" src="../Common/Js/KeySafe.js"></script>
+<script language="javascript">
+var calendarLayers = new Array();
+
+// 日付文字列挿入
+function setDate(dateStr)
+{
+	window.returnValue = dateStr;
+	window.close();
+	//document.getElementById(ctrlid).value = dateStr;
+}
+
+// 前月表示
+function prev(layerid, ctrlid, date)
+{
+	if(date.getMonth() == 0)
+	{
+		writeLCalendar(layerid, ctrlid, new Date(date.getYear()-1, 11, 1));
+	}
+	else
+	{
+		writeLCalendar(layerid, ctrlid, new Date(date.getYear(), date.getMonth()-1, 1));
+	}
+}
+
+// 次の月を表示
+function next(layerid, ctrlid, date)
+{
+	if(date.getMonth() == 11)
+	{
+		writeLCalendar(layerid, ctrlid, new Date(date.getYear()+1, 0, 1));
+	}
+	else
+	{
+		writeLCalendar(layerid, ctrlid, new Date(date.getYear(), date.getMonth()+1, 1));
+	}
+}
+
+function hide(layerid)
+{
+	window.close();
+	//document.getElementById(layerid).style.visibility = 'hidden';
+}
+
+function show(layerid)
+{
+	document.getElementById(layerid).style.visibility = 'visible';
+}
+
+// レイヤーにカレンダーを描画
+function writeLCalendar(layerid, ctrlid, date)
+{
+	var MAX_DAYS = new Array(31,28,31,30,31,30,31,31,30,31,30,31);
+
+	var y = date.getYear();
+	if(y < 2000) y += 1900;
+	var m = date.getMonth()+1;
+	var mStr = (m<10)? '0'+m: m;
+	
+	// 1日の曜日を取得
+	var mdate = new Date(y,m-1,1);
+	var startDay = mdate.getDay();
+
+	DAY_MAX = MAX_DAYS[m-1];
+	if(m == 2)
+	{
+		// うるう年判別
+		if(y%4 == 0 && y%100 != 0 || y%400 == 0) DAY_MAX = 29;
+	}
+	
+	var inHtml = '<div onclick="hide(\''+layerid+'\');" style="z-index: 1000;"><table class="CAL_TBL_MAIN"><tbody>';
+	inHtml += '<tr><td  class="CAL_TD_TITLE" colspan="7"> <span class="CAL_PREV" onclick="prev(\''+layerid+'\',\''+ctrlid+'\',new Date('+y+','+(m-1)+',1));">&lt;&lt;</span> <span class="CAL_YMTITLE">';
+	inHtml += y+'/'+mStr+'</span> <span class="CAL_NEXT" onclick="next(\''+layerid+'\',\''+ctrlid+'\',new Date('+y+','+(m-1)+',1));">&gt;&gt;</span> </td></tr>';
+
+	var today = new Date();
+	var d = today.getDate();
+	var isThisMonth = (y == today.getYear())　&&　(m == today.getMonth()+1);
+	
+	var dayCnt = 0;
+	while(dayCnt <= DAY_MAX)
+	{
+		inHtml += '<tr>';
+		for(j = 0; j < 7; j++)
+		{
+			// 曜日と今日の日付の判別
+			if(startDay == j && dayCnt == 0) dayCnt = 1;
+			if(isThisMonth && dayCnt == d) inHtml += '<td class="CAL_TD_TODAY">';
+			else if(j == 0) inHtml += '<td class="CAL_TD_SUN">';
+			else if(j == 6) inHtml += '<td class="CAL_TD_SAT">';
+			else inHtml += '<td class="CAL_TD_DAY>">';
+
+			if(dayCnt > 0 && dayCnt<= DAY_MAX)
+			{
+				var dStr = (dayCnt<10)? '0'+dayCnt: dayCnt;
+				inHtml += '<span onclick="setDate(\''+y+'/'+mStr+'/'+dStr+'\');hide(\''+layerid+'\');">'+dayCnt+'</span>';
+				dayCnt++;
+			}
+			else
+			{
+				inHtml += '&nbsp;';
+			}
+
+			inHtml += '</td>';
+		}
+		inHtml += '</tr>';
+	}
+	inHtml += '</tbody></table></div>';
+
+	var layer = document.getElementById(layerid);
+	layer.innerHTML = inHtml;
+}
+
+// カレンダーレイヤー作成
+function createLayer(layerid)
+{
+	var elm = document.getElementById(layerid);
+	if(elm == undefined)
+	{
+		elm = document.createElement("div");
+		elm.id = layerid;
+		elm.style.visibility = 'hidden';
+		elm.style.position = 'absolute';
+		document.body.appendChild(elm);
+		calendarLayers.push(elm);
+	}
+	elm.style.left = 0;
+	elm.style.top = 0;
+	return elm;
+}
+
+// カレンダー表示
+function openCalendar(ctrlid)
+{
+	var layerid = ctrlid+'CalendarLayer';
+	createLayer(layerid);
+	writeLCalendar(layerid, ctrlid, new Date());
+	show(layerid);
+}
+</script>
+</head>
+<body onload="openCalendar('')">
+
+
+
+</body>
+</html>

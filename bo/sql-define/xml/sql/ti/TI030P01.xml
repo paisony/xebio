@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 運用管理マスタメンテナンス 検索 **/
+		<sql id="TI030P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					T1.SYOHIZEI_RTU1 * 100		SYOHIZEI_RTU1		-- 消費税率１
+					,T1.SYOHIZEIKAISI_YMD1		SYOHIZEIKAISI_YMD1	-- 消費税開始日１
+					,T1.ZEISYORI_KB1			ZEISYORI_KB1		-- 税処理区分1
+					,T1.SYOHIZEI_RTU2 * 100		SYOHIZEI_RTU2		-- 消費税率２
+					,T1.SYOHIZEIKAISI_YMD2		SYOHIZEIKAISI_YMD2	-- 消費税開始日２
+					,T1.ZEISYORI_KB2			ZEISYORI_KB2		-- 税処理区分2
+					,T1.UPD_YMD					UPD_YMD				-- 更新日
+					,T1.UPD_TM					UPD_TM				-- 更新時間
+					FROM
+					BOMT0090 T1										-- 運用管理MST
+					WHERE 0=0
+					AND		T1.TENPO_CD = '0000'
+				</parts>
+			</statement>
+		</sql>
+		/** 運用管理MST 更新 **/
+		<sql id="TI030P01-02">
+			<statement type="final" name="final">
+				<parts>
+					--運用管理MST 
+					UPDATE BOMT0090 SET
+						SYOHIZEI_RTU1	=	</parts><bind id="BIND_SYOHIZEI_RTU1" /><parts> / 100
+						,SYOHIZEI_RTU2	=	</parts><bind id="BIND_SYOHIZEI_RTU2" /><parts> / 100
+						,SYOHIZEIKAISI_YMD1	=	</parts><bind id="BIND_SYOHIZEIKAISI_YMD1" /><parts>
+						,SYOHIZEIKAISI_YMD2	=	</parts><bind id="BIND_SYOHIZEIKAISI_YMD2" /><parts>
+						,ZEISYORI_KB1	=	</parts><bind id="BIND_ZEISYORI_KB1" /><parts>
+						,ZEISYORI_KB2	=	</parts><bind id="BIND_ZEISYORI_KB2" /><parts>
+						,UPD_YMD		=	</parts><bind id="BIND_UPD_YMD" /><parts>
+						,UPD_TM			=	</parts><bind id="BIND_UPD_TM" /><parts>
+						,UPD_TANCD		=	</parts><bind id="BIND_UPD_TANCD" /><parts>
+						,SAKUJYO_YMD	=	</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+					WHERE
+							TENPO_CD  = '0000'
+				</parts>
+			</statement>
+		</sql>
+		/** 運用管理MST 登録 **/
+		<sql id="TI030P01-03">
+			<statement type="final" name="final">
+				<parts>
+					--運用管理MST 
+					INSERT INTO BOMT0090 (
+						TENPO_CD
+						,SYOHIZEI_RTU1
+						,SYOHIZEI_RTU2
+						,SYOHIZEIKAISI_YMD1
+						,SYOHIZEIKAISI_YMD2
+						,ZEISYORI_KB1
+						,ZEISYORI_KB2
+						,ADD_YMD
+						,ADD_TM
+						,ADDTAN_CD
+						,UPD_YMD
+						,UPD_TM
+						,UPD_TANCD
+						,SAKUJYO_YMD
+						,SAKUJYO_FLG
+					) VALUES (
+						'0000'
+						,</parts><bind id="BIND_SYOHIZEI_RTU1" /><parts> / 100
+						,</parts><bind id="BIND_SYOHIZEI_RTU2" /><parts> / 100
+						,</parts><bind id="BIND_SYOHIZEIKAISI_YMD1" /><parts>
+						,</parts><bind id="BIND_SYOHIZEIKAISI_YMD2" /><parts>
+						,</parts><bind id="BIND_ZEISYORI_KB1" /><parts>
+						,</parts><bind id="BIND_ZEISYORI_KB2" /><parts>
+						,</parts><bind id="BIND_ADD_YMD" /><parts>
+						,</parts><bind id="BIND_ADD_TM" /><parts>
+						,</parts><bind id="BIND_ADDTAN_CD" /><parts>
+						,</parts><bind id="BIND_UPD_YMD" /><parts>
+						,</parts><bind id="BIND_UPD_TM" /><parts>
+						,</parts><bind id="BIND_UPD_TANCD" /><parts>
+						,</parts><bind id="BIND_SAKUJYO_YMD" /><parts>
+						,0
+					)
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

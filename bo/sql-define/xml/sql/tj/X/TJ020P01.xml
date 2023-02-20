@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 棚卸送信処理(X)_確定ボタン **/
+		<sql id="TJ020P01-01">
+			/**チェック_5-1 棚卸確定TBL(H) ﾌｪｲｽNo、棚段重複チェック**/
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						NVL(MAX(COUNT(1)),0) CNT
+					FROM
+						MDIT0010			/**棚卸確定TBL(H)**/
+					WHERE
+						TENPO_CD			=	</parts><bind id="BIND_TENPO_CD" /><parts>				/**店舗コード**/
+					AND	TANAOROSI_YMD		=	</parts><bind id="BIND_TANAOROSIKIJUN_YMD" /><parts>	/**棚卸日**/
+					AND	SOSINZUMI_FLG		=	0														/**送信済フラグ**/
+				GROUP BY
+					TENPO_CD				/**店舗コード**/
+					,FACE_NO				/**フェイス№**/
+					,TANA_DAN				/**棚段**/
+					,TANAOROSI_YMD			/**棚卸日**/
+					,SOSINKAI_SU			/**送信回数**/
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ020P01-02">
+			/**チェック_5-2 棚卸確定TBL(H) スキャン数量、点棚数アンマッチチェック**/
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(1)  CNT
+					FROM
+						MDIT0010			/**棚卸確定TBL(H)**/
+					WHERE
+						TENPO_CD				=	</parts><bind id="BIND_TENPO_CD" /><parts>				/**店舗コード**/
+					AND	TANAOROSI_YMD			=	</parts><bind id="BIND_TANAOROSIKIJUN_YMD" /><parts>	/**棚卸日**/
+					AND	SOSINZUMI_FLG			=	0														/**送信済フラグ**/
+					AND	TENSUTANAOROSIGOKEI_SU	!=	TANAOROSIGOKEI_SU	
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ020P01-03">
+			/**チェック6-1 棚卸管理TBL 送信済みデータ存在チェック**/
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						SOSINIRAI_FLG		/**送信依頼フラグ**/
+					FROM
+						MDIT0020			/**棚卸管理TBL**/
+					WHERE
+						TENCD				=	</parts><bind id="BIND_TENPO_CD" /><parts>				/**店舗コード**/
+					AND	TANAOROSIKIJUN_YMD	=	</parts><bind id="BIND_TANAOROSIKIJUN_YMD" /><parts>	/**棚卸基準日**/
+					AND	SOSINZUMI_FLG		=	0														/**送信済みフラグ**/
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ020P01-04">
+			/**棚卸確定TBL(H) 更新**/
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0010 SET
+						 SOSINIRAI_FLG	 	=  	</parts><bind id="BIND_SOSINIRAI_FLG" /><parts>		/**送信依頼フラグ**/
+						,SAKUJYO_YMD 		=  	</parts><bind id="BIND_UPD_YMD1" /><parts>				/**削除日**/
+						,SOSIN_YMD 			=  	</parts><bind id="BIND_UPD_YMD2" /><parts>				/**送信日**/
+					WHERE
+						TENPO_CD			=	</parts><bind id="BIND_TENPO_CD" /><parts>				/**店舗コード**/
+					AND	TANAOROSI_YMD		=	</parts><bind id="BIND_TANAOROSIKIJUN_YMD" /><parts>			/**棚卸日**/
+					AND	SOSINZUMI_FLG		=	0														/**送信済フラグ**/
+				</parts>
+			</statement>
+		</sql>
+		<sql id="TJ020P01-05">
+			/**棚卸管理TBL 更新**/
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDIT0020 SET
+						 KAKUTEI_FLG 		=  	</parts><bind id="BIND_KAKUTEI_FLG" /><parts>			/** 確定フラグ **/
+						,UPD_YMD 			=  	</parts><bind id="BIND_UPD_YMD1" /><parts>				/** 更新日 **/
+						,UPD_TM 			=  	</parts><bind id="BIND_UPD_TM" /><parts>				/** 更新時間 **/
+						,UPD_TANCD 			=  	</parts><bind id="BIND_UPD_TANCD" /><parts>				/** 更新担当者 **/
+						,SOSINIRAI_FLG	 	=  	</parts><bind id="BIND_SOSINIRAI_FLG" /><parts>			/** 送信依頼フラグ **/
+						,SAKUJYO_YMD 		=  	</parts><bind id="BIND_UPD_YMD2" /><parts>				/** 削除日 **/
+						,SOSIN_YMD			=	DECODE(
+													 </parts><bind id="BIND_KAKUTEI_FLG2" /><parts>
+													,1
+													,</parts><bind id="BIND_UPD_YMD3" /><parts>
+													,SOSIN_YMD
+												)														/**送信日**/
+					WHERE
+						TENCD				=	</parts><bind id="BIND_TEN_CD" /><parts>
+					AND	TANAOROSIKIJUN_YMD	=	</parts><bind id="BIND_TANAOROSIKIJUN_YMD" /><parts>
+					AND	SOSINZUMI_FLG		=	0
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

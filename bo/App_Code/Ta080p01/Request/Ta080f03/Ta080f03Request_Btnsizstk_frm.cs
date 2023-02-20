@@ -1,0 +1,92 @@
+﻿using System;
+
+using com.xebio.bo.Ta080p01.Formvo;
+using Common.Advanced.Info;
+using Common.Advanced.Util;
+using Common.Advanced.Web.Context;
+using Common.Advanced.Web.Request;
+using Common.Advanced.Check;
+using Common.Advanced.Codecondition.Code.Check;
+
+using Common.Standard.Check;
+
+
+namespace com.xebio.bo.Ta080p01.Request.Ta080f03
+{
+	/// <summary>
+	/// Ta080f03Request_Btnsizstk の概要の説明です。
+	/// </summary>
+	public sealed class Ta080f03Request_Btnsizstk : Ta080f03Request
+	{
+		/// <summary>
+		/// このクラス唯一のインスタンス。
+		/// </summary>
+		public static readonly Ta080f03Request_Btnsizstk Me = new Ta080f03Request_Btnsizstk();
+
+		/// <summary>
+		/// インスタンスを生成します。
+		/// </summary>
+		private Ta080f03Request_Btnsizstk()
+		{
+
+		}
+		
+//		/// <summary>
+//		/// 入力値を取得します。
+//		/// </summary>
+//		/// <param name="pageContext">ページコンテキスト</param>
+//		public override void DoGetRequestValue(IPageContext pageContext)
+//		{
+//			base.DoGetRequestValue(pageContext);
+//		}
+//
+//		/// <summary>
+//		/// 継承ファイルを拡張します。
+//		/// </summary>
+//		/// <param name="pageContext">ページコンテキスト</param>
+//		public override void DoExtItemInfo(IPageContext pageContext)
+//		{
+//		}
+//
+//		/// <summary>
+//		/// 入力値をアンフォーマットします。
+//		/// </summary>
+//		/// <param name="pageContext">ページコンテキスト</param>
+//		public override void DoUnformat(IPageContext pageContext)
+//		{
+//		}
+//
+//		/// <summary>
+//		/// フォームVOに入力値を設定します。
+//		/// </summary>
+//		/// <param name="pageContext">ページコンテキスト</param>
+//		public override void DoCopyForm(IPageContext pageContext)
+//		{
+//		}
+//
+//		/// <summary>
+//		/// 入力値チェックをします。
+//		/// </summary>
+//		/// <param name="pageContext">ページコンテキスト</param>
+//		public override void DoValidateInputValue(IPageContext pageContext)
+//		{
+//		}
+//
+//		/// <summary>
+//		/// コード存在チェックをします。
+//		/// </summary>
+//		/// <param name="pageContext">ページコンテキスト</param>
+//		public override void DoValidateCodeValue(IPageContext pageContext)
+//		{
+//		}
+//
+//		/// <summary>
+//		/// 業務チェックをします。
+//		/// </summary>
+//		/// <param name="pageContext">ページコンテキスト</param>
+//		public override void DoValidateBusiness(IPageContext pageContext)
+//		{
+//		}
+	}
+}
+

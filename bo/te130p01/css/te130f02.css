@@ -1,0 +1,67 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:te130f02.css
+--------------------------------------------------------------------------------*/
+.str-search-02 .w-type-01 {
+  width: 100px;
+}
+.str-search-02 .w-type-02 {
+  width: 190px;
+}
+.str-search-02 .w-type-03 {
+  width: 210px;
+}
+.str-search-02 .w-type-04 {
+  width: 230px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 26px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 部門／品種 ---*/
+.str-result-01 .col2 {
+	width: 145px;
+}
+/*--- ブランド ---*/
+.str-result-01 .col3 {
+  width: 118px;
+}
+/*--- 自社品番 ---*/
+.str-result-01 .col4 {
+  width: 65px;
+}
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col5 {
+  width: 353px;
+}
+/*--- 色／サイズ ---*/
+.str-result-01 .col6 {
+  width: 69px;
+}
+/*--- スキャンコード ---*/
+.str-result-01 .col7 {
+  width: 100px;
+}
+/*--- 予定数量 ---*/
+.str-result-01 .col8 {
+  width: 70px;
+}
+/*--- 確定数量 ---*/
+.str-result-01 .col9 {
+  width: 70px;
+}
+/*--- 原単価 ---*/
+.str-result-01 .col10 {
+  width: 70px;
+}
+/*--- 原価金額 ---*/
+.str-result-01 .col11 {
+  width: 80px;
+}
+

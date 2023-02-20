@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="KAKUTEI_JYOTAI" name="確定状態">
+		<listItems>
+			<item id="10" value="1" label="確定" itemId="Kakutei_jyotai1" />
+			<item id="20" value="2" label="未確定" itemId="Kakutei_jyotai2" />
+		</listItems>
+	</condition>
+</condition-define>
+

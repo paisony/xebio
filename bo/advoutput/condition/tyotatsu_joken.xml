@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="TYOTATSU_JOKEN" name="調達条件">
+		<listItems>
+			<item id="10" value="1" label="全て" itemId="Tyotatsu_joken1" />
+			<item id="20" value="2" label="PB(SMU含む)" itemId="Tyotatsu_joken2" />
+			<item id="30" value="3" label="NB" itemId="Tyotatsu_joken3" />
+		</listItems>
+	</condition>
+</condition-define>
+

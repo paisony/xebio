@@ -1,0 +1,16 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tm810f01.css
+--------------------------------------------------------------------------------*/
+.str-result-01 .str-result-item-02 {
+    width:auto;
+    font-size: 92.30769%;
+}
+.str-result-01 .str-result-item-02 > div {
+  line-height: 34px;
+}
+.none{
+    display:none;
+}
+a{
+    text-decoration:underline;
+}

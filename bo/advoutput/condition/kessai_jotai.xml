@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="KESSAI_JOTAI" name="決裁状態">
+		<listItems>
+			<item id="10" value="0" label="未決裁" itemId="Kessai_jotai1" />
+			<item id="20" value="1" label="決裁済" itemId="Kessai_jotai2" />
+		</listItems>
+	</condition>
+</condition-define>
+

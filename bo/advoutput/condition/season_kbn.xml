@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SEASON_KBN" name="シーズン区分">
+		<listItems>
+			<item id="10" value="1" label="ＳＳ" itemId="Season_kbn1" />
+			<item id="20" value="3" label="ＦＷ" itemId="Season_kbn2" />
+			<item id="30" value="5" label="通年" itemId="Season_kbn3" />
+		</listItems>
+	</condition>
+</condition-define>
+

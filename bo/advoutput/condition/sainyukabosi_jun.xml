@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SAINYUKABOSI_JUN" name="再入荷防止検索順序">
+		<listItems>
+			<item id="10" value="1" label="部門/ブランド/メーカー品番順" itemId="Sainyukabosi_jun1" />
+			<item id="20" value="2" label="登録日順" itemId="Sainyukabosi_jun2" />
+		</listItems>
+	</condition>
+</condition-define>
+

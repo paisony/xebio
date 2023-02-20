@@ -1,0 +1,133 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tk010f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 処理月 ---*/
+.slt-syoriYm {
+	width: 85px;
+	margin-top: 3px;
+	height: 28px;
+}
+
+/*--- 評価損種別 ---*/
+.slt-hyokason {
+	width: 95px;
+}
+/*--- 承認状態 ---*/
+.slt-syonin {
+	width: 65px;
+}
+/*--- 決裁状態 ---*/
+.slt-kessai {
+	width: 80px;
+}
+/*--- 申請区分 ---*/
+.slt-shinsei {
+	width: 80px;
+}
+
+.str-search-01 .w-type-01 {
+  width: 100px;
+}
+.str-search-01 .w-type-02 {
+  width: 180px;
+}
+.str-search-01 .w-type-03 {
+  width: 180px;
+}
+.str-search-01 .w-type-04 {
+  width: 150px;
+}
+
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+	position: relative;
+	width: 28px;
+}
+/*--- 店舗 ---*/
+.str-result-01 .col2 {
+	width: 200px;
+}
+/*--- 申請日 ---*/
+.str-result-01 .col3 {
+	width: 100px;
+}
+/*--- 再申請 ---*/
+.str-result-01 .col4 {
+	width: 80px;
+}
+/*--- 承認 ---*/
+.str-result-01 .col5 {
+	width: 80px;
+}
+/*--- 決裁 ---*/
+.str-result-01 .col6 {
+	width: 80px;
+}
+/*--- NB以外 ---*/
+.str-result-01 .col7 {
+	width: 203px;
+}
+/*--- 数量 ---*/
+.str-result-01 .col7 .col7-1 {
+	width: 90px;
+}
+.str-result-01 .col7s {
+	width: 92px;
+}
+/*--- 原価金額 ---*/
+.str-result-01 .col7 .col7-2 {
+	width: 100px;
+	border-left: 1px solid #ffffff;
+}
+.str-result-01 .col7k {
+	width: 106px;
+}
+/*--- NB ---*/
+.str-result-01 .col8 {
+	width: 203px;
+}
+/*--- 数量 ---*/
+.str-result-01 .col8 .col8-1 {
+	width: 90px;
+}
+.str-result-01 .col8s {
+	width: 92px;
+}
+/*--- 原価金額 ---*/
+.str-result-01 .col8 .col8-2 {
+	width: 100px;
+	border-left: 1px solid #ffffff;
+}
+.str-result-01 .col8k {
+	width: 106px;
+}
+/*--- 店舗合計 ---*/
+.str-result-01 .col9 {
+	width: 203px;
+}
+/*--- 数量 ---*/
+.str-result-01 .col9 .col9-1 {
+	width: 90px;
+}
+.str-result-01 .col9s {
+	width: 92px;
+}
+/*--- 原価金額 ---*/
+.str-result-01 .col9 .col9-2 {
+	width: 100px;
+	border-left: 1px solid #ffffff;
+}
+.str-result-01 .col9k {
+	width: 106px;
+}
+
+

@@ -1,0 +1,82 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:th010f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+.str-search-01 .w-type-01 {
+	width: 107px;
+}
+
+.str-search-01 .w-type-02 {
+	width: 249px;
+}
+
+.str-search-01 .w-type-03 {
+	width: 65px;
+}
+
+.str-search-01 .w-type-04 {
+	width: 75px;
+}
+
+.str-search-01 .w-type-05 {
+	width: 90px;
+}
+
+/* ラジオボタン間隔 */
+.str-radio-table {
+	margin-left : -10px ;
+	margin-right : auto ;
+	border-spacing : 15px 0px;
+	border-collapse : separate;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* 行 */
+.str-result-01 .col1 {
+	position: relative;
+	width: 25px;
+}
+
+/* 仕入先 */
+.str-result-01 .col2 {
+	width: 135px;
+}
+
+/* 部門／品種 */
+.str-result-01 .col3 {
+	width: 171px;
+}
+/* ブランド／自社品番 */
+.str-result-01 .col4 {
+	width: 167px;
+}
+/* コア */
+.str-result-01 .col5 {
+	width: 38px;
+}
+
+/* メーカー品番／商品名 */
+.str-result-01 .col6 {
+	width: 350px;
+}
+/* 色 */
+.str-result-01 .col7 {
+	width: 71px;
+}
+/* 販売完了日／税率 */
+.str-result-01 .col8 {
+	width: 74px;
+}
+/* 最新売価／原価 */
+.str-result-01 .col9 {
+	width: 73px;
+}
+/* 現売価／ﾒｰｶｰ価格 */
+.str-result-01 .col10 {
+	width: 68px;
+}

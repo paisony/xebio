@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="IDONYUKA_DENPYO_JOTAI" name="移動入荷伝票状態">
+		<listItems>
+			<item id="10" value="1" label="確定" itemId="Idonyuka_denpyo_jotai1" />
+			<item id="20" value="2" label="未処理" itemId="Idonyuka_denpyo_jotai2" />
+			<item id="30" value="3" label="差異あり" itemId="Idonyuka_denpyo_jotai3" />
+			<item id="40" value="4" label="登録履歴" itemId="Idonyuka_denpyo_jotai4" />
+			<item id="50" value="5" label="取消履歴" itemId="Idonyuka_denpyo_jotai5" />
+		</listItems>
+	</condition>
+</condition-define>
+

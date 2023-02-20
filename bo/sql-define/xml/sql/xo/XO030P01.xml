@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+  <sql-list>
+    <sql id="XO030P01-01">
+      <statement type="final" name="final">
+        <parts>
+			SELECT
+				S.JOB_ID,
+				S.JOB_STATUS,
+				S.JOB_STATUS_UPDATETIME,
+				S.BATCH_ID,
+				S.FUNCTION_NAME,
+				S.JOB_START_DATETIME,
+				S.JOB_END_DATETIME,
+				S.USER_ID,
+				S.USER_NAME,
+				S.LOG_FILE_NAME,
+				S.CREATE_DATETIME,
+				S.CREATE_USER_ID,
+				S.UPDATE_DATETIME,
+				S.UPDATE_USER_ID,
+				S.ROW_UPDATE_ID,
+				S.NYURYOKU_DATA_FIELD,
+				S.SYUTURYOKU_DATA_FIELD,
+				S.SYORI_IJOU_END_STATUS,
+				S.TANTO_CD,
+				S.SYUTURYOKU_FILE_FLG,
+				S.SYUTURYOKU_FILE_NM,
+				S.KAISYA_CD,
+				S.NYURYOKU_TANTO_CD,
+				S.TANMATU_ID,
+				S.DEL_FLG,
+				S.PRINTER_ID,
+				B.BATCH_NAME,            --バッチ処理名
+				B.BATCH_TYPE,            --バッチ処理種別
+				B.CHOHYO_TEIGITAI_NM,    --バッチ帳票定義体名(定義体名)
+				T.TTSMEI,
+				F.FORM_NAME,
+				D.ERRORDATA_FILE_NAME 
+			FROM
+				SC_JOB_STATUS_LOG S 
+					LEFT JOIN SC_BATCH_MST B 
+						ON S.BATCH_ID = B.BATCH_ID 
+					LEFT JOIN M_TANTO T 
+						ON TO_NUMBER(SUBSTR(S.USER_ID,2)) = T.TTSCD AND S.KAISYA_CD = T.COPCD
+					LEFT JOIN FORM_METADATA F 
+						ON B.CHOHYO_TEIGITAI_NM = F.FORM_ID
+					LEFT JOIN SC_JOB_STATUS_LOG_DETAIL D 
+						ON S.JOB_ID = D.JOB_ID 
+			WHERE
+				0 = 0  
+        </parts>
+	  </statement>
+      <statement type="replace" name="SEARCHCONDITION" />
+      <statement type="final" name="final">
+        <parts>   
+			ORDER BY JOB_END_DATETIME DESC
+		</parts>
+      </statement>
+    </sql>
+	  
+    <sql id="XO030P01-02">
+      <statement type="final" name="final">
+        <parts>
+			SELECT
+				BATCH_ID,
+				BATCH_NAME
+			FROM
+				SC_BATCH_MST
+			WHERE
+				BATCH_ID =    
+		</parts>
+      </statement>
+      <statement type="final" name="final">
+        <bind id="BATCHID" />
+      </statement>
+      <statement type="final" name="final">
+        <parts>  
+			AND
+				DEL_FLG = '0'
+		</parts>
+      </statement>
+    </sql>
+	  
+    <sql id="XO030P01-03">
+      <statement type="final" name="final">
+        <parts>
+			SELECT
+				COPCD,
+				TTSCD,
+				TTSMEI
+			FROM
+				M_TANTO
+			WHERE
+				COPCD =    
+		</parts>
+      </statement>
+      <statement type="final" name="final">
+        <bind id="COPCD" />
+      </statement>
+      <statement type="final" name="final">
+        <parts>  
+			AND
+				TTSCD =    
+		</parts>
+      </statement>
+      <statement type="final" name="final">
+        <bind id="TTSCD" />
+      </statement>
+      <statement type="final" name="final">
+        <parts>  
+			AND
+				SKJFLG = '0'
+		</parts>
+      </statement>
+    </sql>
+	  
+    <sql id="XO030P01-04">
+      <statement type="final" name="final">
+        <parts>
+			SELECT
+				FORM_ID,
+				FORM_NAME
+			FROM
+				FORM_METADATA
+			WHERE
+				FORM_ID =    
+		</parts>
+      </statement>
+      <statement type="final" name="final">
+        <bind id="FORMID" />
+      </statement> 
+	</sql>
+	  
+    <sql id="XO030P01-05">
+      <statement type="final" name="final">
+        <parts>
+			SELECT
+				COUNT(*) as RecordCount
+			FROM
+				SC_JOB_STATUS_LOG S 
+					LEFT JOIN SC_BATCH_MST B 
+						ON S.BATCH_ID = B.BATCH_ID 
+					LEFT JOIN M_TANTO T 
+						ON TO_NUMBER(SUBSTR(S.USER_ID,2)) = T.TTSCD AND S.KAISYA_CD = T.COPCD
+					LEFT JOIN FORM_METADATA F 
+						ON B.CHOHYO_TEIGITAI_NM = F.FORM_ID 
+					LEFT JOIN SC_JOB_STATUS_LOG_DETAIL D 
+						ON S.JOB_ID = D.JOB_ID 
+			WHERE
+				S.DEL_FLG = '0'
+        </parts>
+      </statement>
+      <statement type="replace" name="SEARCHCONDITION" />   
+	</sql>
+  </sql-list>
+</sql-included>

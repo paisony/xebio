@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01025-01">
+			<statement type="final" name="final">
+				<parts>
+					/* 振替申請理由から科目取得 */
+					SELECT
+							 MDMT0100.MEISYO_CD			KEIHISINSEI_KB
+							,MDMT0100.MEISYO_NM			KEIHISINSEI_NM
+							,MDMT0100.MEISYOKANA_NM		KAMOKU_CD
+							,MDMT0040.KAMOKU_NM			KAMOKU_NM
+					FROM
+							MDMT0100
+					LEFT JOIN
+							MDMT0040
+					ON
+							MDMT0100.MEISYOKANA_NM = MDMT0040.KAMOKU_CD
+					AND		MDMT0040.SAKUJYO_FLG   = 0
+					WHERE
+							MDMT0100.SIKIBETSU_CD = 'KHRY'
+					AND		MDMT0100.MEISYO_CD    = </parts><bind id="KEIHISINSEI_KB" /><parts>
+					AND		MDMT0100.SAKUJYO_FLG IN (</parts><bind id="SAKUJYO_FLG1" /><parts>, </parts><bind id="SAKUJYO_FLG2" /><parts>)
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

@@ -1,0 +1,117 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:ta070f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 自動区分 ---*/
+.slt-jidou {
+	width: 120px;
+}
+/*--- 送信状態 ---*/
+.slt-sousin {
+	width: 120px;
+}
+/*--- 依頼理由 ---*/
+.slt-riyu {
+	width: 110px;
+	margin-top: 3px;
+	height: 28px;
+}
+
+.str-search-01 .w-type-01 {
+	width: 84px;
+}
+.str-search-01 .w-type-02 {
+	width: 210px;
+}
+.str-search-01 .w-type-03 {
+	width: 210px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 34px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 部門/品種/ブランド/メーカー品番 ---*/
+.str-result-01 .col2 {
+	width: 396px;
+}
+/*--- 部門 ---*/
+.str-result-01 .col2 .col2-1 {
+	width: 148px;
+}
+/*--- 品種 ---*/
+.str-result-01 .col2 .col2-2 {
+	width: 97px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- ブランド ---*/
+.str-result-01 .col2 .col2-3 {
+	width: 141px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- 自社品番/コア ---*/
+.str-result-01 .col3 {
+	width: 62px;
+}
+/*--- 色/サイズ/スキャンコード/商品名 ---*/
+.str-result-01 .col4 {
+	width: 245px;
+}
+/*--- 色 ---*/
+.str-result-01 .col4 .col4-1 {
+	width: 71px;
+}
+/*--- サイズ ---*/
+.str-result-01 .col4 .col4-2 {
+	width: 46px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- スキャンコード ---*/
+.str-result-01 .col4 .col4-3 {
+	width: 117px;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- 開始日/終了日 ---*/
+.str-result-01 .col5 {
+	width: 107px;
+}
+/*--- 発注パターン/自動区分 ---*/
+.str-result-01 .col6 {
+	width: 72px;
+}
+/*--- 売上数/現在数 ---*/
+.str-result-01 .col7 {
+	width: 41px;
+}
+/*--- ロット数/変更依頼数 ---*/
+.str-result-01 .col8 {
+	width: 56px;
+}
+/*--- 依頼理由/担当者 ---*/
+.str-result-01 .col9 {
+	width: 113px;
+}
+/*--- 登録日/区分 ---*/
+.str-result-01 .col10 {
+	width: 46px;
+}
+
+.str-result-01 .cell {
+	display: block;
+	float: left;
+	/*text-align: center;*/
+}
+

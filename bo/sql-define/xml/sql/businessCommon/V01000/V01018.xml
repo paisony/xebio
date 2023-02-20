@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01018-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 M1.TENPO_CD				AS TENPO_CD						/* 店舗コード        */
+							,M1.SIJI_BANGO				AS SIJI_BANGO					/* 指示番号          */
+							,M1.SIIRESAKI_CD			AS SIIRESAKI_CD					/* 仕入先コード      */
+							,M2.SIIRESAKI_SEISIKI_NM	AS SIIRESAKI_NM					/* 仕入先正式名称    */
+							,M2.SIIRESAKI_SEISIKI_NMK	AS SIIRESAKI_NMK				/* 仕入先正式名称カナ*/
+							,M2.SIIRESAKI_RYAKU_NM		AS SIIRESAKI_RYAKU_NM			/* 仕入先略式名称    */
+							,M2.SIIRESAKI_RYAKU_NMK		AS SIIRESAKI_RYAKU_NMK			/* 仕入先略式名称カナ*/
+							,M1.SUBSIIRESAKI_CD			AS SUBSIIRESAKI_CD				/* サブ仕入先コード  */
+							,M1.BUMON_CD				AS BUMON_CD						/* 部門コード        */
+							,M1.SIJI_YMD				AS SIJI_YMD						/* 指示日            */
+							,M1.HHTJISSI_YMD_FROM		AS HHTJISSI_YMD_FROM			/* HHT実施日FROM     */
+							,M1.HHTJISSI_YMD_TO			AS HHTJISSI_YMD_TO				/* HHT実施日TO       */
+							,M1.MAKERTYAKU_YMD_FROM		AS MAKERTYAKU_YMD_FROM			/* メーカー着日FROM  */
+							,M1.MAKERTYAKU_YMD_TO		AS MAKERTYAKU_YMD_TO			/* メーカー着日TO    */
+							,M1.ADD_YMD	
+							,M1.ADD_TM
+							,M1.ADDTAN_CD
+							,M1.UPD_YMD
+							,M1.UPD_TM
+							,M1.UPD_TANCD
+							,M1.SAKUJYO_YMD
+							,M1.SAKUJYO_FLG
+					FROM
+							MDRT0040 M1
+					LEFT OUTER JOIN MDMT0020 M2										/* [仕入先MST]         */
+							ON M2.SIIRESAKI_CD	  = M1.SIIRESAKI_CD
+						   AND M2.SAKUJYO_FLG = 0
+					WHERE
+							M1.SAKUJYO_FLG = 0
+					AND		M1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					AND		M1.SIJI_BANGO = </parts><bind id="SIJI_BANGO" />
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

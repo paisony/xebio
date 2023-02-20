@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** SCM仕入入荷検索一覧 件数チェック **/
+		<sql id="TB020P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(*) CNT
+					FROM
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+						ON	T2.TENPO_CD = T1.TENPO_CD
+						AND	T2.SCM_CD = T1.SCM_CD
+						AND	T2.NONYUTYAKUYOTEI_YMD = T1.NONYUTYAKUYOTEI_YMD
+						LEFT JOIN
+							MDMT0020 M1
+						ON	T2.SIIRESAKI_CD = M1.SIIRESAKI_CD
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+		/** 仕入入荷検索一覧 (予定) **/
+		<sql id="TB020P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						T2.SIIRESAKI_CD
+						,M1.SIIRESAKI_RYAKU_NM
+						,T1.NONYUTYAKUYOTEI_YMD
+						,T1.ADD_YMD
+						,T1.SCM_CD
+						,T2.SYUKKA_SU
+						,T2.GENKA_KIN
+						,T1.TENPO_CD
+						,T2.KYAKUTYU_FLG
+						,T2.NEGAKIHIN_FLG
+						,0 SOSINZUMI_FLG
+					FROM
+						MDPT0030 T1
+					LEFT JOIN 
+					(
+						SELECT
+							TENPO_CD
+							,SCM_CD
+							,NONYUTYAKUYOTEI_YMD
+							,SIIRESAKI_CD
+							,SUM(SYUKKA_SU) AS SYUKKA_SU
+							,SUM(GEN_TNK * SYUKKA_SU) AS GENKA_KIN
+							,KYAKUTYU_FLG
+							,NEGAKIHIN_FLG
+						FROM
+							MDPT0031
+						GROUP BY
+							TENPO_CD
+							,SCM_CD
+							,NONYUTYAKUYOTEI_YMD
+							,SIIRESAKI_CD
+							,KYAKUTYU_FLG
+							,NEGAKIHIN_FLG
+					) T2
+					ON	T2.TENPO_CD = T1.TENPO_CD
+					AND	T2.SCM_CD = T1.SCM_CD
+					AND	T2.NONYUTYAKUYOTEI_YMD = T1.NONYUTYAKUYOTEI_YMD
+					LEFT JOIN
+						MDMT0020 M1
+					ON	T2.SIIRESAKI_CD = M1.SIIRESAKI_CD
+					WHERE 0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						SIIRESAKI_CD
+						,NONYUTYAKUYOTEI_YMD
+						,SCM_CD
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索一覧 (確定) **/
+		<sql id="TB020P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						T2.SIIRESAKI_CD
+						,M1.SIIRESAKI_RYAKU_NM
+						,T1.NONYUTYAKUYOTEI_YMD
+						,T1.ADD_YMD
+						,T1.SCM_CD
+						,T2.SYUKKA_SU
+						,T2.GENKA_KIN
+						,T1.TENPO_CD
+						,T2.KYAKUTYU_FLG
+						,T2.NEGAKIHIN_FLG
+						,T1.SOSINZUMI_FLG
+					FROM
+						MDPT0040 T1
+					LEFT JOIN 
+					(
+						SELECT
+							TENPO_CD
+							,SCM_CD
+							,NONYUTYAKUYOTEI_YMD
+							,SIIRESAKI_CD
+							,SUM(SYUKKA_SU) AS SYUKKA_SU
+							,SUM(SYUKKA_SU * GEN_TNK) AS GENKA_KIN
+							,KYAKUTYU_FLG
+							,NEGAKIHIN_FLG
+						FROM
+							MDPT0041
+						GROUP BY
+							TENPO_CD
+							,SCM_CD
+							,NONYUTYAKUYOTEI_YMD
+							,SIIRESAKI_CD
+							,KYAKUTYU_FLG
+							,NEGAKIHIN_FLG
+					) T2
+					ON	T2.TENPO_CD = T1.TENPO_CD
+					AND	T2.SCM_CD = T1.SCM_CD
+					AND	T2.NONYUTYAKUYOTEI_YMD = T1.NONYUTYAKUYOTEI_YMD
+					LEFT JOIN
+						MDMT0020 M1
+					ON	T2.SIIRESAKI_CD = M1.SIIRESAKI_CD
+					WHERE 0 = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						SIIRESAKI_CD
+						,NONYUTYAKUYOTEI_YMD
+						,ADD_YMD
+						,SCM_CD
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索明細 件数チェック **/
+		<sql id="TB020P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						COUNT(*) CNT
+					FROM
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+						LEFT JOIN 
+							BOMT0060 M1
+						ON T1.BUMON_CD = M1.BUMON_CD
+						LEFT JOIN 
+							STMT0500 M2
+						ON T1.BURANDO_CD = M2.BURANDO_CD
+						LEFT JOIN 
+							MDMT0080 M3
+						ON T1.IRO_CD = M3.IRO_CD
+						LEFT JOIN 
+							MDMT0070 M4
+						ON T1.BUMON_CD = M4.BUMON_CD
+						AND T1.HINSYU_CD = M4.HINSYU_CD
+					WHERE
+						T1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+						AND	T1.SCM_CD = </parts><bind id="SCM_CD" /><parts>
+						AND	T1.NONYUTYAKUYOTEI_YMD = </parts><bind id="NONYUTYAKUYOTEI_YMD" /><parts>
+					ORDER BY
+						T1.DENPYO_BANGO,T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索明細 (予定) **/
+		<sql id="TB020P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						T1.DENPYO_BANGO
+						,T1.DENPYOGYO_NO
+						,M1.BUMON_CD
+						,M1.BUMONKANA_NM
+						,M4.HINSYU_RYAKU_NM
+						,M2.BURANDO_NMK
+						,T1.JISYA_HBN
+						,T1.MAKER_HBN
+						,T1.SYONMK
+						,M3.IRO_NM
+						,T1.SIZE_NM
+						,T1.JAN_CD
+						,T1.SYUKKA_SU
+						,T1.GEN_TNK
+						,T1.SYUKKA_SU * T1.GEN_TNK AS GENKA_KIN
+					FROM
+						MDPT0031 T1
+					LEFT JOIN
+						BOMT0060 M1
+					ON T1.BUMON_CD = M1.BUMON_CD
+					LEFT JOIN
+						STMT0500 M2
+					ON T1.BURANDO_CD = M2.BURANDO_CD
+					LEFT JOIN
+						MDMT0080 M3
+					ON T1.IRO_CD = M3.IRO_CD
+					LEFT JOIN
+						MDMT0070 M4
+					ON T1.BUMON_CD = M4.BUMON_CD
+					AND T1.HINSYU_CD = M4.HINSYU_CD
+					WHERE
+							T1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+						AND	T1.SCM_CD = </parts><bind id="SCM_CD" /><parts>
+						AND	T1.NONYUTYAKUYOTEI_YMD = </parts><bind id="NONYUTYAKUYOTEI_YMD" /><parts>
+					ORDER BY
+						T1.DENPYO_BANGO,T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 仕入入荷検索明細 (確定) **/
+		<sql id="TB020P01-06">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						T1.DENPYO_BANGO
+						,T1.DENPYOGYO_NO
+						,M1.BUMON_CD
+						,M1.BUMONKANA_NM
+						,M4.HINSYU_RYAKU_NM
+						,M2.BURANDO_NMK
+						,T1.JISYA_HBN
+						,T1.MAKER_HBN
+						,T1.SYONMK
+						,M3.IRO_NM
+						,T1.SIZE_NM
+						,T1.JAN_CD
+						,T1.SYUKKA_SU
+						,T1.GEN_TNK
+						,T1.SYUKKA_SU * T1.GEN_TNK AS GENKA_KIN
+					FROM
+						MDPT0041 T1
+					LEFT JOIN
+						BOMT0060 M1
+					ON T1.BUMON_CD = M1.BUMON_CD
+					LEFT JOIN
+						STMT0500 M2
+					ON T1.BURANDO_CD = M2.BURANDO_CD
+					LEFT JOIN
+						MDMT0080 M3
+					ON T1.IRO_CD = M3.IRO_CD
+					LEFT JOIN
+						MDMT0070 M4
+					ON T1.BUMON_CD = M4.BUMON_CD
+					AND T1.HINSYU_CD = M4.HINSYU_CD
+					WHERE
+							T1.TENPO_CD =</parts><bind id="TENPO_CD" /><parts>
+						AND	T1.SCM_CD =</parts><bind id="SCM_CD" /><parts>
+						AND	T1.NONYUTYAKUYOTEI_YMD =</parts><bind id="NONYUTYAKUYOTEI_YMD" /><parts>
+					ORDER BY
+						T1.DENPYO_BANGO,T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

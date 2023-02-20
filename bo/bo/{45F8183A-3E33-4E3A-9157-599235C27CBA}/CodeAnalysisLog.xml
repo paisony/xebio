@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio\2019\professional\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="16.0">
+ <Targets>
+  <Target Name="C:\Users\admin\AppData\Local\Temp\tmpC89E.tmp.cadir\bin\App_Code.dll">
+   <Modules>
+    <Module Name="app_code.dll">
+     <Namespaces>
+      <Namespace Name="com.xebio.bo.Td010p01.Facade">
+       <Types>
+        <Type Name="Td010f02Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Ins_HenpinYoteib(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Td010p01.Formvo.Td010f01M1Form,com.xebio.bo.Td010p01.Formvo.Td010f02Form,Common.Standard.Login.LoginInfoVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Td010p01\Facade\Td010f02" File="Td010f02Facade_Btnenter_frm.cs" Line="591">'Td010f02Facade.Ins_HenpinYoteib(IFacadeContext, Td010f01M1Form, Td010f02Form, LoginInfoVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_HenpinYoteib(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Td010p01\Facade\Td010f02" File="Td010f02Facade_Btnenter_frm.cs" Line="607">'Td010f02Facade.Ins_HenpinYoteib(IFacadeContext, Td010f01M1Form, Td010f02Form, LoginInfoVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_HenpinYoteib(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="com.xebio.bo.Td020p01.Facade">
+       <Types>
+        <Type Name="Td020f01Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Ins_TempReturn(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Td020p01.Formvo.Td020f01Form,Common.Standard.Login.LoginInfoVO,Common.Business.C01000.C01001.SysDateVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Td020p01\Facade" File="Td020f01Facade.cs" Line="682">'Td020f01Facade.Ins_TempReturn(IFacadeContext, Td020f01Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TempTransfer(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Td020p01\Facade" File="Td020f01Facade.cs" Line="698">'Td020f01Facade.Ins_TempReturn(IFacadeContext, Td020f01Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TempTransfer(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="com.xebio.bo.Te020p01.Facade">
+       <Types>
+        <Type Name="Te020f01Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Ins_TempTransfer(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Te020p01.Formvo.Te020f01Form,Common.Standard.Login.LoginInfoVO,Common.Business.C01000.C01001.SysDateVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Te020p01\Facade" File="Te020f01Facade.cs" Line="852">'Te020f01Facade.Ins_TempTransfer(IFacadeContext, Te020f01Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TempTransfer(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Te020p01\Facade" File="Te020f01Facade.cs" Line="868">'Te020f01Facade.Ins_TempTransfer(IFacadeContext, Te020f01Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TempTransfer(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="com.xebio.bo.Te040p01.Facade">
+       <Types>
+        <Type Name="Te040f01Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Ins_TempTransfer(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Te040p01.Formvo.Te040f01Form,Common.Standard.Login.LoginInfoVO,Common.Business.C01000.C01001.SysDateVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Te040p01\Facade" File="Te040f01Facade.cs" Line="703">'Te040f01Facade.Ins_TempTransfer(IFacadeContext, Te040f01Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TempTransfer(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Te040p01\Facade" File="Te040f01Facade.cs" Line="719">'Te040f01Facade.Ins_TempTransfer(IFacadeContext, Te040f01Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TempTransfer(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="com.xebio.bo.Tf070p01.Facade">
+       <Types>
+        <Type Name="Tf070f02Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Ins_TonanhinB(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Tf070p01.Formvo.Tf070f01M1Form,com.xebio.bo.Tf070p01.Formvo.Tf070f02Form,Common.Standard.Login.LoginInfoVO,Common.Business.C01000.C01001.SysDateVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tf070p01\Facade\Tf070f02" File="Tf070f02Facade_Btnenter_frm.cs" Line="1393">'Tf070f02Facade.Ins_TonanhinB(IFacadeContext, Tf070f01M1Form, Tf070f02Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TonanhinB(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tf070p01\Facade\Tf070f02" File="Tf070f02Facade_Btnenter_frm.cs" Line="1408">'Tf070f02Facade.Ins_TonanhinB(IFacadeContext, Tf070f01M1Form, Tf070f02Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TonanhinB(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#Ins_TonanhinT(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Tf070p01.Formvo.Tf070f02Form,Common.Standard.Login.LoginInfoVO,Common.Business.C01000.C01001.SysDateVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tf070p01\Facade\Tf070f02" File="Tf070f02Facade_Btnenter_frm.cs" Line="1093">'Tf070f02Facade.Ins_TonanhinT(IFacadeContext, Tf070f02Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TonanhinT(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tf070p01\Facade\Tf070f02" File="Tf070f02Facade_Btnenter_frm.cs" Line="1108">'Tf070f02Facade.Ins_TonanhinT(IFacadeContext, Tf070f02Form, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_TonanhinT(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="com.xebio.bo.Tj040p01.Facade">
+       <Types>
+        <Type Name="Tj040f02Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Ins_Mdit0011(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Tj040p01.Formvo.Tj040f02Form,System.String,Common.Standard.Login.LoginInfoVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tj040p01\Facade\Tj040f02" File="Tj040f02Facade_Btnenter_frm.cs" Line="881">'Tj040f02Facade.Ins_Mdit0011(IFacadeContext, Tj040f02Form, string, LoginInfoVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_HenpinYoteib(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tj040p01\Facade\Tj040f02" File="Tj040f02Facade_Btnenter_frm.cs" Line="897">'Tj040f02Facade.Ins_Mdit0011(IFacadeContext, Tj040f02Form, string, LoginInfoVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_HenpinYoteib(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="com.xebio.bo.Tj090p01.Facade">
+       <Types>
+        <Type Name="Tj090f02Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Ins_Mdit0011(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Tj090p01.Formvo.Tj090f02Form,System.String,Common.Standard.Login.LoginInfoVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tj090p01\Facade\Tj090f02" File="Tj090f02Facade_Btnenter_frm.cs" Line="698">'Tj090f02Facade.Ins_Mdit0011(IFacadeContext, Tj090f02Form, string, LoginInfoVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_HenpinYoteib(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tj090p01\Facade\Tj090f02" File="Tj090f02Facade_Btnenter_frm.cs" Line="714">'Tj090f02Facade.Ins_Mdit0011(IFacadeContext, Tj090f02Form, string, LoginInfoVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_HenpinYoteib(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="com.xebio.bo.Tj190p01.Facade">
+       <Types>
+        <Type Name="Tj190f01Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#InsRintanaTemp(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Tj190p01.Formvo.Tj190f01Form,Common.Advanced.Formvo.IDataList,Common.Standard.Login.LoginInfoVO,Common.Business.C01000.C01001.SysDateVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tj190p01\Facade\Tj190f01" File="Tj190f01Facade_Btnenter_frm.cs" Line="695">'Tj190f01Facade.InsRintanaTemp(IFacadeContext, Tj190f01Form, IDataList, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_RintanaTemp(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tj190p01\Facade\Tj190f01" File="Tj190f01Facade_Btnenter_frm.cs" Line="710">'Tj190f01Facade.InsRintanaTemp(IFacadeContext, Tj190f01Form, IDataList, LoginInfoVO, SysDateVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_RintanaTemp(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Tj190f02Facade" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Ins_Rintanab(Common.Advanced.Model.Context.IFacadeContext,com.xebio.bo.Tj190p01.Formvo.Tj190f02Form,Common.Standard.Login.LoginInfoVO)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tj190p01\Facade\Tj190f02" File="Tj190f02Facade_Btnenter_frm.cs" Line="938">'Tj190f02Facade.Ins_Rintanab(IFacadeContext, Tj190f02Form, LoginInfoVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_Rinjitanaorosib(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="d:\xebio\bo\App_Code\Tj190p01\Facade\Tj190f02" File="Tj190f02Facade_Btnenter_frm.cs" Line="953">'Tj190f02Facade.Ins_Rintanab(IFacadeContext, Tj190f02Form, LoginInfoVO)' の 'OracleCommand.CommandText.set(string)' に渡されたクエリ文字列には、変数 'this.GetSqlMultiInsT_Rinjitanaorosib(insertBindList)' が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+  <Target Name="C:\Users\admin\AppData\Local\Temp\tmpC89E.tmp.cadir\bin\App_Web_t1sfno0s.dll">
+   <Modules>
+    <Module Name="app_web_t1sfno0s.dll">
+     <Namespaces>
+      <Namespace Name="">
+       <Types>
+        <Type Name="ImageLoader" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Page_Load(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="RethrowToPreserveStackDetails" Category="Microsoft.Usage" CheckId="CA2200" Status="Active" Created="2023-02-14 01:12:17Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="d:\xebio\bo\pjcommon\mdAspx" File="ImageLoader.aspx.cs" Line="68">'ImageLoader.Page_Load(object, EventArgs)' はキャッチされた例外を再度スローし、その例外を引数として明示的に指定します。最初に例外が発生したスタックの場所を保持するためには、'throw' を引数なしで使用してください。</Issue>
+             <Issue Certainty="95" Level="Error" Path="d:\xebio\bo\pjcommon\mdAspx" File="ImageLoader.aspx.cs" Line="73">'ImageLoader.Page_Load(object, EventArgs)' はキャッチされた例外を再度スローし、その例外を引数として明示的に指定します。最初に例外が発生したスタックの場所を保持するためには、'throw' を引数なしで使用してください。</Issue>
+             <Issue Certainty="95" Level="Error" Path="d:\xebio\bo\pjcommon\mdAspx" File="ImageLoader.aspx.cs" Line="78">'ImageLoader.Page_Load(object, EventArgs)' はキャッチされた例外を再度スローし、その例外を引数として明示的に指定します。最初に例外が発生したスタックの場所を保持するためには、'throw' を引数なしで使用してください。</Issue>
+             <Issue Certainty="95" Level="Error" Path="d:\xebio\bo\pjcommon\mdAspx" File="ImageLoader.aspx.cs" Line="83">'ImageLoader.Page_Load(object, EventArgs)' はキャッチされた例外を再度スローし、その例外を引数として明示的に指定します。最初に例外が発生したスタックの場所を保持するためには、'throw' を引数なしで使用してください。</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="RethrowToPreserveStackDetails" Category="Microsoft.Usage" CheckId="CA2200">
+   <Name>スタック詳細を保持するために再度スローします。</Name>
+   <Description>キャッチされた例外が再度発生したときに、元のスタック詳細を保持するために IL rethrow 命令を使用します。</Description>
+   <Resolution Name="Default">{0} はキャッチされた例外を再度スローし、その例外を引数として明示的に指定します。最初に例外が発生したスタックの場所を保持するためには、'throw' を引数なしで使用してください。</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182363.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">Error</MessageLevel>
+   <File Name="usagerules.dll" Version="16.0.0.0" />
+  </Rule>
+  <Rule TypeName="SQL クエリのセキュリティ脆弱性を確認" Category="Microsoft.Security" CheckId="CA2100">
+   <Name>SQL クエリのセキュリティ脆弱性を確認</Name>
+   <Description>ユーザー入力から作成された SQL コマンド文字列は、SQL インジェクション攻撃に対して脆弱です。Microsoft SQL Server および他のデータベース サーバーは、インジェクション攻撃のリスクを低減するためにストアド プロシージャとパラメーター化 SQL クエリをサポートしています。</Description>
+   <Resolution Name="WithNonLiterals">{1} の {0} に渡されたクエリ文字列には、変数 {2} が含まれる可能性があります。これらの変数のいずれかがユーザー入力から取得される可能性がある場合は、文字列の連結によってクエリを構成する代わりに、ストアド プロシージャまたはパラメーター化 SQL クエリを使用することを検討してください。</Resolution>
+   <Owner>RuleOwner</Owner>
+   <Url>http://msdn.microsoft.com/library/ms182310.aspx</Url>
+   <Email />
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="dataflowrules.dll" Version="16.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">カテゴリ</String>
+  <String Key="Certainty">確実性</String>
+  <String Key="CollapseAll">すべて折りたたむ</String>
+  <String Key="CheckId">ID の確認</String>
+  <String Key="Error">エラー</String>
+  <String Key="Errors">エラー</String>
+  <String Key="ExpandAll">すべて展開</String>
+  <String Key="Help">ヘルプ</String>
+  <String Key="Line">行</String>
+  <String Key="Messages">メッセージ</String>
+  <String Key="LocationNotStoredInPdb">[場所は Pdb に格納されていません]</String>
+  <String Key="Project">プロジェクト</String>
+  <String Key="Resolution">解像度</String>
+  <String Key="Rule">ルール</String>
+  <String Key="RuleFile">規則ファイル</String>
+  <String Key="RuleDescription">規則の説明</String>
+  <String Key="Source">ソース</String>
+  <String Key="Status">状態</String>
+  <String Key="Target">ターゲット</String>
+  <String Key="Warning">警告</String>
+  <String Key="Warnings">警告</String>
+  <String Key="ReportTitle">コード分析レポート</String>
+ </Localized>
+ <Exceptions>
+  <Exception Keyword="CA0055" Kind="AssemblyLoad">
+   <Type>Microsoft.FxCop.Common.AssemblyLoadException</Type>
+   <ExceptionMessage>ターゲット プラットフォーム 'mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089' と 'mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089' が競合しています。</ExceptionMessage>
+  </Exception>
+ </Exceptions>
+</FxCopReport>

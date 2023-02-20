@@ -1,0 +1,109 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tl020f02.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+/*--- 区分 ---*/
+.str-search-02 .slt-kbn {
+	width: 120px;
+}
+/*--- 理由 ---*/
+.str-search-02 .slt-riyu {
+	width: 140px;
+}
+.str-search-02 .w-type-01 {
+  width: 120px;
+}
+.str-search-02 .w-type-02 {
+  width: 190px;
+}
+.str-syuturyokuseal span {
+    color: #666666;
+    position: relative;
+    top: 5px;
+	margin-left: 14px;
+}
+
+.radio-syuturyokuseal table > tbody > tr > td{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 28px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 品種／ブランド ---*/
+.str-result-01 .col2 {
+	width: 152px;
+}
+/*--- 自社品番 ---*/
+.str-result-01 .col3 {
+  width: 78px;
+}
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col4 {
+  width: 360px;
+}
+
+/*--- 色 ---*/
+.str-result-01 .col5 {
+  width: 160px;
+}
+
+/*--- 色 ---*/
+.str-result-01 .col5 .col5-1 {
+	width: 160px;
+	border-bottom: 1px solid #ffffff;
+}
+/*--- シーズン ---*/
+.str-result-01 .col5 .col5-2 {
+	width: 60px;
+}
+/*--- 販売完了日 ---*/
+.str-result-01 .col5 .col5-3 {
+	width: 91px;
+	border-left: 1px solid #ffffff;
+}
+
+/*--- 元売価／原単価 ---*/
+.str-result-01 .col6 {
+  width: 84px;
+}
+/*--- 新売価 ---*/
+.str-result-01 .col7 {
+  width: 84px;
+}
+/*--- 値入率現行／値入率売変後 ---*/
+.str-result-01 .col8 {
+  width: 84px;
+}
+/*--- 在庫点数／売上点数 ---*/
+.str-result-01 .col9 {
+  width: 84px;
+}
+/*--- 承認状態 ---*/
+.str-result-01 .col10 {
+  width: 58px;
+}
+
+.str-result-01 .cell {
+  display: block;
+  float: left;
+  /*text-align: center;*/
+}
+
+/*--- フッター部の注意書き ---*/
+.str-pager-01 .ftr-note {
+	line-height: 35px;
+	position: absolute;
+	top: 0;
+	left: 40px;
+	color: #000000;
+}

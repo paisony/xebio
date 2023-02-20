@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="BAIHEN_RIYTU" name="売変理由">
+		<listItems>
+			<item id="10" value="1" label="通常" itemId="Baihen_riytu1" />
+			<item id="20" value="2" label="値書き" itemId="Baihen_riytu2" />
+			<item id="30" value="3" label="期間売変" itemId="Baihen_riytu3" />
+		</listItems>
+	</condition>
+</condition-define>
+

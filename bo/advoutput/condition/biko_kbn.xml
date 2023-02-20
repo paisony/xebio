@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="BIKO_KBN" name="備考区分">
+		<listItems>
+			<item id="10" value="1" label="仮伝No①の起票" itemId="Biko_kbn1" />
+			<item id="20" value="2" label="元伝票No①の訂正　取引先承認者②様" itemId="Biko_kbn2" />
+			<item id="30" value="3" label="本部指示（①指示）" itemId="Biko_kbn3" />
+			<item id="40" value="4" label="その他①" itemId="Biko_kbn4" />
+		</listItems>
+	</condition>
+</condition-define>
+

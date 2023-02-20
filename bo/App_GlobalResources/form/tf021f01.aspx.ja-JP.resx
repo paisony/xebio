@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Tf021f01_Titlebar" xml:space="preserve">
+    <value>商品経費振替申請（X）</value>
+  </data>
+  <data name="Tf021f01_FormCaption" xml:space="preserve">
+    <value>商品経費振替申請（X） 一覧</value>
+  </data>
+  <data name="M1PageInfo" xml:space="preserve">
+    <value>Page: %PAGE_NO% of %PAGE_COUNT%</value>
+  </data>
+  <data name="M1PageInfoNoRec" xml:space="preserve">
+    <value>データがありません。</value>
+  </data>
+  <data name="Head_tenpo_cd" xml:space="preserve">
+    <value>店舗</value>
+  </data>
+  <data name="Btnheadtenpocd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Head_tenpo_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnmodeapply" xml:space="preserve">
+    <value>申請</value>
+  </data>
+  <data name="Btnmodesinseimaesyusei" xml:space="preserve">
+    <value>申請前修正</value>
+  </data>
+  <data name="Btnmodesinseimaetorikesi" xml:space="preserve">
+    <value>申請前取消</value>
+  </data>
+  <data name="Btnmodesinseigotorikesi" xml:space="preserve">
+    <value>申請後取消</value>
+  </data>
+  <data name="Btnmoderef" xml:space="preserve">
+    <value>照会</value>
+  </data>
+  <data name="Modeno" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Stkmodeno" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Syonin_flg" xml:space="preserve">
+    <value>承認状態</value>
+  </data>
+  <data name="Add_ymd_from" xml:space="preserve">
+    <value>登録日ＦＲＯＭ</value>
+  </data>
+  <data name="Add_ymd_to" xml:space="preserve">
+    <value>登録日ＴＯ</value>
+  </data>
+  <data name="Apply_ymd_from" xml:space="preserve">
+    <value>申請日ＦＲＯＭ</value>
+  </data>
+  <data name="Apply_ymd_to" xml:space="preserve">
+    <value>申請日ＴＯ</value>
+  </data>
+  <data name="Kakutei_ymd_from" xml:space="preserve">
+    <value>確定日ＦＲＯＭ</value>
+  </data>
+  <data name="Kakutei_ymd_to" xml:space="preserve">
+    <value>確定日ＴＯ</value>
+  </data>
+  <data name="Kamoku_cd_from" xml:space="preserve">
+    <value>科目ＦＲＯＭ</value>
+  </data>
+  <data name="Btnkamokucd_from" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Kamoku_nm_from" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Kamoku_cd_to" xml:space="preserve">
+    <value>科目ＴＯ</value>
+  </data>
+  <data name="Btnkamokucd_to" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Kamoku_nm_to" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Sinseitan_cd" xml:space="preserve">
+    <value>申請者</value>
+  </data>
+  <data name="Btntanto_cd" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Sinseitan_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Denpyo_bango_from" xml:space="preserve">
+    <value>伝票番号ＦＲＯＭ</value>
+  </data>
+  <data name="Denpyo_bango_to" xml:space="preserve">
+    <value>伝票番号ＴＯ</value>
+  </data>
+  <data name="Kanri_no_from" xml:space="preserve">
+    <value>管理NoＦＲＯＭ</value>
+  </data>
+  <data name="Kanri_no_to" xml:space="preserve">
+    <value>管理NoＴＯ</value>
+  </data>
+  <data name="Gyomuringi_no_from" xml:space="preserve">
+    <value>業務稟議NoＦＲＯＭ</value>
+  </data>
+  <data name="Gyomuringi_no_to" xml:space="preserve">
+    <value>業務稟議NoＴＯ</value>
+  </data>
+  <data name="Jyuri_no_from" xml:space="preserve">
+    <value>受理番号ＦＲＯＭ</value>
+  </data>
+  <data name="Jyuri_no_to" xml:space="preserve">
+    <value>受理番号ＴＯ</value>
+  </data>
+  <data name="Searchcnt" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btninsert" xml:space="preserve">
+    <value>新規作成</value>
+  </data>
+  <data name="Btnsearch" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Btnprint" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Pgr" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1rowno" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="M1add_ymd" xml:space="preserve">
+    <value>登録日</value>
+  </data>
+  <data name="M1apply_ymd" xml:space="preserve">
+    <value>申請日</value>
+  </data>
+  <data name="M1kakutei_ymd" xml:space="preserve">
+    <value>確定日</value>
+  </data>
+  <data name="M1denpyo_bango" xml:space="preserve">
+    <value>伝票番号</value>
+  </data>
+  <data name="M1kanri_no" xml:space="preserve">
+    <value>管理No</value>
+  </data>
+  <data name="M1kamoku_cd" xml:space="preserve">
+    <value>科目</value>
+  </data>
+  <data name="M1kamoku_nm" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1itemsu" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="M1genkakin" xml:space="preserve">
+    <value>原価金額</value>
+  </data>
+  <data name="M1baika_tnk" xml:space="preserve">
+    <value>売価金額</value>
+  </data>
+  <data name="M1sinseitan_nm" xml:space="preserve">
+    <value>申請担当者</value>
+  </data>
+  <data name="M1gyomuringi_no" xml:space="preserve">
+    <value>業務稟議No</value>
+  </data>
+  <data name="M1jyuri_no" xml:space="preserve">
+    <value>受理番号</value>
+  </data>
+  <data name="M1syonin_flg_nm" xml:space="preserve">
+    <value>承認状態</value>
+  </data>
+  <data name="M1sinseiriyu" xml:space="preserve">
+    <value>申請理由</value>
+  </data>
+  <data name="M1kyakkariyu" xml:space="preserve">
+    <value>却下理由</value>
+  </data>
+  <data name="M1selectorcheckbox" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1entersyoriflg" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="M1dtlirokbn" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Btnenter" xml:space="preserve">
+    <value>確定</value>
+  </data>
+</root>

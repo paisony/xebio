@@ -1,0 +1,68 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tj070f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 店舗確定状況 ---*/
+.slt-kakuteijyokyo {
+	width: 120px;
+}
+
+/*--- 送信状態 ---*/
+.slt-sousinjyotai {
+	width: 80px;
+}
+
+.str-search-01 .w-type-01 {
+  width: 100px;
+}
+.str-search-01 .w-type-02 {
+  width: 270px;
+}
+.str-search-01 .w-type-03 {
+  width: 140px;
+}
+.str-search-01 .w-type-04 {
+  width: 140px;
+}
+.str-search-01 .w-type-05 {
+  width: 100px;
+}
+
+/* ラジオボタン間隔 */
+.str-radio-table {
+  margin-left : -10px ;
+  margin-right : auto ;
+  border-spacing : 15px 0px;
+  border-collapse : separate;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/* No. */
+.str-result-01 .col1 {
+  width: 30px;
+}
+/* 店舗 */
+.str-result-01 .col2 {
+  width: 362px;
+}
+/* HHT実施日 */
+.str-result-01 .col3 {
+  width: 200px;
+}
+/* 送信確定日 */
+.str-result-01 .col4 {
+  width: 200px;
+}
+/* 店舗確定状況 */
+.str-result-01 .col5 {
+  width: 200px;
+}
+/* MD送信状況 */
+.str-result-01 .col6 {
+  width: 200px;
+}

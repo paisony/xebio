@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="INSATSUZUMIFLG" name="印刷済みフラグ">
+		<listItems>
+			<item id="10" value="0" label="未印刷" itemId="Insatsuzumiflg1" />
+			<item id="20" value="1" label="印刷済" itemId="Insatsuzumiflg2" />
+		</listItems>
+	</condition>
+</condition-define>
+

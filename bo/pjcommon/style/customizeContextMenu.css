@@ -1,0 +1,26 @@
+﻿#CustomizeContextMenu {
+    position: absolute;
+    background-color: #c0c0c0;
+    border-top: 1pt solid white;
+    border-right: 1pt solid black;
+    border-bottom: 1pt solid black;
+    border-left: 1pt solid white;
+    padding: 2pt 4pt 2pt 4pt;
+    visibility: hidden;
+}
+a.mi {
+    width: 100%;
+    white-space: nowrap;
+}
+a.mi:link {
+    color: #000000;
+    text-decoration: none;
+}
+a.mi:visited {
+    color: #000000;
+    text-decoration: none;
+}
+a.mi:hover {
+    color: #ffffff;
+    background-color: #000080;
+}

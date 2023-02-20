@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01011-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 M1.BUMON_CD
+							,M1.HINSYU_CD
+							,M1.HINSYU_SEISIKI_NM
+							,M1.HINSYU_SEISIKI_NMK
+							,M1.HINSYU_RYAKU_NM
+							,M1.HINSYU_RYAKU_NMK
+							,M1.ADD_YMD
+							,M1.ADD_TM
+							,M1.ADDTAN_CD
+							,M1.UPD_YMD
+							,M1.UPD_TM
+							,M1.UPD_TANCD
+							,M1.SAKUJYO_YMD
+							,M1.SAKUJYO_FLG
+							,M1.JYUSIN_YMD
+							,M1.JYUSIN_TM
+					FROM
+							MDMT0070 M1
+					WHERE
+							M1.BUMON_CD = </parts><bind id="BUMON_CD" /><parts>
+					AND		M1.HINSYU_CD = </parts><bind id="HINSYU_CD" /><parts>
+					AND		M1.SAKUJYO_FLG IN (</parts><bind id="SAKUJYO_FLG1" /><parts>, </parts><bind id="SAKUJYO_FLG2" /><parts>)
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** [返品指示変更履歴TBL]を更新 **/
+		<sql id="TD060P01-01">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDRT0060 SET
+						INSATSUZUMI_FLG = 1
+						,UPD_YMD		=	TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))
+						,UPD_TM			=	TO_NUMBER(TO_CHAR(SYSTIMESTAMP, 'HH24MISSFF3'))
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE" />
+		</sql>
+	</sql-list>
+</sql-included>

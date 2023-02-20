@@ -1,0 +1,107 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:ta010f02.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域					明細画面
+--------------------------------------------------------- */
+/*--- 区分 ---*/
+.str-search-02 .slt-kbn {
+	width: 120px;
+}
+/*--- 理由 ---*/
+.str-search-02 .slt-riyu {
+	width: 140px;
+}
+.str-search-02 .w-type-01 {
+	width: 85px;
+}
+.str-search-02 .w-type-02 {
+	width: 140px;
+}
+.str-search-02 .w-type-03 {
+	width: 220px;
+}
+
+
+/*--------------------------------------------------------- 
+	一覧領域			明細画面
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 33px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 部門 ---*/
+.str-result-01 .col2 {
+	width: 143px;
+}
+/*--- 評価 ---*/
+.str-result-01 .col2 .col2-1 {
+	width: 37px;
+}
+/*--- 補充 ---*/
+.str-result-01 .col2 .col2-2 {
+	width: 38px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 在庫 ---*/
+.str-result-01 .col2 .col2-3 {
+	width: 54px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 品種 ---*/
+.str-result-01 .col3 {
+	width: 96px;
+}
+/*--- 入荷 ---*/
+.str-result-01 .col3 .col3-1 {
+	width: 43px;
+}
+/*--- 売上 ---*/
+.str-result-01 .col3 .col3-2 {
+	width: 43px;
+	border-left: 1px solid #ffffff;
+}
+/*--- ブランド ---*/
+.str-result-01 .col4 {
+	width: 189px;
+}
+/*--- 自動定数 ---*/
+.str-result-01 .col4 .col4-1 {
+	width: 90px;
+}
+/*--- 配可数 ---*/
+.str-result-01 .col4 .col4-2 {
+	width: 90px;
+	border-left: 1px solid #ffffff;
+}
+/*--- 自社品番／依頼集計 ---*/
+.str-result-01 .col5 {
+	width: 60px;
+}
+/*--- コア／ロット ---*/
+.str-result-01 .col6 {
+	width: 35px;
+}
+/*--- 色／サイズ ---*/
+.str-result-01 .col7 {
+	width: 72px;
+}
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col8 {
+	width: 350px;
+}
+/*--- メッセージ／依頼数 ---*/
+.str-result-01 .col9 {
+	width: 81px;
+}
+/*--- スキャンコード／原価金額 ---*/
+.str-result-01 .col10 {
+	width: 113px;
+}
+.str-result-01 .cell {
+	display: block;
+	float: left;
+}

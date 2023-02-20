@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** エラー品番リスト出力　更新処理 **/
+		<sql id="TG050P01-01">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDBT0080 
+					SET
+						INSATSUZUMI_FLG = 1
+						, UPD_YMD = </parts><bind id="BIND_UPD_YMD" /><parts >
+						, UPD_TM = </parts><bind id="BIND_UPD_TM" /><parts>
+					WHERE
+						0 = 0 
+						AND KAISYA_CD = </parts><bind id="BIND_KAISYA_CD" /><parts> 
+						AND TENPO_CD = </parts><bind id="BIND_TENPO_CD" /><parts> 
+						AND DENPYO_YMD &gt;= </parts><bind id="BIND_URIAGEYMD_FROM" /><parts> 
+						AND DENPYO_YMD &lt;= </parts><bind id="BIND_URIAGEYMD_TO" /><parts> 
+						AND INSATSUZUMI_FLG = 0
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

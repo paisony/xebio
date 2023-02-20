@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="KYAKKARIYU_KBN" name="却下理由区分">
+		<listItems>
+			<item id="10" value="1" label="メーカー返品対応" itemId="Kyakkariyu_kbn1" />
+			<item id="20" value="2" label="処分売価対応" itemId="Kyakkariyu_kbn2" />
+			<item id="30" value="3" label="申請書類不備" itemId="Kyakkariyu_kbn3" />
+			<item id="40" value="4" label="期間対象外" itemId="Kyakkariyu_kbn4" />
+			<item id="50" value="5" label="その他" itemId="Kyakkariyu_kbn5" />
+		</listItems>
+	</condition>
+</condition-define>
+

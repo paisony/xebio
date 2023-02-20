@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 返品検索 件数チェック **/
+		<sql id="TD030P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					COUNT(*) CNT
+					FROM
+
+				</parts>
+			</statement>
+			<statement type="replace" name="TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					T1
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+		</sql>
+		/** 返品検索 件数チェック（伝票状態＝空白） **/
+		<sql id="TD030P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+					SUM(CNT) CNT
+					FROM
+					(
+					SELECT
+					COUNT(*) CNT
+					FROM
+					MDRT0010 T1
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+					COUNT(*) CNT
+					FROM
+					MDRT0020 T1
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** 返品検索 一覧検索(予定) **/
+		<sql id="TD030P01-03">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.BUMON_CD
+							,M2.BUMONKANA_NM
+							,T1.SIIRESAKI_CD
+							,M1.SIIRESAKI_RYAKU_NM
+							,M4.BURANDO_NMK
+							,T1.HENPIN_YMD
+							,T1.UPD_YMD ADD_YMD
+							,'' DENPYO_BANGO
+							,T1.KANRI_NO
+							,T1.SIJI_BANGO
+							,'' MOTODENPYO_BANGO
+							,T1.HENPINYOTEIGOKEI_SU GOKEI_SU
+							,T1.HENPINYOTEIGOUKEI_KIN GOUKEI_KIN
+							,M3.HANBAIIN_NM NYURYOKUTAN_NM
+							,'' KAKUTEITAN_NM
+							,M5.MEISYO_NM HENPIN_RIYU_NM
+							,'未処理' DENPYO_JYOTAINM
+							,'' SYORINM
+							,'' RIREKI_SYORI_YMD
+							,'' RIREKI_SYORI_TM
+							,T1.TANTOSYA_CD NYURYOKUTAN_CD
+							,'' KAKUTEITAN_CD
+							,T1.BURANDO_CD
+							,M2.BUMON_NM
+							,T1.SYORI_YMD
+							,T1.TENPO_CD
+							,'' RIREKI_NO
+							,'' AKAKURO_KBN
+							,0 SOSINZUMI_FLG
+							,'1' TBL_KBN
+							,0 KAKUTEI_SB
+					FROM
+							MDRT0010 T1
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.TANTOSYA_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		M4.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0100 M5
+					ON		M5.SIKIBETSU_CD = 'RTRN'
+					AND		M5.MEISYO_CD = T1.HENPIN_RIYU
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.BUMON_CD
+							,T1.SIIRESAKI_CD
+							,T1.HENPIN_YMD
+							,T1.ADD_YMD
+							,T1.KANRI_NO
+							,T1.SYORI_TM
+				</parts>
+			</statement>
+		</sql>
+		/** 返品検索 一覧検索(確定) **/
+		<sql id="TD030P01-04">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.BUMON_CD
+							,M2.BUMONKANA_NM
+							,T1.SIIRESAKI_CD
+							,M1.SIIRESAKI_RYAKU_NM
+							,M5.BURANDO_NMK
+							,T1.HENPIN_YMD
+							,T1.HHTADD_YMD ADD_YMD
+							,T1.DENPYO_BANGO
+							,T1.KANRI_NO
+							,T1.SIJI_BANGO
+							,T1.MOTODENPYO_BANGO
+							,T1.HENPINJISSEKIGOKEI_SU GOKEI_SU
+							,T1.HENPINJISSEKIGOUKEI_KIN GOUKEI_KIN
+							,M3.HANBAIIN_NM NYURYOKUTAN_NM
+							,M4.HANBAIIN_NM KAKUTEITAN_NM
+							,M6.MEISYO_NM HENPIN_RIYU_NM
+							,M7.MEISYO_NM DENPYO_JYOTAINM
+							,'' SYORINM
+							,'' RIREKI_SYORI_YMD
+							,'' RIREKI_SYORI_TM
+							,T1.HHTADDTAN_CD NYURYOKUTAN_CD
+							,T1.UPD_TANCD KAKUTEITAN_CD
+							,T1.BURANDO_CD
+							,M2.BUMON_NM
+							,T1.SYORI_YMD
+							,T1.TENPO_CD
+							,'' RIREKI_NO
+							,'' AKAKURO_KBN
+							,T1.SOSINZUMI_FLG SOSINZUMI_FLG
+							,'2' TBL_KBN
+							,T1.KAKUTEI_SB
+					FROM
+							MDRT0020 T1
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.HHTADDTAN_CD
+					LEFT JOIN
+							BOMT0030 M4
+					ON		M4.HANBAIIN_CD = T1.UPD_TANCD
+					LEFT JOIN
+							STMT0500 M5
+					ON		M5.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0100 M6
+					ON		M6.SIKIBETSU_CD = 'RTRN'
+					AND		M6.MEISYO_CD = T1.HENPIN_RIYU
+					LEFT JOIN
+							MDMT0100 M7
+					ON		M7.SIKIBETSU_CD = 'RTST'
+					AND		M7.MEISYO_CD = CASE T1.KAKUTEI_SB WHEN 0 THEN 1 WHEN 1 THEN 3 WHEN 2 THEN 1 WHEN 3 THEN 3 ELSE NULL END
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						 T1.BUMON_CD
+						,T1.SIIRESAKI_CD
+						,T1.HENPIN_YMD
+						,T1.DENPYO_BANGO
+						,T1.ADD_YMD
+						,T1.KANRI_NO
+						,T1.SYORI_TM
+				</parts>
+			</statement>
+		</sql>
+		/** 返品検索 一覧検索(履歴) **/
+		<sql id="TD030P01-05">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.BUMON_CD
+							,M2.BUMONKANA_NM
+							,T1.SIIRESAKI_CD
+							,M1.SIIRESAKI_RYAKU_NM
+							,M5.BURANDO_NMK
+							,T1.HENPIN_YMD
+							,T1.HHTADD_YMD ADD_YMD
+							,T1.DENPYO_BANGO
+							,T1.KANRI_NO
+							,T1.SIJI_BANGO
+							,T1.MOTODENPYO_BANGO
+							,T1.HENPINJISSEKIGOKEI_SU GOKEI_SU
+							,T1.HENPINJISSEKIGOUKEI_KIN GOUKEI_KIN
+							,M3.HANBAIIN_NM NYURYOKUTAN_NM
+							,M4.HANBAIIN_NM KAKUTEITAN_NM
+							,M6.MEISYO_NM HENPIN_RIYU_NM
+							,M7.MEISYO_NM DENPYO_JYOTAINM
+							,M8.MEISYO_NM SYORINM
+							,T1.RIREKI_SYORI_YMD
+							,T1.RIREKI_SYORI_TM
+							,T1.HHTADDTAN_CD NYURYOKUTAN_CD
+							,T1.UPD_TANCD KAKUTEITAN_CD
+							,T1.BURANDO_CD
+							,M2.BUMON_NM
+							,T1.SYORI_YMD
+							,T1.TENPO_CD
+							,T1.RIREKI_NO
+							,T1.AKAKURO_KBN
+							,0 SOSINZUMI_FLG
+							,'3' TBL_KBN
+							,T1.KAKUTEI_SB
+					FROM
+							MDRT0030 T1
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.HHTADDTAN_CD
+					LEFT JOIN
+							BOMT0030 M4
+					ON		M4.HANBAIIN_CD = T1.UPD_TANCD
+					LEFT JOIN
+							STMT0500 M5
+					ON		M5.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0100 M6
+					ON		M6.SIKIBETSU_CD = 'RTRN'
+					AND		M6.MEISYO_CD = T1.HENPIN_RIYU
+					LEFT JOIN
+							MDMT0100 M7
+					ON		M7.SIKIBETSU_CD = 'RTST'
+					AND		M7.MEISYO_CD = CASE T1.KAKUTEI_SB WHEN 0 THEN 1 WHEN 1 THEN 3 WHEN 2 THEN 1 WHEN 3 THEN 3 ELSE NULL END
+					LEFT JOIN
+							MDMT0100 M8
+					ON		M8.SIKIBETSU_CD = 'RTSY'
+					AND		M8.MEISYO_CD = T1.SYORI_SB
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 T1.BUMON_CD
+							,T1.SIIRESAKI_CD
+							,T1.HENPIN_YMD
+							,T1.DENPYO_BANGO
+							,T1.ADD_YMD
+							,T1.KANRI_NO
+							,T1.SYORI_TM
+							,T1.RIREKI_SYORI_YMD
+							,T1.RIREKI_SYORI_TM
+				</parts>
+			</statement>
+		</sql>
+		/** 返品検索 一覧検索(予定・確定) **/
+		<sql id="TD030P01-06">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.BUMON_CD
+							,M2.BUMONKANA_NM
+							,T1.SIIRESAKI_CD
+							,M1.SIIRESAKI_RYAKU_NM
+							,M4.BURANDO_NMK
+							,T1.HENPIN_YMD
+							,T1.UPD_YMD ADD_YMD
+							,0 DENPYO_BANGO
+							,T1.KANRI_NO
+							,T1.SIJI_BANGO
+							,0 MOTODENPYO_BANGO
+							,T1.HENPINYOTEIGOKEI_SU GOKEI_SU
+							,T1.HENPINYOTEIGOUKEI_KIN GOUKEI_KIN
+							,M3.HANBAIIN_NM NYURYOKUTAN_NM
+							,'' KAKUTEITAN_NM
+							,M5.MEISYO_NM HENPIN_RIYU_NM
+							,'未処理' DENPYO_JYOTAINM
+							,'' SYORINM
+							,'' RIREKI_SYORI_YMD
+							,'' RIREKI_SYORI_TM
+							,T1.TANTOSYA_CD NYURYOKUTAN_CD
+							,'' KAKUTEITAN_CD
+							,T1.BURANDO_CD
+							,M2.BUMON_NM
+							,T1.SYORI_YMD
+							,T1.TENPO_CD
+							,'' RIREKI_NO
+							,'' AKAKURO_KBN
+							,0 SOSINZUMI_FLG
+							,'1' TBL_KBN
+							,0 KAKUTEI_SB
+					FROM
+							MDRT0010 T1
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.TANTOSYA_CD
+					LEFT JOIN
+							STMT0500 M4
+					ON		M4.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0100 M5
+					ON		M5.SIKIBETSU_CD = 'RTRN'
+					AND		M5.MEISYO_CD = T1.HENPIN_RIYU
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE1" />
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+							 SELECT
+							T1.BUMON_CD
+							,M2.BUMONKANA_NM
+							,T1.SIIRESAKI_CD
+							,M1.SIIRESAKI_RYAKU_NM
+							,M5.BURANDO_NMK
+							,T1.HENPIN_YMD
+							,T1.HHTADD_YMD ADD_YMD
+							,T1.DENPYO_BANGO
+							,T1.KANRI_NO
+							,T1.SIJI_BANGO
+							,T1.MOTODENPYO_BANGO
+							,T1.HENPINJISSEKIGOKEI_SU GOKEI_SU
+							,T1.HENPINJISSEKIGOUKEI_KIN GOUKEI_KIN
+							,M3.HANBAIIN_NM NYURYOKUTAN_NM
+							,M4.HANBAIIN_NM KAKUTEITAN_NM
+							,M6.MEISYO_NM HENPIN_RIYU_NM
+							,M7.MEISYO_NM DENPYO_JYOTAINM
+							,'' SYORINM
+							,'' RIREKI_SYORI_YMD
+							,'' RIREKI_SYORI_TM
+							,T1.HHTADDTAN_CD NYURYOKUTAN_CD
+							,T1.UPD_TANCD KAKUTEITAN_CD
+							,T1.BURANDO_CD
+							,M2.BUMON_NM
+							,T1.SYORI_YMD
+							,T1.TENPO_CD
+							,'' RIREKI_NO
+							,'' AKAKURO_KBN
+							,T1.SOSINZUMI_FLG SOSINZUMI_FLG
+							,'2' TBL_KBN
+							,T1.KAKUTEI_SB
+					FROM
+							MDRT0020 T1
+					LEFT JOIN
+							MDMT0020 M1
+					ON		M1.SIIRESAKI_CD = T1.SIIRESAKI_CD
+					LEFT JOIN
+							BOMT0060 M2
+					ON		M2.BUMON_CD = T1.BUMON_CD
+					LEFT JOIN
+							BOMT0030 M3
+					ON		M3.HANBAIIN_CD = T1.HHTADDTAN_CD
+					LEFT JOIN
+							BOMT0030 M4
+					ON		M4.HANBAIIN_CD = T1.UPD_TANCD
+					LEFT JOIN
+							STMT0500 M5
+					ON		M5.BURANDO_CD = T1.BURANDO_CD
+					LEFT JOIN
+							MDMT0100 M6
+					ON		M6.SIKIBETSU_CD = 'RTRN'
+					AND		M6.MEISYO_CD = T1.HENPIN_RIYU
+					LEFT JOIN
+							MDMT0100 M7
+					ON		M7.SIKIBETSU_CD = 'RTST'
+					AND		M7.MEISYO_CD = CASE T1.KAKUTEI_SB WHEN 0 THEN 1 WHEN 1 THEN 3 WHEN 2 THEN 1 WHEN 3 THEN 3 ELSE NULL END
+					WHERE 0=0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE2" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+							 BUMON_CD
+							,SIIRESAKI_CD
+							,HENPIN_YMD
+							,DENPYO_BANGO
+				</parts>
+			</statement>
+		</sql>
+		/** 返品検索 明細検索(予定) **/
+		<sql id="TD030P01-07">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.DENPYOGYO_NO
+							,M1.HINSYU_RYAKU_NM
+							,T1.JISYA_HBN
+							,T1.MAKER_HBN
+							,T1.SYONMK
+							,M2.IRO_NM
+							,T1.SIZE_NM
+							,T1.JAN_CD
+							,T1.HENPINYOTEI_SU SURYO
+							,T1.GEN_TNK
+							,T1.HENPINYOTEI_SU * T1.GEN_TNK GENKA_KIN
+							,(SELECT OLD_XEBIO_CD FROM MDMT0130 WHERE JAN_CD = T1.JAN_CD) OLD_XEBIO_CD
+					FROM
+							MDRT0011 T1
+					LEFT JOIN
+							MDMT0070 M1
+					ON		T1.BUMON_CD = M1.BUMON_CD
+					AND		T1.HINSYU_CD = M1.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 M2
+					ON		T1.IRO_CD = M2.IRO_CD
+					WHERE
+							T1.KANRI_NO = </parts><bind id="KANRI_NO" /><parts>
+					AND		T1.SYORI_YMD = </parts><bind id="SYORI_YMD" /><parts>
+					AND		T1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 返品検索 明細検索(確定) **/
+		<sql id="TD030P01-08">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.DENPYOGYO_NO
+							,M1.HINSYU_RYAKU_NM
+							,T1.JISYA_HBN
+							,T1.MAKER_HBN
+							,T1.SYONMK
+							,M2.IRO_NM
+							,T1.SIZE_NM
+							,T1.JAN_CD
+							,T1.HENPINJISSEKI_SU SURYO
+							,T1.GEN_TNK
+							,T1.HENPINJISSEKI_SU * T1.GEN_TNK GENKA_KIN
+							,(SELECT OLD_XEBIO_CD FROM MDMT0130 WHERE JAN_CD = T1.JAN_CD) OLD_XEBIO_CD
+					FROM
+							MDRT0021 T1
+					LEFT JOIN
+							MDMT0070 M1
+					ON		T1.BUMON_CD = M1.BUMON_CD
+					AND		T1.HINSYU_CD = M1.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 M2
+					ON		T1.IRO_CD = M2.IRO_CD
+					WHERE
+							T1.DENPYO_BANGO = </parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYORI_YMD = </parts><bind id="SYORI_YMD" /><parts>
+					AND		T1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+		/** 返品検索 明細検索(履歴) **/
+		<sql id="TD030P01-09">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+							 T1.DENPYOGYO_NO
+							,M1.HINSYU_RYAKU_NM
+							,T1.JISYA_HBN
+							,T1.MAKER_HBN
+							,T1.SYONMK
+							,M2.IRO_NM
+							,T1.SIZE_NM
+							,T1.JAN_CD
+							,T1.HENPINJISSEKI_SU SURYO
+							,T1.GEN_TNK
+							,T1.HENPINJISSEKI_SU * T1.GEN_TNK GENKA_KIN
+							,(SELECT OLD_XEBIO_CD FROM MDMT0130 WHERE JAN_CD = T1.JAN_CD) OLD_XEBIO_CD
+					FROM
+							MDRT0031 T1
+					LEFT JOIN
+							MDMT0070 M1
+					ON		T1.BUMON_CD = M1.BUMON_CD
+					AND		T1.HINSYU_CD = M1.HINSYU_CD
+					LEFT JOIN
+							MDMT0080 M2
+					ON		T1.IRO_CD = M2.IRO_CD
+					WHERE
+					T1.DENPYO_BANGO = </parts><bind id="DENPYO_BANGO" /><parts>
+					AND		T1.SYORI_YMD = </parts><bind id="SYORI_YMD" /><parts>
+					AND		T1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					AND		T1.RIREKI_NO = </parts><bind id="RIREKI_NO" /><parts>
+					AND		T1.AKAKURO_KBN = </parts><bind id="AKAKURO_KBN" /><parts>
+					ORDER BY
+							T1.DENPYOGYO_NO
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

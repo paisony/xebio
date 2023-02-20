@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="TENPO_KAKUTEI_JOKYO" name="店舗確定状況">
+		<listItems>
+			<item id="10" value="1" label="未確定" itemId="Tenpo_kakutei_jokyo1" />
+			<item id="20" value="2" label="確定済" itemId="Tenpo_kakutei_jokyo2" />
+			<item id="30" value="3" label="未終了" itemId="Tenpo_kakutei_jokyo3" />
+			<item id="40" value="4" label="終了確定済" itemId="Tenpo_kakutei_jokyo4" />
+			<item id="50" value="5" label="終了確定解除" itemId="Tenpo_kakutei_jokyo5" />
+		</listItems>
+	</condition>
+</condition-define>
+

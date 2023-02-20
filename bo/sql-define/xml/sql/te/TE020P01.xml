@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 移移動出荷入力（ﾏﾆｭｱﾙ） 移動指示理由取得 **/
+		<sql id="TE020P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 NVL(T1.IDORIYU_KB,0) AS IDORIYU_KB
+					FROM
+						MDUT0030 T1
+					WHERE
+							T1.SIJI_BANGO      = </parts><bind id="BIND_SIJI_BANGO" /><parts>
+					AND		T1.SYUKKAKAISYA_CD = </parts><bind id="BIND_SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD    = </parts><bind id="BIND_SYUKKATEN_CD" /><parts>
+					AND		T1.JYURYOKAISYA_CD = </parts><bind id="BIND_JYURYOKAISYA_CD" /><parts>
+					AND		T1.JYURYOTEN_CD    = </parts><bind id="BIND_JYURYOTEN_CD" />
+			</statement>
+		</sql>
+		/** 移移動出荷入力（ﾏﾆｭｱﾙ） 移動指示数取得 **/
+		<sql id="TE020P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 SIJI_BANGO 
+						,JYURYOKAISYA_CD 
+						,JYURYOTEN_CD 
+						,SYUKKAKAISYA_CD 
+						,SYUKKATEN_CD 
+						,SIJIGYO_NO 
+						,BUMON_CD 
+						,HINSYU_CD 
+						,BURANDO_CD 
+						,MAKER_HBN 
+						,SYONMK 
+						,JISYA_HBN 
+						,IRO_CD 
+						,SIZE_CD 
+						,SIZE_NM 
+						,JAN_CD 
+						,SYOHIN_CD 
+						,SIJI_SU 
+						,GEN_TNK 
+					FROM
+						MDUT0031 T1
+					WHERE
+							T1.SIJI_BANGO      = </parts><bind id="BIND_SIJI_BANGO" /><parts>
+					AND		T1.SYUKKAKAISYA_CD = </parts><bind id="BIND_SYUKKAKAISYA_CD" /><parts>
+					AND		T1.SYUKKATEN_CD    = </parts><bind id="BIND_SYUKKATEN_CD" /><parts>
+					AND		T1.JYURYOKAISYA_CD = </parts><bind id="BIND_JYURYOKAISYA_CD" /><parts>
+					AND		T1.JYURYOTEN_CD    = </parts><bind id="BIND_JYURYOTEN_CD" /><parts>
+					AND		T1.JAN_CD          = </parts><bind id="BIND_JAN_CD" />
+			</statement>
+		</sql>
+		<sql id="TE020P01-03">
+			<statement type="final" name="final">
+				<parts>
+					/* TE020P01-03（他社の発注MST取得） */
+					SELECT
+						 M1.GENKA	-- 原価
+					FROM
+				</parts>
+			</statement>
+			<statement type="replace" name="REP_TABLE_ID" />
+			<statement type="final" name="final">
+				<parts>
+					WHERE
+						M1.JAN_CD = </parts><bind id="BIND_JAN_CD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 自動定数変更 件数チェック **/
+		<sql id="TA070P01-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT COUNT(1) CNT FROM
+					(
+						SELECT
+							1
+						FROM
+							MDOT0050 T1			/* 自動定数依頼TBL */
+						WHERE
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE_KAHI_IRAI" />  /** 依頼DB検索の有効可否を設定 **/
+			<statement type="replace" name="ADD_WHERE_IRAI" />
+			<statement type="final" name="final">
+				<parts>
+						UNION ALL
+						SELECT
+							1
+						FROM
+							MDMT0170 T1			/* 自動定数マスタ */
+						,	MDMT0130 T2			/* 発注マスタ     */
+						WHERE
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE_KAHI_MST" />  /** マスタDB検索の有効可否を設定 **/
+			<statement type="final" name="final">
+				<parts>
+						AND		T1.JAN_CD = T2.JAN_CD
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE_MST" />
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		/** 自動定数変更 検索 **/
+		<sql id="TA070P01-02">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						  T1.TENPO_CD			AS TENPO_CD				/*  0 店舗コード          */
+						, T1.SYORI_YMD			AS SYORI_YMD			/*  1 処理日付            */
+						, T1.SYORI_TM			AS SYORI_TM				/*  2 処理時間            */
+						, T1.BUMON_CD			AS BUMON_CD				/*  3 部門コード          */
+						, M1.BUMON_NM			AS BUMON_NM				/*  4 部門名              */
+						, M1.BUMONKANA_NM		AS BUMONKANA_NM			/*  5 部門名カナ          */
+						, T1.HINSYU_CD			AS HINSYU_CD			/*  6 品種コード          */
+						, M2.HINSYU_RYAKU_NM	AS HINSYU_RYAKU_NM		/*  7 品種名              */
+						, T1.BURANDO_CD			AS BURANDO_CD			/*  8 ブランドコード      */
+						, M3.BURANDO_NMK		AS BURANDO_NMK			/*  9 ブランド名          */
+						, T1.JISYA_HBN			AS XEBIO_CD				/* 10 自社品番            */
+						, T1.HIN_NBR			AS HIN_NBR				/* 11 メーカー品番        */
+						, T1.SYONMK				AS SYONMK				/* 12 商品名カナ          */
+						, T1.JAN_CD				AS JAN_CD				/* 13 JANコード           */
+						, T1.SYOHIN_CD			AS SYOHIN_CD			/* 14 商品コード          */
+						, T1.IRO_CD				AS IRO_CD				/* 15 色コード            */
+						, M4.IRO_NM				AS IRO_NM				/* 16 色名                */
+						, T1.SIZE_CD			AS SIZE_CD				/* 17 サイズコード        */
+						, T1.SIZE_NM			AS SIZE_NM				/* 18 サイズ名            */
+						, T1.GEN_TNK			AS GEN_TNK				/* 19 原価                */
+						, T1.KAISI_YMD			AS KAISI_YMD			/* 20 開始日              */
+						, T1.SYURYO_YMD			AS SYURYO_YMD			/* 21 終了日              */
+						, T1.HATTYUPTN_KBN		AS HATTYUPTN_KBN		/* 22 発注パターン区分    */
+						, HATTYU.MEISYO_NM		AS HATTYUPTN_NM			/* 23 発注パターン名称    */
+						, T1.JIDO_KBN			AS JIDO_KBN				/* 24 自動区分            */
+						, JIDOKB.MEISYO_NM		AS JIDO_KBN_NM			/* 25 自動区分名称        */
+						, T1.URIAGE_SU			AS URI_SU				/* 26 売上実績            */
+						, T1.GENZAISETTEI_SU	AS GENZAISETTEI_SU		/* 27 現在設定            */
+						, T1.IRAI_SU			AS IRAI_SU				/* 28 変更依頼            */
+						, T1.LOT_SU				AS LOT_SU				/* 29 ロット数            */
+						, T1.IRAIRIYU_CD		AS IRAIRIYU_CD			/* 30 依頼理由コード      */
+						, M6.RIYUCOMMENT_NM		AS RIYUCOMMENT_NM		/* 31 依頼理由名称        */
+						, T1.UPD_TANCD			AS JIDOTESU_UPD			/* 32 担当者コード        */
+						, M5.HANBAIIN_NM		AS JIDOTESU_UPD_TANNM	/* 33 担当者名            */
+						, T1.ADD_YMD			AS ADD_YMD				/* 34 登録日              */
+						, 0						AS ADD_KBN				/* 35 登録区分            */
+						, ADDKB.MEISYO_NM		AS ADD_KBN_NM			/* 36 登録区分名称        */
+						, T1.UPD_YMD			AS UPD_YMD				/* 37 更新日              */
+						, T1.UPD_TM				AS UPD_TM				/* 38 更新時間            */
+						, T1.UPD_TANCD			AS UPD_TANCD			/* 39 更新担当者コード    */
+						, (SELECT
+								S_MDMT0130_1.MOTOMIYASYOHIN_FLG
+							FROM MDMT0130 S_MDMT0130_1
+							WHERE
+								S_MDMT0130_1.JAN_CD = T1.JAN_CD
+						 )						AS MOTOMIYASYOHIN_FLG	/* 40 本宮商品フラグ      */
+						, (SELECT
+								S_MDMT0130_2.SYOHIN_ZOKUSEI
+							FROM MDMT0130 S_MDMT0130_2
+							WHERE
+								S_MDMT0130_2.JAN_CD = T1.JAN_CD
+						 )						AS SYOHIN_ZOKUSEI		/* 41 商品属性            */
+						, T1.SOSINZUMI_FLG		AS SOSINZUMI_FLG		/* 42 送信済フラグ        */
+					FROM 
+						  MDOT0050 T1					/* 自動定数依頼TBL          */
+						, BOMT0060 M1					/* 部門マスタ               */
+						, MDMT0070 M2					/* 品種マスタ               */
+						, STMT0500 M3					/* ブランドマスタ           */
+						, MDMT0080 M4					/* 色マスタ                 */
+						, BOMT0030 M5					/* 販売員マスタ             */
+						, MDMT0180 M6					/* 理由マスタ               */
+						, MDMT0100 HATTYU				/* 名称マスタ(発注パターン) */
+						, MDMT0100 JIDOKB				/* 名称マスタ(自動区分)     */
+						, MDMT0100 ADDKB 				/* 名称マスタ(登録区分)     */
+					WHERE
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE_KAHI_IRAI" />  /** 依頼DB検索の有効可否を設定 **/
+			<statement type="final" name="final">
+				<parts>
+					AND		T1.BUMON_CD      = M1.BUMON_CD(+)
+					AND		T1.BUMON_CD      = M2.BUMON_CD(+)
+					AND		T1.HINSYU_CD     = M2.HINSYU_CD(+)
+					AND		T1.BURANDO_CD    = M3.BURANDO_CD(+)
+					AND		T1.IRO_CD        = M4.IRO_CD(+)
+					AND		HATTYU.SIKIBETSU_CD(+) = 'HTPT'
+					AND		T1.HATTYUPTN_KBN = HATTYU.MEISYO_CD(+)
+					AND		JIDOKB.SIKIBETSU_CD(+) = 'HTJK'
+					AND		T1.JIDO_KBN      = JIDOKB.MEISYO_CD(+)
+					AND		M6.GYOMU_KB(+)   = '014'
+					AND		T1.IRAIRIYU_CD   = M6.RIYU_CD(+)
+					AND		T1.UPD_TANCD     = M5.HANBAIIN_CD(+)
+					AND		ADDKB.SIKIBETSU_CD(+)  = 'HTTK'
+					AND		ADDKB.MEISYO_CD(+)     = 0
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE_IRAI" />
+			<statement type="final" name="final">
+				<parts>
+					UNION ALL
+					SELECT
+						  T1.TENPO_CD			AS TENPO_CD				/*  0 店舗コード          */
+						, TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))
+												AS SYORI_YMD			/*  1 処理日付            */
+						, 999999999				AS SYORI_TM				/*  2 処理時間            */
+						, T2.BUMON_CD			AS BUMON_CD				/*  3 部門コード          */
+						, M1.BUMON_NM			AS BUMON_NM				/*  4 部門名              */
+						, M1.BUMONKANA_NM		AS BUMONKANA_NM			/*  5 部門名カナ          */
+						, T2.HINSYU_CD			AS HINSYU_CD			/*  6 品種コード          */
+						, M2.HINSYU_RYAKU_NM	AS HINSYU_RYAKU_NM		/*  7 品種名              */
+						, T2.BURANDO_CD			AS BURANDO_CD			/*  8 ブランドコード      */
+						, M3.BURANDO_NMK		AS BURANDO_NMK			/*  9 ブランド名          */
+						, T2.XEBIO_CD			AS XEBIO_CD				/* 10 自社品番            */
+						, T2.HIN_NBR			AS HIN_NBR				/* 11 メーカー品番        */
+						, T2.SYONMK				AS SYONMK				/* 12 商品名カナ          */
+						, T1.JAN_CD				AS JAN_CD				/* 13 JANコード           */
+						, T2.SYOHIN_CD			AS SYOHIN_CD			/* 14 商品コード          */
+						, T2.MAKERCOLOR_CD		AS IRO_CD				/* 15 色コード            */
+						, M4.IRO_NM				AS IRO_NM				/* 16 色名                */
+						, T2.SIZE_NM			AS SIZE_CD				/* 17 サイズコード        */
+						, M7.SIZE_NM			AS SIZE_NM				/* 18 サイズ名            */
+						, T2.GENKA				AS GEN_TNK				/* 19 原価                */
+						, T1.KAISI_YMD			AS KAISI_YMD			/* 20 開始日              */
+						, T1.SYURYO_YMD			AS SYURYO_YMD			/* 21 終了日              */
+						, T1.HATTYUPTN_KBN		AS HATTYUPTN_KBN		/* 22 発注パターン区分    */
+						, HATTYU.MEISYO_NM		AS HATTYUPTN_NM			/* 23 発注パターン名称    */
+						, T1.JIDO_KBN			AS JIDO_KBN				/* 24 自動区分            */
+						, JIDOKB.MEISYO_NM		AS JIDO_KBN_NM			/* 25 自動区分名称        */
+						, (
+							SELECT
+								NVL(SUM(MDBT0070.URIAGE_SU), 0)
+							FROM	MDBT0070			/* 売上数累積テーブル */
+							WHERE	MDBT0070.TENPO_CD = T1.TENPO_CD
+							AND		MDBT0070.JAN_CD   = T2.JAN_CD
+							AND		MDBT0070.SYU_CD BETWEEN MDADDSYUCD(MDGETSYUCD(TO_CHAR(SYSDATE, 'YYYYMMDD')), -4) AND MDGETSYUCD(TO_CHAR(SYSDATE, 'YYYYMMDD'))
+						 )						AS URI_SU				/* 26 売上実績            */
+						, T1.JIDO_SU			AS GENZAISETTEI_SU		/* 27 現在設定            */
+						, NULL					AS IRAI_SU				/* 28 変更依頼            */
+						, T2.LOT_SU				AS LOT_SU				/* 29 ロット数            */
+						, -1					AS IRAIRIYU_CD			/* 30 依頼理由コード      */
+						, NULL					AS RIYUCOMMENT_NM		/* 31 依頼理由名称        */
+						, T1.ADDTAN_CD			AS JIDOTESU_UPD			/* 32 担当者コード        */
+						, M5.HANBAIIN_NM		AS JIDOTESU_UPD_TANNM	/* 33 担当者名            */
+						, T1.ADD_YMD			AS ADD_YMD				/* 34 登録日              */
+						, T1.ADD_KBN			AS ADD_KBN				/* 35 登録区分            */
+						, ADDKB.MEISYO_NM		AS ADD_KBN_NM			/* 36 登録区分名称        */
+						, T1.UPD_YMD			AS UPD_YMD				/* 37 更新日              */
+						, T1.UPD_TM				AS UPD_TM				/* 38 更新時間            */
+						, T1.UPD_TANCD			AS UPD_TANCD			/* 39 更新担当者コード    */
+						, T2.MOTOMIYASYOHIN_FLG	AS MOTOMIYASYOHIN_FLG	/* 40 本宮商品フラグ      */
+						, T2.SYOHIN_ZOKUSEI		AS SYOHIN_ZOKUSEI		/* 41 商品属性            */
+						, 0						AS SOSINZUMI_FLG		/* 42 送信済フラグ        */
+					FROM 
+						  MDMT0170 T1					/* 自動定数マスタ           */
+						, MDMT0130 T2					/* 発注マスタ               */
+						, BOMT0060 M1					/* 部門マスタ               */
+						, MDMT0070 M2					/* 品種マスタ               */
+						, STMT0500 M3					/* ブランドマスタ           */
+						, MDMT0080 M4					/* 色マスタ                 */
+						, BOMT0030 M5					/* 販売員マスタ             */
+						, MDMT0090 M7					/* サイズマスタ             */
+						, MDMT0100 HATTYU				/* 名称マスタ(発注パターン) */
+						, MDMT0100 JIDOKB				/* 名称マスタ(自動区分)     */
+						, MDMT0100 ADDKB 				/* 名称マスタ(登録区分)     */
+					WHERE
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE_KAHI_MST" />  /** マスタDB検索の有効可否を設定 **/
+			<statement type="final" name="final">
+				<parts>
+					AND		T1.JAN_CD        = T2.JAN_CD
+					AND		T2.BUMON_CD      = M1.BUMON_CD(+)
+					AND		T2.BUMON_CD      = M2.BUMON_CD(+)
+					AND		T2.HINSYU_CD     = M2.HINSYU_CD(+)
+					AND		T2.BURANDO_CD    = M3.BURANDO_CD(+)
+					AND		T2.MAKERCOLOR_CD = M4.IRO_CD(+)
+					AND		T2.SIZE_NM       = M7.SIZE_CD(+)
+					AND		HATTYU.SIKIBETSU_CD(+) = 'HTPT'
+					AND		T1.HATTYUPTN_KBN = HATTYU.MEISYO_CD(+)
+					AND		JIDOKB.SIKIBETSU_CD(+) = 'HTJK'
+					AND		T1.JIDO_KBN      = JIDOKB.MEISYO_CD(+)
+					AND		T1.ADDTAN_CD     = M5.HANBAIIN_CD(+)
+					AND		ADDKB.SIKIBETSU_CD(+)  = 'HTTK'
+					AND		T1.ADD_KBN       = ADDKB.MEISYO_CD(+)
+				</parts>
+			</statement>
+			<statement type="replace" name="ADD_WHERE_MST" />
+			<statement type="final" name="final">
+				<parts>
+					ORDER BY
+						  BUMON_CD				/*  3 部門コード          */
+						, HINSYU_CD				/*  6 品種コード          */
+						, BURANDO_CD			/*  8 ブランドコード      */
+						, XEBIO_CD				/* 10 自社品番            */
+						, HIN_NBR				/* 11 メーカー品番        */
+						, IRO_CD				/* 15 色コード            */
+						, SIZE_CD				/* 17 サイズコード        */
+						, SYORI_YMD	DESC		/*  1 処理日付            */
+						, SYORI_TM	DESC		/*  2 処理時間            */
+				</parts>
+			</statement>
+		</sql>
+		/** 自動定数変更 [自動定数依頼TBL]をMERGE **/
+		<sql id="TA070P01-03">
+			<statement type="final" name="final">
+				<parts>
+					MERGE INTO MDOT0050			/* 動定数依頼テーブル */
+					USING (
+						SELECT
+							 </parts><bind id="BIND_TENPO_CD" /><parts>			AS	TENPO_CD			/*店舗コード*/
+							,</parts><bind id="BIND_SYORI_YMD" /><parts>		AS	SYORI_YMD			/*処理日付*/
+							,</parts><bind id="BIND_SYORI_TM" /><parts>			AS	SYORI_TM			/*処理時間*/
+							,</parts><bind id="BIND_KAISI_YMD" /><parts>		AS	KAISI_YMD			/*開始日*/
+							,</parts><bind id="BIND_SYURYO_YMD" /><parts>		AS	SYURYO_YMD			/*終了日*/
+							,</parts><bind id="BIND_BUMON_CD" /><parts>			AS	BUMON_CD			/*部門コード*/
+							,</parts><bind id="BIND_HINSYU_CD" /><parts>		AS	HINSYU_CD			/*品種コード*/
+							,</parts><bind id="BIND_BURANDO_CD" /><parts>		AS	BURANDO_CD			/*ブランドコード*/
+							,</parts><bind id="BIND_JISYA_HBN" /><parts>		AS	JISYA_HBN			/*自社品番*/
+							,</parts><bind id="BIND_IRO_CD" /><parts>			AS	IRO_CD				/*色コード*/
+							,</parts><bind id="BIND_SIZE_CD" /><parts>			AS	SIZE_CD				/*サイズコード*/
+							,</parts><bind id="BIND_SIZE_NM" /><parts>			AS	SIZE_NM				/*サイズ名*/
+							,</parts><bind id="BIND_JAN_CD" /><parts>			AS	JAN_CD				/*ＪＡＮコード*/
+							,</parts><bind id="BIND_SYOHIN_CD" /><parts>		AS	SYOHIN_CD			/*商品コード*/
+							,</parts><bind id="BIND_HIN_NBR" /><parts>			AS	HIN_NBR				/*メーカー品番*/
+							,</parts><bind id="BIND_SYONMK" /><parts>			AS	SYONMK				/*商品名(カナ)*/
+							,</parts><bind id="BIND_GEN_TNK" /><parts>			AS	GEN_TNK				/*原単価*/
+							,</parts><bind id="BIND_GENZAISETTEI_SU" /><parts>	AS	GENZAISETTEI_SU		/*現在設定数*/
+							,</parts><bind id="BIND_IRAI_SU" /><parts>			AS	IRAI_SU				/*依頼数量*/
+							,</parts><bind id="BIND_HATTYUPTN_KBN" /><parts>	AS	HATTYUPTN_KBN		/*発注パターン*/
+							,</parts><bind id="BIND_JIDO_KBN" /><parts>			AS	JIDO_KBN			/*自動区分*/
+							,</parts><bind id="BIND_URIAGE_SU" /><parts>		AS	URIAGE_SU			/*売上実績数*/
+							,</parts><bind id="BIND_IRAIRIYU_CD" /><parts>		AS	IRAIRIYU_CD			/*依頼理由コード*/
+							,</parts><bind id="BIND_LOT_SU" /><parts>			AS	LOT_SU				/*ロット数*/
+							,</parts><bind id="BIND_ADD_YMD" /><parts>			AS	ADD_YMD				/*登録日*/
+							,</parts><bind id="BIND_ADD_TM" /><parts>			AS	ADD_TM				/*登録時間*/
+							,</parts><bind id="BIND_ADDTAN_CD" /><parts>		AS	ADDTAN_CD			/*登録担当者コード*/
+							,</parts><bind id="BIND_UPD_YMD" /><parts>			AS	UPD_YMD				/*更新日*/
+							,</parts><bind id="BIND_UPD_TM" /><parts>			AS	UPD_TM				/*更新時間*/
+							,</parts><bind id="BIND_UPD_TANCD" /><parts>		AS	UPD_TANCD			/*更新担当者コード*/
+							,</parts><bind id="BIND_SAKUJYO_YMD" /><parts>		AS	SAKUJYO_YMD			/*削除日*/
+							,</parts><bind id="BIND_SAKUJYO_FLG" /><parts>		AS	SAKUJYO_FLG			/*削除フラグ*/
+							,</parts><bind id="BIND_SOSINIRAI_FLG" /><parts>	AS	SOSINIRAI_FLG		/*送信依頼フラグ*/
+							,</parts><bind id="BIND_SOSINZUMI_FLG" /><parts>	AS	SOSINZUMI_FLG		/*送信済フラグ*/
+							,</parts><bind id="BIND_SOSIN_YMD" /><parts>		AS	SOSIN_YMD			/*送信日*/
+							,</parts><bind id="BIND_SOSIN_TM" /><parts>			AS	SOSIN_TM			/*送信時間*/
+						FROM DUAL
+					) UPDVAL
+						ON(	MDOT0050.TENPO_CD	= UPDVAL.TENPO_CD
+						AND	MDOT0050.SYORI_YMD	= UPDVAL.SYORI_YMD
+						AND	MDOT0050.JAN_CD		= UPDVAL.JAN_CD)
+						/* 既存レコードの更新 ------------------------------------------*/
+					WHEN MATCHED THEN
+						UPDATE SET
+							 KAISI_YMD			=	UPDVAL.KAISI_YMD		/* 開始日            */
+							,SYURYO_YMD			=	UPDVAL.SYURYO_YMD		/* 終了日            */
+							,BUMON_CD			=	UPDVAL.BUMON_CD			/* 部門コード        */
+							,HINSYU_CD			=	UPDVAL.HINSYU_CD		/* 品種コード        */
+							,BURANDO_CD			=	UPDVAL.BURANDO_CD		/* ブランドコード    */
+							,JISYA_HBN			=	UPDVAL.JISYA_HBN		/* 自社品番          */
+							,IRO_CD				=	UPDVAL.IRO_CD			/* 色コード          */
+							,SIZE_CD			=	UPDVAL.SIZE_CD			/* サイズコード      */
+							,SIZE_NM			=	UPDVAL.SIZE_NM			/* サイズ名          */
+							,SYOHIN_CD			=	UPDVAL.SYOHIN_CD		/* 商品コード        */
+							,HIN_NBR			=	UPDVAL.HIN_NBR			/* メーカー品番      */
+							,SYONMK				=	UPDVAL.SYONMK			/* 商品名(カナ)      */
+							,GEN_TNK			=	UPDVAL.GEN_TNK			/* 原単価            */
+							,GENZAISETTEI_SU	=	UPDVAL.GENZAISETTEI_SU	/* 現在設定数        */
+							,IRAI_SU			=	UPDVAL.IRAI_SU			/* 依頼数量          */
+							,HATTYUPTN_KBN		=	UPDVAL.HATTYUPTN_KBN	/* 発注パターン      */
+							,JIDO_KBN			=	UPDVAL.JIDO_KBN			/* 自動区分          */
+							,URIAGE_SU			=	UPDVAL.URIAGE_SU		/* 売上実績数        */
+							,IRAIRIYU_CD		=	UPDVAL.IRAIRIYU_CD		/* 依頼理由コード    */
+							,LOT_SU				=	UPDVAL.LOT_SU			/* ロット数          */
+							,UPD_YMD			=	UPDVAL.UPD_YMD			/* 更新日            */
+							,UPD_TM				=	UPDVAL.UPD_TM			/* 更新時間          */
+							,UPD_TANCD			=	UPDVAL.UPD_TANCD		/* 更新担当者コード  */
+							,SAKUJYO_FLG		= 0							/* 削除フラグ        */
+							,SOSINIRAI_FLG		= 1							/* 送信依頼フラグ    */
+						/* 新規レコードの作成 ------------------------------------------*/
+					WHEN NOT MATCHED THEN
+						INSERT (
+							 TENPO_CD					/*店舗コード*/
+							,SYORI_YMD					/*処理日付*/
+							,SYORI_TM					/*処理時間*/
+							,KAISI_YMD					/*開始日*/
+							,SYURYO_YMD					/*終了日*/
+							,BUMON_CD					/*部門コード*/
+							,HINSYU_CD					/*品種コード*/
+							,BURANDO_CD					/*ブランドコード*/
+							,JISYA_HBN					/*自社品番*/
+							,IRO_CD						/*色コード*/
+							,SIZE_CD					/*サイズコード*/
+							,SIZE_NM					/*サイズ名*/
+							,JAN_CD						/*ＪＡＮコード*/
+							,SYOHIN_CD					/*商品コード*/
+							,HIN_NBR					/*メーカー品番*/
+							,SYONMK						/*商品名(カナ)*/
+							,GEN_TNK					/*原単価*/
+							,GENZAISETTEI_SU			/*現在設定数*/
+							,IRAI_SU					/*依頼数量*/
+							,HATTYUPTN_KBN				/*発注パターン*/
+							,JIDO_KBN					/*自動区分*/
+							,URIAGE_SU					/*売上実績数*/
+							,IRAIRIYU_CD				/*依頼理由コード*/
+							,LOT_SU						/*ロット数*/
+							,ADD_YMD					/*登録日*/
+							,ADD_TM						/*登録時間*/
+							,ADDTAN_CD					/*登録担当者コード*/
+							,UPD_YMD					/*更新日*/
+							,UPD_TM						/*更新時間*/
+							,UPD_TANCD					/*更新担当者コード*/
+							,SAKUJYO_YMD				/*削除日*/
+							,SAKUJYO_FLG				/*削除フラグ*/
+							,SOSINIRAI_FLG				/*送信依頼フラグ*/
+							,SOSINZUMI_FLG				/*送信済フラグ*/
+							,SOSIN_YMD					/*送信日*/
+							,SOSIN_TM					/*送信時間*/
+						) VALUES (
+							 UPDVAL.TENPO_CD			/*店舗コード*/
+							,UPDVAL.SYORI_YMD			/*処理日付*/
+							,UPDVAL.SYORI_TM			/*処理時間*/
+							,UPDVAL.KAISI_YMD			/*開始日*/
+							,UPDVAL.SYURYO_YMD			/*終了日*/
+							,UPDVAL.BUMON_CD			/*部門コード*/
+							,UPDVAL.HINSYU_CD			/*品種コード*/
+							,UPDVAL.BURANDO_CD			/*ブランドコード*/
+							,UPDVAL.JISYA_HBN			/*自社品番*/
+							,UPDVAL.IRO_CD				/*色コード*/
+							,UPDVAL.SIZE_CD				/*サイズコード*/
+							,UPDVAL.SIZE_NM				/*サイズ名*/
+							,UPDVAL.JAN_CD				/*ＪＡＮコード*/
+							,UPDVAL.SYOHIN_CD			/*商品コード*/
+							,UPDVAL.HIN_NBR				/*メーカー品番*/
+							,UPDVAL.SYONMK				/*商品名(カナ)*/
+							,UPDVAL.GEN_TNK				/*原単価*/
+							,UPDVAL.GENZAISETTEI_SU		/*現在設定数*/
+							,UPDVAL.IRAI_SU				/*依頼数量*/
+							,UPDVAL.HATTYUPTN_KBN		/*発注パターン*/
+							,UPDVAL.JIDO_KBN			/*自動区分*/
+							,UPDVAL.URIAGE_SU			/*売上実績数*/
+							,UPDVAL.IRAIRIYU_CD			/*依頼理由コード*/
+							,UPDVAL.LOT_SU				/*ロット数*/
+							,UPDVAL.ADD_YMD				/*登録日*/
+							,UPDVAL.ADD_TM				/*登録時間*/
+							,UPDVAL.ADDTAN_CD			/*登録担当者コード*/
+							,UPDVAL.UPD_YMD				/*更新日*/
+							,UPDVAL.UPD_TM				/*更新時間*/
+							,UPDVAL.UPD_TANCD			/*更新担当者コード*/
+							,UPDVAL.SAKUJYO_YMD			/*削除日*/
+							,0							/* 削除フラグ */
+							,1							/* 送信依頼フラグ */
+							,0							/* 送信済フラグ	*/
+							,0							/* 送信日 */
+							,0							/* 送信時間 */
+						)
+				</parts>
+			</statement>
+		</sql>
+		/** 自動定数変更 [自動定数依頼TBL]を削除 **/
+		<sql id="TA070P01-04">
+			<statement type="final" name="final">
+				<parts>
+					DELETE FROM MDOT0050
+					WHERE
+						TENPO_CD       = </parts><bind id="BIND_TENPO_CD" /><parts>			/* 店舗コード */
+					AND	SYORI_YMD      = </parts><bind id="BIND_SYORI_YMD" /><parts>		/* 処理日付 */
+					AND	JAN_CD         = </parts><bind id="BIND_JAN_CD" />					/* JANコード */
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

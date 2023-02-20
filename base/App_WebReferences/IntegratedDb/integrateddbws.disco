@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://10.74.54.118/integrateddbws/integrateddbws.asmx?wsdl" docRef="http://10.74.54.118/integrateddbws/integrateddbws.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://10.74.54.118/integrateddbws/integrateddbws.asmx" xmlns:q1="Com.Fujitsu.SmartBase.DataIntegration.Common" binding="q1:IntegratedDbWsSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://10.74.54.118/integrateddbws/integrateddbws.asmx" xmlns:q2="Com.Fujitsu.SmartBase.DataIntegration.Common" binding="q2:IntegratedDbWsSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

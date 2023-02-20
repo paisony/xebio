@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="V01024-01">
+			<statement type="final" name="final">
+				<parts>
+					SELECT
+						 TENPO_CD
+						,LABEL_CD
+						,LABEL_IP
+						,LABEL_NM
+						,LABEL_BIKO
+						,ADD_YMD
+						,ADD_TM
+						,ADDTAN_CD
+						,UPD_YMD
+						,UPD_TM
+						,UPD_TANCD
+						,SAKUJYO_YMD
+						,SAKUJYO_FLG
+						,JYUSIN_YMD
+						,JYUSIN_TM
+					FROM MDMT0220 M1
+					WHERE
+							M1.SAKUJYO_FLG = 0
+					AND		M1.TENPO_CD = </parts><bind id="TENPO_CD" /><parts>
+					AND		M1.LABEL_CD = </parts><bind id="LABEL_CD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

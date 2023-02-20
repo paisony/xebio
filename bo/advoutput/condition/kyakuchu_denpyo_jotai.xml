@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="KYAKUCHU_DENPYO_JOTAI" name="客注伝票状態">
+		<listItems>
+			<item id="10" value="1" label="入荷済" itemId="Kyakuchu_denpyo_jotai1" />
+			<item id="20" value="2" label="未入荷" itemId="Kyakuchu_denpyo_jotai2" />
+		</listItems>
+	</condition>
+</condition-define>
+

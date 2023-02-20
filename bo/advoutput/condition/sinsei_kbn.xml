@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="SINSEI_KBN" name="申請区分">
+		<listItems>
+			<item id="10" value="0" label="申請" itemId="Sinsei_kbn1" />
+			<item id="20" value="1" label="再申請" itemId="Sinsei_kbn2" />
+		</listItems>
+	</condition>
+</condition-define>
+

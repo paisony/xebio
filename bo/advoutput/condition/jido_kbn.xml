@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="JIDO_KBN" name="自動区分">
+		<listItems>
+			<item id="10" value="1" label="ﾒｰｶｰ自動" itemId="Jido_kbn1" />
+			<item id="20" value="2" label="DC自動" itemId="Jido_kbn2" />
+			<item id="30" value="3" label="DC/ﾒｰｶｰ自動" itemId="Jido_kbn3" />
+			<item id="40" value="4" label="半自動" itemId="Jido_kbn4" />
+		</listItems>
+	</condition>
+</condition-define>
+

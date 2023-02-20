@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32929.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "bo", ".", "{91EEC847-BBC8-4031-83DD-B60D041B0353}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		ProjectReferences = "{055527b6-675f-4959-852f-f426cd4ddf53}|com.xebio.bo.Common.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_52602"
+		Debug.AspNetCompiler.PhysicalPath = "..\bo\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52602\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_52602"
+		Release.AspNetCompiler.PhysicalPath = "..\bo\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52602\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "52602"
+		SlnRelativePath = "..\bo\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.xebio.bo.Common", "..\Bin\com.xebio.bo.Common\com.xebio.bo.Common.csproj", "{055527B6-675F-4959-852F-F426CD4DDF53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91EEC847-BBC8-4031-83DD-B60D041B0353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91EEC847-BBC8-4031-83DD-B60D041B0353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91EEC847-BBC8-4031-83DD-B60D041B0353}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{91EEC847-BBC8-4031-83DD-B60D041B0353}.Debug|x86.Build.0 = Debug|Any CPU
+		{91EEC847-BBC8-4031-83DD-B60D041B0353}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{91EEC847-BBC8-4031-83DD-B60D041B0353}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{91EEC847-BBC8-4031-83DD-B60D041B0353}.Release|x86.ActiveCfg = Debug|Any CPU
+		{91EEC847-BBC8-4031-83DD-B60D041B0353}.Release|x86.Build.0 = Debug|Any CPU
+		{055527B6-675F-4959-852F-F426CD4DDF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{055527B6-675F-4959-852F-F426CD4DDF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{055527B6-675F-4959-852F-F426CD4DDF53}.Debug|x86.ActiveCfg = Debug|x86
+		{055527B6-675F-4959-852F-F426CD4DDF53}.Debug|x86.Build.0 = Debug|x86
+		{055527B6-675F-4959-852F-F426CD4DDF53}.Release|Any CPU.ActiveCfg = Release|x86
+		{055527B6-675F-4959-852F-F426CD4DDF53}.Release|x86.ActiveCfg = Release|x86
+		{055527B6-675F-4959-852F-F426CD4DDF53}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43EB6BBD-514F-4900-A6EE-D864CCA78F1B}
+	EndGlobalSection
+EndGlobal

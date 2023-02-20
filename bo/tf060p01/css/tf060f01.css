@@ -1,0 +1,68 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:tf060f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 月度 ---*/
+.inpGetsudo {
+	width: 20px;
+	text-align: right;
+}
+
+.str-search-01 .w-type-01 {
+  width: 100px;
+}
+
+.str-pager-tani {
+  position: relative;
+  padding: 10px 10px;
+  text-align: right;
+}
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/*--- 月別部門合計 ---*/
+.str-result-01 .col0 {
+	width: 165px;
+	color: #ffffff;
+	border-top: 1px solid #ffffff;
+	border-left: 1px solid #ffffff;
+	background-color: #1ca7e0;
+}
+/*--- 日 ---*/
+.str-result-01 .col1 {
+	width: 80px;
+}
+/*--- 曜日 ---*/
+.str-result-01 .col2 {
+	width: 80px;
+}
+/*--- 部門１ ---*/
+.str-result-01 .col3 {
+	width: 170px;
+}
+/*--- 部門２ ---*/
+.str-result-01 .col4 {
+	width: 170px;
+}
+/*--- 部門３ ---*/
+.str-result-01 .col5 {
+	width: 170px;
+}
+/*--- 部門４ ---*/
+.str-result-01 .col6 {
+	width: 170px;
+}
+/*--- 部門５ ---*/
+.str-result-01 .col7 {
+	width: 170px;
+}
+/*--- 合計 ---*/
+.str-result-01 .col8 {
+	/*---width: 172px;---*/
+	width: 171px;
+}
+

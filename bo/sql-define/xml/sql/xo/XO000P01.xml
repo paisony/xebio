@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		<sql id="XO000P01-01">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応対応 **/
+					SELECT
+					 f.FUNCTION_URL  AS FUNCTIONURL
+					,f.WINDOW_STYLE  AS DIALOG
+					,f.WINDOW_NAME   AS WINDOWNAME
+					,f.FUNCTION_NAME AS FUNCTIONNAME
+					,v.FUNCTION_VIEW_NAME AS FUNCTIONVIEWNAME
+					FROM BS_FUNCTION f
+						LEFT OUTER JOIN BS_FUNCTION_VIEW v ON  f.SOLUTION_ID = v.SOLUTION_ID AND f.FUNCTION_ID = v.FUNCTION_VIEW_ID
+					WHERE f.SOLUTION_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="SOLUTION_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND f.FUNCTION_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FUNCTION_ID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-02">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応対応 **/
+					INSERT INTO BS_LOGIN_LOG (
+					LOG_ID
+					,LOGIN_ID
+					,LOG_DATETIME
+					,LOG_TYPE
+					,OFFLINE_FLAG
+					,IP_ADDRESS
+					,PC_NAME
+					,SOLUTION_ID
+					,FUNCTION_ID
+					,FUNCTION_NAME
+					,FUNCTION_URL
+					) VALUES (
+					BS_LOGIN_LOG_ID.nextval
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOG_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOG_TYPE" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="OFFLINE_FLAG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="IP_ADDRESS" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PC_NAME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="SOLUTION_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FUNCTION_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FUNCTION_NAME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FUNCTION_URL" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-03">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応対応 **/
+					SELECT
+					DAY_TYPE
+					,START_TIME
+					,STOP_TIME
+					FROM BS_OPERATION_TIME
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-04">
+			<statement type="final" name="final">
+				<parts>
+          -- XO000P01-04
+          SELECT MSMST.MEISYOKANA_NM,
+          TTSMST.HANBAIIN_NM,
+          TTSMST.HANBAIINTENPO_CD,
+          TTSMST.HANBAIIN_KB,
+          TTSKGMST.KENGEN_KB,
+          TTSMST.HANYOHANBAIIN_FLG,
+          TNPMST.TENPO_NM,
+          TNPMST.TENPOKANA_NM,
+          TNPMST.TENPOSEISIKI_NM,
+          TNPMST.TENPOKEITAI_KB,
+          TNPMST.TENPOGYOTAI_KB,
+          TNPMST.AREA_CD,
+          AREAMST.AREA_SEISIKI_NM
+          FROM BOMT0030 TTSMST
+          INNER JOIN BOMT0010 TNPMST
+          ON TTSMST.HANBAIINTENPO_CD = TNPMST.TENPO_CD
+          AND TNPMST.SAKUJYO_FLG = 0
+          LEFT JOIN MDMT0140 AREAMST
+          ON TNPMST.AREA_CD = AREAMST.AREA_CD
+          AND AREAMST.SAKUJYO_FLG = 0
+          INNER JOIN MDMT0210 TTSKGMST
+          ON TTSKGMST.HANBAIIN_CD = TTSMST.HANBAIIN_CD
+          AND TTSKGMST.SAKUJYO_FLG = 0,
+          MDMT0100 MSMST
+          WHERE MSMST.SIKIBETSU_CD = 'CONM'
+          AND MSMST.MEISYO_CD      = '1'
+          AND TTSMST.SAKUJYO_FLG   = 0
+          AND MSMST.SAKUJYO_FLG    = 0
+          AND TTSMST.HANBAIIN_CD   =
+        </parts>
+			</statement>
+			<statement type="final" name="final">
+			   <bind id="TTSCD" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-05">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応対応 **/
+					INSERT INTO BS_LOGIN_INFO (
+					LOGIN_INFO_ID
+					,COMPANY_ID
+					,LOGIN_ID
+					,USER_LANGUAGE
+					,MENU_PTN_CD
+					,LOGIN_DATETIME
+					,ACCESS_DATETIME
+					) VALUES (
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_INFO_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COMPANY_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="USER_LANGUAGE" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="MENU_PTN_CD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="ACCESS_DATETIME" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-06">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT ROLE_ID,SOLUTION_ID,FUNCTION_ID FROM BS_FUNCTION_AUTHORIZATION
+					WHERE SOLUTION_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="SOLUTION_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND FUNCTION_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FUNCTION_ID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-07">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					INSERT INTO BS_FUNCTION_AUTHORIZATION (
+					ROLE_ID
+					,SOLUTION_ID
+					,FUNCTION_ID
+					) VALUES (
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="ROLE_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="SOLUTION_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FUNCTION_ID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-08">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT LOGIN_CERT_ID,LOGIN_INFO_ID,SOLUTION_ID FROM BS_LOGIN_CERT
+					WHERE LOGIN_CERT_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_CERT_ID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-09">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					INSERT INTO SC_EXCLUSION_LOG (
+					PRGID
+					,FRM
+					,COPCD
+					,ACTID
+					,LOGINID
+					,TMTADR
+					,SKJFLG
+					,SKJNCJ
+					,TORNCJ
+					,TORUSEID
+					,TORPRGID
+					,KSNNCJ
+					,KSNUSEID
+					,KSNPRGID
+					) VALUES (
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FRM" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="ACTID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGINID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TMTADR" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="SKJFLG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="SKJNCJ" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TORNCJ" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TORUSEID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TORPRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="KSNNCJ" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="KSNUSEID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					,
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="KSNPRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					)
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-10">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					DELETE SC_EXCLUSION_LOG
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND LOGINID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGINID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-11">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					DELETE SC_EXCLUSION_LOG
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND LOGINID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGINID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-12">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					DELETE SC_EXCLUSION_LOG
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND FRM =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FRM" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND LOGINID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGINID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-13">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT PRGID,FRM,HITPRG,HITFRM,HITKBN FROM SC_EXCLUSION_CTL
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SUBSTR(FRM,1,1) = '9' AND SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-14">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT LOGINID,COUNT(*) AS RECORDCOUNT FROM SC_EXCLUSION_LOG
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY LOGINID
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-15">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT LOGINID,COPCD,COUNT(*) AS RECORDCOUNT FROM SC_EXCLUSION_LOG
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY LOGINID,COPCD
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-16">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT LOGINID,FRM,COUNT(*) AS RECORDCOUNT FROM SC_EXCLUSION_LOG
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND FRM =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FRM" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY LOGINID,FRM
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-17">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT LOGINID,FRM,COPCD,COUNT(*) AS RECORDCOUNT FROM SC_EXCLUSION_LOG
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND FRM =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FRM" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					GROUP BY LOGINID,FRM,COPCD
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-18">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT PRGID,FRM,HITPRG,HITFRM,HITKBN FROM SC_EXCLUSION_CTL
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND FRM =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="FRM" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-20">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					DELETE SC_EXCLUSION_LOG
+					WHERE TMTADR =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="TMTADR" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-21">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT NAME FROM BS_LOGIN_USER
+					WHERE LOGIN_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGIN_ID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-22">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT PRGID,FRM,HITPRG,HITFRM,HITKBN FROM SC_EXCLUSION_CTL
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-23">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT PRGID,FRM,HITPRG,HITFRM,HITKBN FROM SC_EXCLUSION_CTL
+					WHERE HITPRG =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="HITPRG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-24">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT PRGID,FRM,HITPRG,HITFRM,HITKBN FROM SC_EXCLUSION_CTL
+					WHERE HITPRG =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="HITPRG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SUBSTR(HITFRM,1,1) = '9' AND SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-25">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					SELECT PRGID,FRM,HITPRG,HITFRM,HITKBN FROM SC_EXCLUSION_CTL
+					WHERE HITPRG =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="HITPRG" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND HITFRM =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="HITFRM" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 0
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-26">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応 **/
+					UPDATE SC_EXCLUSION_LOG SET SKJFLG = 0, SKJNCJ = null
+					WHERE PRGID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="PRGID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND LOGINID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGINID" />
+			</statement>
+			<statement type="final" name="final">
+				<parts>
+					AND SKJFLG = 1
+				</parts>
+			</statement>
+		</sql>
+		<sql id="XO000P01-31">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE BS_LOGIN_USER SET MAPPING_ID = '9'
+					WHERE LOGIN_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGINID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-32">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE BS_LOGIN_USER SET MAPPING_ID = '0'
+					WHERE LOGIN_ID =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="LOGINID" />
+			</statement>
+		</sql>
+		<sql id="XO000P01-51">
+			<statement type="final" name="final">
+				<parts>
+					/** ログ未出力対応対応 **/
+					SELECT
+					m.COPCD  AS COPCD
+					,m.ONLFLG  AS ONLFLG
+					,m.SKJFLG  AS SKJFLG
+					FROM M_ONL_CTL m
+					WHERE m.COPCD =
+				</parts>
+			</statement>
+			<statement type="final" name="final">
+				<bind id="COPCD" />
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>

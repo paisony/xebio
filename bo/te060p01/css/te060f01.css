@@ -1,0 +1,85 @@
+﻿/*-----------------------------------------------------------------------------
+	スタイル：:te060f01.css
+--------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------- 
+	検索条件領域
+--------------------------------------------------------- */
+/*--- 商品群１ ---*/
+.inpShohingun {
+	width: 35px;
+}
+/*--- 削除区分 ---*/
+.slt-skjkbn {
+	width: 70px;
+}
+/*--- 防止期限 ---*/
+.inpBoushiKigen {
+    width: 75px;
+    font-weight: normal;
+	font-size: 87%;
+}
+.str-boushi span {
+    color: #666666;
+    position: relative;
+    top: 5px;
+	margin-left: 14px;
+}
+/*--- 登録日順 ---*/
+.sainyukabosi_jun>tbody>tr>td:not(:nth-child(-n+1)) {
+	padding-left: 10px;
+}
+
+.str-search-01 .w-type-01 {
+	width: 90px;
+}
+.str-search-01 .w-type-02 {
+	width: 240px;
+}
+
+
+
+
+/*--------------------------------------------------------- 
+	一覧領域
+--------------------------------------------------------- */
+/*--- No ---*/
+.str-result-01 .col1 {
+	position: relative;
+	width: 28px;
+	border-left: 1px solid #cccccc;
+}
+/*--- 部門／品種 ---*/
+.str-result-01 .col2 {
+	width: 170px;
+}
+/*--- ブランド ---*/
+.str-result-01 .col3 {
+	width: 240px;
+}
+/*--- 自社品番 ---*/
+.str-result-01 .col4 {
+	width: 79px;
+}
+/*--- メーカー品番／商品名 ---*/
+.str-result-01 .col5 {
+	width: 360px;
+}
+/*--- 色 ---*/
+.str-result-01 .col6 {
+	width: 75px;
+}
+/* 防止期限 */
+.str-result-01 .col7 {
+	width: 80px;
+}
+/* 登録日付 */
+.str-result-01 .col8 {
+	width: 80px;
+}
+/* 登録区分 */
+.str-result-01 .col9 {
+	width: 65px;
+}
+
+

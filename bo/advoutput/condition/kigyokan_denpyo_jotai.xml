@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<condition-define>
+	<condition id="KIGYOKAN_DENPYO_JOTAI" name="企業間伝票状態">
+		<listItems>
+			<item id="10" value="1" label="確定" itemId="Denpyo_jotai1" />
+			<item id="20" value="3" label="差異あり" itemId="Denpyo_jotai3" />
+			<item id="30" value="4" label="登録履歴" itemId="Denpyo_jotai4" />
+			<item id="40" value="5" label="取消履歴" itemId="Denpyo_jotai5" />
+		</listItems>
+	</condition>
+</condition-define>
+

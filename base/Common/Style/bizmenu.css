@@ -1,0 +1,89 @@
+/* All Rights Reserved, Copyright (c) 2008-2009 FUJITSU SYSTEM SOLUTIONS */
+/* FUJITSU SYSTEM SOLUTIONS LIMITED CONFIDENTIAL */
+
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 Start */
+#top-main {
+	height: 100%;	
+	box-sizing: border-box;
+	/*padding-top: 99px;*/
+}
+#top-side {
+	width: 320px;
+	background-color: #cee5fb;
+	color: #000000;
+	float: left;
+	height: 100%;
+}
+#top-side a {
+	display: block;
+	font-weight: bold;
+	color: #0385bb;
+	padding: 15px 15px;
+	border-bottom: 1px solid #1ca7e0;
+	background: url(../boImages/arrow.png) no-repeat 285px center #cee5fb;
+}
+#top-side a:hover {
+	color: #ffffff;
+	background: url(../boImages/arrow_on.png) no-repeat 285px center #26aae1;
+}
+.top-stay {
+	color: #ffffff!important;
+	/*padding: 15px 15px!important;*/
+	border-bottom: 1px solid #1ca7e0!important;
+	background: url(../boImages/arrow_on.png) no-repeat 285px center #26aae1!important;
+}
+#top-cont {
+	margin-left: 320px;
+	padding: 8px 0 8px 20px;
+}
+#top-cont a {
+	color: #0183b9;
+}
+.tab-li {
+	border-bottom: 3px solid #1ca7e0;
+	width: 898px;
+	margin-bottom: 10px;
+}
+.tab-li ul li {
+	float: left;
+	font-weight: bold;
+}
+.tab-li ul li a {
+	display: block;
+	width: 110px;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.tab-li ul li a:hover {
+	background: #d7f0fa;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+.tab-cont ul {
+	float: left;
+}
+.tab-cont ul li {
+	margin-right: 17px;
+	margin-bottom: 6px;
+}
+.tab-cont ul li a {
+	font-size: 113%;
+	font-weight: bold;
+	display: block;
+	background: url(../boImages/bg_top_tab_cont.png) no-repeat!important;
+	width: 277px;
+	height: 47px;
+	padding-top: 17px;
+	padding-left: 19px;
+}
+.tab-cont ul li a:hover {
+	background: url(../boImages/bg_top_tab_cont_on.png) no-repeat!important;
+}
+.top-tab-active {
+	background: #1ca7e0!important;
+	color: #ffffff!important;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+/*  2015/09/16 FSWeb)Y.Tamura ログイン・メニュー画面変更 End */

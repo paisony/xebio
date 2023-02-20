@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sql-included>
+	<sql-list>
+		/** 移動出荷差異リスト 印刷フラグ更新 **/
+		<sql id="TE030P01-01">
+			<statement type="final" name="final">
+				<parts>
+					UPDATE MDNT0030 SET
+							 UPD_YMD         = </parts><bind id="BIND_UPD_YMD" /><parts>
+							,UPD_TM          = </parts><bind id="BIND_UPD_TM" /><parts>
+							,INSATSUZUMI_FLG = 1
+					WHERE
+							SYUKKAKAISYA_CD  = </parts><bind id="BIND_SYUKKAKAISYA_CD" /><parts>
+					AND		SYUKKATEN_CD     = </parts><bind id="BIND_SYUKKATEN_CD" /><parts>
+					AND		INSATSUZUMI_FLG  = 0
+				</parts>
+			</statement>
+		</sql>
+	</sql-list>
+</sql-included>
